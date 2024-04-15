@@ -5,10 +5,11 @@ import { CaseStatusComponent } from './case-status/case-status.component';
 import { CaseTrackingComponent } from './case-tracking/case-tracking.component';
 import { CreateMeetingComponent } from './create-meeting/create-meeting.component';
 import { DocumentationComponent } from './documentation/documentation.component';
-import { RecoverComponent } from './recover/recover.component';
-import { RefinanceComponent } from './refinance/refinance.component';
-import { RestructureComponent } from './restructure/restructure.component';
+
 import { SearchCaseComponent } from './search-case/search-case.component';
+import { CaseDecisionComponent } from './case-decision/case-decision.component';
+import { DecisionTabComponent } from './decision-tab/decision-tab.component';
+import { MeetingTabComponent } from './meeting-tab/meeting-tab.component';
 
 export const routes: Routes = [
   {
@@ -40,33 +41,33 @@ export const routes: Routes = [
       
       component:CreateMeetingComponent,
     },
+  {
+    path: 'app-meeting- tab',
+
+    component: MeetingTabComponent,
+  },
     
     {
       path: 'app-documentation',
       
       component:DocumentationComponent,
     },
-    {
-      path: 'app-recover',
-      
-      component:RecoverComponent,
-    },
-    {
-      path: 'app-refinance',
-      
-      component:RefinanceComponent,
-    },
-    {
-      path: 'app-restructure',
-      
-      component:RestructureComponent,
-    },
+    
     {
       path: 'app-search-case',
       
       component:SearchCaseComponent,
     },
-    
+    {
+      path: 'app-case-decision',
+
+      component: CaseDecisionComponent,
+    },
+    {
+      path: 'app-decision-tab',
+
+      component: DecisionTabComponent,
+    },
     
     
     

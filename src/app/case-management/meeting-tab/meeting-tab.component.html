@@ -1,0 +1,201 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)">
+        <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
+    </li>
+</ul>
+
+
+<!-- cONTENT FOR TABLES -->
+
+<div class="tab-content">
+    <ng-container *ngFor="let tab of tabs; let i = index">
+        <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
+            <!-- Display tab content based on selectedIndex -->
+            <ng-container *ngIf="i === 0">
+                <!-- Display table for the "Cases" tab -->
+                <div class="table-responsive">
+
+
+                    <!-- Search input and button start -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">Search</button>
+                        </div>
+                    </div>
+                    <section style="background-color: #8f4a4c25;border-radius: 20px;">
+                        <!-- Separate container for the h2 element -->
+                        <div
+                            style="background-color: rgb(84, 75, 75); text-align: center; padding: 10px; margin-bottom: 40px;">
+                            <h2 class="text-white" style="margin: 0; font-size: 100%; width: 100%; padding: 0;">Meeting
+                                Details</h2>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+
+                                    <!-- Rest of the form content -->
+                                    <form>
+                                        <!-- Attendees -->
+                                        <div class="card mb-3">
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="attendees"><strong>Members</strong></label><br>
+                                                        <textarea class="form-control" id="attendees" name="attendees"
+                                                            placeholder="Add Members"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- Venue -->
+                                        <div class="card mb-3">
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="venue"><strong>Venue</strong></label>
+                                                        <select id="venue" name="venue" class="form-control">
+                                                            <option value="virtual" selected>Virtual Meeting</option>
+                                                            <option value="physical">Physical Meeting</option>
+                                                            <option value="hybrid">Hybrid Meeting</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <!-- Time -->
+                                        <div class="card mb-3">
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="time"><strong>Time</strong></label>
+                                                        <input type="time" class="form-control" id="time" name="time">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- Date -->
+                                        <div class="card mb-3">
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="date"><strong>Date</strong></label>
+                                                        <input type="date" class="form-control" id="date" name="date">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- Case Details -->
+                                        <div class="card mb-3">
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="caseDetails"><strong>Case Details</strong></label>
+                                                        <textarea class="form-control" id="caseDetails"
+                                                            name="caseDetails"
+                                                            placeholder="Enter Case Details"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- Buttons -->
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" class="btn btn-secondary">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Create Meeting</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="background-color: #8f4a4c25;border-radius: 20px;">
+                        <!-- Separate container for the h2 element -->
+                        <div class="container-fluid">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+
+                                    <!-- Rest of the form content -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </ng-container>
+
+
+            <ng-container *ngIf="i === 1">
+                <div class="table-responsive">
+
+
+                    <!-- Search input and button start -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">Search</button>
+                        </div>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+
+                                <th>Meetings Attended</th>
+                                <th>Upcoming Meetings</th>
+                                <th>Pending Meetings</th>
+                                <th>Missed Meetings</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                                <td class="font-weight-bold">GSAM Loan Id 024</td>
+                                <td>GSAM Loan ID 003</td>
+                                <td>GSAM Loan ID 101</td>
+                                <td>GSAM Loan ID 004</td>
+                                <td class="font-weight-medium">
+                                    <!-- <div class="badge badge-success">Pending</div> -->
+                                </td>
+                                <!-- <td> -->
+                                <!-- <button class="btn btn-primary">Approve</button> -->
+                                <!-- </td> -->
+                            </tr>
+                            <!-- Add more table rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Display content for "Document Approval" tab -->
+                <!-- <div class="container mt-3"> -->
+                <!-- Document details -->
+                <!-- <h5>Document Details:</h5> -->
+                <!-- Replace this with actual document details -->
+                <!-- <p>Document Name: DocumentXYZ</p> -->
+                <!-- <p>Submitted By: John Doe</p> -->
+                <!-- <p>Submission Date: 2024-04-15</p> -->
+
+                <!-- Comments -->
+                <!-- <div class="form-group"> -->
+                <!-- <label for="comments">Comments:</label> -->
+                <!--                         -->
+                <!-- </div> -->
+
+                <!-- Approval/Rejection Buttons -->
+                <!-- <div class="btn-group" role="group"> -->
+                <!-- <button type="button" class="btn btn-success">Approve</button> -->
+                <!-- <button type="button" class="btn btn-danger" >Reject</button> -->
+                <!-- </div> -->
+                <!-- </div> -->
+            </ng-container>
+
+
+
+        </div>
+    </ng-container>
+</div>

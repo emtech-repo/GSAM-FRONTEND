@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RestructureComponent } from './restructure.component';
+import { MeetingTabComponent } from './meeting-tab.component';
 
-describe('RestructureComponent', () => {
-  let component: RestructureComponent;
-  let fixture: ComponentFixture<RestructureComponent>;
+describe('MeetingTabComponent', () => {
+  let component: MeetingTabComponent;
+  let fixture: ComponentFixture<MeetingTabComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RestructureComponent]
+      declarations: [MeetingTabComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RestructureComponent);
+    fixture = TestBed.createComponent(MeetingTabComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

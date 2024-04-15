@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecoverComponent } from './recover.component';
+import { DecisionTabComponent } from './decision-tab.component';
 
-describe('RecoverComponent', () => {
-  let component: RecoverComponent;
-  let fixture: ComponentFixture<RecoverComponent>;
+describe('DecisionTabComponent', () => {
+  let component: DecisionTabComponent;
+  let fixture: ComponentFixture<DecisionTabComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RecoverComponent]
+      declarations: [DecisionTabComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RecoverComponent);
+    fixture = TestBed.createComponent(DecisionTabComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
