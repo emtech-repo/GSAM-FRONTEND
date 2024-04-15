@@ -1,0 +1,131 @@
+<!-- <app-layout></app-layout> -->
+
+<div class="row">
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-6 d-flex">
+            <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
+                style="width: 200px; height: 20px;margin-left: 2px;">
+            <button type="search by" class="btn btn-primary btn-sm">Search</button>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12 grid-margin transparent">
+            <div class="row">
+                <div class="col-md-3 mb-3 stretch-card transparent">
+                    <div class="card card-tale">
+                        <div class="card-body">
+                            <p class="mb-4">Total Cases</p>
+                            <p class="fs-30 mb-2">355</p>
+                            <!-- <p>10.00% (30 days)</p> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3 stretch-card transparent">
+                    <div class="card card-dark-blue">
+                        <div class="card-body">
+                            <p class="mb-4">Assigned Cases</p>
+                            <p class="fs-30 mb-2">200</p>
+                            <!-- <p>22.00% (30 days)</p> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3  stretch-card transparent">
+                    <div class="card card-light-blue">
+                        <div class="card-body">
+                            <p class="mb-4">unassigned Cases</p>
+                            <p class="fs-30 mb-2">155</p>
+                            <!-- <p>2.00% (30 days)</p> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-3 mb-3  stretch-card transparent">
+          <div class="card card-light-danger">
+            <div class="card-body"style="text-align:center">
+              <p class="mb-4">Asssigned</p>
+              <p class="fs-30 mb-2">33</p>
+               <p>0.22% (30 days)</p> -->
+                <!-- </div>
+          </div>
+        </div>   -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Case Management</p>
+
+
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" [(ngModel)]="searchTerm"
+                                placeholder="Search by Account name">
+                        </div>
+                    </div>
+                    <!-- Export Buttons Container -->
+                    <div class="export-buttons-container">
+                        <button class="btn btn-primary mr-2" (click)="exportToPDF()">Export to PDF</button>
+                        <button class="btn btn-primary" (click)="exportToExcel()">Export to Excel</button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="example" class="display expandable-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>cif</th>
+                                            <th>Acc Number</th>
+                                            <th>Policy holder</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of filteredData">
+                                            <td>{{ item.userId }}</td>
+                                            <td>{{ item.id }}</td>
+                                            <td>{{ item.title }}</td>
+                                            <td>{{ item.completed }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination-container">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* CSS for Even Rows */
+    #example tr:nth-child(even) {
+        background-color: #c0c0c0;
+        /* Grey background for even rows */
+    }
+
+    /* CSS for Odd Rows */
+    #example tr:nth-child(odd) {
+        background-color: #ffffff;
+        /* White background for odd rows */
+    }
+</style>
+
+
+<style>
+    /* CSS for Export Buttons Container */
+    .export-buttons-container {
+        margin-bottom: 10px;
+        text-align: right;
+    }
+</style>
+

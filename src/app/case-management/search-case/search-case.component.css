@@ -1,0 +1,21 @@
+.table-container {
+    margin-top: 20px;
+    border: 1px solid #131212;
+    border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+    border: 1px solid #131212;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-container thead tr {
+    background-color: rgb(145, 18, 18);
+    color: white;
+}
+
+.table-container tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
