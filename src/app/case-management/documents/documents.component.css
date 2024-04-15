@@ -1,0 +1,36 @@
+.container {
+    
+    white-space: nowrap;
+  }
+
+  .card {
+    display: inline-block;
+    width: 30%; /* Adjust as needed */
+    margin-right: 20px;
+    vertical-align: top; 
+    text-align: center;
+    padding: 0px;
+    color: white;
+    background-color: grey;
+  }
+  .custom-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .custom-list li {
+    margin-bottom: 0px;
+  }
+  
+  .custom-list input[type="checkbox"] {
+    margin-right: 5px;
+    color: blue; 
+    background-color: chartreuse;
+  }
+  .table tbody tr {
+    height:px; 
+  }
+  input[type="checkbox"]:checked + label {
+    color: green; 
+}

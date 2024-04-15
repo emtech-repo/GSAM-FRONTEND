@@ -1,0 +1,141 @@
+
+<div class="container">
+  <form class="form-inline">
+    <div class="form-group mx-sm-3 mb-6 d-flex">
+      <select class="form-control mr-2" id="dropdownMenu" style="width: 100px;margin-right: 20px;background-color: rgb(172, 172, 216);">
+        <option value="">Search by..</option>
+        <option value="option1">ID</option>
+        <option value="option2">Account</option>
+        <option value="option3">Account Name</option>
+        <option value="option4">Case Number</option>
+        <option value="option5">CIF</option>
+      </select>
+      <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search" style="width: 300px; height: 20px; margin-right: 10px;">
+     <button type="search" class="btn btn-primary btn-sm" style="border-radius: 5px;">Search</button>
+    </div>
+  </form>
+  
+    <table class="table table-striped" style="text-align: center;">
+      <thead style="background-color: white; font-size
+      : smaller;">
+          <tr style="background-color: grey;" class="text-strong" >
+              <th scope="col">CASE NO</th>
+              <th scope="col">ACCOUNT</th>
+              <th scope="col">ACCOUNT NAME</th>
+              <th scope="col">CIF ID</th>
+              <th scope="col">VIEW</th>
+          </tr>
+      </thead>
+      <tbody style="height: 20px;">
+          <tr>
+              <td>34445</td>
+              <td>132019985095885</td>
+              <td>A&B LIMITED</td>
+              <td>543839838</td>
+              <td>
+                <a href="#documents" class="icon-link">
+                  <i class="fas fa-file"></i>
+                  Documents
+                </a>
+              </td>
+  
+          </tr>
+      </tbody>
+    </table> 
+    <div class="container" style="margin-top: 50px;">
+      <div class="card" style="border-radius: 0px;">
+        <p style="background-color: #800000;">KYC</p>
+        <ul class="list-unstyled" style="text-align: left;">
+      
+          <li><input type="checkbox" id="row1"> ID/PassPort</li>
+          <li><input type="checkbox" id="row2"> Tax Cert</li>
+          <li><input type="checkbox" id="row3"> Resolution</li>
+          <li><input type="checkbox" id="row3"> Registration Certficate</li>
+        </ul>
+      </div>
+      <div class="card" style="border-radius: 0px;">
+        <p style="background-color: #800000;">Collateral</p>
+        <ul class="list-unstyled" style="text-align: left;">
+          <li ><input type="checkbox" id="row4"> Bonds and Bills</li>
+          <li><input type="checkbox" id="row5"> Titles</li>
+          <li><input type="checkbox" id="row5"> Logbook</li>
+          <li><input type="checkbox" id="row5"> Others</li>     
+        </ul>
+      </div>
+      <div class="card" style="border-radius: 0px;">
+        <p style="background-color: #800000;">Contract</p>
+        <ul class="list-unstyled" style="text-align: left;">
+          <li><input type="checkbox" id="row4"> Loan Application</li>
+          <li><input type="checkbox" id="row5"> Insurance</li>
+          <li><input type="checkbox" id="row5"> Tax Payments</li>
+          <li><input type="checkbox" id="row5"> Land Payments</li>
+      </ul>
+      </div>
+    </div>
+    <table class="table table-striped" style="text-align: center; margin-top: 50px;">
+      <thead style="background-color: white; font-size: small;">
+          <tr style="background-color: #800000; color: white; font-size: smaller;">
+              <th scope="col" style="font-size: smaller;">DOCUMENT TYPE</th>
+              <th scope="col" style="font-size: smaller;">ACCOUNT NUMBER</th>
+              <th scope="col" style="font-size: smaller;">ACCOUNT NAME</th>
+              <th scope="col" style="font-size: smaller;">ACTION</th>
+             
+          </tr>
+      </thead>
+      <tbody >
+          <tr style="height: 1px;border-color: black;">
+              <td style="font-size: smaller;">ID/PASSPORT</td>
+              <td style="font-size: smaller;">132019985095885</td>
+              <td style="font-size: smaller;">A&B LIMITED</td>
+              <td style="font-size: smaller;">
+                <span class="icon-container">
+                  <a href="#view" >
+                    <i class="fas fa-eye"></i>
+                    <span class="icon-text">View</span>
+                  </a>
+                  <a href="#download" style="margin-top: 5PX;margin-left: 10px;">
+                    <i class="fas fa-download"></i>
+                    <span class="icon-text">Download</span>
+                  </a>
+                </span>
+              </td>  
+          </tr>
+          <tr style="border-color: black;">
+            <td style="font-size: smaller;">TITTLE DEED</td>
+            <td style="font-size: smaller;">132019985095885</td>
+            <td style="font-size: smaller;">A&B LIMITED</td>
+            <td style="font-size: smaller;">
+              <span class="icon-container">
+                <a href="#view" >
+                  <i class="fas fa-eye"></i>
+                  <span class="icon-text">View</span>
+                </a>
+                <a href="#download" style="margin-top: 5PX; margin-left: 10px;">
+                  <i class="fas fa-download"></i>
+                  <span class="icon-text">Download</span>
+                </a>
+              </span>
+            </td>
+          </tr>
+          <tr style="border-color: black;">
+            <td style="font-size: smaller;">RESOLUTION</td>
+            <td style="font-size: smaller;">132019985095885</td>
+            <td style="font-size: smaller;">A&B LIMITED</td>
+            <td style="font-size: smaller;">
+              <span class="icon-container">
+                <a href="#view" >
+                  <i class="fas fa-eye"></i>
+                  <span class="icon-text">View</span>
+                </a>
+                <a href="#download" style="margin-top: 5PX;margin-left: 10px;background-image: red;">
+                  <i class="fas fa-download"></i>
+                  <span class="icon-text">Download</span>
+                </a>
+              </span>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+</div>
+  
+
