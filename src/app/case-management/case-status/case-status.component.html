@@ -4,8 +4,9 @@
     <form class="form-inline">
         <div class="form-group mx-sm-3 mb-6 d-flex">
             <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
-                style="width: 200px; height: 20px;margin-left: 2px;">
-            <button type="search by" class="btn btn-primary btn-sm">Search</button>
+                style="width: 700px; height: 40px; margin-left: -10px;border-radius:20px; ">
+            <button type="search" class="btn btn-primary btn-sm"
+                style=" margin-left: 10px;border-radius:20px;">Search</button>
         </div>
     </form>
     <div class="row">
@@ -20,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3 stretch-card transparent">
+                <div class="col-md-3 mb-3 stretch-card transparent" style=" margin-left: 140px; ">
                     <div class="card card-dark-blue">
                         <div class="card-body">
                             <p class="mb-4">Assigned Cases</p>
@@ -29,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3  stretch-card transparent">
+                <div class="col-md-3 mb-3  stretch-card transparent" style=" margin-left: 110px; ">
                     <div class="card card-light-blue">
                         <div class="card-body">
                             <p class="mb-4">unassigned Cases</p>
@@ -54,7 +55,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <p class="card-title">Case Management</p>
+                    <p class="card-title">Case  Status</p>
 
 
 
@@ -76,19 +77,24 @@
                                 <table id="example" class="display expandable-table" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>cif</th>
-                                            <th>Acc Number</th>
-                                            <th>Policy holder</th>
-                                            <th>Status</th>
-                                            <th></th>
+                                            <th>Case Number </th>
+                                            <th>CIF ID </th>
+                                            <th>A/c Number </th>
+                                            <th>A/c Name</th>
+                                            <th>Status </th>
+                                            <th>Action </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let item of filteredData">
                                             <td>{{ item.userId }}</td>
                                             <td>{{ item.id }}</td>
+                                            <td>{{ item.id }}</td>
                                             <td>{{ item.title }}</td>
                                             <td>{{ item.completed }}</td>
+                                            <td>{{ item.completed }}</td>
+                                            <td>{{ item.title }}</td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>
@@ -128,4 +134,3 @@
         text-align: right;
     }
 </style>
-

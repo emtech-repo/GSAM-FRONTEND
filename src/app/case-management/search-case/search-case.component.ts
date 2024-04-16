@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-search-case',
@@ -36,7 +38,16 @@ export class SearchCaseComponent {
       }
     ]
   };
+  constructor(private router: Router) { }
 
+  goToCreateMeeting() {
+    // Navigate to the "Create Meeting" route
+    this.router.navigate(['/create-meeting']);
+  }
+  goToCaseDecision() {
+    // Navigate to the "Create Meeting" route
+    this.router.navigate(['/case-decision']);
+  }
 };
 
 

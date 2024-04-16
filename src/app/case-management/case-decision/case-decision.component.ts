@@ -20,6 +20,9 @@ export class CaseDecisionComponent {
     this.selectedIndex = index;
     // Your logic for tab selection goes here
   }
+ 
+
+  
 
 
 }

@@ -2,7 +2,7 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <p class="card-title">Recent Activity</p>
+                <p class="card-title">Case Tracking</p>
 
                 <!-- SEEERCH BUTTON-->
                 <div class="row">
@@ -46,18 +46,23 @@
                                 <!-- Table headers and rows -->
                                 <thead>
                                     <tr>
+                                        <th>Item Number</th>
+                                        <th>Case ID</th>
+                                        <th>A/c Number </th>
+                                        <th>A/c Name</th>
+                                        <th>Comments </th>
                                         <th>Level </th>
-                                        <th>Name </th>
-                                        <th>ID </th>
-                                        <th>COMMENTS</th>
-                                        <th>JOB LEVEL </th>
-                                        <th> STATUS </th>
+                                        <th>Status </th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of recentActivityData">
                                         <td>{{ item.userId }}</td>
+                                        <td>{{ item.userId }}</td>
                                         <td>{{ item.id }}</td>
+                                        <td>{{ item.title }}</td>
+                                        <td>{{ item.completed }}</td>
                                         <td>{{ item.title }}</td>
                                         <td>{{ item.completed }}</td>
                                     </tr>

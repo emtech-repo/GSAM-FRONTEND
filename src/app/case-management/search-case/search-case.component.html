@@ -67,13 +67,12 @@
             <div style="height: 100%;width: 300px; ">
                 <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions">
                 </highcharts-chart>
-                <div class="col-md-9 ">
+                <div class="col-md-13 ">
                     <div class="px-5 py-4">
                         <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary" style='margin-left:-40px;'>Previous</button>
-                            <button type="submit" class="btn btn-primary" style='margin-left: 400px;'>Create
-                                Meeting</button>
-                            <button type="submit" class="btn btn-primary " style='margin-left: 390px;'>Next</button>
+                            <button type="button" class="create-meeting"  (click)="goToCreateMeeting()">Create&nbsp;Meeting</button>
+                            <button type="submit" class="next" (click)="goToCaseDecision()">Next&nbsp;Page</button>
+
 
                         </div>
                     </div>
