@@ -4,9 +4,6 @@
     </li>
 </ul>
 
-
-<!-- cONTENT FOR TABLES -->
-
 <div class="tab-content">
     <ng-container *ngFor="let tab of tabs; let i = index">
         <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
@@ -17,103 +14,109 @@
 
 
                     <!-- Search input and button start -->
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">Search</button>
-                        </div>
-                    </div>
-                    <section style="background-color: #8f4a4c25;border-radius: 20px;">
-                        <!-- Separate container for the h2 element -->
-                        <div
-                            style="background-color: rgb(84, 75, 75); text-align: center; padding: 10px; margin-bottom: 40px;">
-                            <h2 class="text-white" style="margin: 0; font-size: 100%; width: 100%; padding: 0;">Meeting
-                                Details</h2>
-                        </div>
-                        <div class="container-fluid">
-                            <div class="row justify-content-center">
-                                <div class="col-md-8">
-
-                                    <!-- Rest of the form content -->
-                                    <form>
-                                        <!-- Attendees -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="attendees"><strong>Members</strong></label><br>
-                                                        <textarea class="form-control" id="attendees" name="attendees"
-                                                            placeholder="Add Members"></textarea>
+                    
+                <section style="background-color: #8f4a4c25;border-radius: 20px;">
+                    <!-- Separate container for the h2 element -->
+                    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+                        <div class="wrapper wrapper--w790">
+                            <div class="card card-5">
+                                <div class="card-heading" style="background-color: maroon; color: white; text-align: center;">
+                                    <h2 class="title">Meeting Details</h2>
+                                </div>
+                                <div class="card-body">
+                                    <form method="POST">
+                                        <div class="form-row m-b-55">
+                                            <div class="name">Name</div>
+                                            <div class="value">
+                                                <div class="row row-space">
+                                                    <div class="col-2">
+                                                        <div class="input-group-desc">
+                                                            <input class="input--style-5" type="text" name="first_name">
+                                                            <label class="label--desc">First name</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <div class="input-group-desc">
+                                                            <input class="input--style-5" type="text" name="last_name">
+                                                            <label class="label--desc">Last name</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
-                                        <!-- Venue -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="venue"><strong>Venue</strong></label>
-                                                        <select id="venue" name="venue" class="form-control">
-                                                            <option value="virtual" selected>Virtual Meeting</option>
-                                                            <option value="physical">Physical Meeting</option>
-                                                            <option value="hybrid">Hybrid Meeting</option>
+                                        <div class="form-row">
+                                            <div class="name">Company</div>
+                                            <div class="value">
+                                                <div class="input-group">
+                                                    <input class="input--style-5" type="text" name="company">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="name">Email</div>
+                                            <div class="value">
+                                                <div class="input-group">
+                                                    <input class="input--style-5" type="email" name="email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row m-b-55">
+                                            <div class="name">Phone</div>
+                                            <div class="value">
+                                                <div class="row row-refine">
+                                                    <div class="col-3">
+                                                        <div class="input-group-desc">
+                                                            <input class="input--style-5" type="text" name="area_code">
+                                                            <label class="label--desc">Area Code</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <div class="input-group-desc">
+                                                            <input class="input--style-5" type="text" name="phone">
+                                                            <label class="label--desc">Phone Number</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="name">Subject</div>
+                                            <div class="value">
+                                                <div class="input-group">
+                                                    <div class="rs-select2 js-select-simple select--no-search">
+                                                        <select name="subject">
+                                                            <option disabled="disabled" selected="selected">Choose option</option>
+                                                            <option>Subject 1</option>
+                                                            <option>Subject 2</option>
+                                                            <option>Subject 3</option>
                                                         </select>
+                                                        <div class="select-dropdown"></div>
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </div>
-                                        <!-- Time -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="time"><strong>Time</strong></label>
-                                                        <input type="time" class="form-control" id="time" name="time">
-                                                    </div>
-                                                </div>
+                                        <div class="form-row p-t-20">
+                                            <label class="label label--block">Are you an existing customer?</label>
+                                            <div class="p-t-15">
+                                                <label class="radio-container m-r-55">Yes
+                                                    <input type="radio" checked="checked" name="exist">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="radio-container">No
+                                                    <input type="radio" name="exist">
+                                                    <span class="checkmark"></span>
+                                                </label>
                                             </div>
-
                                         </div>
-                                        <!-- Date -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="date"><strong>Date</strong></label>
-                                                        <input type="date" class="form-control" id="date" name="date">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!-- Case Details -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="caseDetails"><strong>Case Details</strong></label>
-                                                        <textarea class="form-control" id="caseDetails"
-                                                            name="caseDetails"
-                                                            placeholder="Enter Case Details"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!-- Buttons -->
-                                        <div class="d-flex justify-content-between">
-                                            <button type="button" class="btn btn-primary">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        <div>
+                                            <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                </section>
 
                     <section style="background-color: #8f4a4c25;border-radius: 20px;">
                         <!-- Separate container for the h2 element -->
