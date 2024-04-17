@@ -14,8 +14,187 @@
             <!-- Display tab content based on selectedIndex -->
             <ng-container *ngIf="i === 0">
                 <!-- Display contents for the "create user" tab -->
+                <div class="container-xl h-100" style=" width: 150%; margin-left: -9%;">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-xl-9">
+                            <div class="card" style="border-radius: 15px;">
+                                <div class="card-body">
+                                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                                        <div class="card-body p-4 p-md-5">
+                                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="background-color: #800000c7 ; font-size: 25px; color: white; text-align: center;">User Creation Form</h3>
+                                            <form>
 
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-4">
 
+                                                        <div data-mdb-input-init class="form-outline">
+                                                            <input type="text" id="firstName"
+                                                                class="form-control form-control-lg" />
+                                                            <label class="form-label" for="firstName">User Name</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-6 mb-4">
+
+                                                        <div data-mdb-input-init class="form-outline">
+                                                            <input type="text" id="lastName"
+                                                                class="form-control form-control-lg" />
+                                                            <label class="form-label" for="lastName">First Name</label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-4">
+
+                                                        <div data-mdb-input-init class="form-outline">
+                                                            <input type="text" id="firstName"
+                                                                class="form-control form-control-lg" />
+                                                            <label class="form-label" for="firstName">Last Name</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-6 mb-4">
+
+                                                        <div data-mdb-input-init class="form-outline">
+                                                            <input type="text" id="lastName"
+                                                                class="form-control form-control-lg" />
+                                                            <label class="form-label" for="lastName">Email</label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                            
+                                                    <select class="select form-control-lg" style="width: 670px;">
+                                                        <option value="1" disabled>Choose option</option>
+                                                        <option value="2">Maker</option>
+                                                        <option value="3">Checker</option>
+                                                      
+                                                    </select>
+                                                    <label class="form-label select-label">Choose Role</label>
+                                            
+                                                </div>
+                                            </div>
+                                           
+                                            <div style="background-color: #800000c7;font-size: 25px; text-align: center;color: white; width: 100%;margin-top: 50px;">
+                                                <h5>Role privileges</h5>
+                                            </div>
+                                                <div class="container mt-3 w-150" style="border: 1px solid black; border-radius: 10px; display: flex; flex-wrap: wrap;">
+                                                    <div class="column" style="flex: 1; padding: 10px;">
+                                                        
+                                                        <form action="" style="font-size: 12px;">
+                                                            <div class="form-check">
+                                                                  <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Request Service </label>
+                                                        </div>
+                                                        
+                                             
+                                                       
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Create Claim</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Search Case</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Create Meeting</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Upload Documents</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> View claims </label>
+                                                        </div>
+                                                        
+                                                                <!-- Checkbox inputs and labels for the left column -->
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="column" style="flex: 1; padding: 10px;">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Pull Case Documents </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Update case Decisions</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Track Case</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> View Documents</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Retrieve documents</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> All Approvals</label>
+                                                        </div>
+                                                        
+                                                        <!-- Repeat for the center column -->
+                                                    </div>
+                                                    <div class="column" style="flex: 1; padding: 10px;">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Pull Case Reports </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Search Case</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> Assign Case</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> View Case Status </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> View Contracts</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> View Documents</label>
+                                                        </div>
+                                                        <!-- Repeat for the right column -->
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex justify-content-between" style="margin-top: 10px;">
+                                                    <button type="submit" class="btn btn-primary ">Create User</button>
+
+                                                </div>
+                                                <!--                     
+                                <div class="mt-4 pt-2">
+                                   
+                                </div> -->
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
             </ng-container>
             <ng-container *ngIf="i === 1">
                 <!-- Display content for "Update user" tab -->
