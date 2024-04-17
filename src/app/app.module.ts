@@ -3,10 +3,6 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -21,6 +17,8 @@ import { ChartModule } from 'angular-highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ApprovalModule } from './approval/approval.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AdminComponent } from './admin/admin.component';
+import { AdminTabComponent } from './admin-tab/admin-tab.component';
 
 
 
@@ -32,6 +30,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     LayoutComponent,
     CardsComponent,
     AnalysisComponent,
+    AdminComponent,
+    AdminTabComponent,
     
     
     

@@ -7,137 +7,110 @@
 <div class="tab-content">
     <ng-container *ngFor="let tab of tabs; let i = index">
         <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
-            <!-- Display tab content based on selectedIndex -->
             <ng-container *ngIf="i === 0">
-                <!-- Display table for the "Cases" tab -->
-                <div class="table-responsive">
 
-
-                    <!-- Search input and button start -->
-                    
-                <section style="background-color: #8f4a4c25;border-radius: 20px;">
-                    <!-- Separate container for the h2 element -->
-                    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
-                        <div class="wrapper wrapper--w790">
-                            <div class="card card-5">
-                                <div class="card-heading" style="background-color: maroon; color: white; text-align: center;">
-                                    <h2 class="title">Meeting</h2>
-                                </div>
-                                <div class="card-body">
-                                    <form method="POST">
-                                        <div class="form-row m-b-55">
-                                            <div class="name">Name</div>
-                                            <div class="value">
-                                                <div class="row row-space">
-                                                    <div class="col-2">
-                                                        <div class="input-group-desc">
-                                                            <input class="input--style-5" type="text" name="first_name">
-                                                            <label class="label--desc">First name</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <div class="input-group-desc">
-                                                            <input class="input--style-5" type="text" name="last_name">
-                                                            <label class="label--desc">Last name</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="name">Company</div>
-                                            <div class="value">
-                                                <div class="input-group">
-                                                    <input class="input--style-5" type="text" name="company">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="name">Email</div>
-                                            <div class="value">
-                                                <div class="input-group">
-                                                    <input class="input--style-5" type="email" name="email">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row m-b-55">
-                                            <div class="name">Phone</div>
-                                            <div class="value">
-                                                <div class="row row-refine">
-                                                    <div class="col-3">
-                                                        <div class="input-group-desc">
-                                                            <input class="input--style-5" type="text" name="area_code">
-                                                            <label class="label--desc">Area Code</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <div class="input-group-desc">
-                                                            <input class="input--style-5" type="text" name="phone">
-                                                            <label class="label--desc">Phone Number</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="name">Subject</div>
-                                            <div class="value">
-                                                <div class="input-group">
-                                                    <div class="rs-select2 js-select-simple select--no-search">
-                                                        <select name="subject">
-                                                            <option disabled="disabled" selected="selected">Choose option</option>
-                                                            <option>Subject 1</option>
-                                                            <option>Subject 2</option>
-                                                            <option>Subject 3</option>
-                                                        </select>
-                                                        <div class="select-dropdown"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row p-t-20">
-                                            <label class="label label--block">Are you an existing customer?</label>
-                                            <div class="p-t-15">
-                                                <label class="radio-container m-r-55">Yes
-                                                    <input type="radio" checked="checked" name="exist">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="radio-container">No
-                                                    <input type="radio" name="exist">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
-                                        </div>
-                                    </form>
-                                </div>
+                <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+                    <div class="wrapper wrapper--w790">
+                        <!-- Start of the card -->
+                        <div class="card card-5">
+                            <!-- Card heading -->
+                            <div class="card-heading" style="
+                    background-color: maroon;
+                    color: white;
+                    text-align: center;
+                  ">
+                                <h2 class="title">Meeting Details</h2>
                             </div>
+                            <!-- Card body -->
+                            <div class="card-body">
+                                <!-- Start of form -->
+                                <!-- Start of form -->
+                                <form method="POST">
+                                    <!-- Members section -->
+                                    <div class="form-row">
+                                        <div class="name">Members</div>
+                                        <div class="value" style="flex: 1;">
+                                            <div class="input-group" style="width: 100%;">
+                                                <textarea class="input--style-5" name="company"
+                                                    style="width: 100%;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Venue section -->
+                                    <div class="form-row">
+                                        <div class="name">Venue</div>
+                                        <div class="value">
+                                            <div class="input-group">
+                                                <div class="rs-select2 js-select-simple select--no-search">
+                                                    <select name="subject" style="width: 495px;height: 50px;background-color:#d3d3d3 ;border-radius: 5px;">
+                                                        <option disabled="disabled" selected="selected">
+                                                            Choose option
+                                                        </option>
+                                                        <option>Virtual Meeting</option>
+                                                        <option>Physical Meeting</option>
+                                                        <option>Hybrid Meeting</option>
+                                                    </select>
+                                                    <div class="select-dropdown"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Case Details section -->
+                                    <div class="form-row">
+                                        <div class="name">Case Details</div>
+                                        <div class="value" style="flex: 1;">
+                                            <div class="input-group" style="width: 100%;">
+                                                <textarea class="input--style-5" name="company"
+                                                    style="width: 100%;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Date Section -->
+                                    <div class="form-row">
+                                        <div class="name">Date</div>
+                                        <div class="value">
+                                            <div class="input-group">
+                                                <input class="input--style-5" type="date" name="date" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Time Section -->
+                                    <div class="form-row">
+                                        <div class="name">Time</div>
+                                        <div class="value">
+                                            <div class="input-group">
+                                                <input class="input--style-5" type="time" name="time" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Container For Clear Form and Submit Buttons -->
+                                    <div style="display: flex; justify-content: space-between">
+                                        <div class="clear-button-container" style="margin-top: 5px">
+                                            <button class="btn btn--radius-2 btn--red" type="button"
+                                                onclick="clearForm()" style="background-color: maroon">
+                                                Clear Form
+                                            </button>
+                                        </div>
+                                        <div style="text-align: right">
+                                            <button class="btn btn--radius-2 btn--red" type="submit"
+                                                style="background-color: maroon">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- End of form -->
+                            </div>
+                            <!-- End of card body -->
                         </div>
+                        <!-- End of the card -->
                     </div>
-                </section>
-
-                    <section style="background-color: #8f4a4c25;border-radius: 20px;">
-                        <!-- Separate container for the h2 element -->
-                        <div class="container-fluid">
-                            <div class="row justify-content-center">
-                                <div class="col-md-8">
-
-                                    <!-- Rest of the form content -->
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
                 </div>
             </ng-container>
-
-
             <ng-container *ngIf="i === 1">
                 <div class="table-responsive">
-
-
                     <!-- Search input and button start -->
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Search...">
@@ -162,43 +135,12 @@
                                 <td>GSAM Loan ID 003</td>
                                 <td>GSAM Loan ID 101</td>
                                 <td>GSAM Loan ID 004</td>
-                                <td class="font-weight-medium">
-                                    <!-- <div class="badge badge-success">Pending</div> -->
-                                </td>
-                                <!-- <td> -->
-                                <!-- <button class="btn btn-primary">Approve</button> -->
-                                <!-- </td> -->
+                                <td class="font-weight-medium"></td>
                             </tr>
-                            <!-- Add more table rows as needed -->
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Display content for "Document Approval" tab -->
-                <!-- <div class="container mt-3"> -->
-                <!-- Document details -->
-                <!-- <h5>Document Details:</h5> -->
-                <!-- Replace this with actual document details -->
-                <!-- <p>Document Name: DocumentXYZ</p> -->
-                <!-- <p>Submitted By: John Doe</p> -->
-                <!-- <p>Submission Date: 2024-04-15</p> -->
-
-                <!-- Comments -->
-                <!-- <div class="form-group"> -->
-                <!-- <label for="comments">Comments:</label> -->
-                <!--                         -->
-                <!-- </div> -->
-
-                <!-- Approval/Rejection Buttons -->
-                <!-- <div class="btn-group" role="group"> -->
-                <!-- <button type="button" class="btn btn-success">Approve</button> -->
-                <!-- <button type="button" class="btn btn-danger" >Reject</button> -->
-                <!-- </div> -->
-                <!-- </div> -->
             </ng-container>
-
-
-
         </div>
     </ng-container>
 </div>

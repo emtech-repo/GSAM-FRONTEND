@@ -1,0 +1,45 @@
+<!-- Display tab content based on selectedIndex -->
+<ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)">
+        <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
+    </li>
+</ul>
+
+
+<!-- cONTENT FOR TABLES -->
+
+<div class="tab-content" style="background-color: #d3d3d3;border-radius: 20px;">
+    <ng-container *ngFor="let tab of tabs; let i = index">
+        <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
+            <!-- Display tab content based on selectedIndex -->
+            <ng-container *ngIf="i === 0">
+                <!-- Display contents for the "create user" tab -->
+
+
+            </ng-container>
+            <ng-container *ngIf="i === 1">
+                <!-- Display content for "Update user" tab -->
+
+
+
+
+            </ng-container>
+            <ng-container *ngIf="i === 2">
+                <!-- Display content for "total users created" tab -->
+
+
+
+            </ng-container>
+
+            <ng-container *ngIf="i === 3">
+                <!-- Display content for "Reports on work done" tab -->
+
+
+
+            </ng-container>
+
+
+
+        </div>
+    </ng-container>
+</div>

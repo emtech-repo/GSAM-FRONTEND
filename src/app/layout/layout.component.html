@@ -379,28 +379,24 @@
               </ul> -->
             </div>
           </li>
-          
+          <li class="nav-item" style="margin-top: 200px;">
+            <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
+              class="nav-link" [routerLink]="['/app-admin']">
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">Admin</span>
+         
+            </a>
+          </li>
           
           
         </ul>
       </nav>
-      <!-- partial -->
       
       <div class="main-panel">
         <div class="content-wrapper" *ngIf="sharedService.isAuthenticated">
             <router-outlet></router-outlet>
-          </div>
-        
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <!-- <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            
-          </div>
-        </footer> -->
-        <!-- partial -->
-      </div>
-      <!-- main-panel ends -->
+          </div>   
+      </div>   
     </div>
-    <!-- page-body-wrapper ends -->
+    
   </div>

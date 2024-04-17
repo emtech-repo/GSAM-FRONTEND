@@ -23,9 +23,7 @@ import { MeetingTabComponent } from './meeting-tab/meeting-tab.component';
     SearchCaseComponent,
     CaseStatusComponent,
     DocumentationComponent,
-    CreateMeetingComponent,
-
-    
+    CreateMeetingComponent, 
     CaseApprovalComponent,
     CaseTrackingComponent,
     CaseDecisionComponent,

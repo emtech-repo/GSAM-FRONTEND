@@ -7,6 +7,8 @@ import { CardsComponent } from './home/cards/cards.component';
 import { AnalysisComponent } from './home/analysis/analysis.component';
 import { CreateMeetingComponent } from './case-management/create-meeting/create-meeting.component'; // Import your CreateMeetingComponent
 import { CaseDecisionComponent } from './case-management/case-decision/case-decision.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminTabComponent } from './admin-tab/admin-tab.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +42,14 @@ export const routes: Routes = [
   {
     path: 'case-decision',
     component: CaseDecisionComponent
+  },
+  {
+    path: 'app-admin',
+    component: AdminComponent
+  },
+  {
+    path: 'app-admin-tab',
+    component: AdminTabComponent
   },
     {
       path: 'case-management',
