@@ -20,46 +20,44 @@
                             <div class="card" style="border-radius: 15px;">
                                 <div class="card-body">
                                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                                        <div class="card-body p-4 p-md-5">
-                                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="background-color: #800000c7 ; font-size: 25px; color: white; text-align: center;">User Creation Form</h3>
+                                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="background-color: #800000c7 ; font-size: 25px; color: white; text-align: center;margin-top: 1px;">User Creation Form</h3> 
+                                          <div class="form-group mx-sm-3 mb-6 d-flex">
+                                                <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search PF"
+                                                    style="width: 550px; height: 40px; margin-left: 32px; margin-top: -30px;   border-radius:5px; ">
+                                                <button type="search" class="btn btn-primary btn-sm"
+                                                    style=" margin-left: 10px;border-radius:5px;margin-top:-30px ;">Search </button>
+                                            </div> 
+                                        <div      class="card-body p-4 p-md-5" style="margin-top: -20px;">       
                                             <form>
 
                                                 <div class="row">
                                                     <div class="col-md-6 mb-4">
-
                                                         <div data-mdb-input-init class="form-outline">
-                                                            <input type="text" id="firstName"
-                                                                class="form-control form-control-lg" />
-                                                            <label class="form-label" for="firstName">User Name</label>
+                                                            <input type="text" class="form-control" id="idNation" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0]['ID Nation']" name="idNation">
+                                                            <label for="idNation">User Name</label>
                                                         </div>
-
                                                     </div>
                                                     <div class="col-md-6 mb-4">
-
-                                                        <div data-mdb-input-init class="form-outline">
-                                                            <input type="text" id="lastName"
-                                                                class="form-control form-control-lg" />
-                                                            <label class="form-label" for="lastName">First Name</label>
+                                                        <div  data-mdb-input-init class="form-outline">
+                                                            <input type="text" class="form-control" id="nation" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0].Nation" name="nation">
+                                                            <label for="idNation">First Name</label>
                                                         </div>
-
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" >
                                                     <div class="col-md-6 mb-4">
 
-                                                        <div data-mdb-input-init class="form-outline">
-                                                            <input type="text" id="firstName"
-                                                                class="form-control form-control-lg" />
-                                                            <label class="form-label" for="firstName">Last Name</label>
+                                                         <div  data-mdb-input-init class="form-outline">
+                                                            <input type="text" class="form-control" id="nation" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0].Nation" name="nation">
+                                                            <label for="idNation">Last Name</label>
                                                         </div>
 
                                                     </div>
                                                     <div class="col-md-6 mb-4">
 
-                                                        <div data-mdb-input-init class="form-outline">
-                                                            <input type="text" id="lastName"
-                                                                class="form-control form-control-lg" />
-                                                            <label class="form-label" for="lastName">Email</label>
+                                                        <div  data-mdb-input-init class="form-outline">
+                                                            <input type="text" class="form-control" id="idNation" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0]['ID Nation']" name="idNation">
+                                                            <label for="idNation">Email</label>
                                                         </div>
 
                                                     </div>
@@ -69,8 +67,9 @@
                                             
                                                     <select class="select form-control-lg" style="width: 670px;">
                                                         <option value="1" disabled>Choose option</option>
-                                                        <option value="2">Maker</option>
-                                                        <option value="3">Checker</option>
+                                                        <option value="2">User</option>
+                                                        <option value="3">Manager</option>
+                                                        <option value="3">Admin</option>
                                                       
                                                     </select>
                                                     <label class="form-label select-label">Choose Role</label>
@@ -96,11 +95,15 @@
                                                        
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Create Claim</label>
+                                                            <label class="form-check-label"> Search Case</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Search Case</label>
+                                                            <label class="form-check-label"> View Case Status</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
+                                                            <label class="form-check-label"> View Case Documents</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
@@ -108,11 +111,7 @@
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Upload Documents</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> View claims </label>
+                                                            <label class="form-check-label"> Update Decisions </label>
                                                         </div>
                                                         
                                                                 <!-- Checkbox inputs and labels for the left column -->
@@ -122,56 +121,50 @@
                                                     <div class="column" style="flex: 1; padding: 10px;">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Pull Case Documents </label>
+                                                            <label class="form-check-label"> Request Service</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Update case Decisions</label>
+                                                            <label class="form-check-label"> Create Claims</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Track Case</label>
+                                                            <label class="form-check-label"> View Claims</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> View Documents</label>
+                                                            <label class="form-check-label"> View Services</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Retrieve documents</label>
+                                                            <label class="form-check-label"> Track Case </label>
                                                         </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> All Approvals</label>
-                                                        </div>
+                                                        
                                                         
                                                         <!-- Repeat for the center column -->
                                                     </div>
                                                     <div class="column" style="flex: 1; padding: 10px;">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Pull Case Reports </label>
+                                                            <label class="form-check-label"> Search Documents </label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Search Case</label>
+                                                            <label class="form-check-label"> View loan Documents</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> Assign Case</label>
+                                                            <label class="form-check-label"> Approvals</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> View Case Status </label>
+                                                            <label class="form-check-label"> Pull Reports </label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
                                                             <label class="form-check-label"> View Contracts</label>
                                                         </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="option3" value="better">
-                                                            <label class="form-check-label"> View Documents</label>
-                                                        </div>
+                                                        
                                                         <!-- Repeat for the right column -->
                                                     </div>
                                                 </div>
@@ -186,6 +179,11 @@
                                 </div> -->
 
                                             </form>
+                                                
+                                            </div> 
+                                          
+                                            
+                                                           
                                         </div>
                                     </div>
                                 </div>
@@ -194,11 +192,11 @@
                         </div>
 
                     </div>
-                </div>
+              
             </ng-container>
             <ng-container *ngIf="i === 1">
                 <!-- Display content for "Update user" tab -->
-
+                
 
 
 
