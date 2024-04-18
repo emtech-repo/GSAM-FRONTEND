@@ -3,10 +3,6 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -21,7 +17,8 @@ import { ChartModule } from 'angular-highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ApprovalModule } from './approval/approval.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-
+import { NbCardModule } from '@nebular/theme';
+import { SharedService } from './shared.service';
 
 
 @NgModule({
@@ -48,6 +45,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
     ApprovalModule,
+    NbCardModule
     
 
 
@@ -56,6 +54,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),
+    SharedService
 
 
   ],

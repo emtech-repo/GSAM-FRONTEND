@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { Router } from '@angular/router';
+import { SharedService } from '../../shared.service'; // Adjust the import path as needed
+
 
 @Component({
   selector: 'app-search-case',
   templateUrl: './search-case.component.html',
-  styleUrl: './search-case.component.css'
+  styleUrls: ['./search-case.component.css']
 })
-export class SearchCaseComponent {
+export class SearchCaseComponent implements OnInit {
+  JsonDataUrl: string = '';
   Highcharts: typeof Highcharts = Highcharts;
 
   chartOptions: Highcharts.Options = {
@@ -14,12 +18,12 @@ export class SearchCaseComponent {
       text: 'Instalments',
     },
     chart: {
-      type: 'column', // Specify the type of chart
-      width: 800, // Set the width of the chart
-      height: 500 // Set the height of the chart
+      type: 'column',
+      width: 800,
+      height: 500
     },
     xAxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] // Sample x-axis categories
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     },
     yAxis: {
       title: {
@@ -27,7 +31,6 @@ export class SearchCaseComponent {
       }
     },
     series: [
-
       {
         type: 'column',
         name: 'Months',
@@ -37,15 +40,23 @@ export class SearchCaseComponent {
     ]
   };
 
-};
+  constructor(private router: Router, private sharedService: SharedService) {}
 
 
+  ngOnInit(): void {
+    this.JsonDataUrl = this.sharedService.getJsonDataUrl();
+    console.log('JSON Data:', this.JsonDataUrl);
+  }
 
+  goToCreateMeeting() {
+    this.router.navigate(['/create-meeting']);
+  }
 
+  goToCaseDecision() {
+    this.router.navigate(['/case-decision']);
+  }
 
-
-
-
-
-
-
+  goToDocumentation() {
+    this.router.navigate(['/documentation']);
+  }
+}

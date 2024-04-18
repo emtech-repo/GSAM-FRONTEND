@@ -5,6 +5,9 @@ import { LoginComponent } from './login/login.component';
 import { authenticationGuard } from './auth.guard';
 import { CardsComponent } from './home/cards/cards.component';
 import { AnalysisComponent } from './home/analysis/analysis.component';
+import { CreateMeetingComponent } from './case-management/create-meeting/create-meeting.component';
+import { CaseDecisionComponent } from './case-management/case-decision/case-decision.component';
+import { DocumentationComponent } from './case-management/documentation/documentation.component';
 
 export const routes: Routes = [
   {
@@ -12,6 +15,16 @@ export const routes: Routes = [
       redirectTo: 'Dashboard',
       pathMatch: 'full',
     },
+    { path: 'create-meeting',
+   component: CreateMeetingComponent
+   },
+   { path: 'documentation',
+   component: DocumentationComponent
+   },
+    { path: 'case-decision',
+   component: CaseDecisionComponent
+   },
+
     {
       path: 'Authenticate',
       component: LoginComponent,

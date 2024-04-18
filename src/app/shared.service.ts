@@ -11,9 +11,10 @@ export class SharedService {
   //!new server
 
 
-  readonly APIUrl = 'https://locahost:5001';
+  readonly APIUrl = 'https://192.168.89.189:7213';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly ActivityUrl='https://jsonplaceholder.typicode.com/todos';
+  private JsonDataUrl='https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   
 
  public loader =false
@@ -24,7 +25,7 @@ export class SharedService {
 
   constructor(private http: HttpClient  , @Inject(DOCUMENT) private document: Document) {
     // this.currentUser = localStorage.getItem('currentUser');
-
+    
     // this.currentUser = 21
     const localStorage = document.defaultView?.localStorage;
 
@@ -38,6 +39,7 @@ export class SharedService {
       this.currentUserID = this.currentUser.UserID;
       this.isAuthenticated = true;
     }
+    
   }
 
   private tokenResponse: any;
@@ -63,7 +65,7 @@ export class SharedService {
   }
 
   getLogin(val: any) {
-    return this.http.post(this.APIUrl + '/user/login', val);
+    return this.http.post(this.APIUrl + '/api/auth/login', val);
   }
 
   changePassword(val: any) {
@@ -73,9 +75,6 @@ export class SharedService {
   getUserRoleList(): Observable<any[]> {
     return this.http.get<any>(this.APIUrl + '/users/userRoles');
   }
-
-
-
 
   getRecentActivity(searchQuery?: string): Observable<any[]> {
     let apiUrl = (this.ActivityUrl);
@@ -87,7 +86,13 @@ export class SharedService {
 
     return this.http.get<any[]>(apiUrl);
   }
-     
+
+  getJsonDataUrl(): string {
+    return this.JsonDataUrl;
+  }
+  getData(): Observable<any> {
+    return this.http.get<any>('https://datausa.io/api/data?drilldowns=Nation&measures=Population');
+  }
 
   
   

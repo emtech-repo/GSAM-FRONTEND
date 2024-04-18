@@ -1,3 +1,5 @@
+<!-- 
+
 <div class="container">
     <form class="form-inline">
         <div class="form-group mx-sm-3 mb-6 d-flex">
@@ -27,6 +29,7 @@
                 <th scope="col">VIEW</th>
             </tr>
         </thead>
+       
         <tbody style="height: 20px;">
             <tr>
                 <td>34445</td>
@@ -83,7 +86,7 @@
 
             </tr>
         </thead>
-        <tbody>
+       <tbody>
             <tr style="height: 1px;border-color: black;">
                 <td style="font-size: smaller;">ID/PASSPORT</td>
                 <td style="font-size: smaller;">132019985095885</td>
@@ -139,3 +142,34 @@
     </table>
 </div>
 
+
+  -->
+
+  <div>
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search...">
+  </div>
+<div *ngIf="jsonData"> 
+    <table>
+      <thead>
+        <tr>
+          <th>CASE ID</th>
+          <th>ACCOUNT NUMBER</th>
+          <th>ACCOUNT NAME</th>
+          <th>ACTIVE DATE</th>
+          <th>CIF</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of jsonData">
+          <td>{{ item['ID Nation'] }}</td>
+          <td>{{ item.Nation }}</td>
+          <td>{{ item['ID Year'] }}</td>
+          <td>{{ item.Year }}</td>
+          <td>{{ item.Population }}</td>
+          <td>{{ item['Slug Nation'] }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div> 
+  

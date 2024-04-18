@@ -6,6 +6,7 @@ import { ApprovalInterfaceComponent } from './approval-interface/approval-interf
 
 import { TabsComponent } from './tabs/tabs.component';
 import { FormsModule } from '@angular/forms';
+import { NbCardModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ApprovalRoutingModule,
-    FormsModule
+    FormsModule,
+    NbCardModule
     
 
   ]

@@ -21,4 +21,11 @@ export class LayoutComponent {
       this.router.navigate(['/Authenticate']);
 
   }
+  myFunction(data:any){
+    var element = document.getElementById(data);
+    console.log(data)
+    if(element)element.classList.add("collapse show");
+    
+     
+  }
 }

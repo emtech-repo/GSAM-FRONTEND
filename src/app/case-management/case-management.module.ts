@@ -15,6 +15,9 @@ import { FormsModule } from '@angular/forms';
 import { CaseDecisionComponent } from './case-decision/case-decision.component';
 import { DecisionTabComponent } from './decision-tab/decision-tab.component';
 import { MeetingTabComponent } from './meeting-tab/meeting-tab.component';
+import { NbCardModule } from '@nebular/theme';
+import { SharedService } from '../shared.service';
+
 
 
 
@@ -24,8 +27,6 @@ import { MeetingTabComponent } from './meeting-tab/meeting-tab.component';
     CaseStatusComponent,
     DocumentationComponent,
     CreateMeetingComponent,
-
-    
     CaseApprovalComponent,
     CaseTrackingComponent,
     CaseDecisionComponent,
@@ -40,9 +41,11 @@ import { MeetingTabComponent } from './meeting-tab/meeting-tab.component';
     HighchartsChartModule,
     PaginationModule.forRoot(),
     FormsModule,
-
-
-
-  ]
+    NbCardModule
+  ],
+  providers:[
+    SharedService
+  ],
+  
 })
 export class CaseManagementModule { }

@@ -67,16 +67,41 @@
             <div style="height: 100%;width: 300px; ">
                 <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions">
                 </highcharts-chart>
-                <div class="col-md-9 ">
-                    <div class="px-5 py-4">
+                <div class="col-md-6">
+                    <div class="px-2 py-2">
                         <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary" style='margin-left:-40px;'>Previous</button>
-                            <button type="submit" class="btn btn-primary" style='margin-left: 400px;'>Create
-                                Meeting</button>
-                            <button type="submit" class="btn btn-primary " style='margin-left: 390px;'>Next</button>
+                            <button type="submit" class="btn btn-primary btn-sm" style="margin-left: -10px;" (click)="goToDocumentation()">Docs</button>
+                            <button type="button" class="btn btn-primary btn-sm" style="margin-left: 10px;" (click)="goToCreateMeeting()">Create</button>
+                            <button type="button" class="btn btn-primary btn-sm" style="margin-left: 10px;" (click)="goToCaseDecision()">Next</button>
+                            <!-- <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" (click)="goBackToSearchCase()">Cancel</button> -->
 
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
+        <!-- <p>Json Data URL: {{ JsonDataUrl}}</p> -->
+        <table>
+            <thead>
+              <tr>
+                <th>CASE ID</th>
+                <!-- <th>ACCOUNT NUMBER</th> -->
+                <!-- <th>ACCOUNTNAME</th>
+                <th>ACTIVEDATE</th>
+                <th>CIF</th>
+                <th>STATUS</th> -->
+              </tr>
+            </thead>
+            <!-- <tbody>
+                <tr *ngFor="let item of jsonData">
+                  <td>{{ item.IDNation }}</td>
+                  <td>{{ item.Nation }}</td>
+                  <td>{{ item.IDYear }}</td>
+                  <td>{{ item.Year }}</td>
+                  <td>{{ item.Population }}</td>
+                  <td>{{ item.SlugNation }}</td>
+                </tr>
+              </tbody>
+                -->
+          </table>
