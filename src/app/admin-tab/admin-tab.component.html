@@ -1,0 +1,79 @@
+
+<ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)">
+        <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
+    </li>
+</ul>
+
+
+<!-- cONTENT FOR TABLES -->
+
+<div class="tab-content" style="background-color: #d3d3d3;border-radius: 20px;">
+    <ng-container *ngFor="let tab of tabs; let i = index">
+        <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
+            <!-- Display tab content based on selectedIndex -->
+           
+
+            <ng-container *ngIf="i === 1">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>User Listing</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of userData">
+                                        <td>{{ element.id }}</td>
+                                        <td>{{ element.name }}</td>
+                                        <td>{{ element.email }}</td>
+                                        <td>{{ element.isactive ? 'Active' : 'Inactive' }}</td>
+                                        <td>{{ element.role === '' ? 'Unassigned' : element.role }}</td>
+                                        <td>
+                                            <button *ngIf="element.role !== 'admin'" (click)="updateuser(element.id)"
+                                                class="btn btn-primary">Update</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <!-- Pagination -->
+                            <!-- <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage"
+                                (pageChanged)="pageChanged($event)" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true">
+                            </pagination> -->
+                        </div>
+                    </div>
+                </div>
+
+
+
+    
+
+
+
+
+
+
+
+
+            </ng-container>
+            
+           
+
+
+
+        </div>
+    </ng-container>
+</div>

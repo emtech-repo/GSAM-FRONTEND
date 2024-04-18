@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { authenticationGuard } from './auth.guard';
 import { CardsComponent } from './home/cards/cards.component';
 import { AnalysisComponent } from './home/analysis/analysis.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 export const routes: Routes = [
   {
@@ -18,7 +19,7 @@ export const routes: Routes = [
     },
     {
       path: 'Dashboard',
-      canActivate: [authenticationGuard],
+      // canActivate: [authenticationGuard],
       component: HomeComponent,
     },
     {
@@ -39,7 +40,16 @@ export const routes: Routes = [
     path: 'approval',
     loadChildren: () => import('../app/approval/approval.module').then(m => m.ApprovalModule)
   },
-   
+  // {
+  //   path: 'app-admin-page',
+
+  //   component: AdminPageComponent,
+  // },
+  {
+    path: 'app-admin-page',
+    canActivate: [authenticationGuard],
+    component: AdminPageComponent, 
+  },
 
 ];
 

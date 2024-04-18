@@ -11,7 +11,7 @@ export class SharedService {
   //!new server
 
 
-  readonly APIUrl = 'https://locahost:5001';
+  readonly APIUrl = 'https://locahosst:5001';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly ActivityUrl='https://jsonplaceholder.typicode.com/todos';
   
@@ -89,7 +89,18 @@ export class SharedService {
   }
      
 
-  
+  //////////////////////////////////////
+  isAdmin(): boolean {
+    // Example logic to check if user is an admin
+    // You can modify this based on how you store user roles in your system
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const parsedUser = JSON.parse(currentUser);
+      // Assuming user role is stored in 'role' property
+      return parsedUser.role === 'admin';
+    }
+    return false;
+  }
   
 
 }

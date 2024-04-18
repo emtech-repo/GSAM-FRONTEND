@@ -382,8 +382,23 @@
               </ul> -->
             </div>
           </li>
+           
+              
+             
+
+            <!-- ADMIN-- -->
+
+          <li class="nav-item" style="margin-top: 150px;" *ngIf="isAdmin">
+
+            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
+              aria-controls="form-elements" class="nav-link" [routerLink]="['/app-admin-page']">
           
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title" style="font: size 30px;">Admin</span>
+            </a>
+          </li>
           
+          <!-- ADMIN  end -- -->
           
         </ul>
       </nav>
@@ -394,15 +409,10 @@
             <router-outlet></router-outlet>
           </div>
         
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <!-- <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            
-          </div>
-        </footer> -->
-        <!-- partial -->
+       
       </div>
+
+
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->

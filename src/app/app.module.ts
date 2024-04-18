@@ -21,6 +21,8 @@ import { ChartModule } from 'angular-highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ApprovalModule } from './approval/approval.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { AdminTabComponent } from './admin-tab/admin-tab.component';
 
 
 
@@ -32,6 +34,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     LayoutComponent,
     CardsComponent,
     AnalysisComponent,
+    AdminPageComponent,
+    AdminTabComponent,
     
     
     
