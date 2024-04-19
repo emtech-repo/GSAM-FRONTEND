@@ -20,8 +20,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AdminComponent } from './admin/admin.component';
 import { AdminTabComponent } from './admin-tab/admin-tab.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +30,7 @@ import { AdminTabComponent } from './admin-tab/admin-tab.component';
     AnalysisComponent,
     AdminComponent,
     AdminTabComponent,
-    
+   
     
     
     

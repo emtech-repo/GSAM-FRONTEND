@@ -15,7 +15,7 @@ interface ApiResponse{
 })
 export class DecisionTabComponent {
   UserInfoUrl: ApiResponse = { data: [], source: [] };
-
+  
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
