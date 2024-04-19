@@ -14,7 +14,7 @@ export class SharedService {
   readonly APIUrl = 'https://locahost:5001';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly ActivityUrl='https://jsonplaceholder.typicode.com/todos';
-  readonly SearchCaseFormUrl='https://ipinfo.io/161.185.160.93/geo';
+  readonly SearchCaseFormUrl='https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
  public loader =false
 
@@ -92,17 +92,13 @@ export class SharedService {
     return this.http.get<any[]>(apiUrl);
   }
 
-  getSearchCaseFormUrl(searchQuery?: string): Observable<any[]> {
-    let apiUrl = (this.SearchCaseFormUrl);
-
-    // Append search query to the API URL if provided
-    if (searchQuery && searchQuery.trim() !== '') {
-      apiUrl += `?search=${encodeURIComponent(searchQuery)}`;
-    }
-
-    return this.http.get<any[]>(apiUrl);
-  }
      
+  getUserInfo(): Observable<any> {
+    return this.http.get<any>(this.SearchCaseFormUrl);
+
+
+  }
+  
 
   
   

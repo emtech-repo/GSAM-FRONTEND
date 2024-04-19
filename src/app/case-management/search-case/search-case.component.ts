@@ -1,11 +1,14 @@
 import { Component, OnInit  } from '@angular/core';
 import * as Highcharts from 'highcharts';
-
-import { HttpClient } from '@angular/common/http';
+import { SharedService } from '../../shared.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 interface ApiResponse{
   data:any[];
+  source:any[];
 }
+
 @Component({
   selector: 'app-search-case',
   templateUrl: './search-case.component.html',
@@ -14,28 +17,10 @@ interface ApiResponse{
 
 })
 export class SearchCaseComponent implements OnInit {
-  public getJsonValue:any;
-filteredData:any;
-jsonData:any;
+ 
 
+ SearchCaseFormUrl: ApiResponse = { data: [], source: [] };
   
-  constructor(private http:HttpClient) { }
-
-  ngOnInit() {
-    this.getGeos();
-
-  }
-
-
-  public getGeos() {
-    this.http.get<ApiResponse>('https://datausa.io/api/data?drilldowns=Nation&measures=Population')
-      .subscribe((data:ApiResponse)=>{
-        console.log(data);
-        this.getJsonValue=data;
-        this.jsonData=data.data
-      })
-
-  }
 
 
   Highcharts: typeof Highcharts = Highcharts;
@@ -67,7 +52,30 @@ jsonData:any;
       }
     ]
   };
+ 
+ constructor(private router: Router, private sharedService: SharedService) {}
 
+  ngOnInit(): void {
+    this.sharedService.getUserInfo().subscribe(
+      (data: ApiResponse) => {
+        console.log('Data received from API:', data);
+        this.SearchCaseFormUrl = data;
+        console.log('Assigned JSON Data:', this.SearchCaseFormUrl);
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching JSON data:', error);
+      }
+    
+    );
+  }
+  goToCreateMeeting() {
+    // Navigate to the "Create Meeting" route
+    this.router.navigate(['/create-meeting']);
+  }
+  goToCaseDecision() {
+    // Navigate to the "Create Meeting" route
+    this.router.navigate(['/case-decision']);
+  }
 };
 
 

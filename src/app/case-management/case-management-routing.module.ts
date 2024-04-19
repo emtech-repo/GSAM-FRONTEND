@@ -76,9 +76,6 @@ export const routes: Routes = [
 
       component: AssignCaseComponent,
     },
-
-     
-    
     
     { path: 'app-assign-case',
    component: AssignCaseComponent 

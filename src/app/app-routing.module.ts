@@ -6,6 +6,8 @@ import { authenticationGuard } from './auth.guard';
 import { CardsComponent } from './home/cards/cards.component';
 import { AnalysisComponent } from './home/analysis/analysis.component';
 import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
+import { CreateMeetingComponent } from './case-management/create-meeting/create-meeting.component';
+import { CaseDecisionComponent } from './case-management/case-decision/case-decision.component';
 
 export const routes: Routes = [
   {
@@ -45,6 +47,18 @@ export const routes: Routes = [
       path: 'app-case-details',
 
       component: CaseDetailsComponent,
+    },
+  
+    {
+      path: 'create-meeting',
+
+      component: CreateMeetingComponent,
+    },
+
+     {
+      path: 'case-decision',
+
+      component: CaseDecisionComponent,
     },
   
 ];
