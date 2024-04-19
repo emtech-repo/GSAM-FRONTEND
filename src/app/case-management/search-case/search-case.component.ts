@@ -1,12 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import * as Highcharts from 'highcharts';
 
+import { HttpClient } from '@angular/common/http';
+
+interface ApiResponse{
+  data:any[];
+}
 @Component({
   selector: 'app-search-case',
   templateUrl: './search-case.component.html',
   styleUrl: './search-case.component.css'
+
+
 })
-export class SearchCaseComponent {
+export class SearchCaseComponent implements OnInit {
+  public getJsonValue:any;
+filteredData:any;
+jsonData:any;
+
+  
+  constructor(private http:HttpClient) { }
+
+  ngOnInit() {
+    this.getGeos();
+
+  }
+
+
+  public getGeos() {
+    this.http.get<ApiResponse>('https://datausa.io/api/data?drilldowns=Nation&measures=Population')
+      .subscribe((data:ApiResponse)=>{
+        console.log(data);
+        this.getJsonValue=data;
+        this.jsonData=data.data
+      })
+
+  }
+
+
   Highcharts: typeof Highcharts = Highcharts;
 
   chartOptions: Highcharts.Options = {

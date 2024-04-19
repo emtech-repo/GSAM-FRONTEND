@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { authenticationGuard } from './auth.guard';
 import { CardsComponent } from './home/cards/cards.component';
 import { AnalysisComponent } from './home/analysis/analysis.component';
+import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
 
 export const routes: Routes = [
   {
@@ -40,7 +41,12 @@ export const routes: Routes = [
     loadChildren: () => import('../app/approval/approval.module').then(m => m.ApprovalModule)
   },
    
+{
+      path: 'app-case-details',
 
+      component: CaseDetailsComponent,
+    },
+  
 ];
 
 @NgModule({

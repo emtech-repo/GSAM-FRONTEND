@@ -21,8 +21,99 @@
 <div>
 
 
+<html lang="en">
 
-    <div class="table-container">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Horizontal Form</title>
+</head>
+
+<body>
+<!-- <tr *ngFor="let item of SearchCaseFormData">
+    <td>{{ item.ip }}</td>
+    <td>{{ item.city }}</td>
+    <td>{{ item.region }}</td>
+    <td>{{ item.country }}</td>
+    <td>{{ item.loc }}</td>
+    <td>{{ item.org }}</td>
+    <td>{{ item.postal }}</td>
+    <td>{{ timezone }}</td>
+
+</tr> -->
+
+    <div class="container mt-3">
+        <form class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"  >CIF ID</label>
+                <div class="col-sm-5" *ngIf="jsonData">
+                    <input type="text" class="form-control" name="cifId"  placeholder="{{ jsonData[0]?.Population }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">A/c Number</label>
+                <div class="col-sm-5" *ngIf="jsonData">
+                    <input type="text" class="form-control" name="cifId" placeholder="{{ jsonData[0]?.Population }}">
+                </div>
+            </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">A/c Number</label>
+            <div class="col-sm-5" *ngIf="jsonData">
+                <input type="text" class="form-control" name="cifId" placeholder="{{ jsonData[0]?.Population }}">
+            </div>
+        </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">A/c Number</label>
+                <div class="col-sm-5" *ngIf="jsonData">
+                    <input type="text" class="form-control" name="cifId" placeholder="{{ jsonData[0]?.Year }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">A/c Number</label>
+                <div class="col-sm-5" *ngIf="jsonData">
+                    <input type="text" class="form-control" name="cifId" placeholder="{{ jsonData[0]?.Population }}">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">A/c Number</label>
+                <div class="col-sm-5" *ngIf="jsonData">
+                    <input type="text" class="form-control" name="cifId" placeholder="{{ jsonData[0]?.Population }}">
+                </div>
+            </div>
+           
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">A/c Number</label>
+                <div class="col-sm-5" *ngIf="jsonData">
+                    <input type="text" class="form-control" name="cifId" placeholder="{{ jsonData[0]?.Population }}">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-sm-2">Syndicated</div>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="syndicated">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+ </body>
+
+</html>
+
+
+    <!-- <div class="table-container">
         <table class="table table-striped table-responsive">
             <thead>
                 <tr>
@@ -48,6 +139,7 @@
                     <td>28.05.24</td>
                     <td>27.04.24</td>
                     <td>
+
                         <div>
                             <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value=""
                                 aria-label="...">
@@ -56,7 +148,7 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 
 
 
@@ -80,3 +172,39 @@
                 </div>
             </div>
         </div>
+
+
+
+        
+<!-- <div *ngIf="jsonData">
+    <table>
+        <thead>
+            <tr>
+                <th>ID Nation</th>
+                <th>Nation</th>
+                <th>ID Year</th>
+                <th>Year</th>
+                <th>Population</th>
+                <th>Slug Nation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of jsonData">
+                <td>{{ item['ID Nation'] }}</td>
+                <td>{{ item.Nation }}</td>
+                <td>{{ item['ID Year'] }}</td>
+                <td>{{ item.Year }}</td>
+                <td>{{ item.Population }}</td>
+                <td>{{ item['Slug Nation'] }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
+    
+
+
+
+
+
+
+        

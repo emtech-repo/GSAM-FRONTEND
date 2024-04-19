@@ -5,11 +5,12 @@ import { CaseStatusComponent } from './case-status/case-status.component';
 import { CaseTrackingComponent } from './case-tracking/case-tracking.component';
 import { CreateMeetingComponent } from './create-meeting/create-meeting.component';
 import { DocumentationComponent } from './documentation/documentation.component';
-
 import { SearchCaseComponent } from './search-case/search-case.component';
 import { CaseDecisionComponent } from './case-decision/case-decision.component';
 import { DecisionTabComponent } from './decision-tab/decision-tab.component';
 import { MeetingTabComponent } from './meeting-tab/meeting-tab.component';
+import { AssignCaseComponent } from './assign-case/assign-case.component';
+import { CaseDetailsComponent } from './case-details/case-details.component';
 
 export const routes: Routes = [
   {
@@ -68,9 +69,21 @@ export const routes: Routes = [
 
       component: DecisionTabComponent,
     },
+
+    
+     {
+      path: 'app-assign-case',
+
+      component: AssignCaseComponent,
+    },
+
+     
     
     
-    
+    { path: 'app-assign-case',
+   component: AssignCaseComponent 
+  },
+
 ]
 @NgModule({
   imports: [RouterModule.forChild(routes)],
