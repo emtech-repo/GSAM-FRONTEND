@@ -49,3 +49,6 @@
 .next:hover {
     background-color: #00124c;
 }
+body {
+    background-color: rgb(236, 215, 250);
+}

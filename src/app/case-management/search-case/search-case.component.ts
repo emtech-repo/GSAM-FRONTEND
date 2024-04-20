@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { Router } from '@angular/router';
+import { SharedService } from '../../shared.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
+
+interface ApiResponse{
+  data:any[];
+  source:any[];
+}
 
 @Component({
   selector: 'app-search-case',
@@ -9,6 +16,8 @@ import { Router } from '@angular/router';
   styleUrl: './search-case.component.css'
 })
 export class SearchCaseComponent {
+  UserInfoUrl: ApiResponse = { data: [], source: [] };
+
   Highcharts: typeof Highcharts = Highcharts;
 
   chartOptions: Highcharts.Options = {
@@ -38,7 +47,6 @@ export class SearchCaseComponent {
       }
     ]
   };
-  constructor(private router: Router) { }
 
   goToCreateMeeting() {
     // Navigate to the "Create Meeting" route
@@ -47,6 +55,21 @@ export class SearchCaseComponent {
   goToCaseDecision() {
     // Navigate to the "Create Meeting" route
     this.router.navigate(['/case-decision']);
+  }
+  constructor(private router: Router, private sharedService: SharedService) {}
+
+  ngOnInit(): void {
+    this.sharedService.getUserInfo().subscribe(
+      (data: ApiResponse) => {
+        console.log('Data received from API:', data);
+        this.UserInfoUrl = data;
+        console.log('Assigned JSON Data:', this.UserInfoUrl);
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching JSON data:', error);
+      }
+    
+    );
   }
 };
 
