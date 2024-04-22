@@ -1,4 +1,4 @@
-.table-container {
+/* .table-container {
     margin-top: 20px;
     border: 1px solid #131212;
     border-collapse: collapse;
@@ -20,4 +20,59 @@
 
 .table-container tbody tr:nth-child(even) {
     background-color: #f2f2f2;
-}
+} */
+/* Search container */
+.search-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th,
+  table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Pagination container */
+  .pagination-container {
+    text-align: center;
+  }
+  
+  /* Pagination styles */
+  .pagination {
+    display: inline-block;
+  }
+  
+  .pagination li {
+    display: inline;
+    margin: 0 2px;
+  }
+  
+  .pagination li a {
+    color: #007bff;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+  }
+  
+  .pagination li.active a {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .pagination li.disabled a {
+    color: #aaa;
+    pointer-events: none;
+  }
+  
+  /* Hide table if search term not present or no data */
+  table[hidden] {
+    display: none;
+  }
+  

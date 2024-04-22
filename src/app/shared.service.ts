@@ -87,14 +87,9 @@ export class SharedService {
     return this.http.get<any[]>(apiUrl);
   }
 
-  getJsonDataUrl(): string {
-    return this.JsonDataUrl;
-  }
-  getData(): Observable<any> {
-    return this.http.get<any>('https://datausa.io/api/data?drilldowns=Nation&measures=Population');
-  }
+  getJsonData(): Observable<any> {
+    return this.http.get<any>(this.JsonDataUrl);
 
-  
-  
 
+  }
 }

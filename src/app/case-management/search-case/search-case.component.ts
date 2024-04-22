@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
+import { HttpErrorResponse } from '@angular/common/http';
+import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
-import { SharedService } from '../../shared.service'; // Adjust the import path as needed
 
+interface ApiResponse {
+  data: any[];
+  source: any[];
+}
 
 @Component({
   selector: 'app-search-case',
@@ -10,44 +14,86 @@ import { SharedService } from '../../shared.service'; // Adjust the import path 
   styleUrls: ['./search-case.component.css']
 })
 export class SearchCaseComponent implements OnInit {
-  JsonDataUrl: string = '';
-  Highcharts: typeof Highcharts = Highcharts;
+  jsonData: any[] = [];
+  pageSize: number = 3;
+  currentPage: number = 1;
+  totalItems: number = 0;
+  searchTerm: string = '';
+  searchBy: string = ''; // To store the selected column for searching
+  filteredData: any[] = []; // Filtered data to be displayed
+  searchClicked: boolean = false; // Tracks whether the search button has been clicked
 
-  chartOptions: Highcharts.Options = {
-    title: {
-      text: 'Instalments',
-    },
-    chart: {
-      type: 'column',
-      width: 800,
-      height: 500
-    },
-    xAxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
-    yAxis: {
-      title: {
-        text: "instalments in '000' USD"
-      }
-    },
-    series: [
-      {
-        type: 'column',
-        name: 'Months',
-        data: [40, 41, 45, 50, 35, 40, 50, 37, 35, 30, 35, 30],
-        pointWidth: 40
-      }
-    ]
-  };
+  constructor(private router: Router, private sharedService: SharedService) { }
 
-  constructor(private router: Router, private sharedService: SharedService) {}
-
-
-  ngOnInit(): void {
-    this.JsonDataUrl = this.sharedService.getJsonDataUrl();
-    console.log('JSON Data:', this.JsonDataUrl);
+  ngOnInit() {
+    this.getjsonData();
   }
 
+  getjsonData(): void {
+    this.sharedService.getJsonData().subscribe(
+      (data: ApiResponse) => {
+        this.jsonData = data.data; // Assign original data
+        this.totalItems = this.jsonData.length;
+        this.applySearchFilter(); // Apply search filter initially
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching JsonData:', error.message);
+      }
+    );
+  }
+
+  // Method to apply search filter
+  applySearchFilter(): void {
+    let filteredData = this.jsonData;
+    if (this.searchTerm && this.searchBy && this.searchClicked) { // Only apply filter if search button is clicked
+      filteredData = filteredData.filter(item =>
+        item[this.searchBy].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+    this.filteredData = filteredData; // Store filtered data
+    this.totalItems = this.filteredData.length;
+  }
+
+  // Method to handle page change event
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.applySearchFilter(); // Apply search filter on page change
+  }
+
+  // Method to handle search query change
+  onSearch(): void {
+    this.currentPage = 1; // Reset current page when performing a new search
+    this.searchClicked = true; // Set searchClicked toatrue when search button is clicked
+    this.applySearchFilter();
+  }
+
+  // Method to set the column to search by
+  setSearchBy(column: string): void {
+    this.searchBy = column;
+    this.applySearchFilter(); // Apply search filter when the search column changes
+  }
+
+  // Method to dynamically return the placeholder text for search input field
+  getPlaceholder(): string {
+    switch (this.searchBy) {
+      case 'ID Nation':
+        return 'Enter Account Number...';
+      case 'Nation':
+        return 'Enter Account Name...';
+      case 'ID Year':
+        return 'Enter National Id...';
+      case 'Year':
+        return 'Enter CIF...';
+      case 'Population':
+        return 'Enter Status...';
+      case 'Slug Nation':
+        return 'Enter Case Number...';
+      default:
+        return this.searchBy ? `Enter ${this.searchBy}` : 'Select search option first';
+    }
+  }
+
+  // Navigation methods
   goToCreateMeeting() {
     this.router.navigate(['/create-meeting']);
   }

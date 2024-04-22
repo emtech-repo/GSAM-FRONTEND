@@ -19,6 +19,7 @@ import { ApprovalModule } from './approval/approval.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NbCardModule } from '@nebular/theme';
 import { SharedService } from './shared.service';
+import { FilterPipe } from './filter.pipe';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { SharedService } from './shared.service';
     LayoutComponent,
     CardsComponent,
     AnalysisComponent,
+    FilterPipe,
     
     
     

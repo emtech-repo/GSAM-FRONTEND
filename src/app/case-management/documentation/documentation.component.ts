@@ -1,111 +1,109 @@
-// import { HttpClient } from '@angular/common/http';
-// import { Component, OnInit } from '@angular/core';
-// import { NbCardModule } from '@nebular/theme';
-//  interface ApiResponse{
-//   data:any[];
-//  }
-// @Component({
-//   selector: 'app-documentation',
-//   templateUrl: './documentation.component.html',
-//   styleUrls: ['./documentation.component.css']
-// })
-// export class DocumentationComponent implements OnInit {
-//   public getJsonValue:any;
-//   public postJsonValue:any;
-// filteredData: any;
-// jsonData: any;
-//   constructor(private http:HttpClient){}
-//   ngOnInit(): void {
-//     this.getMethod();
-//     this.postMethod();
-//   }
-//   postMethod() {
-//     throw new Error('Method not implemented.');
-//   }
-//   public getMethod(){
-//     this.http.get<ApiResponse>('https://datausa.io/api/data?drilldowns=Nation&measures=Population').subscribe((data:ApiResponse)=>{
-//       console.log(data);
-//       this.getJsonValue=data;
-//       this.jsonData=data.data;
-//     }
-  
-//   );
-//   }
-
-  
-// }
-
-
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NbCardModule } from '@nebular/theme';
+import { HttpErrorResponse } from '@angular/common/http';
+import { SharedService } from '../../shared.service';
+import { Router } from '@angular/router';
 
 interface ApiResponse {
   data: any[];
+  source: any[];
 }
 
 @Component({
-  selector: 'app-documentation',
+  selector: 'app-search-case',
   templateUrl: './documentation.component.html',
   styleUrls: ['./documentation.component.css']
 })
 export class DocumentationComponent implements OnInit {
-  public getJsonValue: any;
-  public postJsonValue: any;
-  filteredData: any;
-  jsonData: any;
-  searchQuery:any;
-
-  // Search functionality
-  searchText: string = '';
-
-  // Pagination functionality
-  pageSize: number = 10; // Number of items per page
+  jsonData: any[] = [];
+  pageSize: number = 3;
   currentPage: number = 1;
+  totalItems: number = 0;
+  searchTerm: string = '';
+  searchBy: string = ''; // To store the selected column for searching
+  filteredData: any[] = []; // Filtered data to be displayed
+  searchClicked: boolean = false; // Tracks whether the search button has been clicked
 
-  constructor(private http: HttpClient) { }
+  constructor(private router: Router, private sharedService: SharedService) { }
 
-  ngOnInit(): void {
-    this.getMethod();
-    this.postMethod();
+  ngOnInit() {
+    this.getjsonData();
   }
 
-  postMethod() {
-    // Implement your post method logic here
-  }
-
-  public getMethod() {
-    this.http.get<ApiResponse>('https://datausa.io/api/data?drilldowns=Nation&measures=Population')
-      .subscribe((data: ApiResponse) => {
-        console.log(data);
-        this.getJsonValue = data;
-        this.jsonData = data.data;
-      });
-  }
-
-  // Search functionality
-  applyFilter() {
-    this.currentPage = 1; // Reset current page to 1
-    this.filteredData = this.jsonData.filter((item: any) =>
-      Object.values(item).some((val: any) => val.toString().toLowerCase().includes(this.searchText.toLowerCase()))
+  getjsonData(): void {
+    this.sharedService.getJsonData().subscribe(
+      (data: ApiResponse) => {
+        this.jsonData = data.data; // Assign original data
+        this.totalItems = this.jsonData.length;
+        this.applySearchFilter(); // Apply search filter initially
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching JsonData:', error.message);
+      }
     );
   }
-  
 
-  // Pagination functionality
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
+  // Method to apply search filter
+  applySearchFilter(): void {
+    let filteredData = this.jsonData;
+    if (this.searchTerm && this.searchBy && this.searchClicked) { // Only apply filter if search button is clicked
+      filteredData = filteredData.filter(item =>
+        item[this.searchBy].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+    this.filteredData = filteredData; // Store filtered data
+    this.totalItems = this.filteredData.length;
+  }
+
+  // Method to handle page change event
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.applySearchFilter(); // Apply search filter on page change
+  }
+
+  // Method to handle search query change
+  onSearch(): void {
+    this.currentPage = 1; // Reset current page when performing a new search
+    this.searchClicked = true; // Set searchClicked toatrue when search button is clicked
+    this.applySearchFilter();
+  }
+
+  // Method to set the column to search by
+  setSearchBy(column: string): void {
+    this.searchBy = column;
+    this.applySearchFilter(); // Apply search filter when the search column changes
+  }
+
+  // Method to dynamically return the placeholder text for search input field
+  getPlaceholder(): string {
+    switch (this.searchBy) {
+      case 'ID Nation':
+        return 'Enter Account Number...';
+      case 'Nation':
+        return 'Enter Account Name...';
+      case 'ID Year':
+        return 'Enter National Id...';
+      case 'Year':
+        return 'Enter CIF...';
+      case 'Population':
+        return 'Enter Loan Amount...';
+      case 'Slug Nation':
+        return 'Enter Case Number...';
+      default:
+        return this.searchBy ? `Enter ${this.searchBy}` : 'Select search option first';
     }
   }
 
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
+  // Navigation methods
+  goToCreateMeeting() {
+    this.router.navigate(['/create-meeting']);
   }
 
-  get totalPages(): number {
-    return Math.ceil(this.filteredData.length / this.pageSize);
+  goToCaseDecision() {
+    this.router.navigate(['/case-decision']);
+  }
+
+  goToDocumentation() {
+    this.router.navigate(['/documentation']);
   }
 }
+

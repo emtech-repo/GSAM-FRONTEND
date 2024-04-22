@@ -70,4 +70,34 @@ table {
   tr:hover {
     background-color: #ddd;
   }
+  .search-container {
+    margin-bottom: 20px;
+  }
   
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th,
+  table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .input-group {
+    margin-bottom: 20px; /* Add some bottom margin for spacing */
+}
+
+/* Adjust the width of the select element */
+.form-select {
+    width: 200px;
+}
+
+/* Style the search button */
+.btn-search {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
