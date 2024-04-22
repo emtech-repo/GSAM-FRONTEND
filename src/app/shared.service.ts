@@ -14,9 +14,11 @@ export class SharedService {
   readonly APIUrl = 'https://locahost:5001';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly ActivityUrl='https://jsonplaceholder.typicode.com/todos';
-  readonly SearchCaseFormUrl='https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
- public loader =false
+  readonly UserInfoUrl ='https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+
+
+  public loader =false
 
   public isAuthenticated = false;
   public currentUser: any;
@@ -94,12 +96,11 @@ export class SharedService {
 
      
   getUserInfo(): Observable<any> {
-    return this.http.get<any>(this.SearchCaseFormUrl);
+
+    return this.http.get<any>(this.UserInfoUrl);
 
 
   }
-  
-
   
   
 

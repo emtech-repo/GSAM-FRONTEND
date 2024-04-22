@@ -25,8 +25,9 @@ import { CaseDetailsComponent } from './case-details/case-details.component';
     SearchCaseComponent,
     CaseStatusComponent,
     DocumentationComponent,
-    CreateMeetingComponent,
-    
+
+    CreateMeetingComponent, 
+
     CaseApprovalComponent,
     CaseTrackingComponent,
     CaseDecisionComponent,

@@ -1,5 +1,6 @@
 <form class="form-inline" style=" margin-left: -15px;margin-top: 15px;">
 
+    
       
 </form>
 <div>
@@ -103,10 +104,13 @@
                                     <input type="text" class="form-control" id="population" [readonly]="true"
                                         [(ngModel)]="SearchCaseFormUrl.data[0].Population" name="population">
 
+
                                 </div>
                             </div>
                             <div class="row" style="margin-top: 5%;height: 100%;width:300% ;">
                                 <div class="col-md-10 grid-margin stretch-card">
+
+
 
                                     <div style="height: 100%;width: 300px; ">
                                         <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions">
@@ -114,10 +118,12 @@
                                         <div class="col-md-13 ">
                                             <div class="px-5 py-4">
                                                 <div class="d-flex justify-content-between">
+
                                                     <button type="button" class="create-meeting"
                                                         (click)="goToCreateMeeting()">Create&nbsp;Meeting</button>
                                                     <button type="submit" class="next"
                                                         (click)="goToCaseDecision()">Next&nbsp;Page</button>
+
 
 
                                                 </div>
@@ -126,13 +132,20 @@
                                     </div>
                                 </div>
 
+
                             </div>
+
                         </div>
 
                     </div>
 
                 </div>
 
+            
             </div>
+            
+       </div>  
+                      
+    </div>
+    
 
-        </div>

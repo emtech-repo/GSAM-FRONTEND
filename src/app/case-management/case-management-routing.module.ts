@@ -70,12 +70,17 @@ export const routes: Routes = [
       component: DecisionTabComponent,
     },
 
-    
-     {
-      path: 'app-assign-case',
 
+    {
+      path: 'app-assign-case',
       component: AssignCaseComponent,
     },
+    {
+      path: 'app-case-details',
+      component: CaseDetailsComponent,
+    },
+    
+
     
     { path: 'app-assign-case',
    component: AssignCaseComponent 

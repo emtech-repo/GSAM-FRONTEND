@@ -2,7 +2,7 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <p class="card-title">Recent Activity</p>
+                <p class="card-title">Case Tracking</p>
 
                 <!-- SEEERCH BUTTON-->
                 <div class="row">
@@ -17,11 +17,11 @@
                 <div class="form-group mx-sm-3 mb-6 d-flex">
                     <select class="form-control mr-2" id="dropdownMenu" style="width: 100px; margin-right: 20px; color:black;">
                         <option value="">Search by..</option>
-                        <option value="option1">ID</option>
-                        <option value="option2">Account</option>
-                        <option value="option3">Name</option>
+                        <option value="option1">CIF ID</option>
+                        <option value="option2">A/C number </option>
+                        <option value="option3">A/c Name</option>
                         <option value="option4">Case Number</option>
-                        <option value="option5">CIF</option>
+                        <option value="option5">Id NO.</option>
                     </select>
                     <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
                         style="width: 300px; height: 20px; margin-right: 15px;">
@@ -46,18 +46,23 @@
                                 <!-- Table headers and rows -->
                                 <thead>
                                     <tr>
+                                        <th>Item Number</th>
+                                        <th>Case ID</th>
+                                        <th>A/c Number </th>
+                                        <th>A/c Name</th>
+                                        <th>Comments </th>
                                         <th>Level </th>
-                                        <th>Name </th>
-                                        <th>ID </th>
-                                        <th>COMMENTS</th>
-                                        <th>JOB LEVEL </th>
-                                        <th> STATUS </th>
+                                        <th>Status </th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of recentActivityData">
                                         <td>{{ item.userId }}</td>
+                                        <td>{{ item.userId }}</td>
                                         <td>{{ item.id }}</td>
+                                        <td>{{ item.title }}</td>
+                                        <td>{{ item.completed }}</td>
                                         <td>{{ item.title }}</td>
                                         <td>{{ item.completed }}</td>
                                     </tr>

@@ -300,16 +300,16 @@
             <div class="collapse" id="ui-basic">
               
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-search-case']">SearchCase</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-search-case']">Search Case</a></li>
                 <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-status']">Case Status</a></li>
                 <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-documentation']">Documentation</a></li>
                 <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-meeting']"> Meeting</a></li>
-                <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-approval']">Approval Interphase</a></li> -->
                 <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-decision']">Case Decision</a></li>
                 <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-app-approval']">Case Approval</a></li>
                 <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-tracking']">Case Tracking</a></li>
                 <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign-Case</a></li>
                 <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-details']">Case-Details</a></li> -->
+
 
 
 
@@ -385,28 +385,24 @@
               </ul> -->
             </div>
           </li>
-          
+          <li class="nav-item" style="margin-top: 200px;">
+            <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
+              class="nav-link" [routerLink]="['/app-admin']">
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">Admin</span>
+         
+            </a>
+          </li>
           
           
         </ul>
       </nav>
-      <!-- partial -->
       
       <div class="main-panel">
         <div class="content-wrapper" *ngIf="sharedService.isAuthenticated">
             <router-outlet></router-outlet>
-          </div>
-        
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <!-- <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            
-          </div>
-        </footer> -->
-        <!-- partial -->
-      </div>
-      <!-- main-panel ends -->
+          </div>   
+      </div>   
     </div>
-    <!-- page-body-wrapper ends -->
+    
   </div>

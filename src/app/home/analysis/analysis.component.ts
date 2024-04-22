@@ -16,7 +16,7 @@ export class AnalysisComponent  implements OnInit{
       text: 'Analysis Chart'
     },
     xAxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May','June', 'July', 'August', 'Sept', 'Oct','Nov', 'Dec'] // Customize X-axis categories
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun', 'Jul', 'Aug', 'Sept', 'Oct','Nov','Dec'] // Customize X-axis categories
     },
     yAxis: {
       title: {
@@ -66,7 +66,7 @@ export class AnalysisComponent  implements OnInit{
         ['Closed', 45]
         
       ],
-      colors: ['#4e73df', '#1cc88a', '#5a5c69']
+      colors: ['maroon', 'blue', '#00cfd5']
     }]
   };
 
