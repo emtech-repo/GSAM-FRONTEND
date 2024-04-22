@@ -6,7 +6,7 @@
 
 </div>
 <div>
-    <div class="container-xl h-100" style=" width: 150%; margin-left: -10%;">
+    <div class="container-xl h-100" style=" width: 200%; margin-left: -5%;">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-9">
                 <div class="card" style="border-radius: 15px;">
@@ -25,7 +25,7 @@
                                         <option value="option5">CIF ID</option>
                                     </select>
                                     <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
-                                        style="width: 300px; height: 40px; margin-left: 10px;">
+                                        style="width: 650px; height: 40px; margin-left: 10px;">
                                     <button type="search" class="btn btn-primary btn-sm"
                                         style=" margin-left: 10px;border-radius: 5px;">Search</button>
                                 </div>
@@ -105,33 +105,34 @@
 
                                 </div>
                             </div>
+                            <div class="row" style="margin-top: 5%;height: 100%;width:300% ;">
+                                <div class="col-md-10 grid-margin stretch-card">
+
+                                    <div style="height: 100%;width: 300px; ">
+                                        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions">
+                                        </highcharts-chart>
+                                        <div class="col-md-13 ">
+                                            <div class="px-5 py-4">
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button" class="create-meeting"
+                                                        (click)="goToCreateMeeting()">Create&nbsp;Meeting</button>
+                                                    <button type="submit" class="next"
+                                                        (click)="goToCaseDecision()">Next&nbsp;Page</button>
 
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
 
             </div>
 
-        </div>
-    </div>
-    <div class="row" style="margin-top: 5%;height: 100%;width: 300px;">
-        <div class="col-md-10 grid-margin stretch-card">
-
-            <div style="height: 100%;width: 300px; ">
-                <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions">
-                </highcharts-chart>
-                <div class="col-md-13 ">
-                    <div class="px-5 py-4">
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="create-meeting"
-                                (click)="goToCreateMeeting()">Create&nbsp;Meeting</button>
-                            <button type="submit" class="next" (click)="goToCaseDecision()">Next&nbsp;Page</button>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
