@@ -14,6 +14,7 @@ export class SharedService {
   readonly APIUrl = 'https://locahosst:5001';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly ActivityUrl='https://jsonplaceholder.typicode.com/todos';
+  private readonly userDataUrl = 'assets/data/db.json';
   
 
  public loader =false
@@ -90,6 +91,15 @@ export class SharedService {
      
 
   //////////////////////////////////////
+  getUserData(): Observable<any> {
+    return this.http.get<any>(this.userDataUrl);
+  }
+
+
+  getUserByCode(code: any): Observable<any> {
+    return this.http.get<any>(`${this.APIUrl}/users/${code}`);
+  }
+
   isAdmin(): boolean {
     // Example logic to check if user is an admin
     // You can modify this based on how you store user roles in your system

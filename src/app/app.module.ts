@@ -3,6 +3,8 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ToastrModule } from 'ngx-toastr'; 
 
 
 
@@ -24,6 +26,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminTabComponent } from './admin-tab/admin-tab.component';
 
+import { AdminPopupComponent } from './admin-popup/admin-popup.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -36,6 +41,7 @@ import { AdminTabComponent } from './admin-tab/admin-tab.component';
     AnalysisComponent,
     AdminPageComponent,
     AdminTabComponent,
+    AdminPopupComponent,
     
     
     
@@ -49,9 +55,12 @@ import { AdminTabComponent } from './admin-tab/admin-tab.component';
     ReactiveFormsModule,
     ChartModule,
     HighchartsChartModule,
+    ModalModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
     ApprovalModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
     
 
 

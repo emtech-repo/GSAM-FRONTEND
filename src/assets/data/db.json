@@ -26,7 +26,7 @@
     },
     {
       "id": "Jhon1",
-      "name": "",
+      "name": "joyce omondi",
       "password": "Test@1233",
       "email": "te@in.com",
       "gender": "male",
@@ -59,16 +59,7 @@
       "name": "Technician"
     }
   ],
-  "menu": [
-    {
-      "code": "user",
-      "name": "User"
-    },
-    {
-      "code": "customer",
-      "name": "Customer"
-    }
-  ],
+  
   "roleaccess": [
     {
       "role": "admin",
@@ -100,32 +91,6 @@
     }
     
     
-  ],
-  "customer":[
-    {
-      "id":1,
-      "name":"rakhesh",
-      "Creditlimit":1000
-    },
-    {
-      "id":2,
-      "name":"rahul",
-      "Creditlimit":1000
-    },
-    {
-      "id":3,
-      "name":"ramesh",
-      "Creditlimit":1000
-    },
-    {
-      "id":4,
-      "name":"rahim",
-      "Creditlimit":1000
-    },
-    {
-      "id":5,
-      "name":"robert",
-      "Creditlimit":1000
-    }
   ]
+  
 }

@@ -18,12 +18,24 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h2>User Listing</h2>
+                        <h4>User Listing</h4>
                     </div>
+
+
+
+
+                    <!-- SEEERCH BUTTON-->
+                    <!-- <div class="row">
+                        <div class="col-8 mb-3 ">
+                            <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm"
+                                (ngModelChange)="onSearch()">
+                        </div> -->
+                    </div>
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
-                                <thead>
+                                <thead style="background-color: #002d72; color: cornsilk;">
                                     <tr>
                                         <th>Username</th>
                                         <th>Name</th>
@@ -38,13 +50,18 @@
                                         <td>{{ element.id }}</td>
                                         <td>{{ element.name }}</td>
                                         <td>{{ element.email }}</td>
-                                        <td>{{ element.isactive ? 'Active' : 'Inactive' }}</td>
+                                        <td>{{ element.isactive ? 'Active' : 'Inactive' }}</td>  
                                         <td>{{ element.role === '' ? 'Unassigned' : element.role }}</td>
-                                        <td>
-                                            <button *ngIf="element.role !== 'admin'" (click)="updateuser(element.id)"
+                                        <!-- <td>
+                                            <button *ngIf="element.role !== 'admin'" (click)="updateUser(element.id)"
                                                 class="btn btn-primary">Update</button>
+                                        </td> -->
+                                        <td>
+                                            <button *ngIf="element.role !== 'admin'" (click)="openAdminPopup(element)" class="btn btn-primary">Update</button>
                                         </td>
-                                    </tr>
+                                    </tr> 
+
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -52,8 +69,8 @@
                             <!-- Pagination -->
                             <!-- <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage"
                                 (pageChanged)="pageChanged($event)" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true">
-                            </pagination> -->
-                        </div>
+                            </pagination>
+                        </div> -->
                     </div>
                 </div>
 

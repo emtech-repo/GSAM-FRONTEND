@@ -1,0 +1,18 @@
+/* CSS for checkbox alignment */
+.form-check {
+    display: flex;
+    align-items: center;
+}
+
+/* Optional: Additional styling for form elements */
+.light-blue-background {
+    background-color: #e0f2f1;
+    /* Light blue color, adjust as needed */
+    padding: 20px;
+    /* Add padding for better spacing */
+}
+
+.btn {
+    margin-right: 10px;
+    /* Adjust as needed */
+}

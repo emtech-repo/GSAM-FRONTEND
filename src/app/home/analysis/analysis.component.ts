@@ -11,6 +11,9 @@ import { SharedService } from '../../shared.service';
 export class AnalysisComponent  implements OnInit{
   Highcharts: typeof Highcharts = Highcharts;
 
+
+  
+
   chartOptions: Highcharts.Options = {
     title: {
       text: 'Analysis Chart'
