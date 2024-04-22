@@ -14,6 +14,9 @@ export class SharedService {
   readonly APIUrl = 'https://locahosst:5001';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly ActivityUrl='https://jsonplaceholder.typicode.com/todos';
+  readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+  private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+
   private readonly userDataUrl = 'assets/data/db.json';
   
 
@@ -111,6 +114,15 @@ export class SharedService {
     }
     return false;
   }
-  
+  getUserInfo(): Observable<any> {
+    return this.http.get<any>(this.UserInfoUrl);
+
+
+  }
+  getJsonData(): Observable<any> {
+    return this.http.get<any>(this.JsonDataUrl);
+
+
+  }
 
 }

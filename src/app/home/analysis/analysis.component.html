@@ -54,23 +54,25 @@
       <div class="card">
         <div class="card-body" style="background-color: #4158D0; background-image:linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);">
 
-         <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between">
           <p class="card-title">Cases Analysis</p>
           <a href="#" class="text-info">View all</a>
-         </div> 
-          <p class="font-weight-500">Overview of your Cases</p>
-          <div id="sales-legend" class="chartjs-legend mt-4 mb-2"></div>
-          
+        </div>
+        <p class="font-weight-500">The total number of active,closed and assigned cases of the User
+        </p>
+        <div id="sales-legend" class="chartjs-legend mt-4 mb-2"></div>
+        <div class="me-5 mt-3">
+          <p class="text-strong fs-29 font-weight-medium"> User total Portfolio cases</p>
+          <h3 class="text-strong fs-30 font-weight-medium">40 Cases</h3>
+        </div>
               <!-- PIECHART-->
 
 
-              <div class="col-md-2-grid-margin stretch-card" style="width: 480px; height: 420px;">
-                <highcharts-chart
-                [Highcharts]="Highcharts"
-                [options]="pieChartOptions"
-                  style="width: 100%; height: 400px; display: block;">
-                </highcharts-chart>
-              </div>
+             <div class="col-md-2-grid-margin stretch-card" style="width: 470px; height: 400px; margin-top: 110px;">
+          <highcharts-chart [Highcharts]="Highcharts" [options]="pieChartOptions"
+            style="width: 200%; height: 400px; display: block;">
+          </highcharts-chart>
+        </div>
               
 
 
@@ -141,19 +143,22 @@
                     <!-- Table headers and rows -->
                     <thead>
                       <tr>
-                        <th>Id#</th>
-                        <th>CIF</th>
-                        <th>A/C Name</th>
-                        <th>Status</th>
-                        <th></th>
-                      </tr>
+                    <th>Item Number</th>
+                    <th>CIF ID</th>
+                    <th>A/C Number</th>
+                    <th>A/C Name</th>
+                    <th>Activity</th>
+                    <th>Status</th>
+                  </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let item of filteredData">
-                        <td>{{ item.userId }}</td>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.title }}</td>
-                        <td>{{ item.completed }}</td>
+                       <td>{{ item.userId }}</td>
+                     <td>{{ item.id }}</td>
+                      <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.completed }}</td>
                       </tr>
                     </tbody>
 
@@ -164,7 +169,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" style="margin-left: 57%;">
               <div class="col-12">
                 <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
                             (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></pagination>
