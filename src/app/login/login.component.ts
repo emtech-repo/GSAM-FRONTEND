@@ -4,6 +4,7 @@ import { SharedService } from '../shared.service';
 import usersData from '../../assets/data/db.json';
 
 
+
 declare function showSuccessToast(msg: any): any;
 declare function showDangerToast(msg: any): any;
 
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
       showSuccessToast("Login Successful");
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.servive.isAuthenticated = true;
-      console.log('Current User:', user); 
+      console.log('Current User:', user);
 
       this.router.navigate(['/Dashboard']);
     } else {
@@ -61,7 +62,9 @@ export class LoginComponent implements OnInit {
 
     this.servive.loader = false;
   }
-}
+  }
+
+
 
 
 

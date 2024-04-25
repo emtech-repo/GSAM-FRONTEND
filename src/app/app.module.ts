@@ -5,6 +5,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr'; 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -24,10 +26,14 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { ApprovalModule } from './approval/approval.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AdminPageComponent } from './admin-page/admin-page.component';
-import { AdminTabComponent } from './admin-tab/admin-tab.component';
 
 import { AdminPopupComponent } from './admin-popup/admin-popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -40,8 +46,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CardsComponent,
     AnalysisComponent,
     AdminPageComponent,
-    AdminTabComponent,
+    
     AdminPopupComponent,
+    
     
     
     
@@ -61,6 +68,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ApprovalModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatToolbarModule,
+    MatIconModule,
     
 
 

@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:GSAM": "node dist/gsam/server/server.mjs",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "start-server": "json-server --watch db.json --port 5001",
+    "json-server": "json-server --watch db.json -p 5001"
   },
   "private": true,
   "dependencies": {

@@ -2,6 +2,7 @@
   "user": [
     {
       "id": "admin",
+      "empId": "10193",
       "name": "zachary macharia",
       "password": "123456",
       "email": "Admin@gmail.com",
@@ -14,6 +15,7 @@
     },
     {
       "id": "testuser",
+      "empId": "5083",
       "name": "Test User",
       "password": "123456",
       "email": "user@gmail.com",
@@ -26,6 +28,7 @@
     },
     {
       "id": "Jhon1",
+      "empId": "101623",
       "name": "joyce omondi",
       "password": "Test@1233",
       "email": "te@in.com",
@@ -38,6 +41,7 @@
     },
     {
       "id": "ntuser",
+      "empId": "30302",
       "name": "peter",
       "password": "Test@1234",
       "email": "te@in.com",
@@ -55,8 +59,12 @@
       "name": "User"
     },
     {
-      "code": "tech",
-      "name": "Technician"
+      "code": "admin",
+      "name": "Admin"
+    },
+     {
+      "code": "mngr",
+      "name": "Manager"
     }
   ],
   
@@ -70,7 +78,7 @@
     },
     {
       "role": "admin",
-      "menu": "customer",
+      "menu": "manager",
       "haveedit":true,
       "haveadd":true,
       "havedelete":true
@@ -83,8 +91,8 @@
       "havedelete":false
     },
     {
-      "role": "user",
-      "menu": "customer",
+      "role": "manager",
+      "menu": "manager",
       "haveedit":true,
       "haveadd":true,
       "havedelete":false

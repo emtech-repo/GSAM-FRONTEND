@@ -11,72 +11,75 @@ export class SharedService {
   //!new server
 
 
-  readonly APIUrl = 'https://locahosst:5001';
+  readonly APIUrl = 'http://localhost:5001/';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
-  readonly ActivityUrl='https://jsonplaceholder.typicode.com/todos';
+  readonly ActivityUrl = 'https://jsonplaceholder.typicode.com/todos';
   readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
   private readonly userDataUrl = 'assets/data/db.json';
-  
 
- public loader =false
+
+
+
+  public loader = false
 
   public isAuthenticated = false;
   public currentUser: any;
   public currentUserID: any;
 
-  constructor(private http: HttpClient  , @Inject(DOCUMENT) private document: Document) {
+  constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {
     // this.currentUser = localStorage.getItem('currentUser');
 
     // this.currentUser = 21
     const localStorage = document.defaultView?.localStorage;
 
     if (localStorage && localStorage.getItem('currentUser')) {
-      this.currentUser = localStorage.getItem('currentUser');      
+      this.currentUser = localStorage.getItem('currentUser');
     }
-    
+
 
     if (this.currentUser) {
       this.currentUser = JSON.parse(this.currentUser);
       this.currentUserID = this.currentUser.UserID;
       this.isAuthenticated = true;
     }
+
   }
 
   private tokenResponse: any;
 
-  getUsersList(val: any) {
-    return this.http.post<any>(this.APIUrl + '/users/get', val);
-  }
+  // getUsersList(val: any) {
+  //   return this.http.post<any>(this.APIUrl + '/users/get', val);
+  // }
 
-  addUser(val: any) {
-    return this.http.post<any>(this.APIUrl + '/users/insert', val);
-  }
+  // addUser(val: any) {
+  //   return this.http.post<any>(this.APIUrl + '/users/insert', val);
+  // }
 
-  updateUser(val: any) {
-    return this.http.post<any>(this.APIUrl + '/users/update', val);
-  }
+  // updateUser(val: any) {
+  //   return this.http.post<any>(this.APIUrl + '/users/update', val);
+  // }
 
-  setUserActive(val: any) {
-    return this.http.post<any>(this.APIUrl + '/users/Active', val);
-  }
+  // setUserActive(val: any) {
+  //   return this.http.post<any>(this.APIUrl + '/users/Active', val);
+  // }
 
-  setUserInactive(val: any) {
-    return this.http.post<any>(this.APIUrl + '/users/Inactive', val);
-  }
+  // setUserInactive(val: any) {
+  //   return this.http.post<any>(this.APIUrl + '/users/Inactive', val);
+  // }
 
-  getLogin(val: any) {
-    return this.http.post(this.APIUrl + '/user/login', val);
-  }
+  // getLogin(val: any) {
+  //  return this.http.post(this.APIUrl + '/user/login', val);
+  //  }
 
-  changePassword(val: any) {
-    return this.http.post<any>(this.APIUrl + '/user/changePassword', val);
-  }
+  // changePassword(val: any) {
+  //   return this.http.post<any>(this.APIUrl + '/user/changePassword', val);
+  // }
 
-  getUserRoleList(): Observable<any[]> {
-    return this.http.get<any>(this.APIUrl + '/users/userRoles');
-  }
+  // getUserRoleList(): Observable<any[]> {
+  //   return this.http.get<any>(this.APIUrl + '/users/userRoles');
+  // }
 
 
 
@@ -91,9 +94,30 @@ export class SharedService {
 
     return this.http.get<any[]>(apiUrl);
   }
-     
+
 
   //////////////////////////////////////
+  getJsonData(): Observable<any> {
+    return this.http.get<any>(this.JsonDataUrl);
+
+  }
+  getUserInfo(): Observable<any> {
+    return this.http.get<any>(this.UserInfoUrl);
+
+
+  }
+
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(this.userDataUrl);
+  }
+  // getLogin(val: any) {
+  //  return this.http.post(this.userDataUrl + '/user/login', val);
+  // }
+
+  getLogin(credentials: { email: string, password: string }) {
+    return this.http.post<any>(`${this.userDataUrl}/users/login`, credentials);
+  }
+
   getUserData(): Observable<any> {
     return this.http.get<any>(this.userDataUrl);
   }
@@ -114,15 +138,29 @@ export class SharedService {
     }
     return false;
   }
-  getUserInfo(): Observable<any> {
-    return this.http.get<any>(this.UserInfoUrl);
 
-
+  Getall() {
+    return this.http.get(this.userDataUrl);
   }
-  getJsonData(): Observable<any> {
-    return this.http.get<any>(this.JsonDataUrl);
+  getUserRoleList(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.userDataUrl}/role`);
+  }
+
+  getRoles(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.userDataUrl}`)
+      .pipe(
+        map((data: any) => data['role']) // Specify the type of 'data' as 'any'
+      );
+  }
+
+  // getRoles() {
+  //   return this.http.get(`${this.userDataUrl}/role`);
+  // }
 
 
+
+  updateUser(id: any, inputdata: any) {
+    return this.http.put(this.userDataUrl + '/' + id, inputdata);
   }
 
 }

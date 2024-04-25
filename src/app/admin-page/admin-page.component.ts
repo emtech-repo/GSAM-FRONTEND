@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { SharedService } from '../shared.service';
+import { AdminPopupComponent } from '../admin-popup/admin-popup.component';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, Input, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-admin-page',
@@ -7,18 +11,44 @@ import { Component } from '@angular/core';
 })
 export class AdminPageComponent {
 
-  selectedIndex = 0; // Assuming the default selected index is 0 (for the "Cases" tab)
-  refinanceContent = `<table class="table">...</table>`; // Example HTML for the cases content
-  tabs = [
-    { title: 'Create User', content: this.refinanceContent },
-    { title: 'Update Users', content: '' }, // Initial empty content for other tabs
-    { title: 'User', content: '' },
 
-  ];
+  @Input() user: any;
 
-  selectTab(index: number) {
-    this.selectedIndex = index;
-    // Your logic for tab selection goes here
+  bsModalRef: BsModalRef | undefined;
+  userData: any[] = []; // Remove interface and use 'any' for userData
+  isLoading: boolean = true;
+
+  constructor(private sharedService: SharedService, private modalService: BsModalService) { }
+
+  ngOnInit() {
+    this.fetchUserData();
   }
 
+  fetchUserData() {
+    this.sharedService.getUserData().subscribe(
+      (data: any) => {
+        if (data && data.user) {
+          this.userData = data.user;
+        }
+        this.isLoading = false;
+      },
+      error => {
+        console.error('Error fetching user data:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  updateUser(userId: string) {
+    console.log(`Updating user with ID: ${userId}`);
+    // Implement your update logic here
+  }
+
+  openAdminPopup(user: any): void {
+    const initialState = { userData: user }; // This should match the @Input() property name in AdminPopupComponent
+    this.bsModalRef = this.modalService.show(AdminPopupComponent, { initialState });
+  }
 }
+
+
+

@@ -10,6 +10,7 @@ import { CreateMeetingComponent } from './case-management/create-meeting/create-
 import { CaseDecisionComponent } from './case-management/case-decision/case-decision.component';
 import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
 
+
 export const routes: Routes = [
   {
       path: '',
@@ -49,6 +50,9 @@ export const routes: Routes = [
       
       component: AnalysisComponent,
     },
+
+
+ 
     {
       path: 'case-management',
       loadChildren: () => import('../app/case-management/case-management.module').then(m => m.CaseManagementModule)
