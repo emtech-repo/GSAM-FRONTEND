@@ -141,38 +141,9 @@ export class SharedService {
     return false;
   }
 
-  Getall() {
-    return this.http.get(this.userDataUrl);
-  }
-  getUserRoleList(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.userDataUrl}/role`);
-  }
-
-  getRoles(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.userDataUrl}`)
-      .pipe(
-        map((data: any) => data['role'])
-      );
-  }
-
-  // getRoles() {
-  //   return this.http.get(`${this.userDataUrl}/role`);
-  // }
+  
 
 
-
-  // updateUser(id: any, inputdata: any) {
-  //   return this.http.put(this.userDataUrl + '/' + id, inputdata);
-  // }
-
-  updateuser(id: string, updatedUserData: any): Observable<any> {
-    return this.http.put(`${this.userDataUrl}/user/${id}`, updatedUserData);
-  }
-
-
-  // getEmployeeList(): Observable<any> {
-  //   return this.http.get(this.baseUrl + 'employees');
-  // }
 
 
   /////////////////////////////////
