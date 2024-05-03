@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable,tap } from 'rxjs';
 import { CommonModule, DOCUMENT } from '@angular/common';
 
 
@@ -92,4 +92,70 @@ export class SharedService {
 
 
   }
+<<<<<<< Updated upstream
+=======
+
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(this.userDataUrl);
+  }
+  // getLogin(val: any) {
+  //  return this.http.post(this.userDataUrl + '/user/login', val);
+  // }
+
+  getLogin(credentials: { email: string, password: string }) {
+    return this.http.post<any>(`${this.userDataUrl}/users/login`, credentials);
+  }
+
+  getUserData(): Observable<any> {
+    return this.http.get<any>(this.userDataUrl);
+  }
+
+
+  getUserByCode(code: any): Observable<any> {
+    return this.http.get<any>(`${this.APIUrl}/users/${code}`);
+  }
+
+  isAdmin(): boolean {
+    // Example logic to check if user is an admin
+    // You can modify this based on how you store user roles in your system
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const parsedUser = JSON.parse(currentUser);
+      // Assuming user role is stored in 'role' property
+      return parsedUser.role === 'admin';
+    }
+    return false;
+  }
+
+  Getall() {
+    return this.http.get(this.userDataUrl);
+  }
+  getUserRoleList(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.userDataUrl}/role`);
+  }
+
+  getRoles(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.userDataUrl}`)
+      .pipe(
+        map((data: any) => data['role']) // Specify the type of 'data' as 'any'
+      );
+  }
+
+  // getRoles() {
+  //   return this.http.get(`${this.userDataUrl}/role`);
+  // }
+
+
+
+  updateUser(id: any, inputdata: any) {
+    return this.http.put(this.userDataUrl + '/' + id, inputdata);
+  }
+  getDocuments(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.userDataUrl}`)
+      .pipe(
+        tap((data: any[]) => console.log('Fetched documents:', data)),
+        map((data: any) => data['documents']) // Assuming 'document' is the key containing your documents
+      );
+  }
+>>>>>>> Stashed changes
 }

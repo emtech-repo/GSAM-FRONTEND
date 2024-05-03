@@ -9,13 +9,13 @@ import { CaseTrackingComponent } from './case-tracking/case-tracking.component';
 import { CaseManagementRoutingModule } from './case-management-routing.module';
 import { HighchartsChartComponent, HighchartsChartModule } from 'highcharts-angular';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaseDecisionComponent } from './case-decision/case-decision.component';
 import { DecisionTabComponent } from './decision-tab/decision-tab.component';
 import { MeetingTabComponent } from './meeting-tab/meeting-tab.component';
-import { NbCardModule } from '@nebular/theme';
-import { SharedService } from '../shared.service';
-import { SharedModule } from '../shared/shared.module';
+import { AssignCaseComponent } from './assign-case/assign-case.component';
+import { CaseDetailsComponent } from './case-details/case-details.component';
+
 
 
 @NgModule({
@@ -29,19 +29,21 @@ import { SharedModule } from '../shared/shared.module';
     CaseDecisionComponent,
     DecisionTabComponent,
     MeetingTabComponent,
-   
- ],
- imports: [
+    AssignCaseComponent,
+    CaseDetailsComponent,
+    
+    
+    
+  ],
+  imports: [
     CommonModule,
     CaseManagementRoutingModule,
     HighchartsChartModule,
     PaginationModule.forRoot(),
     FormsModule,
-    NbCardModule,
-    SharedModule // Import the SharedModule here
- ],
- providers:[
-    SharedService
- ],
+
+
+
+  ]
 })
 export class CaseManagementModule { }
