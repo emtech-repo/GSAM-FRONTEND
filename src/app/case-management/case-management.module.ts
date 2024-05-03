@@ -13,8 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaseDecisionComponent } from './case-decision/case-decision.component';
 import { DecisionTabComponent } from './decision-tab/decision-tab.component';
 import { MeetingTabComponent } from './meeting-tab/meeting-tab.component';
-import { AssignCaseComponent } from './assign-case/assign-case.component';
-import { CaseDetailsComponent } from './case-details/case-details.component';
+
+
 
 
 
@@ -29,8 +29,8 @@ import { CaseDetailsComponent } from './case-details/case-details.component';
     CaseDecisionComponent,
     DecisionTabComponent,
     MeetingTabComponent,
-    AssignCaseComponent,
-    CaseDetailsComponent,
+    
+    
     
     
     
@@ -41,6 +41,7 @@ import { CaseDetailsComponent } from './case-details/case-details.component';
     HighchartsChartModule,
     PaginationModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule
 
 
 
