@@ -1,4 +1,17 @@
-/* Reduce font size of form labels and placeholders */
+.modal-body {
+    padding: 10px; 
+}
+.modal-dialog {
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+}
+
+.modal-content {
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+} 
+
+
 .label-column label,
 .input-column input,
 .input-column select {
@@ -71,4 +84,11 @@
     /* Darker red on hover, focus, and active */
     border-color: #bd2130;
     /* Darker red border color on hover, focus, and active */
+}
+.alert-top {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999; /* Adjust z-index if necessary */
 }

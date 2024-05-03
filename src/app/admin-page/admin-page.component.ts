@@ -1,54 +1,83 @@
+// admin-page.component.ts
+import { Component, OnInit } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SharedService } from '../shared.service';
 import { AdminPopupComponent } from '../admin-popup/admin-popup.component';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { Component, Input, OnInit } from '@angular/core';
-
 
 @Component({
   selector: 'app-admin-page',
   templateUrl: './admin-page.component.html',
-  styleUrl: './admin-page.component.css'
+  styleUrls: ['./admin-page.component.css']
 })
-export class AdminPageComponent {
+export class AdminPageComponent implements OnInit {
+  dataSource: any[] = [];
 
+  constructor(
+    private modalService: BsModalService,
+    private empService: SharedService,
+  ) { }
 
-  @Input() user: any;
-
-  bsModalRef: BsModalRef | undefined;
-  userData: any[] = []; // Remove interface and use 'any' for userData
-  isLoading: boolean = true;
-
-  constructor(private sharedService: SharedService, private modalService: BsModalService) { }
-
-  ngOnInit() {
-    this.fetchUserData();
+  ngOnInit(): void {
+    this.getEmployeeList();
   }
 
-  fetchUserData() {
-    this.sharedService.getUserData().subscribe(
-      (data: any) => {
-        if (data && data.user) {
-          this.userData = data.user;
-        }
-        this.isLoading = false;
-      },
-      error => {
-        console.error('Error fetching user data:', error);
-        this.isLoading = false;
+  openAddEditEmployeeDialog() {
+    const modalRef: BsModalRef = this.modalService.show(AdminPopupComponent);
+    modalRef.content.onClose.subscribe((result: any) => {
+      if (result) {
+        this.getEmployeeList();
       }
-    );
+    });
   }
 
-  updateUser(userId: string) {
-    console.log(`Updating user with ID: ${userId}`);
-    // Implement your update logic here
+  getEmployeeList() {
+    this.empService.getEmployeeList().subscribe({
+      next: (res) => {
+        this.dataSource = res;
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
-  openAdminPopup(user: any): void {
-    const initialState = { userData: user }; // This should match the @Input() property name in AdminPopupComponent
-    this.bsModalRef = this.modalService.show(AdminPopupComponent, { initialState });
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    // Implement filter logic here
+  }
+
+  deleteEmployee(id: number) {
+    let confirm = window.confirm("Do you want to delete this employee?");
+    if (confirm) {
+      this.empService.deleteEmployee(id).subscribe({
+        next: (res) => {
+          alert('Employee deleted!');
+          this.getEmployeeList();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
+  }
+
+  // openEditForm(data: any) {
+  //   const modalRef: BsModalRef = this.modalService.show(AdminPopupComponent, { initialState: { data } });
+  //   modalRef.content.onClose.subscribe((result: any) => {
+  //     if (result) {
+  //       this.getEmployeeList();
+  //     }
+  //   });
+  // }
+
+  openEditForm(data: any) {
+    const modalRef: BsModalRef = this.modalService.show(AdminPopupComponent, { initialState: { data } });
+    modalRef.content.closeBtnName = 'Close';
+    modalRef.content.onClose.subscribe((result: any) => {
+      if (result) {
+        this.getEmployeeList();
+      }
+    });
   }
 }
-
-
-

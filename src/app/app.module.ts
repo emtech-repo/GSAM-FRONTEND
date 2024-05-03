@@ -7,6 +7,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr'; 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -35,6 +36,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+
+
+
+
+
+
+
 
 
 @NgModule({
@@ -53,12 +67,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     
     
     
+    
     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
     ChartModule,
     HighchartsChartModule,
@@ -75,6 +91,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule,
     MatToolbarModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), 
+
+
+    
     
 
 

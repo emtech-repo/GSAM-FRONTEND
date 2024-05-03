@@ -1,16 +1,17 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { throwError } from 'rxjs';
+
+
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
-  //!new server
-
-
+  
   readonly APIUrl = 'http://localhost:5001/';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly ActivityUrl = 'https://jsonplaceholder.typicode.com/todos';
@@ -19,6 +20,7 @@ export class SharedService {
 
   private readonly userDataUrl = 'assets/data/db.json';
 
+  baseUrl: string = "http://localhost:3000/";
 
 
 
@@ -149,7 +151,7 @@ export class SharedService {
   getRoles(): Observable<any[]> {
     return this.http.get<any[]>(`${this.userDataUrl}`)
       .pipe(
-        map((data: any) => data['role']) // Specify the type of 'data' as 'any'
+        map((data: any) => data['role'])
       );
   }
 
@@ -159,8 +161,52 @@ export class SharedService {
 
 
 
-  updateUser(id: any, inputdata: any) {
-    return this.http.put(this.userDataUrl + '/' + id, inputdata);
+  // updateUser(id: any, inputdata: any) {
+  //   return this.http.put(this.userDataUrl + '/' + id, inputdata);
+  // }
+
+  updateuser(id: string, updatedUserData: any): Observable<any> {
+    return this.http.put(`${this.userDataUrl}/user/${id}`, updatedUserData);
   }
 
+
+  // getEmployeeList(): Observable<any> {
+  //   return this.http.get(this.baseUrl + 'employees');
+  // }
+
+
+  /////////////////////////////////
+  addEmployee(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'user', data);
+  }
+
+ 
+  updateEmployee(id: number, updatedFields: any): Observable<any> {
+    // Include all fields in the update request
+    const allFields = { ...updatedFields }; // Copy the updatedFields object
+    allFields.id = id; // Add the employee ID
+    return this.http.put(this.baseUrl + `user/${id}`, allFields);
+  }
+
+  // updateEmployee(id: number, updatedFields: any): Observable<any> {
+  //   return this.http.put(this.baseUrl + `user/${id}`, updatedFields);
+    
+  // }
+  // updateEmployee(id: number, data: any): Observable<any> {
+  //   return this.http.put(this.baseUrl + `user/${id}`, data);
+    
+  // }
+
+  getEmployeeList(): Observable<any> {
+    return this.http.get(this.baseUrl + 'user');
+  }
+
+  deleteEmployee(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + `user/${id}`);
+    
+  }
+
+  // this.yourService.updateData(updatedData).subscribe(() => {
+  //   this.refreshData(); // Method to fetch and update the data in your component
+  // });
 }

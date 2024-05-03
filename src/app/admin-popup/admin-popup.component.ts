@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { SharedService } from '../shared.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { SharedService } from '../shared.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-popup',
@@ -10,61 +10,65 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./admin-popup.component.css']
 })
 export class AdminPopupComponent implements OnInit {
-  @Input() userData: any;
+  empForm: FormGroup;
+  roleList: string[] = ['officer', 'manager'];
 
-  roleList: any[] = []; // Assuming this is populated elsewhere
-  updateForm = this.fb.group({
-    id: ['', Validators.required],
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    status: ['', Validators.required],
-    role: ['', Validators.required],
-    isActive: [false]
-  });
+  @Input() data: any;
+  @Input() onClose!: () => void;
 
   constructor(
-    private fb: FormBuilder,
-    private service: SharedService,
-    private toastr: ToastrService,
-    public bsModalRef: BsModalRef 
-  ) { }
-
-  ngOnInit(): void {
-    if (this.userData) {
-      this.updateForm.patchValue(this.userData); // Populate form with user data
-      console.log(this.userData);
-    }
-
-    this.fetchRoles();
-    console.log(this.roleList);
-  }
-
-
-  fetchRoles() {
-    this.service.getRoles().subscribe(roles => {
-      this.roleList = roles;
-      if (roles.length > 0) {
-        this.updateForm.get('role')?.setValue(roles[0].code);
-      }
+    private empService: SharedService,
+    private modalRef: BsModalRef,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService // Inject ToastrService
+  ) {
+    this.empForm = this.formBuilder.group({
+      id: [{ value: '', disabled: true }],
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      gender: ['', Validators.required],
+      role: ['', Validators.required],
+      isActive: [false, Validators.requiredTrue]
     });
   }
 
-
-
-  updateUser(): void {
-    if (this.updateForm.valid) {
-      const userId = this.updateForm.value.id;
-      const userData = this.updateForm.value;
-      this.service.updateUser(userId, userData).subscribe(() => {
-        this.toastr.success('User updated successfully.');
-        this.bsModalRef.hide(); // Hide the modal when update is successful
-      }, error => {
-        this.toastr.error('Failed to update user.');
-        console.error('Update user error:', error);
-      });
+  ngOnInit(): void {
+    if (this.data) {
+      this.empForm.patchValue(this.data);
     }
   }
-  closeModal() {
-    this.bsModalRef.hide();
+
+  onSubmit() {
+    if (this.empForm.valid) {
+      if (this.data) {
+        const updatedFields = { ...this.empForm.value };
+
+        if (Object.keys(updatedFields).length === 0) {
+          this.toastr.warning('No changes to update.');
+          return;
+        }
+
+        this.empService.updateEmployee(this.data.id, updatedFields).subscribe({
+          next: (val: any) => {
+            this.toastr.success('Employee details updated!');
+            console.log('Updated fields:', updatedFields);
+            this.modalRef.hide();
+            this.onClose();
+          },
+          error: (err: any) => {
+            console.error(err);
+            this.toastr.error("Error while updating the employee!");
+          },
+        });
+      }
+    }
   }
+
+  onCancel() {
+    this.modalRef.hide();
+    this.onClose();
+  }
+
+  
 }

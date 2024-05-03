@@ -1,104 +1,100 @@
 {
   "user": [
     {
-      "id": "admin",
-      "empId": "10193",
       "name": "zachary macharia",
-      "password": "123456",
       "email": "Admin@gmail.com",
+      "password": "Admin123456",
       "gender": "male",
       "role": "admin",
-      "isactive": true,
-      "address":{
-        "area":"tatu"
-      }
+      "isActive": true,
+      "id": "10193"
     },
     {
-      "id": "testuser",
-      "empId": "5083",
       "name": "Test User",
-      "password": "123456",
       "email": "user@gmail.com",
-      "gender": "male",
-      "role": "user",
-      "isactive": true,
-      "address":{
-        "area":"chennai"
-      }
-    },
-    {
-      "id": "Jhon1",
-      "empId": "101623",
-      "name": "joyce omondi",
-      "password": "Test@1233",
-      "email": "te@in.com",
-      "gender": "male",
-      "role": "tech",
-      "isactive": true,
-      "address":{
-        "area":"tatu"
-      }
-    },
-    {
-      "id": "ntuser",
-      "empId": "30302",
-      "name": "peter",
       "password": "Test@1234",
-      "email": "te@in.com",
       "gender": "male",
-      "role": "tech",
-      "isactive": true,
-      "address":{
-        "area":"kiambu"
-      }
+      "role": "admin",
+      "isActive": true,
+      "id": "5083"
+    },
+    {
+      "name": "peter singer",
+      "email": "peter@gmail.com",
+      "password": "peter1234",
+      "gender": "male",
+      "role": "officer",
+      "isActive": true,
+      "id": "30302"
+    },
+    {
+      "name": "sandtra beta",
+      "email": "beta@gmail.com",
+      "password": "pbeta1234",
+      "gender": "female",
+      "role": "manager",
+      "isActive": true,
+      "id": "30303"
+    },
+    {
+      "name": "paul kimani",
+      "email": "paulr@gmail.com",
+      "password": "paul1234",
+      "gender": "male",
+      "role": "officer",
+      "isActive": true,
+      "id": "90302"
     }
   ],
   "role": [
     {
-      "code": "user",
-      "name": "User"
+      "code": "officer",
+      "name": "Officer",
+      "id": "65e0"
     },
     {
       "code": "admin",
-      "name": "Admin"
+      "name": "Admin",
+      "id": "3aa9"
     },
-     {
+    {
       "code": "mngr",
-      "name": "Manager"
+      "name": "Manager",
+      "id": "f51a"
     }
   ],
-  
   "roleaccess": [
     {
       "role": "admin",
-      "menu": "user",
-      "haveedit":true,
-      "haveadd":true,
-      "havedelete":true
+      "menu": "officer",
+      "haveedit": true,
+      "haveadd": true,
+      "havedelete": true,
+      "id": "60a5"
     },
     {
       "role": "admin",
       "menu": "manager",
-      "haveedit":true,
-      "haveadd":true,
-      "havedelete":true
+      "haveedit": true,
+      "haveadd": true,
+      "havedelete": true,
+      "id": "297f"
     },
     {
-      "role": "user",
-      "menu": "user",
-      "haveedit":false,
-      "haveadd":false,
-      "havedelete":false
+      "role": "officer",
+      "menu": "officer",
+      "haveedit": false,
+      "haveadd": false,
+      "havedelete": false,
+      "id": "e7ab"
     },
     {
       "role": "manager",
       "menu": "manager",
-      "haveedit":true,
-      "haveadd":true,
-      "havedelete":false
+      "haveedit": true,
+      "haveadd": true,
+      "havedelete": false,
+      "id": "44a6"
     }
-    
-    
   ]
-  
 }

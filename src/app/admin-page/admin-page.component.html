@@ -1,52 +1,55 @@
 
-<td>
-    <button  (click)="openAdminPopup" class="btn btn-primary">
-        Add User
-    </button>
-</td>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead style="background-color: #002d72; color: cornsilk">
-                        <tr>
-                            <th>Username</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Role</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let element of userData">
-                            <td>{{ element.id }}</td>
-                            <td>{{ element.name }}</td>
-                            <td>{{ element.email }}</td>
-                            <td>{{ element.isActive ? "Active" : "Inactive" }}</td>
-                            <td>
-                                {{ element.role === "" ? "Unassigned" : element.role }}
-                            </td>
-                            <!-- <td>
-                                                    <button *ngIf="element.role !== 'admin'" (click)="updateUser(element.id)"
-                                                        class="btn btn-primary">Update</button>
-                                                </td> -->
-                            <td>
-                                <button *ngIf="element.role !== 'admin'" (click)="openAdminPopup(element)"
-                                    class="btn btn-primary">
-                                    Update
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                <!-- Pagination -->
-                <!-- <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage"
-                                        (pageChanged)="pageChanged($event)" [maxSize]="5" class="pagination-sm" [boundaryLinks]="true">
-                                    </pagination>
-                                </div> -->
-            </div>
-        </div>
-       
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <span class="navbar-brand">User Management</span>
+  <button class="btn btn-primary" (click)="openAddEditEmployeeDialog()">ADD USER</button>
+</nav>
 
+
+
+
+<div class="main-body">
+  <div>
+    <label>Filter</label>
+    <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="i.e David Smith" #input>
+  </div>
+
+  <div class="table-container">
+    <table class="table table-striped">
+      <thead style="background-color: #002d72; color: cornsilk">
+        <tr>
+          <th>P.F/ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Status</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of dataSource">
+          <td>{{row.id}}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.email }}</td>
+          <td>{{ row.gender }}</td>
+          <td>{{ row.isActive? "Active" : "Inactive" }}</td>
+          <td>
+            {{ row.role === ""? "Unassigned" : row.role }}
+          </td>
+          <td>
+            <!-- <span *ngIf="row.role !== 'admin'" (click)="openEditForm(row)" class="action-icon" style="margin-right: 5px;">
+                <i class="fa fa-edit"></i>
+            </span> -->
+         
+          <button class="btn btn-primary  btn-sm" *ngIf="row.role !== 'admin'" (click)="openEditForm(row)">UPDATE</button>
+                      
+
+            <!-- <span (click)="deleteEmployee(row.id)" class="action-icon">
+              <i class="fa fa-trash"></i>
+            </span> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

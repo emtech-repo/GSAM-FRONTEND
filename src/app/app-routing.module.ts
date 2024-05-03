@@ -11,6 +11,7 @@ import { CaseDecisionComponent } from './case-management/case-decision/case-deci
 import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
 
 
+
 export const routes: Routes = [
   {
       path: '',
@@ -71,6 +72,8 @@ export const routes: Routes = [
     canActivate: [authenticationGuard],
     component: AdminPageComponent, 
   },
+  
+
 
 ];
 
