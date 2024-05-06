@@ -3,7 +3,7 @@
     {
       "name": "zachary macharia",
       "email": "Admin@gmail.com",
-      "password": "Admin123456",
+      "password": "123456",
       "gender": "male",
       "role": "admin",
       "isActive": true,
@@ -32,7 +32,7 @@
       "email": "beta@gmail.com",
       "password": "pbeta1234",
       "gender": "female",
-      "role": "manager",
+      "role": "officer",
       "isActive": true,
       "id": "30303"
     },
@@ -41,7 +41,7 @@
       "email": "paulr@gmail.com",
       "password": "paul1234",
       "gender": "male",
-      "role": "officer",
+      "role": "manager",
       "isActive": true,
       "id": "90302"
     }

@@ -14,7 +14,8 @@ export class SharedService {
   
   readonly APIUrl = 'http://localhost:5001/';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
-  readonly ActivityUrl = 'https://jsonplaceholder.typicode.com/todos';
+  // readonly ActivityUrl = 'https://jsonplaceholder.typicode.com/todos';
+  readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 

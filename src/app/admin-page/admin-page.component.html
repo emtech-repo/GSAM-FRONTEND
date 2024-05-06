@@ -10,7 +10,7 @@
 <div class="main-body">
   <div>
     <label>Filter</label>
-    <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="i.e David Smith" #input>
+    <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Search by PF eg. 10923" #input>
   </div>
 
   <div class="table-container">
@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of dataSource">
+        <tr *ngFor="let row of dataSourceFiltered ">
           <td>{{row.id}}</td>
           <td>{{ row.name }}</td>
           <td>{{ row.email }}</td>

@@ -11,6 +11,8 @@ import { AdminPopupComponent } from '../admin-popup/admin-popup.component';
 })
 export class AdminPageComponent implements OnInit {
   dataSource: any[] = [];
+  dataSourceFiltered: any[] = [];
+
 
   constructor(
     private modalService: BsModalService,
@@ -42,10 +44,17 @@ export class AdminPageComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    // Implement filter logic here
+  applyFilter(event: any) {
+    const filterValue = event.target.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+    if (filterValue.trim() === '') {
+      // If the input value is empty, show the original data
+      this.dataSourceFiltered = this.dataSource;
+    } else {
+      // Otherwise, filter the original data based on the input value
+      this.dataSourceFiltered = this.dataSource.filter(item => item.id.toString().includes(filterValue));
+    }
   }
+
 
   deleteEmployee(id: number) {
     let confirm = window.confirm("Do you want to delete this employee?");

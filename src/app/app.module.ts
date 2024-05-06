@@ -97,7 +97,15 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), 
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      closeButton: true,
+      timeOut: 3000,
+      progressBar: true,
+      enableHtml: true,
+      toastClass: 'ngx-toastr'
+    }) 
 
 
     

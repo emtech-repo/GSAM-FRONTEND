@@ -4,6 +4,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { SharedService } from '../shared.service';
 import { ToastrService } from 'ngx-toastr';
 
+
+declare function showSuccessToast(msg: any): any;
+declare function showDangerToast(msg: any): any;
+
 @Component({
   selector: 'app-admin-popup',
   templateUrl: './admin-popup.component.html',
@@ -45,20 +49,20 @@ export class AdminPopupComponent implements OnInit {
         const updatedFields = { ...this.empForm.value };
 
         if (Object.keys(updatedFields).length === 0) {
-          this.toastr.warning('No changes to update.');
+          showDangerToast('Employee details updated!');
           return;
         }
 
         this.empService.updateEmployee(this.data.id, updatedFields).subscribe({
           next: (val: any) => {
-            this.toastr.success('Employee details updated!');
+            showSuccessToast('Employee details updated!');
             console.log('Updated fields:', updatedFields);
             this.modalRef.hide();
             this.onClose();
           },
           error: (err: any) => {
             console.error(err);
-            this.toastr.error("Error while updating the employee!");
+            showDangerToast('Error while updating the employee!');
           },
         });
       }
@@ -69,6 +73,4 @@ export class AdminPopupComponent implements OnInit {
     this.modalRef.hide();
     this.onClose();
   }
-
-  
 }
