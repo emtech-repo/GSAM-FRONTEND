@@ -22,6 +22,7 @@
     background-color: #f2f2f2;
 } */
 /* Search container */
+
 .search-container {
     margin-bottom: 20px;
   }
@@ -75,4 +76,134 @@
   table[hidden] {
     display: none;
   }
+    .container {
   
+      white-space: nowrap;
+    }
+  
+  
+  
+    .custom-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .custom-list li {
+      margin-bottom: 0px;
+    }
+  
+    .custom-list input[type="checkbox"] {
+      margin-right: 5px;
+      color: blue;
+      background-color: chartreuse;
+    }
+  
+    .table tbody tr {
+      height: px;
+    }
+  
+    input[type="checkbox"]:checked+label {
+      color: green;
+    }
+  
+    /* documentation.component.css */
+  
+    /* Style the table */
+    table {
+      width: 100%;
+      /* border-collapse: collapse; */
+    }
+  
+    /* Style the table header */
+    th {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      background-color: #800000;
+      color: white;
+    }
+  
+    /* Style the table data cells */
+    td {
+      padding: 5px;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    /* Alternate row background color */
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  
+    /* Hover effect on rows */
+    tr:hover {
+      background-color: #ddd;
+    }
+  
+    .search-container {
+      margin-bottom: 50px;
+    }
+  
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+  
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+  
+    .input-group {
+      margin-bottom: 20px;
+      /* Add some bottom margin for spacing */
+    }
+  
+    /* Adjust the width of the select element */
+    .form-select {
+      width: 200px;
+    }
+  
+    /* Style the search button */
+    .btn-search {
+     border-top-left-radius: 0;
+      border-bottom-left-radius: 0; 
+    }
+  
+    .custom-input:focus::placeholder {
+      color: black;
+      /* Change color to match your input text */
+    }
+  
+    /* custom-modal.css */
+    .card {
+      width: 80%;
+      /* Adjust the percentage or pixel value as needed */
+      margin: auto;
+      /* Center the card horizontally */
+    }
+  
+    /* .modal {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+  } */
+  
+    #searchInput {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  /* Add this style to your component's CSS file */
+  #searchValue::placeholder {
+    font-size: 14px;
+      /* Adjust the font size as needed */
+      font-weight: bold;
+      /* Adjust font weight if desired */
+      color: #999;
+      /* Adjust placeholder color if desired */
+      /* You can adjust other properties here as needed */
+}

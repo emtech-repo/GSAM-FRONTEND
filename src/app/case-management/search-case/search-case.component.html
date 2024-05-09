@@ -1,79 +1,92 @@
-<div>
-    <form class="form-inline" style="margin-left: -15px; margin-top: 15px;">
-        <div class="form-group mx-sm-3 mb-6 d-flex">
-            <select class="form-control mr-2" id="dropdownMenu" style="width: 100px; background-color: grey;">
-                <option value="" style="color: rgb(206, 200, 200);">Search by..</option>
-                <option value="option1">ID</option>
-                <option value="option2">Account NO.</option>
-                <option value="option3">Acc Name</option>
-                <option value="option4">Case Number</option>
-                <option value="option5">CIF ID</option>
-            </select>
-            <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search" style="width: 300px; height: 40px; margin-left: 10px;">
-            <button type="submit" class="btn btn-primary btn-sm" style="margin-left: 10px; border-radius: 5px;">Search</button>
-        </div>
-    </form>
-  
-    <div class="table-container">
-        <table class="table table-striped table-responsive">
-            <thead>
-                <tr>
-                    <th scope="col">CIF ID</th>
-                    <th scope="col">Acc. Number</th>
-                    <th scope="col">Acc. Name</th>
-                    <th scope="col">Branch Name</th>
-                    <th scope="col">Loan Amount</th>
-                    <th scope="col">Instalments</th>
-                    <th scope="col">Next Payment Date</th>
-                    <th scope="col">Last Payment Date</th>
-                    <th scope="col">Syndicated</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>3444</td>
-                    <td>13201998</td>
-                    <td>A&B LTD</td>
-                    <td>543839838</td>
-                    <td>85,000</td>
-                    <td>10,000</td>
-                    <td>28.05.24</td>
-                    <td>27.04.24</td>
-                    <td>
-                        <div>
-                            <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div> 
-  
-    <div class="row" style="margin-top: 5%; height: 100%; width: 300%;">
-        <div class="col-md-10 grid-margin stretch-card">
-            <div style="height: 100%; width: 300px;">
-                <div class="col-md-6">
-                    <div class="px-2 py-2">
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-primary btn-sm" style="margin-left: -10px;" (click)="goToDocumentation()">Docs</button>
-                            <button type="button" class="btn btn-primary btn-sm" style="margin-left: 10px;" (click)="goToCreateMeeting()">Create</button>
-                            <button type="button" class="btn btn-primary btn-sm" style="margin-left: 10px;" (click)="goToCaseDecision()">Next</button>
-                        </div>
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group mx-sm-3 mb-6 d-flex">
+                    <label for="searchParam"style="width: 100px; margin-right:20px; color:black;">Search by:</label>
+                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "style="width: auto; height: auto;">
+                        <option value="acid">Acid</option>
+                        <option value="verified_flag">Verified Flag</option>
+                        <option value="sol_code">Sol Code</option>
+                        <option value="account_name">Account Name</option>
+                        <option value="id">ID</option>
+                    </select>
+                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                        placeholder="Enter search value" class="form-control mr-4"style="width: 300px; height: 20px; margin-right: 15px;">
+                    <button (click)="search()" class="btn btn-primary btn-sm" style="border-radius: 5px;">Search</button>
+                </div>
+
+                <table class="table mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Account ID</th>
+                            <th>Verified Flag</th>
+                            <th>SOL ID</th>
+                            <th>Account Name</th>
+                            <th>CIF</th>
+                            <th>Actions</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let loanItem of pagedLoanData">
+                            <td>{{ loanItem.acid }}</td>
+                            <td>{{ loanItem.verified_flag }}</td>
+                            <td>{{ loanItem.sol_code }}</td>
+                            <td>{{ loanItem.account_name }}</td>
+                            <td>{{ loanItem.id }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-info" (click)="getLoanDetails(loanItem.acid)">View Details</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-12">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                            (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
-  
-  <!-- Angular component section -->
-  
-  
-  
-  
-  <!-- <div class="row justify-content-center mt-4">
-      <div class="col-md-6">
-          <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></pagination>
-      </div>
-  </div> -->
+    <!-- <div>
+        <p>Account Name: {{loanDetails?.acid}}</p>
+        <table>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            <tr *ngFor="let detail of loanDetails | keyvalue">
+                <td>{{ detail.key }}</td>
+                <td>{{ detail.value }}</td>
+            </tr>
+        </table>      
+    </div>  -->
+<div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'loan'}" id="pills-loan-details" role="tabpanel"
+    aria-labelledby="pills-loan-details-tab">
+    <div *ngIf="loanDetails && loanDetails.entity">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Account Activation Info</td>
+                    <td>{{ loanDetails.entity.accountActivationInfo }}</td>
+                </tr>
+                <tr>
+                    <td>Account Balance</td>
+                    <td>{{ loanDetails.entity.accountBalance }}</td>
+                </tr>
+                <tr>
+                    <td>Account Closure Info</td>
+                    <td>{{ loanDetails.entity.accountClosureInfo }}</td>
+                </tr>
+                <!-- Continue adding rows for other properties you want to display -->
+            </tbody>
+        </table>
+    </div>
+</div>
 
+    
+     
+</div>

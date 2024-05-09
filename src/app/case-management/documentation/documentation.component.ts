@@ -26,6 +26,8 @@ export class DocumentationComponent implements OnInit {
   documents: any[] = [];
   filteredDocuments: any[] = [];
   searchTerm: string = '';
+  loan :any[]=[];
+  cases: any[]=[];
   startDate: string = '';
   endDate: string = '';
   searchForm = new FormGroup({
@@ -35,11 +37,14 @@ export class DocumentationComponent implements OnInit {
     startDate: new FormControl(''),
     endDate: new FormControl('')
   });
+  
+  
 
   constructor(private router: Router, private sharedService: SharedService, @Inject(PLATFORM_ID) private platformId: Object, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.getDocument();
+    this.getLoan();
   }
 
   openModal(content: TemplateRef<Element>) {
@@ -50,6 +55,12 @@ export class DocumentationComponent implements OnInit {
     this.sharedService.getDocuments().subscribe(documents => {
       this.documents = documents;
       this.filteredDocuments = documents;
+    });
+  }
+  getLoan(): void {
+    this.sharedService.getLoan().subscribe(loan=> {
+      this.loan = loan;
+      // this.filteredDocuments = documents;
     });
   }
 
@@ -79,12 +90,16 @@ export class DocumentationComponent implements OnInit {
     this.searchBy = column;
     this.applySearchFilter();
   }
+  
+
+
 
   performSearch() {
     this.searchTerm = this.searchForm.get('accName')?.value || '';
     this.searchTerm = this.searchForm.get('accNumber')?.value || '';
     this.startDate = this.searchForm.get('startDate')?.value || '';
     this.endDate = this.searchForm.get('endDate')?.value || '';
+    
     this.filterDocuments(); // Apply filters based on form inputs
   }
 
@@ -97,7 +112,7 @@ export class DocumentationComponent implements OnInit {
     console.log(this.searchForm.value);
     console.log(`Submit button clicked. Search Term: ${this.searchTerm}, Start Date: ${this.startDate}, End Date: ${this.endDate}`);
     this.performSearch();
-    
+
   }
 
   setActiveTab(tab: string): void {
@@ -125,4 +140,16 @@ export class DocumentationComponent implements OnInit {
     }
     this.customerFound = this.filteredDocuments.length > 0;
   }
+  // getCases(): void {
+  //   this.sharedService.getCases().subscribe(
+  //     cases => {
+  //       this.cases = cases;
+  //       console.log('Cases fetched:', cases);
+  //     },
+  //     error => {
+  //       console.error('Error fetching cases:', error);
+  //     }
+  //   );
+  // }
+
 }
