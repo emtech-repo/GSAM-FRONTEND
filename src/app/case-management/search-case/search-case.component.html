@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <!-- <div>
+    <div>
         <p>Account Name: {{loanDetails?.acid}}</p>
         <table>
             <tr>
@@ -59,34 +59,51 @@
                 <th>Value</th>
             </tr>
             <tr *ngFor="let detail of loanDetails | keyvalue">
-                <td>{{ detail.key }}</td>
-                <td>{{ detail.value }}</td>
+                {{ detail.key }}
+                {{ detail.value }}
             </tr>
         </table>      
-    </div>  -->
-<div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'loan'}" id="pills-loan-details" role="tabpanel"
-    aria-labelledby="pills-loan-details-tab">
-    <div *ngIf="loanDetails && loanDetails.entity">
-        <table class="table">
-            <tbody>
-                <tr>
-                    <td>Account Activation Info</td>
-                    <td>{{ loanDetails.entity.accountActivationInfo }}</td>
-                </tr>
-                <tr>
-                    <td>Account Balance</td>
-                    <td>{{ loanDetails.entity.accountBalance }}</td>
-                </tr>
-                <tr>
-                    <td>Account Closure Info</td>
-                    <td>{{ loanDetails.entity.accountClosureInfo }}</td>
-                </tr>
-                <!-- Continue adding rows for other properties you want to display -->
-            </tbody>
-        </table>
+    </div> 
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'accountClosureInfo'}" id="pills-accountClosureInfo"
+        role="tabpanel" aria-labelledby="pills-accountClosureInfo-tab">
+        <div *ngIf="loanDetails && loanDetails.entity">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Closed By</td>
+                        <td>{{ loanDetails.entity.accountClosureInfo.closedBy }}</td>
+                    </tr>
+                    <tr>
+                        <td>Closing Date</td>
+                        <td>{{ loanDetails.entity.accountClosureInfo.closingDate }}</td>
+                    </tr>
+                    <tr>
+                        <td>Closure Reason</td>
+                        <td>{{ loanDetails.entity.accountClosureInfo.closureReason }}</td>
+                    </tr>
+                    <!-- Add more rows for other properties if needed -->
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-
     
+    <!-- Repeat the above structure for other tabs -->
+    
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'accountDocuments'}" id="pills-accountDocuments"
+        role="tabpanel" aria-labelledby="pills-accountDocuments-tab">
+        <div *ngIf="loanDetails && loanDetails.entity">
+            <!-- Render the account documents data here -->
+        </div>
+    </div>
+    
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'accountRecurringFees'}"
+        id="pills-accountRecurringFees" role="tabpanel" aria-labelledby="pills-accountRecurringFees-tab">
+        <div *ngIf="loanDetails && loanDetails.entity">
+            <!-- Render the account recurring fees data here -->
+        </div>
+    </div>
+    
+    <!-- Repeat the above structure for other tabs -->
+
      
 </div>
