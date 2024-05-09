@@ -82,43 +82,6 @@
   </div> 
 
 
-<!--TABLEEE-->
-  <!-- <div class="row">
-    <div class="col-md-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <p class="card-title">Recent Activity</p>
-          <div class="row">
-            <div class="col-12">
-              <div class="table-responsive table-striped" >
-                <table id="example" class="display expandable-table" style="width:100%">
-                  <thead>
-                    <tr>
-                      <th>Id#</th>
-                      <th>CIF</th>
-                      <th>A/C Name</th>
-                      <th>Status</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of recentActivityData">
-                      <td>{{ item.userId }}</td>
-                      <td>{{ item.id }}</td>
-                      <td>{{ item.title }}</td>
-                      <td>{{ item.completed }}</td>
-                    </tr>
-                  </tbody>
-                  
-                </table>
-                
-              </div>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>  -->
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
@@ -143,22 +106,35 @@
                     <!-- Table headers and rows -->
                     <thead>
                       <tr>
-                    <th>Item Number</th>
+                        
+                    <th>Case Number</th>
                     <th>CIF ID</th>
-                    <th>A/C Number</th>
                     <th>A/C Name</th>
-                    <th>Activity</th>
-                    <th>Status</th>
+                    <th>Loan Amount</th>
+                    <th>Loan Tenure</th>
+                    <th>Loan balance</th>
+                    <th>Loan A/C</th>
+                    <th>Sol Id</th>
+                    <th>Syndicated  Flag</th>
+                    <th>Verified Flag</th>
+                    <th>Assigned</th>
                   </tr>
                     </thead>
+          
+
                     <tbody>
                       <tr *ngFor="let item of filteredData">
-                       <td>{{ item.userId }}</td>
-                     <td>{{ item.id }}</td>
-                      <td>{{ item.id }}</td>
-                    <td>{{ item.title }}</td>
-                    <td>{{ item.title }}</td>
-                    <td>{{ item.completed }}</td>
+                    <td>{{ item.caseNumber }}</td>
+                    <td>{{ item.cifId }}</td>
+                    <td>{{ item.accountName }}</td>
+                    <td>{{ item.loanAmount }}</td>
+                    <td>{{ item.loanTenure }}</td>
+                    <td>{{ item.loanBalance }}</td>
+                    <td>{{ item.loanAccount }}</td>
+                    <td>{{ item.solId }}</td>
+                    <td>{{ item.syndicatedFlag }}</td>
+                    <td>{{ item.verifiedFlag }}</td>
+                    <td>{{ item.assigned }}</td>
                       </tr>
                     </tbody>
 

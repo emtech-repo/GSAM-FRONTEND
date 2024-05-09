@@ -1,0 +1,32 @@
+{
+  "statusCode": 200,
+  "message": "Records Found",
+  "result": [
+    {
+      "cifId": "5564541",
+      "accountName": "Shicky Melvin",
+      "loanAmount": 9000000,
+      "loanTenure": 150,
+      "solId": "087",
+      "loanBalance": 450000,
+      "loanAccount": "13433228",
+      "syndicatedFlag": "Y",
+      "verifiedFlag": "N",
+      "caseNumber": 8,
+      "assigned": "N"
+    },
+    {
+      "cifId": "5674433",
+      "accountName": "Sosthene Timi",
+      "loanAmount": 78000000,
+      "loanTenure": 108,
+      "solId": "098",
+      "loanBalance": 5000000,
+      "loanAccount": "LAA5473845",
+      "syndicatedFlag": "Y",
+      "verifiedFlag": "N",
+      "caseNumber": 9,
+      "assigned": "N"
+    }
+  ]
+}

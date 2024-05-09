@@ -46,6 +46,7 @@
                                 <!-- Table headers and rows -->
                                 <thead>
                                     <tr>
+                                      
                                         <th>Level </th>
                                         <th>Name </th>
                                         <th>ID </th>
@@ -55,15 +56,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of recentActivityData">
-                                        <td>{{ item.userId }}</td>
-                                        <td>{{ item.id }}</td>
-                                        <td>{{ item.title }}</td>
-                                        <td>{{ item.completed }}</td>
+                                    <tr *ngFor="let item of loansAll">
+                                        <td>{{ item.acid }}</td>
+                                        <td>{{ item.verified_flag }}</td>
+                                        <td>{{ item.sol_code }}</td>
+                                        <td>{{ item.account_name }}</td>
+                                        <td>{{ item.account_id}}</td>
                                     </tr>
                                 </tbody>
 
-
+ 
 
 
                             </table>

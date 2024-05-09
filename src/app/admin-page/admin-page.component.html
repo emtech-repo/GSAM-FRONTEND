@@ -1,20 +1,55 @@
 
-
-<div class="row">
-    <div class="col-md-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <p class="card-title">Decision </p>
-
-
-                <app-admin-tab [tabs]="tabs"> </app-admin-tab>
-
-                <!-- <app-tabs [tabs]="tabs"></app-tabs> -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <span class="navbar-brand">User Management</span>
+  <button class="btn btn-primary" (click)="openAddEditEmployeeDialog()">ADD USER</button>
+</nav>
 
 
 
 
-            </div>
-        </div>
-    </div>
+<div class="main-body">
+  <div>
+    <label>Filter</label>
+    <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Search by PF eg. 10923" #input>
+  </div>
 
+  <div class="table-container">
+    <table class="table table-striped">
+      <thead style="background-color: #002d72; color: cornsilk">
+        <tr>
+          <th>P.F/ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Status</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of dataSourceFiltered ">
+          <td>{{row.id}}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.email }}</td>
+          <td>{{ row.gender }}</td>
+          <td>{{ row.isActive? "Active" : "Inactive" }}</td>
+          <td>
+            {{ row.role === ""? "Unassigned" : row.role }}
+          </td>
+          <td>
+            <!-- <span *ngIf="row.role !== 'admin'" (click)="openEditForm(row)" class="action-icon" style="margin-right: 5px;">
+                <i class="fa fa-edit"></i>
+            </span> -->
+         
+          <button class="btn btn-primary  btn-sm" *ngIf="row.role !== 'admin'" (click)="openEditForm(row)">UPDATE</button>
+                      
+
+            <!-- <span (click)="deleteEmployee(row.id)" class="action-icon">
+              <i class="fa fa-trash"></i>
+            </span> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

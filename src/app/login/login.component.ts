@@ -4,8 +4,11 @@ import { SharedService } from '../shared.service';
 import usersData from '../../assets/data/db.json';
 
 
+
 declare function showSuccessToast(msg: any): any;
 declare function showDangerToast(msg: any): any;
+declare function showDangerToast(message: string, title?: string): void;
+
 
 @Component({
   selector: 'app-login',
@@ -49,19 +52,27 @@ export class LoginComponent implements OnInit {
     );
 
     if (user) {
-      showSuccessToast("Login Successful");
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.servive.isAuthenticated = true;
-      console.log('Current User:', user); 
+      // Check if the user has no role
+      if (!user.role || user.role.trim() === '') {
+        showDangerToast('Please contact Admin for activation', 'Inactive User');
+      } else {
+        showSuccessToast("Login Successful");
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.servive.isAuthenticated = true;
+        console.log('Current User:', user);
 
-      this.router.navigate(['/Dashboard']);
+        this.router.navigate(['/Dashboard']);
+      }
     } else {
       showDangerToast('Invalid Credential');
     }
 
     this.servive.loader = false;
   }
-}
+
+  }
+
+
 
 
 
