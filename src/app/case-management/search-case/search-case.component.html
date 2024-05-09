@@ -1,0 +1,132 @@
+<form class="form-inline" style=" margin-left: -15px;margin-top: 15px;">
+    
+
+</form>
+<div>
+
+</div>
+<div>
+    <div class="container-xl h-100" style=" width: 200%; margin-left: -5%;">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+                <div class="card" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <div class="row align-items-center pt-4 pb-3">
+                            
+                            <form class="form-inline" style=" margin-left: -15px;margin-top: 15px;">
+                                <div class="form-group mx-sm-3 mb-6 d-flex">
+                                    <select class="form-control mr-2" id="dropdownMenu"
+                                        style="width: 100px;background-color:grey ; ">
+                                        <option value="" style="color: white;">Search by..</option>
+                                        <option value="option1">ID</option>
+                                        <option value="option2">Account NO.</option>
+                                        <option value="option3">Acc Name</option>
+                                        <option value="option4">Case Number</option>
+                                        <option value="option5">CIF ID</option>
+                                    </select>
+                                    <input type="text" class="form-control mr-4" id="searchInput"
+                                        placeholder="Search"
+                                        style="width: 650px; height: 40px; margin-left: 10px;">
+                                    <button type="search" class="btn btn-primary btn-sm"
+                                        style=" margin-left: 10px;border-radius: 5px;">Search</button>
+                                </div>
+                                 
+                            </form>
+                            
+                            
+                            <div class="col-md-6 ps-9">
+                                <div class="form-group">
+                                    <label>CIF ID</label>
+                                    <input type="text" class="form-control" id="idNation" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0]['ID Nation']" name="idNation">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-9">
+                                <div class="form-group">
+                                    <label >Acc Number</label>
+                                    <input type="text" class="form-control" id="population" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0].Population" name="population">
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-9">
+                                <div class="form-group">
+                                    <label>Acc Name</label>
+                                    <input type="text" class="form-control" id="slugNation" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0]['Slug Nation']" name="slugNation">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-9">
+                                <div class="form-group">
+                                    <label>Branch Name </label>
+                                    <input type="text" class="form-control" id="slugNation" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0]['Slug Nation']" name="slugNation">
+                                        
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-9">
+                                <div class="form-group">
+                                    <label > Loan Amount</label>
+                                    <input type="text" class="form-control" id="idNation" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0]['ID Nation']" name="idNation">
+                                        
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 ps-9">
+                                <div class="form-group">
+                                    <label >Instalments</label>
+                                    <input type="text" class="form-control" id="population" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0].Population" name="population">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-9">
+                                <div class="form-group">
+                                    <label>Next Payment Date</label>
+                                    <input type="text" class="form-control" id="population" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0].Population" name="population">
+                                       
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-9">
+                                <div class="form-group">
+                                    <label >Last Payment Date</label>
+                                    <input type="text" class="form-control" id="population" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0].Population" name="population">
+                                       
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-9">
+                                <div class="form-group">
+                                    <label >Syndicated</label>
+                                    <input type="text" class="form-control" id="inputEmail4">
+
+                                    
+                                    <!-- <input type="text" class="form-control" id="population" [readonly]="true" [(ngModel)]="UserInfoUrl.data[0].Population" name="population"> -->
+
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 5%;height: 100%;width:300% ;">
+                                <div class="col-md-10 grid-margin stretch-card">
+                        
+                                    <div style="height: 100%;width: 300px; ">
+                                        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions">
+                                        </highcharts-chart>
+                                        <div class="col-md-13 ">
+                                            <div class="px-5 py-4">
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button" class="create-meeting"  (click)="goToCreateMeeting()">Create&nbsp;Meeting</button>
+                                                    <button type="submit" class="next" (click)="goToCaseDecision()">Next&nbsp;Page</button>
+                        
+                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            
+            </div>
+            
+       </div>  
+                      
+    </div>
+    

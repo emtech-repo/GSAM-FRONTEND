@@ -1,0 +1,47 @@
+
+
+/* Example custom CSS */
+.card {
+  background-color: #f8f9fa;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Adjust form spacing */
+.mb-3 {
+  margin-bottom: 1rem!important; /* Adjust as needed */
+}
+.form-label {
+  height: 15px; /* Adjust this value as needed */
+  line-height: 15px; 
+}
+
+
+
+.success-snackbar {
+  background-color: #28a745;
+  color: white;
+}
+
+.danger-snackbar {
+ background-color: #dc3545;
+  color: white;
+}
+.toast-success {
+  background-color: #28a745; /* Change to green for success */
+  color: white;
+}
+
+.toast-danger {
+  background-color: #dc3545; /* Change to red for danger */
+  color: white;
+}
+.snackbar-margin-right {
+  margin-right: 16px; /* Adjust as needed */
+}
+.success-snackbar{
+  margin-top: auto;
+}

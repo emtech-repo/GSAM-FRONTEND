@@ -1,0 +1,230 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)">
+        <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
+    </li>
+</ul>
+
+
+<!-- cONTENT FOR TABLES -->
+
+<div class="tab-content">
+    <ng-container *ngFor="let tab of tabs; let i = index">
+        <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
+            <!-- Display tab content based on selectedIndex -->
+            <ng-container *ngIf="i === 0">
+                <!-- Display table for the "Cases" tab -->
+                <div class="table-responsive">
+
+
+                    <!-- Search input and button start -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">Search</button>
+                        </div>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>A/C NO</th>
+                                <th>CIF</th>
+                                <th>NAME</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="font-weight-bold">88234234545</td>
+                                <td>9283742423423</td>
+                                <td>Joseph Smith</td>
+                                <td class="font-weight-medium">
+                                    <div class="badge badge-success">Pending</div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary">Approve</button>
+                                </td>
+                            </tr>
+                            <!-- Add more table rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </ng-container>
+
+
+            <ng-container *ngIf="i === 1">
+                <!-- Display content for "Document Approval" tab -->
+                <div class="container mt-3">
+                    <!-- Document details -->
+                    <h5>Document Details:</h5>
+                    <!-- Replace this with actual document details -->
+                    <p><a href="#">Document Name: DocumentXYZ</a></p> <!-- Make Document Name a clickable link -->
+                    <p>Submitted By: John Doe</p>
+                    <p>Submission Date: 2024-04-15</p>
+            
+                    <!-- View Submission button -->
+                            <button type="button" class="btn btn-primary btn-sm btn-block my-3">
+                                <span>View Submission</span>
+                            </button>
+            
+                    <!-- Comments -->
+                    <div class="form-group mt-3">
+                        <label for="comments">Comments:</label>
+                        <textarea class="form-control" id="comments" rows="3"></textarea>
+                    </div>
+            
+                    <!-- Buttons -->
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-success" (click)="approveDocument()" style="margin-top: 10px;">Approve</button>
+                        <button type="button" class="btn btn-danger" (click)="rejectDocument()" style="margin-top: 10px;">Reject</button>
+
+                    </div>
+
+
+                    <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
+                        Submitted Successfully!
+                    </div>
+                    
+                </div>
+            </ng-container>
+
+
+            <ng-container *ngIf="i === 2">
+                <!-- Display content for "Claims Approval" tab -->
+                <div class="container mt-3">
+                    <!-- Claim details -->
+                    <h5>Claim Details:</h5>
+                    <!-- Replace this with actual claim details -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="https://www.example.com">Claim ID :A0106</a>
+
+                                </h5>
+                            <p class="card-text">Claimant: John Doe</p>
+                            <p class="card-text">Amount: $1000</p>
+                            <p class="card-text">Date: 2024-04-15</p>
+                        </div>
+                    </div>
+            
+                    <!-- Comments -->
+                    <div class="form-group mt-3">
+                        <label for="comments">Comments:</label>
+                        <textarea class="form-control" id="comments" rows="3"></textarea>
+                    </div>
+            
+                    <!-- Buttons -->
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-success" (click)="approveClaim()"
+                            style="margin-top: 10px;">Approve</button>
+                        <button type="button" class="btn btn-danger" (click)="rejectClaim()"
+                            style="margin-top: 10px;">Reject</button>
+            
+                    </div>
+            
+                    <!-- Submitted Successfully Alert -->
+                    <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
+                        Claim {{ action }}ed Successfully!
+                    </div>
+            
+                </div>
+            </ng-container>
+
+
+
+            <ng-container *ngIf="i === 3">
+                <!-- Display content for "Claims Approval" tab -->
+                <div class="container mt-3">
+                    <!-- Claim details -->
+                    <h5>Request Details:</h5>
+                    <!-- Replace this with actual claim details -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                             <h5 class="card-title">
+                                <a href="https://www.example.com">Request ID :10106</a>
+
+                                </h5>
+                            <p class="card-text">Requester user name: John kamau</p>
+                            <p class="card-text">Amount: $1000</p>
+                            <p class="card-text">Item: furniture</p>
+                            <p class="card-text">Date: 2024-04-10</p>
+                        </div>
+                    </div>
+            
+                    <!-- Comments -->
+                    <div class="form-group mt-3">
+                        <label for="comments">Comments:</label>
+                        <textarea class="form-control" id="comments" rows="3"></textarea>
+                    </div>
+            
+                    <!-- Buttons -->
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-success" (click)="approveClaim()"
+                            style="margin-top: 10px;">Approve</button>
+                        <button type="button" class="btn btn-danger" (click)="rejectClaim()"
+                            style="margin-top: 10px;">Reject</button>
+            
+                    </div>
+            
+                    <!-- Submitted Successfully Alert -->
+                    <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
+                        Request {{ action }}ed Successfully!
+                    </div>
+            
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="i === 4">
+                <!-- Display content for "Claims Approval" tab -->
+                <div class="container mt-3">
+                    <!-- Claim details -->
+                    <h5>Claim Details:</h5>
+                    <!-- Replace this with actual claim details -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                           <h5 class="card-title">
+                                <a href="https://www.example.com">Meeting  ID :1219</a>
+
+                                </h5>
+                            <p class="card-text">User: John Doe</p>
+                            <p class="card-text">Venue: Zoom</p>
+                            <p class="card-text">Date: 2024-04-15</p>
+                        </div>
+                    </div>
+            
+                    <!-- Comments -->
+                    <div class="form-group mt-3">
+                        <label for="comments">Comments:</label>
+                        <textarea class="form-control" id="comments" rows="3"></textarea>
+                    </div>
+            
+                    <!-- Buttons -->
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-success" (click)="approveClaim()"
+                            style="margin-top: 10px;">Approve</button>
+                        <button type="button" class="btn btn-danger" (click)="rejectClaim()"
+                            style="margin-top: 10px;">Reject</button>
+            
+                    </div>
+            
+                    <!-- Submitted Successfully Alert -->
+                    <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
+                        Meeting {{ action }}ed Successfully!
+                    </div>
+            
+                </div>
+            </ng-container>
+
+
+
+
+
+        </div>
+    </ng-container>
+</div>
+
+
+
+

@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-title">Recent Activity</p>
+
+                <!-- SEEERCH BUTTON-->
+                <div class="row">
+                    <!-- <div class="col-8 mb-3 ">
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchQuery"
+                            (ngModelChange)="onSearch()">
+                    </div> -->
+                </div>
+
+
+
+                <div class="form-group mx-sm-3 mb-6 d-flex">
+                    <select class="form-control mr-2" id="dropdownMenu" style="width: 100px; margin-right: 20px; color:black;">
+                        <option value="">Search by..</option>
+                        <option value="option1">ID</option>
+                        <option value="option2">Account</option>
+                        <option value="option3">Name</option>
+                        <option value="option4">Case Number</option>
+                        <option value="option5">CIF</option>
+                    </select>
+                    <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
+                        style="width: 300px; height: 20px; margin-right: 15px;">
+                    <button type="search" class="btn btn-primary btn-sm" style="border-radius: 5px;">Search</button>
+                </div>
+
+                <!-- <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                Search
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <input class="dropdown-item" type="text" placeholder="Search..." (keyup)="performSearch($event.target.value)">
+              </div>
+            </div> -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive table-striped">
+                            <table id="example" class="display expandable-table" style="width:100%">
+
+                                <!-- Table headers and rows -->
+                                <thead>
+                                    <tr>
+                                      
+                                        <th>Level </th>
+                                        <th>Name </th>
+                                        <th>ID </th>
+                                        <th>COMMENTS</th>
+                                        <th>JOB LEVEL </th>
+                                        <th> STATUS </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of loansAll">
+                                        <td>{{ item.acid }}</td>
+                                        <td>{{ item.verified_flag }}</td>
+                                        <td>{{ item.sol_code }}</td>
+                                        <td>{{ item.account_name }}</td>
+                                        <td>{{ item.account_id}}</td>
+                                    </tr>
+                                </tbody>
+
+ 
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      
+
+            

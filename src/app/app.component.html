@@ -1,0 +1,9 @@
+<div *ngIf="sharedService.loader" style="z-index: 1999;position: absolute;top: 0;left: 0;right: 0;bottom: 0;background-color: #f8f9fac7">
+<img src="../assets/images/loader.svg" alt="Duplicate" width="100px" style="position: fixed;top: 40%;left: 50%;">
+</div>
+<div *ngIf="sharedService.isAuthenticated">
+  <app-layout></app-layout>
+</div>
+<div *ngIf="sharedService.isAuthenticated == false">
+  <router-outlet></router-outlet>
+</div>

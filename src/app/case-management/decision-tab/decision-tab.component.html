@@ -1,0 +1,679 @@
+<ul class="nav nav-tabs">
+  <li
+    class="nav-item"
+    *ngFor="let tab of tabs; let i = index"
+    (click)="selectTab(i)"
+  >
+    <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
+  </li>
+</ul>
+
+<!-- cONTENT FOR TABLES -->
+
+<div class="tab-content" style="background-color: #d3d3d3; border-radius: 20px">
+  <ng-container *ngFor="let tab of tabs; let i = index">
+    <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
+      <!-- Display tab content based on selectedIndex -->
+      <ng-container *ngIf="i === 0">
+        <!-- Display table for the "Refinance" tab -->
+
+        <div class="container-xl h-100" style="width: 150%; margin-left: -9%">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-xl-9">
+              <div class="card" style="border-radius: 15px">
+                <div class="card-body">
+                  <div class="row align-items-center pt-4 pb-3">
+                    <div>
+                      <h1
+                        style="
+                          font-size: 25px;
+                          text-align: center;
+                          color: black;
+                          background-color: #e2532725;
+                        "
+                      >
+                        REFINANCE INFORMATION
+                      </h1>
+                    </div>
+                    <form
+                      class="form-inline"
+                      style="margin-left: -15px; margin-top: 15px"
+                    >
+                      <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <select
+                          class="form-control mr-2"
+                          id="dropdownMenu"
+                          style="width: 100px; background-color: grey"
+                        >
+                          <option value="" style="color: white">
+                            Search by..
+                          </option>
+                          <option value="option1">ID</option>
+                          <option value="option2">Account NO.</option>
+                          <option value="option3">Acc Name</option>
+                          <option value="option4">Case Number</option>
+                          <option value="option5">CIF ID</option>
+                        </select>
+                        <input
+                          type="text"
+                          class="form-control mr-4"
+                          id="searchInput"
+                          placeholder="Search"
+                          style="width: 300px; height: 40px; margin-left: 10px"
+                        />
+                        <button
+                          type="search"
+                          class="btn btn-primary btn-sm"
+                          style="margin-left: 10px; border-radius: 5px"
+                        >
+                          Search
+                        </button>
+                      </div>
+                        
+                    </form>
+
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">CIF ID</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="idNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['ID Nation']"
+                          name="idNation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Acc Number</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Acc Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="slugNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['Slug Nation']"
+                          name="slugNation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Branch Name </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="slugNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['Slug Nation']"
+                          name="slugNation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Case Number </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="idNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['ID Nation']"
+                          name="idNation"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Initial Loan Amount</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Initial Instalments</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Refinance amount</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">New Instalments</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Loan Tenure</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="inputTenure"
+                          placeholder="months"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <div class="form-group">
+                        <label for="inputEmail4" style="color: blue"
+                          >COMMENTS</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputComments"
+                          placeholder="Add Comments"
+                          style="height: 200px"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="px-5 py-4">
+                <div class="d-flex justify-content-between">
+                  <button type="submit" class="btn btn-primary">
+                    Exit Page
+                  </button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="i === 1">
+        <!-- Display content for "Restructure" tab -->
+
+        <div class="container-xl h-100" style="width: 150%; margin-left: -9%">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-xl-9">
+              <div class="card" style="border-radius: 15px">
+                <div class="card-body">
+                  <div class="row align-items-center pt-4 pb-3">
+                    <div>
+                      <h1
+                        style="
+                          font-size: 25px;
+                          text-align: center;
+                          color: black;
+                          background-color: #e2532725;
+                        "
+                      >
+                        RESTRUCTURE INFORMATION
+                      </h1>
+                    </div>
+                    <form
+                      class="form-inline"
+                      style="margin-left: -15px; margin-top: 15px"
+                    >
+                      <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <select
+                          class="form-control mr-2"
+                          id="dropdownMenu"
+                          style="width: 100px; background-color: grey"
+                        >
+                          <option value="" style="color: white">
+                            Search by..
+                          </option>
+                          <option value="option1">ID</option>
+                          <option value="option2">Account NO.</option>
+                          <option value="option3">Acc Name</option>
+                          <option value="option4">Case Number</option>
+                          <option value="option5">CIF ID</option>
+                        </select>
+                        <input
+                          type="text"
+                          class="form-control mr-4"
+                          id="searchInput"
+                          placeholder="Search"
+                          style="width: 300px; height: 40px; margin-left: 10px"
+                        />
+                        <button
+                          type="search"
+                          class="btn btn-primary btn-sm"
+                          style="margin-left: 10px; border-radius: 5px"
+                        >
+                          Search
+                        </button>
+                      </div>
+                        
+                    </form>
+
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">CIF ID</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="idNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['ID Nation']"
+                          name="idNation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Acc Number</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Acc Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="slugNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['Slug Nation']"
+                          name="slugNation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Branch Name </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="slugNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['Slug Nation']"
+                          name="slugNation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Case Number </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="idNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['ID Nation']"
+                          name="idNation"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Remaining Loan Amount</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4"
+                          >Initial Monthly Instalments</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">New Monthly instalments</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Initial Loan Tenure</label>
+                        <input
+                          type="Number"
+                          class="form-control"
+                          id="inputEmail4"
+                          placeholder="Months"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">New Loan Tenure</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="inputTenure"
+                          placeholder="Months"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <div class="form-group">
+                        <label for="inputEmail4" style="color: blue"
+                          >COMMENTS</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputComments"
+                          placeholder="Add Comments"
+                          style="height: 200px"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="px-5 py-4">
+                <div class="d-flex justify-content-between">
+                  <button type="submit" class="btn btn-primary">
+                    Exit Page
+                  </button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="i === 2">
+        <!-- Display content for "Recover" tab -->
+
+        <div class="container-xl h-100" style="width: 150%; margin-left: -9%">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-xl-9">
+              <div class="card" style="border-radius: 15px">
+                <div class="card-body">
+                  <div class="row align-items-center pt-4 pb-3">
+                    <div>
+                      <h1
+                        style="
+                          font-size: 25px;
+                          text-align: center;
+                          color: black;
+                          background-color: #e2532725;
+                        "
+                      >
+                        RECOVERY INFORMATION
+                      </h1>
+                    </div>
+                    <form
+                      class="form-inline"
+                      style="margin-left: -15px; margin-top: 15px"
+                    >
+                      <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <select
+                          class="form-control mr-2"
+                          id="dropdownMenu"
+                          style="width: 100px; background-color: grey"
+                        >
+                          <option value="" style="color: white">
+                            Search by..
+                          </option>
+                          <option value="option1">ID</option>
+                          <option value="option2">Account NO.</option>
+                          <option value="option3">Acc Name</option>
+                          <option value="option4">Case Number</option>
+                          <option value="option5">CIF ID</option>
+                        </select>
+                        <input
+                          type="text"
+                          class="form-control mr-4"
+                          id="searchInput"
+                          placeholder="Search"
+                          style="width: 300px; height: 40px; margin-left: 10px"
+                        />
+                        <button
+                          type="search"
+                          class="btn btn-primary btn-sm"
+                          style="margin-left: 10px; border-radius: 5px"
+                        >
+                          Search
+                        </button>
+                      </div>
+                        
+                    </form>
+
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">CIF ID</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="idNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['ID Nation']"
+                          name="idNation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Acc Number</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Acc Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="slugNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['Slug Nation']"
+                          name="slugNation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Branch Name </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="slugNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['Slug Nation']"
+                          name="slugNation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Case Number </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="idNation"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0]['ID Nation']"
+                          name="idNation"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Loan Amount</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Loan Paid</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Amount to be Recovered</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="population"
+                          [readonly]="true"
+                          [(ngModel)]="UserInfoUrl.data[0].Population"
+                          name="population"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 ps-9">
+                      <div class="form-group">
+                        <label for="inputEmail4">Months in Default</label>
+                        <input
+                          type="Number"
+                          class="form-control"
+                          id="inputEmail4"
+                          placeholder="Months"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="form-group">
+                        <label for="inputEmail4" style="color: blue"
+                          >COMMENTS</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputComments"
+                          placeholder="Add Comments"
+                          style="height: 150px"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="inputEmail4" style="color: maroon"
+                          >RECOVERY UPDATES</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputComments"
+                          placeholder="Add Updates"
+                          style="height: 150px"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="px-5 py-4">
+                <div class="d-flex justify-content-between">
+                  <button type="submit" class="btn btn-primary">
+                    Exit Page
+                  </button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
