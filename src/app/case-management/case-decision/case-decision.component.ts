@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class CaseDecisionComponent {
 
-  selectedIndex = 0; // Assuming the default selected index is 0 (for the "Cases" tab)
+  selectedIndex = 0; // Assuming the default selected index is 0 (for the " tab)
   refinanceContent = `<table class="table">...</table>`; // Example HTML for the cases content
   tabs = [
     { title: 'Refinance', content: this.refinanceContent },

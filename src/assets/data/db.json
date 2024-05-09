@@ -1,156 +1,129 @@
 {
-    "user": [
-        {
-            "id": "admin",
-            "empId": "10193",
-            "name": "zachary macharia",
-            "password": "123456",
-            "email": "Admin@gmail.com",
-            "gender": "male",
-            "role": "admin",
-            "isactive": true,
-            "address": {
-                "area": "tatu"
-            }
-        },
-        {
-            "id": "testuser",
-            "empId": "5083",
-            "name": "Test User",
-            "password": "123456",
-            "email": "user@gmail.com",
-            "gender": "male",
-            "role": "user",
-            "isactive": true,
-            "address": {
-                "area": "chennai"
-            }
-        },
-        {
-            "id": "Jhon1",
-            "empId": "101623",
-            "name": "joyce omondi",
-            "password": "Test@1233",
-            "email": "te@in.com",
-            "gender": "male",
-            "role": "tech",
-            "isactive": true,
-            "address": {
-                "area": "tatu"
-            }
-        },
-        {
-            "id": "ntuser",
-            "empId": "30302",
-            "name": "peter",
-            "password": "Test@1234",
-            "email": "te@in.com",
-            "gender": "male",
-            "role": "tech",
-            "isactive": true,
-            "address": {
-                "area": "kiambu"
-            }
-        }
-    ],
-    "role": [
-        {
-            "code": "user",
-            "name": "User"
-        },
-        {
-            "code": "admin",
-            "name": "Admin"
-        },
-        {
-            "code": "mngr",
-            "name": "Manager"
-        }
-    ],
-    "roleaccess": [
-        {
-            "role": "admin",
-            "menu": "user",
-            "haveedit": true,
-            "haveadd": true,
-            "havedelete": true
-        },
-        {
-            "role": "admin",
-            "menu": "manager",
-            "haveedit": true,
-            "haveadd": true,
-            "havedelete": true
-        },
-        {
-            "role": "user",
-            "menu": "user",
-            "haveedit": false,
-            "haveadd": false,
-            "havedelete": false
-        },
-        {
-            "role": "manager",
-            "menu": "manager",
-            "haveedit": true,
-            "haveadd": true,
-            "havedelete": false
-        }
-    ],
-    "documents": [
-        {
-            "id": 27829728,
-            "cifID": 5451025,
-            "branchName": "Rongai",
-            "caseNumber": "CN019",
-            "accNumber": "0960258746391",
-            "installment": 120000.00,
-            "loanAmount": 91890084.00,
-            "accName": "Laviette enterprises",
-            "logBookCopy": "C:\\\\Users\\\\SAM\\\\Desktop\\\\DocAPI\\\\Doc38.pdf",
-            "titleDeedCopy": "C:\\\\Users\\\\SAM\\\\Desktop\\\\DocAPI\\\\Doc39.pdf",
-            "passport": "A2000451",
-            "dateUpdated": "2024-03-10T10:03:37.547",
-            "updatedBy": "AW43804",
-            "guarantor": "John Chege",
-            "guarantorphoneno": 2547188989984,
-            "nextpaymentdate": "12/10/2025"
-        },
-        {
-            "id": 29929738,
-            "cifID": 54302511,
-            "branchName": "Utawala",
-            "caseNumber": "CN011",
-            "accNumber": "0960258746524",
-            "loanAmount": 81700084.00,
-            "accName": "Greasy enterprises",
-            "logBookCopy": "C:\\\\Users\\\\SAM\\\\Desktop\\\\DocAPI\\\\Doc35.pdf",
-            "titleDeedCopy": "C:\\\\Users\\\\SAM\\\\Desktop\\\\DocAPI\\\\Doc36.pdf",
-            "passport": "A9405847",
-            "dateUpdated": "2024-03-20T10:03:37.547",
-            "updatedBy": "QA43504",
-            "installment": 150000.00,
-            "guarantor": "Peter Warui",
-            "guarantorphoneno": 2547797999984,
-            "nextpaymentdate": "12/01/2025"
-        },
-        {
-            "id": 33329748,
-            "cifID": 5430218,
-            "caseNumber": "CN001",
-            "branchName": "Ruai",
-            "accNumber": "0960258746158",
-            "loanAmount": 75000084.00,
-            "accName": "Marguerite enterprises",
-            "logBookCopy": "C:\\\\Users\\\\SAM\\\\Desktop\\\\DocAPI\\\\Doc30.pdf",
-            "titleDeedCopy": "C:\\\\Users\\\\SAM\\\\Desktop\\\\DocAPI\\\\Doc29.pdf",
-            "passport": "A4859672",
-            "dateUpdated": "2024-04-22T10:06:37.547",
-            "updatedBy": "LV45804",
-            "installment": 2000000.00,
-            "guarantor": "Wangui James",
-            "guarantorphoneno": 254908847790,
-            "nextpaymentdate": "12/04/2025"
-        }
-    ]
+
+  "user": [
+    {
+      "name": "zachary macharia",
+      "email": "Admin@gmail.com",
+      "password": "123456",
+      "gender": "male",
+      "role": "admin",
+      "isActive": true,
+      "id": "10193"
+    },
+    {
+      "name": "Test User",
+      "email": "user@gmail.com",
+      "password": "Test@1234",
+      "gender": "male",
+      "role": "admin",
+      "isActive": true,
+      "id": "5083"
+    },
+    {
+      "name": "peter singer",
+      "email": "peter@gmail.com",
+      "password": "peter1234",
+      "gender": "male",
+      "role": "officer",
+      "isActive": true,
+      "id": "30302"
+    },
+    {
+      "name": "sandtra beta",
+      "email": "beta@gmail.com",
+      "password": "pbeta1234",
+      "gender": "female",
+      "role": "officer",
+      "isActive": true,
+      "id": "30303"
+    },
+    {
+      "name": "paul kimani",
+      "email": "paulr@gmail.com",
+      "password": "paul1234",
+      "gender": "male",
+      "role": "manager",
+      "isActive": true,
+      "id": "90302"
+    },
+    {
+      "id": "9343",
+      "name": "zachary",
+      "email": "zac@gma.com",
+      "password": "Qwersddfd",
+      "gender": "male",
+      "role": "",
+      "isactive": false
+    },
+    {
+      "id": "67332",
+      "name": "wdhqydwdwe",
+      "email": "test@gmail.com",
+      "password": "sswwFTY",
+      "gender": "male",
+      "role": "",
+      "isactive": false
+    },
+    {
+      "name": "joe doe",
+      "email": "gsam@gmail.com",
+      "password": "123456",
+      "gender": "male",
+      "role": "officer",
+      "isActive": true,
+      "id": "8090"
+    }
+  ],
+  "role": [
+    {
+      "code": "officer",
+      "name": "Officer",
+      "id": "65e0"
+    },
+    {
+      "code": "admin",
+      "name": "Admin",
+      "id": "3aa9"
+    },
+    {
+      "code": "mngr",
+      "name": "Manager",
+      "id": "f51a"
+    }
+  ],
+  "roleaccess": [
+    {
+      "role": "admin",
+      "menu": "officer",
+      "haveedit": true,
+      "haveadd": true,
+      "havedelete": true,
+      "id": "60a5"
+    },
+    {
+      "role": "admin",
+      "menu": "manager",
+      "haveedit": true,
+      "haveadd": true,
+      "havedelete": true,
+      "id": "297f"
+    },
+    {
+      "role": "officer",
+      "menu": "officer",
+      "haveedit": false,
+      "haveadd": false,
+      "havedelete": false,
+      "id": "e7ab"
+    },
+    {
+      "role": "manager",
+      "menu": "manager",
+      "haveedit": true,
+      "haveadd": true,
+      "havedelete": false,
+      "id": "44a6"
+    }
+  ]
+
 }

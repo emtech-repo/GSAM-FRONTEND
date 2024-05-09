@@ -9,7 +9,12 @@ import { SharedService } from '../../shared.service';
   styleUrls: ['./analysis.component.css']
 })
 export class AnalysisComponent  implements OnInit{
+
+  recentActivityData: any[] = [];
   Highcharts: typeof Highcharts = Highcharts;
+
+
+  
 
   chartOptions: Highcharts.Options = {
     title: {
@@ -70,20 +75,12 @@ export class AnalysisComponent  implements OnInit{
     }]
   };
 
-
   searchQuery: string = '';
   searchTerm: string = '';
-  
+
   currentPage: number = 1;
   pageSize: number = 10;
   totalItems: number = 0;
-  recentActivityData: any[] = []; // Your data array
-  
- 
-  // pageChanged(event: any): void {
-  //   this.currentPage = event.page;
-  //   this.fetchRecentActivity();
-  // }
 
   constructor(private sharedService: SharedService) { }
 
@@ -91,44 +88,42 @@ export class AnalysisComponent  implements OnInit{
     this.fetchRecentActivity();
   }
 
-
   fetchRecentActivity(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
 
-    // Call the API to get recent activity data
     this.sharedService.getRecentActivity(this.searchQuery)
-      .subscribe(data => {
-        if (Array.isArray(data)) {
-          this.recentActivityData = data.slice(startIndex, endIndex);
-          this.totalItems = data.length;
+      .subscribe((response: any) => { // Specify the type of the response
+        if (response && response.statusCode === 200) {
+          const result = response.result as any[];
+          if (Array.isArray(result)) {
+            this.recentActivityData = result.slice(startIndex, endIndex);
+            this.totalItems = result.length;
+          } else {
+            console.error('Error: Data result is not an array.');
+          }
         } else {
-          console.error('Error: Data is not an array.');
+          console.error('Error: Unexpected status code:', response && response.statusCode);
         }
       }, error => {
         console.error('Error fetching recent activity:', error);
       });
   }
 
-  // Method to handle page change event
+
   pageChanged(event: any): void {
     this.currentPage = event.page;
     this.fetchRecentActivity();
   }
 
-  // Method to handle search query change
   onSearch(): void {
-    this.currentPage = 1; // Reset current page when performing a new search
+    this.currentPage = 1;
     this.fetchRecentActivity();
   }
-
-  
-
 
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
       return this.recentActivityData.filter(item => {
-        // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
             return true;
@@ -141,3 +136,4 @@ export class AnalysisComponent  implements OnInit{
     }
   }
 }
+
