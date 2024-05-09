@@ -35,12 +35,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; // Import MatSnackBarModule
+
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -62,6 +65,7 @@ import { MatInputModule } from '@angular/material/input';
     AdminPageComponent,
     
     AdminPopupComponent,
+    RegisterComponent,
     
     
     
@@ -96,16 +100,9 @@ import { MatInputModule } from '@angular/material/input';
     MatRadioModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSnackBarModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
-      closeButton: true,
-      timeOut: 3000,
-      progressBar: true,
-      enableHtml: true,
-      toastClass: 'ngx-toastr'
-    }) 
+    
 
 
     

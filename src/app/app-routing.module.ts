@@ -9,6 +9,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { CreateMeetingComponent } from './case-management/create-meeting/create-meeting.component'; 
 import { CaseDecisionComponent } from './case-management/case-decision/case-decision.component';
 import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -22,6 +23,10 @@ export const routes: Routes = [
       path: 'Authenticate',
       component: LoginComponent,
     },
+  {
+    path: 'Register',
+    component: RegisterComponent,
+  },
     {
       path: 'Dashboard',
       // canActivate: [authenticationGuard],

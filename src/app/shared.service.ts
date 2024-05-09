@@ -14,7 +14,7 @@ export class SharedService {
   
   readonly APIUrl = 'http://localhost:5001/';
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
-  // readonly ActivityUrl = 'https://jsonplaceholder.typicode.com/todos';
+  readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
@@ -85,6 +85,17 @@ export class SharedService {
   // }
 
 
+  getRecentStatus(searchQuery?: string): Observable<any[]> {
+    let apiUrl = (this.LoanUrl);
+
+    // Append search query to the API URL if provided
+    if (searchQuery && searchQuery.trim() !== '') {
+      apiUrl += `?search=${encodeURIComponent(searchQuery)}`;
+    }
+
+    return this.http.get<any[]>(apiUrl);
+  }
+
 
 
   getRecentActivity(searchQuery?: string): Observable<any[]> {
@@ -146,8 +157,11 @@ export class SharedService {
 
 
 
-
   /////////////////////////////////
+  registerUser(inputdata: any) {
+    return this.http.post(this.baseUrl + 'user', inputdata)
+  }
+
   addEmployee(data: any): Observable<any> {
     return this.http.post(this.baseUrl + 'user', data);
   }
