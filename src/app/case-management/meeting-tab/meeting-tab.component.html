@@ -1,201 +1,270 @@
 <ul class="nav nav-tabs">
-    <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)">
-        <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
-    </li>
+  <li
+    class="nav-item"
+    *ngFor="let tab of tabs; let i = index"
+    (click)="selectTab(i)"
+  >
+    <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
+  </li>
 </ul>
-
 
 <!-- cONTENT FOR TABLES -->
 
 <div class="tab-content">
-    <ng-container *ngFor="let tab of tabs; let i = index">
-        <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
-            <!-- Display tab content based on selectedIndex -->
-            <ng-container *ngIf="i === 0">
-                <!-- Display table for the "Cases" tab -->
-                <div class="table-responsive">
-
-
-                    <!-- Search input and button start -->
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">Search</button>
-                        </div>
-                    </div>
-                    <section style="background-color: #8f4a4c25;border-radius: 20px;">
-                        <!-- Separate container for the h2 element -->
-                        <div
-                            style="background-color: rgb(84, 75, 75); text-align: center; padding: 10px; margin-bottom: 40px;">
-                            <h2 class="text-white" style="margin: 0; font-size: 100%; width: 100%; padding: 0;">Meeting
-                                Details</h2>
-                        </div>
-                        <div class="container-fluid">
-                            <div class="row justify-content-center">
-                                <div class="col-md-8">
-
-                                    <!-- Rest of the form content -->
-                                    <form>
-                                        <!-- Attendees -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="attendees"><strong>Members</strong></label><br>
-                                                        <textarea class="form-control" id="attendees" name="attendees"
-                                                            placeholder="Add Members"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!-- Venue -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="venue"><strong>Venue</strong></label>
-                                                        <select id="venue" name="venue" class="form-control">
-                                                            <option value="virtual" selected>Virtual Meeting</option>
-                                                            <option value="physical">Physical Meeting</option>
-                                                            <option value="hybrid">Hybrid Meeting</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                        <!-- Time -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="time"><strong>Time</strong></label>
-                                                        <input type="time" class="form-control" id="time" name="time">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!-- Date -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="date"><strong>Date</strong></label>
-                                                        <input type="date" class="form-control" id="date" name="date">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!-- Case Details -->
-                                        <div class="card mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="caseDetails"><strong>Case Details</strong></label>
-                                                        <textarea class="form-control" id="caseDetails"
-                                                            name="caseDetails"
-                                                            placeholder="Enter Case Details"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!-- Buttons -->
-                                        <div class="d-flex justify-content-between">
-                                            <button type="button" class="btn btn-secondary">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Create Meeting</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section style="background-color: #8f4a4c25;border-radius: 20px;">
-                        <!-- Separate container for the h2 element -->
-                        <div class="container-fluid">
-                            <div class="row justify-content-center">
-                                <div class="col-md-8">
-
-                                    <!-- Rest of the form content -->
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
+  <ng-container *ngFor="let tab of tabs; let i = index">
+    <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
+      <!-- Display tab content based on selectedIndex -->
+      <ng-container *ngIf="i === 0">
+        <!-- Display table for the "Cases" tab -->
+        <div class="table-responsive">
+          <!-- < style="background-color: #8f4a4c25;border-radius: 20px;"> -->
+          <!-- Separate container for the h2 element -->
+          <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+            <div class="wrapper wrapper--w790">
+              <!-- Start of the card -->
+              <div class="card card-5">
+                <!-- Card heading -->
+                <div
+                  class="card-heading"
+                  style="
+                    background-color: maroon;
+                    color: white;
+                    text-align: center;
+                  "
+                >
+                  <h2 class="title">Meeting Details</h2>
                 </div>
-            </ng-container>
-
-
-            <ng-container *ngIf="i === 1">
-                <div class="table-responsive">
-
-
-                    <!-- Search input and button start -->
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">Search</button>
-                        </div>
-                    </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-
-                                <th>Meetings Attended</th>
-                                <th>Upcoming Meetings</th>
-                                <th>Pending Meetings</th>
-                                <th>Missed Meetings</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-
-                                <td class="font-weight-bold">GSAM Loan Id 024</td>
-                                <td>GSAM Loan ID 003</td>
-                                <td>GSAM Loan ID 101</td>
-                                <td>GSAM Loan ID 004</td>
-                                <td class="font-weight-medium">
-                                    <!-- <div class="badge badge-success">Pending</div> -->
-                                </td>
-                                <!-- <td> -->
-                                <!-- <button class="btn btn-primary">Approve</button> -->
-                                <!-- </td> -->
-                            </tr>
-                            <!-- Add more table rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Display content for "Document Approval" tab -->
-                <!-- <div class="container mt-3"> -->
-                <!-- Document details -->
-                <!-- <h5>Document Details:</h5> -->
-                <!-- Replace this with actual document details -->
-                <!-- <p>Document Name: DocumentXYZ</p> -->
-                <!-- <p>Submitted By: John Doe</p> -->
-                <!-- <p>Submission Date: 2024-04-15</p> -->
-
-                <!-- Comments -->
-                <!-- <div class="form-group"> -->
-                <!-- <label for="comments">Comments:</label> -->
-                <!--                         -->
-                <!-- </div> -->
-
-                <!-- Approval/Rejection Buttons -->
-                <!-- <div class="btn-group" role="group"> -->
-                <!-- <button type="button" class="btn btn-success">Approve</button> -->
-                <!-- <button type="button" class="btn btn-danger" >Reject</button> -->
-                <!-- </div> -->
-                <!-- </div> -->
-            </ng-container>
-
-
-
+                <!-- Card body -->
+                <div class="card-body">
+                  <!-- Start of form -->
+                  <!-- Start of form -->
+                  <form method="POST">
+                    <!-- Members section -->
+                    <div class="form-row">
+    <div class="name">Members</div>
+    <div class="value" style="flex: 1;">
+        <div class="input-group" style="width: 100%;">
+            <select class="input--style-5" name="members" style="width: 100%;">
+                <option value="member1">Member 1</option>
+                <option value="member2">Member 2</option>
+                <option value="member3">Member 3</option>
+                <!-- Add more options for other members as needed -->
+            </select>
         </div>
-    </ng-container>
+    </div>
 </div>
+
+                    <!-- Venue section -->
+                    <div class="form-row">
+  <div class="name">Venue</div>
+  <div class="value">
+    <div class="input-group">
+      <div class="rs-select2 js-select-simple select--no-search" style="width: 100%;">
+        <select name="subject" style="width: 100%;">
+          <option disabled="disabled" selected="selected">
+            Choose option
+          </option>
+          <option>Virtual Meeting</option>
+          <option>Physical Meeting</option>
+          <option>Hybrid Meeting</option>
+        </select>
+        <div class="select-dropdown"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                    <!-- Case Details section -->
+        <div class="form-row">
+            <div class="name">Case Details</div>
+                <div class="value" style="flex: 1;">
+                    <div class="input-group" style="width: 100%;">
+                <textarea class="input--style-5" name="company" style="width: 100%;"></textarea>
+            </div>
+        </div>
+    </div>
+
+                    <!-- Date Section -->
+                    <div class="form-row">
+                      <div class="name">Date</div>
+                      <div class="value">
+                        <div class="input-group">
+                          <input
+                            class="input--style-5"
+                            type="date"
+                            name="date"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Time Section -->
+                    <div class="form-row">
+                      <div class="name">Time</div>
+                      <div class="value">
+                        <div class="input-group">
+                          <input
+                            class="input--style-5"
+                            type="time"
+                            name="time"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Container For Clear Form and Submit Buttons -->
+                    <div style="display: flex; justify-content: space-between">
+                      <div
+                        class="clear-button-container"
+                        style="margin-top: 5px"
+                      >
+                        <button
+                          class="btn btn--radius-2 btn--red"
+                          type="button"
+                          onclick="clearForm()"
+                          style="background-color: maroon"
+                        >
+                          Clear Form
+                        </button>
+                      </div>
+                      <div style="text-align: right">
+                        <button
+                          class="btn btn--radius-2 btn--red"
+                          type="submit"
+                          style="background-color: maroon"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- End of form -->
+                </div>
+                <!-- End of card body -->
+              </div>
+              <!-- End of the card -->
+            </div>
+          </div>
+          <!-- View Meetings -->
+          
+          <section style="background-color: #8f4a4c25; border-radius: 20px">
+            <!-- Separate container for the h2 element -->
+            <div class="container-fluid">
+              <div class="row justify-content-center">
+                <div class="col-md-8">
+                  <!-- Rest of the form content -->
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="i === 1">
+
+  <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-title">Meetings</p>
+                
+                                <!-- SEEERCH BUTTON-->
+                                <div class="row">
+                                    <!-- <div class="col-8 mb-3 ">
+                                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchQuery"
+                                            (ngModelChange)="onSearch()">
+                                    </div> -->
+                                </div>
+                
+                
+                
+                                <div class="form-group mx-sm-3 mb-6 d-flex" style="margin-bottom: 10px;">
+                                    <select class="form-control mr-2" id="dropdownMenu" style="width: 100px; margin-right: 20px; color:black; margin-left: -15px;">
+                                        <option value="">Search by..</option>
+                                        <option value="option1">CIF ID</option>
+                                        <option value="option2">A/C number </option>
+                                        <option value="option3">A/c Name</option>
+                                        <option value="option4">Case Number</option>
+                                        <option value="option5">Id NO.</option>
+                                    </select>
+                                    <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
+                                        style="width: 700px; height: 40px; margin-right: 15px;border: 2px solid grey;">
+                                    <button   type="search" class="search" >Search</button>
+                                </div>               
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive table-striped">
+                                            <table id="example" class="display expandable-table" style="width:100%">
+                
+                                                <!-- Table headers and rows -->
+                                                <thead>
+                                                    <tr>
+                                                        <th>Meeting ID</th>
+                                                        <th>Meeting Details</th>
+                                                        <th>Members </th>
+                                                        <th>Venue</th>
+                                                        <th>Time and Date</th>
+                                                        <th>Status</th>
+                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr >
+                                                        <td >001</td>
+                                                        <td>GSAM for ACC XXXXXX</td>
+                                                        <td>Member 1,member 2,....n</td>
+                                                        <td>zoom </td>
+                                                        <td > 21.04.24. ,1530hrs</td>
+                                                        <td> pending approval</td>   
+                                                    </tr>
+                                                    <tr>
+
+                                
+                                                        <td >002</td>
+                                                        <td>GSAM for ACC XXXXXX</td>
+                                                        <td>Member 1,member 2,....n</td>
+                                                        <td>zoom </td>
+                                                        <td > 21.04.24. ,1630hrs</td>
+                                                        <td> Approved</td>
+                                                    <tr>
+                                                        <tr>
+
+                                
+                                                            <td >003</td>
+                                                            <td>GSAM for ACC XXXXXX</td>
+                                                            <td>Member 1,member 2,....n</td>
+                                                            <td>zoom </td>
+                                                            <td > 21.04.24. ,1530hrs</td>
+                                                            <td>approved</td>
+                                                        </tr>
+                                                        <tr>
+                            
+                                                            
+                                                            <td >004</td>
+                                                            <td>GSAM for ACC XXXXXX</td>
+                                                            <td>Member 1,member 2,....n</td>
+                                                            <td>zoom </td>
+                                                            <td > 21.04.24. ,1530hrs</td>
+                                                            <td> Approved</td>
+                                                        </tr>
+                                                        <tr>
+                            
+                                                           
+                                                            <td >005</td>
+                                                            <td>GSAM for ACC XXXXXX</td>
+                                                            <td>Member 1,member 2,....n</td>
+                                                            <td>zoom </td>
+                                                            <td > 21.04.24. ,1530hrs</td>
+                                                            <td> Approved</td>
+                                                        </tr>
+                                                </tbody>
+                
+                
+                
+                
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                      

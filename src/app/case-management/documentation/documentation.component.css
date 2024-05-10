@@ -28,20 +28,19 @@
 input[type="checkbox"]:checked+label {
     color: green;
 }
+
 /* documentation.component.css */
 
 /* Style the table */
 table {
     width: 100%;
     /* border-collapse: collapse; */
-  }
-  
-  /* Style the table header */
-  th {
+
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     background-color: #800000;
+
     color:white;
   }
   
@@ -79,6 +78,47 @@ table {
   
   .input-group {
     margin-bottom: 20px; /* Add some bottom margin for spacing */
+=======
+    color: white;
+}
+
+/* Style the table data cells */
+td {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Alternate row background color */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect on rows */
+tr:hover {
+    background-color: #ddd;
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    /* Add some bottom margin for spacing */
+
 }
 
 /* Adjust the width of the select element */
@@ -90,6 +130,7 @@ table {
 .btn-search {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+
 }
 .custom-input:focus::placeholder {
     color: black;
@@ -112,4 +153,6 @@ table {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
+
+
 }

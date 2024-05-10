@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild, ElementRef, PLATFORM_ID, Inject, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
@@ -8,12 +9,14 @@ import { isPlatformBrowser } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-search-case',
   templateUrl: './documentation.component.html',
   styleUrls: ['./documentation.component.css']
 })
 export class DocumentationComponent implements OnInit {
+
   @ViewChild('searchDialog') searchDialog!: ElementRef;
 
   pageSize: number = 3;

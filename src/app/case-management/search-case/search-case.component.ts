@@ -1,3 +1,4 @@
+
 import { Component, OnInit,OnDestroy} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from '../../shared.service';
@@ -9,11 +10,13 @@ interface LoanDetailsResponse {
 }
 
 
+
 @Component({
   selector: 'app-search-case',
   templateUrl: './search-case.component.html',
   styleUrls: ['./search-case.component.css']
 })
+
 export class SearchCaseComponent implements OnInit {
   
   loanDetails: any;
@@ -32,6 +35,7 @@ export class SearchCaseComponent implements OnInit {
   totalItems: number = 0;
   searchParams: any = { param: 'acid', value: '' };
   private destroy$ = new Subject<void>();
+
 
   constructor(private router: Router, private sharedService: SharedService) { }
 

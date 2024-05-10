@@ -295,73 +295,65 @@
     </div>
 
 
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="Dashboard">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Case Management</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-search-case']">SearchCase</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-status']">Case Status</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-documentation']">Documentation</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-meeting']"> Meeting</a></li>
+                <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-approval']">Approval Interphase</a></li> -->
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-decision']">Case Decision</a></li>
 
-    <!-- partial -->
-    <!-- partial:partials/_sidebar.html -->
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
-      <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="Dashboard">
-            <i class="icon-grid menu-icon"></i>
-            <span class="menu-title">Dashboard</span>
-          </a>
-        </li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-app-approval']">Case Approval</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-tracking']">Case Tracking</a></li>
+               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign Case</a></li>
+                
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced" aria-expanded="false" aria-controls="ui-advanced">
+              <i class="icon-image menu-icon"></i>
+              <span class="menu-title">Documents</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-advanced">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dragula.html">Search</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/clipboard.html">Request</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/context-menu.html">Retrive</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/slider.html">Upload</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/slider.html">Approve</a></li>
+                
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Contracts</span>
+              <!-- <i class="menu-arrow"></i> -->
+            </a>
+            <!-- <div class="collapse" id="form-elements">
 
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-            <i class="icon-layout menu-icon"></i>
-            <span class="menu-title">Case Management</span>
-            <i class="menu-arrow"></i>
-          </a>
-          <div class="collapse" id="ui-basic">
-
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link"
-                  [routerLink]="['case-management/app-search-case']">SearchCase</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-status']">Case
-                  Status</a></li>
-              <li class="nav-item"> <a class="nav-link"
-                  [routerLink]="['case-management/app-documentation']">Documentation</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-meeting']">
-                  Meeting</a></li>
-              <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-approval']">Approval Interphase</a></li> -->
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-decision']">Case
-                  Decision</a></li>
-
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-app-approval']">Case
-                  Approval</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-tracking']">Case
-                  Tracking</a></li>
-
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced" aria-expanded="false"
-            aria-controls="ui-advanced">
-            <i class="icon-image menu-icon"></i>
-            <span class="menu-title">Documents</span>
-            <i class="menu-arrow"></i>
-          </a>
-          <div class="collapse" id="ui-advanced">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dragula.html">Search</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/clipboard.html">Request</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/context-menu.html">Retrive</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/slider.html">Upload</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/slider.html">Approve</a></li>
-
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
-            aria-controls="form-elements">
-            <i class="icon-columns menu-icon"></i>
-            <span class="menu-title">Contracts</span>
-            <!-- <i class="menu-arrow"></i> -->
-          </a>
-          <!-- <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Search Contract</a></li>                
                 <li class="nav-item"><a class="nav-link" href="pages/forms/advanced_elements.html">Advanced Elements</a></li>
@@ -405,28 +397,49 @@
                 <li class="nav-item"> <a class="nav-link" href="pages/charts/chartist.html">Chartists</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/charts/justGage.html">JustGage</a></li>
               </ul> -->
+
+            </div>
+          </li>
+           
+              
+             
+
+            <!-- ADMIN-- -->
+
+          
+
+          <li class="nav-item" style="margin-top: 150px;" *ngIf="isAdmin">
+
+            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
+              aria-controls="form-elements" class="nav-link" [routerLink]="['/app-admin-page']">
+          
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title" style="font: size 30px;">Admin</span>
+            </a>
+          </li>
+          
+          <!-- ADMIN  end -- -->
+                  <!-- ADMIN2-- -->
+
+         
+          
+          <!-- ADMIN  end -- -->
+          
+        </ul>
+      </nav>
+      <!-- partial -->
+      
+      <div class="main-panel">
+        <div class="content-wrapper" *ngIf="sharedService.isAuthenticated">
+            <router-outlet></router-outlet>
           </div>
-        </li>
-
-
-
-      </ul>
-    </nav>
-    <!-- partial -->
-
-    <div class="main-panel">
-      <div class="content-wrapper" *ngIf="sharedService.isAuthenticated">
-        <router-outlet></router-outlet>
+        
+       
       </div>
 
-      <!-- content-wrapper ends -->
-      <!-- partial:partials/_footer.html -->
-      <!-- <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            
-          </div>
-        </footer> -->
-      <!-- partial -->
+
+      <!-- main-panel ends -->
+
     </div>
     <!-- main-panel ends -->
   </div>

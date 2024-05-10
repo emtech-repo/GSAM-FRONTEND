@@ -1,5 +1,6 @@
 
 
+
    <div class="customerDetails">
     
         <!-- Corrected Modal Structure -->
@@ -176,11 +177,106 @@
                         <td>{{ document.passport }}</td>
                         <td>{{ document.dateUpdated }}</td>
                         <td>{{ document.updatedBy }}</td>
+
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="input-group mb-3">
+                <select class="form-control" [(ngModel)]="searchBy" (change)="onSearch()">
+                    <option value="" disabled [selected]="!searchBy">Search By</option>
+                    <option value="ID Nation">Account Number</option>
+                    <option value="Nation">Account Name</option>
+                    <option value="ID Year">National Id</option>
+                    <option value="Year">CIF</option>
+                    <option value="Population">Loan Amount</option>
+                    <option value="Slug Nation">Case Number</option>
+                </select>
+                <input type="text" class="form-control" [(ngModel)]="searchTerm" (input)="onSearch()" [placeholder]="searchBy ? getPlaceholder() : 'Select search option first'" [disabled]="!searchBy">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" (click)="onSearch()"bg-red>Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  
+    <div class="row">
+        <div class="col-md-12" [hidden]="!searchClicked || !(searchTerm && filteredData && filteredData.length > 0)">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th (click)="setSearchBy('ID Nation')">Account Number</th>
+                        <th (click)="setSearchBy('Nation')">Account Name</th>
+                        <th (click)="setSearchBy('ID Year')">National ID</th>
+                        <th (click)="setSearchBy('Year')">CIF</th>
+                        <th (click)="setSearchBy('Population')">Loan Amount</th>
+                        <th (click)="setSearchBy('Slug Nation')">Case Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of filteredData">
+                        <td>{{ item['ID Nation'] }}</td>
+                        <td>{{ item.Nation }}</td>
+                        <td>{{ item['ID Year'] }}</td>
+                        <td>{{ item.Year }}</td>
+                        <td>{{ item.Population }}</td>
+                        <td>{{ item['Slug Nation'] }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+</div> -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="input-group mb-3">
+                <select class="form-control" [(ngModel)]="searchBy" (change)="onSearch()">
+                    <option value="" disabled [selected]="!searchBy">Search By</option>
+                    <option value="ID Nation">Account Number</option>
+                    <option value="Nation">Account Name</option>
+                    <option value="ID Year">National Id</option>
+                    <option value="Year">CIF</option>
+                    <option value="Population">Loan Amount</option>
+                    <option value="Slug Nation">Case Number</option>
+                </select>
+                <input type="text" class="form-control" [(ngModel)]="searchTerm" (input)="onSearch()" [placeholder]="searchBy ? getPlaceholder() : 'Select search option first'" [disabled]="!searchBy">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  
+    <div class="row">
+        <div class="col-md-12" *ngIf="searchClicked && searchTerm && filteredData && filteredData.length > 0">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th (click)="setSearchBy('ID Nation')">Account Number</th>
+                        <th (click)="setSearchBy('Nation')">Account Name</th>
+                        <th (click)="setSearchBy('ID Year')">National ID</th>
+                        <th (click)="setSearchBy('Year')">CIF</th>
+                        <th (click)="setSearchBy('Population')">Loan Amount</th>
+                        <th (click)="setSearchBy('Slug Nation')">Case Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of filteredData">
+                        <td>{{ item['ID Nation'] }}</td>
+                        <td>{{ item.Nation }}</td>
+                        <td>{{ item['ID Year'] }}</td>
+                        <td>{{ item.Year }}</td>
+                        <td>{{ item.Population }}</td>
+                        <td>{{ item['Slug Nation'] }}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
     <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'collateral'}" id="pills-collateral" role="tabpanel"
         aria-labelledby="pills-collateral-tab">
@@ -235,3 +331,4 @@
         </div>   
         
 </div>
+
