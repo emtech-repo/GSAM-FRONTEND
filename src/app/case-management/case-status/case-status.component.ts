@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+
 import { SharedService } from '../../shared.service';
 import * as jspdf from 'jspdf';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+
+
 
 @Component({
   selector: 'app-case-status',
@@ -10,54 +14,119 @@ import { saveAs } from 'file-saver';
   styleUrl: './case-status.component.css'
 })
 export class CaseStatusComponent {
+  searchOption: string = 'assignedTo';
 
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
   pageSize: number = 5;
   totalItems: number = 0;
-  recentActivityData: any[] = []; // Your data array
+  totalCases: number = 0;
+  assignedCases: number = 0;
+  unassignedCases: number = 0;
+  searchParams = { param: '', value: '' }
+  statusData: any[] = []; // Your data array
+  cd: any;
 
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.fetchRecentActivity();
+    this.getStatus();
+
+  }
+  setSearchOption(option: string) {
+    this.searchOption = option;
+  }
+  search(): void {
+    console.log('Search method called'); // Debugging line
+    this.currentPage = 1; // Reset current page for search
+    this.statusData = this.statusData.filter(item => {
+      switch (this.searchParams.param) {
+        case 'cifId':
+          return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
+        case 'assignedEmail':
+          return item.assignedEmail.toLowerCase().includes(this.searchParams.value.toLowerCase());
+        case 'accountName':
+          return item.accountName.toLowerCase().includes(this.searchParams.value.toLowerCase());
+        case 'loanAccount':
+          return item.loanAccount.toLowerCase().includes(this.searchParams.value.toLowerCase());
+        default:
+          return false;
+      }
+    });
   }
 
-  fetchRecentActivity(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
 
-    // Call the API to get recent activity data
-    this.sharedService.getRecentActivity(this.searchQuery)
-      .subscribe(data => {
-        if (Array.isArray(data)) {
-          this.recentActivityData = data.slice(startIndex, endIndex);
-          this.totalItems = data.length;
-        } else {
-          console.error('Error: Data is not an array.');
-        }
-      }, error => {
-        console.error('Error fetching recent activity:', error);
-      });
+  // search() {
+  //   if (this.searchOption && this.searchTerm) {
+  //     this.statusData = this.statusData.filter(item => {
+  //       switch (this.searchOption) {
+  //         case 'assignedTo':
+  //           return item.assignedEmail.toLowerCase().includes(this.searchTerm.toLowerCase());
+  //         case 'cif':
+  //           return item.cifId.toLowerCase().includes(this.searchTerm.toLowerCase());
+  //         case 'accName':
+  //           return item.accountName.toLowerCase().includes(this.searchTerm.toLowerCase());
+  //         default:
+  //           return false;
+  //       }
+  //     });
+  //   } else {
+  //     this.statusData = [
+  //       { assignedEmail: 'john@example.com', cifId: '123', loanAccount: '456', accountName: 'Example Account', verifiedFlag: 'Verified' },
+  //     ];
+  //   }
+  // }
+
+
+
+
+  getStatus(): void {
+    this.sharedService.getStatus().subscribe(
+      (result: any[]) => {
+        // Assign the 'result' array to your component property
+        this.statusData = result;
+        this.calculateCaseCounts(); // Calculate case counts after receiving data
+
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching Status:', error);
+        // Handle errors here, if necessary
+      }
+    );
+  }
+  calculateCaseCounts(): void {
+    // Reset counts
+    this.totalCases = this.statusData.length;
+    this.assignedCases = 0;
+    this.unassignedCases = 0;
+
+    // Count assigned and unassigned cases
+    this.statusData.forEach(item => {
+      if (item.assigned === 'Y') {
+        this.assignedCases++;
+      } else {
+        this.unassignedCases++;
+      }
+    });
   }
 
   // Method to handle page change event
   pageChanged(event: any): void {
     this.currentPage = event.page;
-    this.fetchRecentActivity();
+    this.getStatus();
   }
 
   // Method to handle search query change
   onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
-    this.fetchRecentActivity();
+    this.getStatus();
   }
 
   // Getter for filtered data based on search term
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      return this.recentActivityData.filter(item => {
+      return this.statusData.filter(item => {
         // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
@@ -67,9 +136,10 @@ export class CaseStatusComponent {
         return false;
       });
     } else {
-      return this.recentActivityData;
+      return this.statusData;
     }
   }
+
 
   exportToExcel(): void {
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.getDataArray());
@@ -117,6 +187,5 @@ export class CaseStatusComponent {
     });
     return dataArray;
   }
+
 }
-
-

@@ -18,6 +18,7 @@ export class SharedService {
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+  readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
 
   private readonly userDataUrl = 'assets/data/db.json';
 
@@ -137,6 +138,13 @@ export class SharedService {
   getLoan(): Observable<any[]> {
     return this.http.get<any[]>(`${this.LoanURL}`).pipe(
       tap(data => console.log('Loan data:', data))
+    );
+  }
+
+  getStatus(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.StatusUrl}`).pipe(
+      tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
+      map((response: any) => response.result) // Extracting only the 'result' array
     );
   }
   getLoanDetails(accountId: string): Observable<any> {
