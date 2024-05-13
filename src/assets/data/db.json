@@ -74,6 +74,36 @@
       "id": "8090"
     }
   ],
+   "Customers": [
+     {
+    "IdNumber": "34859638",
+    "CifID": "5478675230",
+    "AccNumber": "1120164664380",
+    "AccName": "SHEIKH ENTREPRISES",
+    "CaseNumber": "C204",
+    "AssignedTo": "mwebsdale0@people.com.cn",
+    "CreationDate": "1989-08-28",
+    "Status": "Completed",
+    "UpdatedDate": "2022-08-28",
+    "Comments": "ok",
+    "BranchId": "012",
+    "BranchName": "Karen Supreme",
+    "Address": "10369-00400",
+    "InitialLoanAmount": "600,000",
+    "InitialInstalments": "10,000",
+    "RefinanceAmount": " 100,000  ",
+    "LoanBalance": "100,000",
+    "NewInstalments": "8,000",
+    "InitialLoanTenure": "60",
+    "NewLoanTenure": "25",
+    "LoanAmount": "600,000",
+    "LoanPaid": "400,000",
+    "AmountToBeRecovered": "200,000",
+    "MonthsInDefault": "4"
+  }
+ 
+    
+  ],
   "role": [
     {
       "code": "officer",

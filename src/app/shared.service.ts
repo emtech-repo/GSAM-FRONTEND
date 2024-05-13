@@ -18,22 +18,21 @@ export class SharedService {
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+
   readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
 
+
   private readonly userDataUrl = 'assets/data/db.json';
-
   baseUrl: string = "http://localhost:3000/";
-
-
-
   readonly APIUrl = 'https://192.168.89.189:7213';
-
- 
-
   readonly baseURL = 'assets/data/db.json'
   readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
+   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
+ readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
+  readonly CustomersUrl='assets/data/db.json';
+
 
 
 
@@ -173,6 +172,31 @@ export class SharedService {
         map((data: any) => data['documents']) // Assuming 'document' is the key containing your documents
       );
   }
+   getCreateCase(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.CreateCaseUrl}`)
+      .pipe(
+        tap((data: any[]) => console.log('Fetched CreateCase:', data)),
+        map((data: any) => data['CreateCase']) 
+      );
+  }
+
+  getAccounts():Observable<any>{
+    let apiUrl = `${this.LoanAccountCaseUrl}/la/all`;
+    return this.http.get<any>(apiUrl).pipe(map(
+      res=> {
+        return res || {}
+      }
+    ))
+
+  }
+  getCustomers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.CustomersUrl}`)
+      .pipe(
+        tap((data: any[]) => console.log('Fetched Customers:', data)),
+        map((data: any) => data['Customers']) 
+      );
+  }
+   
 
 
 
