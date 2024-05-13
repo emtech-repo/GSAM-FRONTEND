@@ -67,9 +67,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LayoutComponent,
     CardsComponent,
     AnalysisComponent,
-
     AdminPageComponent,
-    
     AdminPopupComponent,
     RegisterComponent,
     
@@ -92,20 +90,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
-
     ApprovalModule,
     ToastrModule.forRoot(),
-
     BrowserAnimationsModule,
     MatSelectModule,
     MatDialogModule,
     MatCardModule,
     MatTableModule,
-
     MatPaginatorModule, 
     NgbModule,
     ReactiveFormsModule,
-
     MatPaginatorModule,
     MatToolbarModule,
     MatIconModule,

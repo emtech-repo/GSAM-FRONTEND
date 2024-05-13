@@ -3,10 +3,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
 
-interface ApiResponse {
-  data: any[];
-  source: any[];
-}
 
 @Component({
   selector: 'app-decision-tab',
@@ -14,30 +10,41 @@ interface ApiResponse {
   styleUrl: './decision-tab.component.css'
 })
 export class DecisionTabComponent {
-  UserInfoUrl: ApiResponse = { data: [], source: [] };
-
+  Customers: any [] =[];
+  CustomersUrl: any;
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
+
 
   selectTab(index: number) {
     this.selectedIndex = index;
   }
   constructor(private router: Router, private sharedService: SharedService) { }
 
-  ngOnInit(): void {
-    this.sharedService.getUserInfo().subscribe(
-      (data: ApiResponse) => {
-        console.log('Data received from API:', data);
-        this.UserInfoUrl = data;
-        console.log('Assigned JSON Data:', this.UserInfoUrl);
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching JSON data:', error);
-      }
-
-    );
+  ngOnInit() {
+    this.getCustomers();
+  }
+   
+  getCustomers(): void {
+    this.sharedService.getCustomers()
+      .subscribe(Customers => {
+        this.Customers = Customers;
+       
+      });
+  }
+ goToCaseTracking() {
+    // Navigate to the "case tracking" route
+    this.router.navigate(['/case-tracking']);
+  }
+  goToHome() {
+    // Navigate to the "home" route
+    this.router.navigate(['/home']);
   }
 
+  
+
+ 
+ 
 
 }

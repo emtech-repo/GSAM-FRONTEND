@@ -12,6 +12,11 @@ import { CaseDecisionComponent } from './case-management/case-decision/case-deci
 import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
 import { RegisterComponent } from './register/register.component';
 import { DocumentationComponent } from './case-management/documentation/documentation.component';
+import { LoanAccountLookUpComponent } from './case-management/loan-account-look-up/loan-account-look-up.component';
+import { CreateTwoComponent } from './case-management/create-two/create-two.component';
+import { AssignCaseComponent } from './case-management/assign-case/assign-case.component';
+
+
 
 
 export const routes: Routes = [
@@ -67,6 +72,23 @@ export const routes: Routes = [
       
       component: AnalysisComponent,
     },
+     {
+      path: 'app-loan-account-look-up',    
+      component: LoanAccountLookUpComponent,
+    },
+     {
+      path: 'app-create-two',    
+      component: CreateTwoComponent,
+    },
+     {
+      path: 'home',    
+      component: HomeComponent,
+    },
+     {
+      path: 'assign-case',    
+      component: AssignCaseComponent,
+    },
+
 
 
  
