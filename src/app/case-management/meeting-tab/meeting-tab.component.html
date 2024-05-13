@@ -1,9 +1,5 @@
 <ul class="nav nav-tabs">
-  <li
-    class="nav-item"
-    *ngFor="let tab of tabs; let i = index"
-    (click)="selectTab(i)"
-  >
+  <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)">
     <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
   </li>
 </ul>
@@ -24,14 +20,11 @@
               <!-- Start of the card -->
               <div class="card card-5">
                 <!-- Card heading -->
-                <div
-                  class="card-heading"
-                  style="
+                <div class="card-heading" style="
                     background-color: maroon;
                     color: white;
                     text-align: center;
-                  "
-                >
+                  ">
                   <h2 class="title">Meeting Details</h2>
                 </div>
                 <!-- Card body -->
@@ -41,96 +34,80 @@
                   <form method="POST">
                     <!-- Members section -->
                     <div class="form-row">
-    <div class="name">Members</div>
-    <div class="value" style="flex: 1;">
-        <div class="input-group" style="width: 100%;">
-            <select class="input--style-5" name="members" style="width: 100%;">
-                <option value="member1">Member 1</option>
-                <option value="member2">Member 2</option>
-                <option value="member3">Member 3</option>
-                <!-- Add more options for other members as needed -->
-            </select>
-        </div>
-    </div>
-</div>
+                      <div class="name">Members</div>
+                      <div class="value" style="flex: 1;">
+                        <div class="input-group" style="width: 100%;">
+                          <select class="input--style-5" name="members" [(ngModel)]="selectedMembers"
+                            style="width: 100%;">
+                            <option value="member1">Member 1</option>
+                            <option value="member2">Member 2</option>
+                            <option value="member3">Member 3</option>
+                            <!-- Add more options for other members as needed -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
 
                     <!-- Venue section -->
                     <div class="form-row">
-  <div class="name">Venue</div>
-  <div class="value">
-    <div class="input-group">
-      <div class="rs-select2 js-select-simple select--no-search" style="width: 100%;">
-        <select name="subject" style="width: 100%;">
-          <option disabled="disabled" selected="selected">
-            Choose option
-          </option>
-          <option>Virtual Meeting</option>
-          <option>Physical Meeting</option>
-          <option>Hybrid Meeting</option>
-        </select>
-        <div class="select-dropdown"></div>
-      </div>
-    </div>
-  </div>
-</div>
+                      <div class="name">Venue</div>
+                      <div class="value">
+                        <div class="input-group">
+                          <div class="rs-select2 js-select-simple select--no-search" style="width: 100%;">
+                            <select name="subject" [(ngModel)]="selectedVenue" style="width: 100%;">
+                              <option disabled="disabled" selected="selected">Choose option</option>
+                              <option>Virtual Meeting</option>
+                              <option>Physical Meeting</option>
+                              <option>Hybrid Meeting</option>
+                            </select>
+                            <div class="select-dropdown"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                     <!-- Case Details section -->
-        <div class="form-row">
-            <div class="name">Case Details</div>
-                <div class="value" style="flex: 1;">
-                    <div class="input-group" style="width: 100%;">
-                <textarea class="input--style-5" name="company" style="width: 100%;"></textarea>
-            </div>
-        </div>
-    </div>
+                    <div class="form-row">
+                      <div class="name">Case Details</div>
+                      <div class="value" style="flex: 1;">
+                        <div class="input-group" style="width: 100%;">
+                          <textarea class="input--style-5" name="company" [(ngModel)]="caseDetails"
+                            style="width: 100%;"></textarea>
+                        </div>
+                      </div>
+                    </div>
 
                     <!-- Date Section -->
                     <div class="form-row">
                       <div class="name">Date</div>
                       <div class="value">
                         <div class="input-group">
-                          <input
-                            class="input--style-5"
-                            type="date"
-                            name="date"
-                          />
+                          <input class="input--style-5" type="date" name="date" [(ngModel)]="meetingDate" />
                         </div>
                       </div>
                     </div>
+
                     <!-- Time Section -->
                     <div class="form-row">
                       <div class="name">Time</div>
                       <div class="value">
                         <div class="input-group">
-                          <input
-                            class="input--style-5"
-                            type="time"
-                            name="time"
-                          />
+                          <input class="input--style-5" type="time" name="time" [(ngModel)]="meetingTime" />
                         </div>
                       </div>
                     </div>
+
                     <!-- Container For Clear Form and Submit Buttons -->
                     <div style="display: flex; justify-content: space-between">
-                      <div
-                        class="clear-button-container"
-                        style="margin-top: 5px"
-                      >
-                        <button
-                          class="btn btn--radius-2 btn--red"
-                          type="button"
-                          onclick="clearForm()"
-                          style="background-color: maroon"
-                        >
+                      <div class="clear-button-container" style="margin-top: 5px">
+                        <button class="btn btn--radius-2 btn--red small-button" type="button" (click)="clearForm()"
+                          style="background-color: maroon">
                           Clear Form
                         </button>
                       </div>
                       <div style="text-align: right">
-                        <button
-                          class="btn btn--radius-2 btn--red"
-                          type="submit"
-                          style="background-color: maroon"
-                        >
+                        <button class="btn btn--radius-2 btn--red small-button" type="submit"
+                          style="background-color: maroon">
                           Submit
                         </button>
                       </div>
@@ -144,7 +121,7 @@
             </div>
           </div>
           <!-- View Meetings -->
-          
+
           <section style="background-color: #8f4a4c25; border-radius: 20px">
             <!-- Separate container for the h2 element -->
             <div class="container-fluid">
@@ -159,112 +136,75 @@
       </ng-container>
       <ng-container *ngIf="i === 1">
 
-  <div class="row">
-                    <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-title">Meetings</p>
-                
-                                <!-- SEEERCH BUTTON-->
-                                <div class="row">
-                                    <!-- <div class="col-8 mb-3 ">
+
+
+
+        <div class="row">
+          <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title">Meetings</p>
+
+                <!-- SEEERCH BUTTON-->
+                <div class="row">
+                  <!-- <div class="col-8 mb-3 ">
                                         <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchQuery"
                                             (ngModelChange)="onSearch()">
                                     </div> -->
-                                </div>
-                
-                
-                
-                                <div class="form-group mx-sm-3 mb-6 d-flex" style="margin-bottom: 10px;">
-                                    <select class="form-control mr-2" id="dropdownMenu" style="width: 100px; margin-right: 20px; color:black; margin-left: -15px;">
-                                        <option value="">Search by..</option>
-                                        <option value="option1">CIF ID</option>
-                                        <option value="option2">A/C number </option>
-                                        <option value="option3">A/c Name</option>
-                                        <option value="option4">Case Number</option>
-                                        <option value="option5">Id NO.</option>
-                                    </select>
-                                    <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
-                                        style="width: 700px; height: 40px; margin-right: 15px;border: 2px solid grey;">
-                                    <button   type="search" class="search" >Search</button>
-                                </div>               
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="table-responsive table-striped">
-                                            <table id="example" class="display expandable-table" style="width:100%">
-                
-                                                <!-- Table headers and rows -->
-                                                <thead>
-                                                    <tr>
-                                                        <th>Meeting ID</th>
-                                                        <th>Meeting Details</th>
-                                                        <th>Members </th>
-                                                        <th>Venue</th>
-                                                        <th>Time and Date</th>
-                                                        <th>Status</th>
-                                        
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr >
-                                                        <td >001</td>
-                                                        <td>GSAM for ACC XXXXXX</td>
-                                                        <td>Member 1,member 2,....n</td>
-                                                        <td>zoom </td>
-                                                        <td > 21.04.24. ,1530hrs</td>
-                                                        <td> pending approval</td>   
-                                                    </tr>
-                                                    <tr>
-
-                                
-                                                        <td >002</td>
-                                                        <td>GSAM for ACC XXXXXX</td>
-                                                        <td>Member 1,member 2,....n</td>
-                                                        <td>zoom </td>
-                                                        <td > 21.04.24. ,1630hrs</td>
-                                                        <td> Approved</td>
-                                                    <tr>
-                                                        <tr>
-
-                                
-                                                            <td >003</td>
-                                                            <td>GSAM for ACC XXXXXX</td>
-                                                            <td>Member 1,member 2,....n</td>
-                                                            <td>zoom </td>
-                                                            <td > 21.04.24. ,1530hrs</td>
-                                                            <td>approved</td>
-                                                        </tr>
-                                                        <tr>
-                            
-                                                            
-                                                            <td >004</td>
-                                                            <td>GSAM for ACC XXXXXX</td>
-                                                            <td>Member 1,member 2,....n</td>
-                                                            <td>zoom </td>
-                                                            <td > 21.04.24. ,1530hrs</td>
-                                                            <td> Approved</td>
-                                                        </tr>
-                                                        <tr>
-                            
-                                                           
-                                                            <td >005</td>
-                                                            <td>GSAM for ACC XXXXXX</td>
-                                                            <td>Member 1,member 2,....n</td>
-                                                            <td>zoom </td>
-                                                            <td > 21.04.24. ,1530hrs</td>
-                                                            <td> Approved</td>
-                                                        </tr>
-                                                </tbody>
-                
-                
-                
-                
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                      
+
+
+
+                <div class="form-group mx-sm-3 mb-6 d-flex" style="margin-bottom: 10px;">
+                  <select class="form-control mr-2" id="dropdownMenu"
+                    style="width: 100px; margin-right: 20px; color:black; margin-left: -15px;">
+                    <option value="">Search by..</option>
+                    <option value="option1">Meeting ID</option>
+                    <option value="option2">Meeting Details </option>
+                    <option value="option3">Status</option>
+                  </select>
+                  <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
+                    style="width: 700px; height: 40px; margin-right: 15px;border: 2px solid grey;">
+                  <button type="search" class="search">Search</button>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="table-responsive table-striped">
+                      <table id="example" class="display expandable-table bordered-table" style="width:100%">
+
+                        <!-- Table headers and rows -->
+                        <thead>
+                          <tr>
+
+                            <th>Meeting Id</th>
+                            <th>Meeting Details</th>
+
+                            <th>Venue</th>
+                            <th>Date and Time</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+                          <tr *ngFor="let meeting of Meetings">
+                            <td>{{ meeting.meetingId }}</td>
+                            <td>{{ meeting.meetingDetails }}</td>
+                            <!-- <td>{{ meeting.members }}</td> -->
+                            <td>{{ meeting.venue }}</td>
+                            <td>{{ meeting.dateTime }}</td>
+                            <td>{{ meeting.status }}</td>
+                          </tr>
+                        </tbody>
+
+
+
+
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

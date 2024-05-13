@@ -27,7 +27,8 @@ export class SharedService {
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
    readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
  readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
-  readonly CustomersUrl='assets/data/db.json';
+ readonly CustomersUrl='assets/data/db.json';
+   readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
 
 
 
@@ -65,6 +66,7 @@ export class SharedService {
   }
   getCases(): Observable<any> {
     return this.http.get<any>(this.CasesUrl);
+
   }
 
 
@@ -186,6 +188,10 @@ export class SharedService {
       );
   }
    
+  
+  getMeetings(): Observable<any[]> {
+    return this.http.get<any[]>(this.MeetingsUrl);
+  }
 
 
 

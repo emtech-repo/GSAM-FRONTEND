@@ -71,7 +71,7 @@ export class AnalysisComponent  implements OnInit{
         ['Closed', 45]
         
       ],
-      colors: ['#4e73df', '#1cc88a', '#5a5c69']
+      colors: ['maroon', 'blue', '#00cfd5']
     }]
   };
 
