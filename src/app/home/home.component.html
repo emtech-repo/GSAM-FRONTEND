@@ -4,7 +4,7 @@
       <div class="col-12 col-xl-8 mb-4 mb-xl-0">
         <form class="form-inline" style="margin-left: -15px; margin-top: 15px;">
           <div class="form-group mx-sm-3 mb-6 d-flex">
-            <div class="search-bar" style="margin-left: 10px; border-radius: 20px; width: 700px;">
+            <div class="search-bar" style="margin-left: 1px; border-radius: 20px; width: 700px;">
             <input type="text" placeholder="Search..." [(ngModel)]="searchQuery" (input)="filterItems()" name="searchQuery" style="height: 30px;width: 100%;border-radius: 5px;color: maroon; ">
               <ul *ngIf="showDropdown && filteredItems.length > 0">
                 <li *ngFor="let item of filteredItems" (click)="navigateToPage(item)">{{ item.title }}</li>
