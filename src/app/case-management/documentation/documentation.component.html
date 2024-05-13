@@ -240,7 +240,7 @@
                     <option value="Population">Loan Amount</option>
                     <option value="Slug Nation">Case Number</option>
                 </select>
-                <input type="text" class="form-control" [(ngModel)]="searchTerm" (input)="onSearch()" [placeholder]="searchBy ? getPlaceholder() : 'Select search option first'" [disabled]="!searchBy">
+                <!-- <input type="text" class="form-control" [(ngModel)]="searchTerm" (input)="onSearch()" [placeholder]="searchBy ? getPlaceholder() : 'Select search option first'" [disabled]="!searchBy"> -->
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">Search</button>
                 </div>

@@ -12,7 +12,7 @@ import { throwError } from 'rxjs';
 })
 export class SharedService {
   
-  readonly APIUrl = 'http://localhost:5001/';
+ 
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
@@ -26,9 +26,9 @@ export class SharedService {
 
 
   readonly APIUrl = 'https://192.168.89.189:7213';
-  readonly PhotoUrl = 'https://localhost:5001/Photos/';
-  readonly ActivityUrl = 'https://jsonplaceholder.typicode.com/todos';
-  private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+
+ 
+
   readonly baseURL = 'assets/data/db.json'
   readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
@@ -89,9 +89,9 @@ export class SharedService {
   // }
 
 
-  getLogin(val: any) {
-    return this.http.post(this.APIUrl + '/api/auth/login', val);
-  }
+  // getLogin(val: any) {
+  //   return this.http.post(this.APIUrl + '/api/auth/login', val);
+  // }
 
   // changePassword(val: any) {
   //   return this.http.post<any>(this.APIUrl + '/user/changePassword', val);
@@ -169,10 +169,10 @@ export class SharedService {
 
 
   //////////////////////////////////////
-  getJsonData(): Observable<any> {
-    return this.http.get<any>(this.JsonDataUrl);
+  // getJsonData(): Observable<any> {
+  //   return this.http.get<any>(this.JsonDataUrl);
 
-  }
+  // }
   getUserInfo(): Observable<any> {
     return this.http.get<any>(this.UserInfoUrl);
 

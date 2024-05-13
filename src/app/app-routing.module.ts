@@ -11,6 +11,7 @@ import { CreateMeetingComponent } from './case-management/create-meeting/create-
 import { CaseDecisionComponent } from './case-management/case-decision/case-decision.component';
 import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
 import { RegisterComponent } from './register/register.component';
+import { DocumentationComponent } from './case-management/documentation/documentation.component';
 
 
 export const routes: Routes = [
