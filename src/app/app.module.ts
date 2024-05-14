@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardsComponent } from './home/cards/cards.component';
 import { AnalysisComponent } from './home/analysis/analysis.component';
 
+
 import { ChartModule } from 'angular-highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ApprovalModule } from './approval/approval.module';
