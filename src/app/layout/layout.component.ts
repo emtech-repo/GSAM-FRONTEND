@@ -27,5 +27,11 @@ export class LayoutComponent implements OnInit {
 
   }
 
+<<<<<<< HEAD
   
+=======
+
+  
+
+>>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
 }

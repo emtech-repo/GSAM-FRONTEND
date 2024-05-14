@@ -3,17 +3,7 @@
     white-space: nowrap;
 }
 
-.card {
-    display: inline-block;
-    width: 30%;
-    /* Adjust as needed */
-    margin-right: 20px;
-    vertical-align: top;
-    text-align: center;
-    padding: 0px;
-    color: white;
-    background-color: grey;
-}
+
 
 .custom-list {
     list-style: none;
@@ -45,14 +35,50 @@ input[type="checkbox"]:checked+label {
 table {
     width: 100%;
     /* border-collapse: collapse; */
-}
 
-/* Style the table header */
-th {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     background-color: #800000;
+
+    color:white;
+  }
+  
+  /* Style the table data cells */
+  td {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Alternate row background color */
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Hover effect on rows */
+  tr:hover {
+    background-color: #ddd;
+  }
+  .search-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th,
+  table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .input-group {
+    margin-bottom: 20px; /* Add some bottom margin for spacing */
+
     color: white;
 }
 
@@ -92,6 +118,7 @@ table td {
 .input-group {
     margin-bottom: 20px;
     /* Add some bottom margin for spacing */
+
 }
 
 /* Adjust the width of the select element */
@@ -103,4 +130,29 @@ table td {
 .btn-search {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+
+}
+.custom-input:focus::placeholder {
+    color: black;
+    /* Change color to match your input text */
+}
+/* custom-modal.css */
+.card {
+    width: 80%;
+    /* Adjust the percentage or pixel value as needed */
+    margin: auto;
+    /* Center the card horizontally */
+}
+/* .modal {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+} */
+
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+
+
 }

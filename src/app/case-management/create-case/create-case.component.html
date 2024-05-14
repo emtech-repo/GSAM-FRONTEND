@@ -1,0 +1,77 @@
+<div class="container-xl h-100" style="width: 150%; margin-left: -5%;margin-top: -170px;">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-11">
+            <div class="card" style="border-radius: 15px">
+                <div class="card-body">
+                    <div class="row align-items-center pt-4 pb-3">
+                        <div style="margin-top:-40px ;">
+                            <h1 style="font-size: 25px;text-align: center;color:white;background-color:grey;">
+                                Create case</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row" style="margin-bottom: 10px;">
+                                    <div class="col-md-3">
+                                        <label for="role">Function</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select class="form-control">
+                                            <option>choose option</option>
+                                            <option value="2">ADD</option>
+                                            <option value="3">MODIFY</option>
+                                            <option value="4">DELETE</option>
+                                            <option value="5">ENQUIRE</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row" style="margin-bottom: 10px;">
+                                    <div class="col-md-3">
+                                        <label for="loanaccount">Loan Account</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="loanaccount">
+                                            <i class="icon-search menu-icon" (click)="goLoanAccountLookUp()"></i>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-9">
+                            <div class="px-5 py-4">
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-primary   small-btn"
+                                        style="margin-right: 1px;border-radius:3px ; " (click)="goToHome()">Exit
+                                        Page</button>
+
+                                    <button type="button" class="btn btn-primary   small-btn"
+                                        style="margin-right: -250px;border-radius:3px ;"
+                                        (click)="goToCreateTwo()">Proceed</button>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-9">
+            <div class="px-5 py-4">
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-primary" (click)="goToHome()">Exit Page</button>
+                    <button type="button" class="btn btn-primary" (click)="goToAssignCase()">Create</button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+

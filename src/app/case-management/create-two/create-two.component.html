@@ -1,0 +1,116 @@
+<div class="container-xl h-100" style="width: 150%; margin-left: -9%">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-10">
+            <div class="card" style="border-radius: 15px">
+                <div class="card-body">
+                    <div class="row align-items-center pt-4 pb-3">
+
+
+
+                        <div class="col-md-6 ps-9" style="margin-top: -25px;">
+                            <div class="form-group">
+                                <label for="inputEmail4">CIF ID</label>
+                                <input type="text" class="form-control" id="CifID" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 ps-9" style="margin-top: -25px;">
+                            <div class="form-group">
+                                <label for="inputEmail4">Loan Account</label>
+                                <input type="text" class="form-control" id="AccNumber" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 ps-9" style="margin-top: -20px;">
+                            <div class="form-group">
+                                <label for="inputEmail4">Acc Name</label>
+                                <input type="text" class="form-control" id="AccName" />
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 ps-9" style="margin-top: -20px;">
+                            <div class="form-group">
+                                <label for="inputEmail4">Branch ID</label>
+                                <input type="text" class="form-control" id="BranchName" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 ps-9" style="margin-top: -20px;">
+                            <div class="form-group">
+                                <label for="inputEmail4">Case Number </label>
+                                <input type="text" class="form-control" id="CaseNumber" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 ps-9" style="margin-top: -20px;">
+                            <div class="form-group">
+                                <label for="inputEmail4">Loan Amount</label>
+                                <input type="text" class="form-control" id="RemainingLoanAmount" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 ps-9" style="margin-top: -20px;">
+                            <div class="form-group">
+                                <label for="inputEmail4">Monthly Instalments</label>
+                                <input type="text" class="form-control" id="InitialMonthlyInstalments" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 ps-9" style="margin-top: -20px;">
+                            <div class="form-group">
+                                <label for="inputEmail4"> Loan Tenure</label>
+                                <input type="text" class="form-control" id="InitialLoanTenure" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 ps-9" style="margin-top: -20px;">
+                            <div class="form-group">
+                                <label for="inputEmail4">Loan Balance</label>
+                                <input type="text" class="form-control" id="New Loan Tenure"
+                                    placeholder=" new loan tenure" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 ps-9" style="margin-top: -40px;">
+                            <div class="input-group" style="border-radius: 5px;">
+                                <label for="inputEmail4">Syndicated</label>
+                                <select class="input--style-5" name="members" style="width: 100%;">
+                                    <option value="member1">Yes</option>
+                                    <option value="member2">No</option>
+                                    =
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="px-5 py-4">
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
+                                        (click)="bsModalRef.hide()" style="margin-right: 1px;border-radius:3px ; ">Exit
+                                        Page</button>
+                                    <button type="button" class="btn btn-primary  small-btn"
+                                        style="margin-right: -150px;border-radius:3px ;"
+                                        (click)="CreateCase()">Create</button>
+                                </div>
+                                <div class="alert alert-success mt-3" *ngIf="CreatedSuccessfully">
+                                    Created Successfully!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-9">
+            <div class="px-5 py-4">
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-primary" (click)="goToHome()">Exit Page</button>
+                    <button type="button" class="btn btn-primary" (click)="goToAssignCase()">Create</button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

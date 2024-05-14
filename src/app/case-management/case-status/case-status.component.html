@@ -15,7 +15,7 @@
                     <div class="card card-tale">
                         <div class="card-body">
                             <p class="mb-4">Total Cases</p>
-                            <p class="fs-30 mb-2">355</p>
+                            <p class="fs-30 mb-2">{{ totalCases }}</p>
                             <!-- <p>10.00% (30 days)</p> -->
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                     <div class="card card-dark-blue">
                         <div class="card-body">
                             <p class="mb-4">Assigned Cases</p>
-                            <p class="fs-30 mb-2">200</p>
+                            <p class="fs-30 mb-2">{{ assignedCases }}</p>
                             <!-- <p>22.00% (30 days)</p> -->
                         </div>
                     </div>
@@ -33,20 +33,11 @@
                     <div class="card card-light-blue">
                         <div class="card-body">
                             <p class="mb-4">unassigned Cases</p>
-                            <p class="fs-30 mb-2">155</p>
-                            <!-- <p>2.00% (30 days)</p> -->
+                            <p class="fs-30 mb-2">{{ unassignedCases }}</p>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-md-3 mb-3  stretch-card transparent">
-          <div class="card card-light-danger">
-            <div class="card-body"style="text-align:center">
-              <p class="mb-4">Asssigned</p>
-              <p class="fs-30 mb-2">33</p>
-               <p>0.22% (30 days)</p> -->
-                <!-- </div>
-          </div>
-        </div>   -->
+
             </div>
         </div>
     </div>
@@ -58,16 +49,35 @@
 
 
 
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" [(ngModel)]="searchTerm"
-                                placeholder="Search by Account name">
-                        </div>
+                    <!-- Search Form -->
+                    <!-- Search Form -->
+                    <!-- Search Form -->
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
+                        <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
+                            style="width: auto; height: auto;">
+                            <option value="SearchBy" disabled>SearchBy</option>
+                            <option value="cifId">CIF</option>
+                            <option value="assignedEmail">Assigned Email</option>
+                            <option value="accountName">Account Name</option>
+                            <option value="loanAccount">Loan Account</option>
+                            <!-- <option value="id">ID</option> -->
+                        </select>
+                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                            placeholder="Enter search value" class="form-control mr-4"
+                            style="width: 300px; height: 20px; margin-right: 15px;">
+                        <button (click)="search()" class="btn btn-primary btn-sm"
+                            style="border-radius: 5px;">Search</button>
                     </div>
+
+
+
+
                     <!-- Export Buttons Container -->
                     <div class="export-buttons-container">
-                        <button class="btn btn-primary mr-2" (click)="exportToPDF()">Export to PDF</button>
-                        <button class="btn btn-primary" (click)="exportToExcel()">Export to Excel</button>
+                        <button class="btn btn-primary mr-2  small-btn" style="margin-left: -1px;"
+                            (click)="exportToPDF()">Export PDF</button>
+                        <button class="btn btn-primary  small-btn" (click)="exportToExcel()">Export Excel</button>
                     </div>
 
                     <div class="row">
@@ -76,19 +86,20 @@
                                 <table id="example" class="display expandable-table" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>cif</th>
-                                            <th>Acc Number</th>
-                                            <th>Policy holder</th>
+                                            <th>Assigned To</th>
+                                            <th>CIF</th>
+                                            <th>Loan Type</th>
+                                            <th>Acc Name</th>
                                             <th>Status</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of filteredData">
-                                            <td>{{ item.userId }}</td>
-                                            <td>{{ item.id }}</td>
-                                            <td>{{ item.title }}</td>
-                                            <td>{{ item.completed }}</td>
+                                        <tr *ngFor="let item of statusData">
+                                            <td>{{ item.assignedEmail }}</td>
+                                            <td>{{ item.cifId }}</td>
+                                            <td>{{ item.loanAccount }}</td>
+                                            <td>{{ item.accountName }}</td>
+                                            <td>{{ item.verifiedFlag }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -122,10 +133,8 @@
 
 
 <style>
-    /* CSS for Export Buttons Container */
     .export-buttons-container {
         margin-bottom: 10px;
         text-align: right;
     }
 </style>
-

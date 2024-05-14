@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <form class="form-inline" style=" margin-left: -15px;margin-top: 15px;">
     
 
@@ -120,13 +121,126 @@
                                 </div>
                             
                         </div>
+=======
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group mx-sm-3 mb-6 d-flex">
+                    <label for="searchParam"style="width: 100px; margin-right:20px; color:black;">Search by:</label>
+                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "style="width: auto; height: auto;">
+                        <option value="acid">Acid</option>
+                        <option value="verified_flag">Verified Flag</option>
+                        <option value="sol_code">Sol Code</option>
+                        <option value="account_name">Account Name</option>
+                        <option value="id">ID</option>
+                    </select>
+                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                        placeholder="Enter search value" class="form-control mr-4"style="width: 300px; height: 20px; margin-right: 15px;">
+                    <button (click)="search()" class="btn btn-primary btn-sm" style="border-radius: 5px;">Search</button>
+                </div>
+
+                <table class="table mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Account ID</th>
+                            <th>Verified Flag</th>
+                            <th>SOL ID</th>
+                            <th>Account Name</th>
+                            <th>CIF</th>
+                            <th>Actions</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let loanItem of pagedLoanData">
+                            <td>{{ loanItem.acid }}</td>
+                            <td>{{ loanItem.verified_flag }}</td>
+                            <td>{{ loanItem.sol_code }}</td>
+                            <td>{{ loanItem.account_name }}</td>
+                            <td>{{ loanItem.id }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-info" (click)="getLoanDetails(loanItem.acid)">View Details</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-12">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                            (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
+>>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
                     </div>
 
                 </div>
             
             </div>
+<<<<<<< HEAD
             
        </div>  
                       
     </div>
     
+=======
+        </div>
+    </div>
+    <div>
+        <p>Account Name: {{loanDetails?.acid}}</p>
+        <table>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            <tr *ngFor="let detail of loanDetails | keyvalue">
+                {{ detail.key }}
+                {{ detail.value }}
+            </tr>
+        </table>      
+    </div> 
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'accountClosureInfo'}" id="pills-accountClosureInfo"
+        role="tabpanel" aria-labelledby="pills-accountClosureInfo-tab">
+        <div *ngIf="loanDetails && loanDetails.entity">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Closed By</td>
+                        <td>{{ loanDetails.entity.accountClosureInfo.closedBy }}</td>
+                    </tr>
+                    <tr>
+                        <td>Closing Date</td>
+                        <td>{{ loanDetails.entity.accountClosureInfo.closingDate }}</td>
+                    </tr>
+                    <tr>
+                        <td>Closure Reason</td>
+                        <td>{{ loanDetails.entity.accountClosureInfo.closureReason }}</td>
+                    </tr>
+                    <!-- Add more rows for other properties if needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Repeat the above structure for other tabs -->
+    
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'accountDocuments'}" id="pills-accountDocuments"
+        role="tabpanel" aria-labelledby="pills-accountDocuments-tab">
+        <div *ngIf="loanDetails && loanDetails.entity">
+            <!-- Render the account documents data here -->
+        </div>
+    </div>
+    
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'accountRecurringFees'}"
+        id="pills-accountRecurringFees" role="tabpanel" aria-labelledby="pills-accountRecurringFees-tab">
+        <div *ngIf="loanDetails && loanDetails.entity">
+            <!-- Render the account recurring fees data here -->
+        </div>
+    </div>
+    
+    <!-- Repeat the above structure for other tabs -->
+
+     
+</div>
+
+>>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6

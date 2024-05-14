@@ -1,0 +1,32 @@
+.form-control {
+    width: 100%;
+    height: 30px;
+    padding: 5px 10px;
+}
+
+.input-group {
+    display: flex;
+    /* Use flexbox layout */
+    align-items: center;
+    /* Align items vertically */
+}
+
+.form-control {
+    flex: 1;
+    /* Take up remaining space */
+}
+
+.icon-search {
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 24px;
+    order: 1;
+
+}
+
+.small-btn {
+    font-size: 15px;
+    padding: 5px 10px;
+    height: 30px;
+
+}

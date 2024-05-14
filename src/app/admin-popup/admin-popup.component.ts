@@ -33,6 +33,8 @@ export class AdminPopupComponent implements OnInit {
       password: ['', Validators.required],
       gender: ['', Validators.required],
       role: ['', Validators.required],
+      creationDate: ['', Validators.required],
+    
       isActive: [false, Validators.requiredTrue]
     });
   }

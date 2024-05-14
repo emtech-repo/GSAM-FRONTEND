@@ -9,3 +9,17 @@
     right: 0;
     margin-bottom: 10px;
 }
+
+.small-btn {
+    font-size: 15px;
+    /* Adjust the font size as needed */
+    padding: 5px 10px;
+    height: 30px;
+    border-radius: 5px;
+
+}
+
+.export-buttons-container button {
+    margin-right: 10px;
+    /* Adjust the value to increase or decrease space */
+}

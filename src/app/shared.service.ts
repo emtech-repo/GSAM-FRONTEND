@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, Observable } from 'rxjs';
+
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { map, Observable, tap } from 'rxjs';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-
-
 
 
 @Injectable({
@@ -12,16 +12,28 @@ import { throwError } from 'rxjs';
 })
 export class SharedService {
   
-  readonly APIUrl = 'http://localhost:5001/';
+ 
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
-  private readonly userDataUrl = 'assets/data/db.json';
+  readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
 
+
+  private readonly userDataUrl = 'assets/data/db.json';
   baseUrl: string = "http://localhost:3000/";
+  readonly APIUrl = 'https://192.168.89.189:7213';
+  readonly baseURL = 'assets/data/db.json'
+  readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
+  readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
+   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
+ readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
+ readonly CustomersUrl='assets/data/db.json';
+   readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
+
 
 
 
@@ -52,9 +64,15 @@ export class SharedService {
 
   private tokenResponse: any;
 
-  // getUsersList(val: any) {
-  //   return this.http.post<any>(this.APIUrl + '/users/get', val);
-  // }
+
+  getUsersList(val: any) {
+    return this.http.post<any>(this.APIUrl + '/users/get', val);
+  }
+  getCases(): Observable<any> {
+    return this.http.get<any>(this.CasesUrl);
+
+  }
+
 
   // addUser(val: any) {
   //   return this.http.post<any>(this.APIUrl + '/users/insert', val);
@@ -72,9 +90,10 @@ export class SharedService {
   //   return this.http.post<any>(this.APIUrl + '/users/Inactive', val);
   // }
 
+
   // getLogin(val: any) {
-  //  return this.http.post(this.APIUrl + '/user/login', val);
-  //  }
+  //   return this.http.post(this.APIUrl + '/api/auth/login', val);
+  // }
 
   // changePassword(val: any) {
   //   return this.http.post<any>(this.APIUrl + '/user/changePassword', val);
@@ -83,6 +102,19 @@ export class SharedService {
   // getUserRoleList(): Observable<any[]> {
   //   return this.http.get<any>(this.APIUrl + '/users/userRoles');
   // }
+
+
+  getRecentStatus(searchQuery?: string): Observable<any[]> {
+    let apiUrl = (this.LoanUrl);
+
+    // Append search query to the API URL if provided
+    if (searchQuery && searchQuery.trim() !== '') {
+      apiUrl += `?search=${encodeURIComponent(searchQuery)}`;
+    }
+
+
+    return this.http.get<any[]>(apiUrl);
+  }
 
 
   getRecentStatus(searchQuery?: string): Observable<any[]> {
@@ -110,11 +142,86 @@ export class SharedService {
   }
 
 
-  //////////////////////////////////////
   getJsonData(): Observable<any> {
     return this.http.get<any>(this.JsonDataUrl);
 
+
   }
+  getLoan(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.LoanURL}`).pipe(
+      tap(data => console.log('Loan data:', data))
+    );
+  }
+
+  getStatus(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.StatusUrl}`).pipe(
+      tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
+      map((response: any) => response.result) // Extracting only the 'result' array
+    );
+  }
+  getLoanDetails(accountId: string): Observable<any> {
+    const url = `${this.DetailsURL}${accountId}`;
+    return this.http.get<any>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
+
+  getDocuments(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseURL}`)
+      .pipe(
+        tap((data: any[]) => console.log('Fetched documents:', data)),
+        map((data: any) => data['documents']) // Assuming 'document' is the key containing your documents
+      );
+  }
+   getCreateCase(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.CreateCaseUrl}`)
+      .pipe(
+        tap((data: any[]) => console.log('Fetched CreateCase:', data)),
+        map((data: any) => data['CreateCase']) 
+      );
+  }
+
+  getAccounts():Observable<any>{
+    let apiUrl = `${this.LoanAccountCaseUrl}/la/all`;
+    return this.http.get<any>(apiUrl).pipe(map(
+      res=> {
+        return res || {}
+      }
+    ))
+
+  }
+  getCustomers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.CustomersUrl}`)
+      .pipe(
+        tap((data: any[]) => console.log('Fetched Customers:', data)),
+        map((data: any) => data['Customers']) 
+      );
+  }
+   
+  
+  getMeetings(): Observable<any[]> {
+    return this.http.get<any[]>(this.MeetingsUrl);
+  }
+
+
+
+  //////////////////////////////////////
+  // getJsonData(): Observable<any> {
+  //   return this.http.get<any>(this.JsonDataUrl);
+
+  // }
   getUserInfo(): Observable<any> {
     return this.http.get<any>(this.UserInfoUrl);
 
@@ -195,4 +302,5 @@ export class SharedService {
   // this.yourService.updateData(updatedData).subscribe(() => {
   //   this.refreshData(); // Method to fetch and update the data in your component
   // });
+
 }

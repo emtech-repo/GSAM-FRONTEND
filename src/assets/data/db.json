@@ -6,6 +6,7 @@
       "password": "123456",
       "gender": "male",
       "role": "admin",
+      "creationDate": "2024-02-11T09:51:13.471Z",
       "isActive": true,
       "id": "10193"
     },
@@ -14,6 +15,7 @@
       "email": "user@gmail.com",
       "password": "Test@1234",
       "gender": "male",
+      "creationDate": "2024-05-09T09:51:13.471Z",
       "role": "admin",
       "isActive": true,
       "id": "5083"
@@ -24,6 +26,7 @@
       "password": "peter1234",
       "gender": "male",
       "role": "officer",
+      "creationDate": "2024-05-10T09:51:13.471Z",
       "isActive": true,
       "id": "30302"
     },
@@ -33,6 +36,7 @@
       "password": "pbeta1234",
       "gender": "female",
       "role": "officer",
+      "creationDate": "2024-05-7T09:51:13.471Z",
       "isActive": true,
       "id": "30303"
     },
@@ -42,26 +46,29 @@
       "password": "paul1234",
       "gender": "male",
       "role": "manager",
+      "creationDate": "2024-05-13T09:51:13.471Z",
       "isActive": true,
       "id": "90302"
     },
     {
-      "id": "9343",
       "name": "zachary",
       "email": "zac@gma.com",
       "password": "Qwersddfd",
       "gender": "male",
-      "role": "",
-      "isactive": false
+      "creationDate": "2024-05-13T09:51:13.471Z",
+      "role": "officer",
+      "isActive": true,
+      "id": "9343"
     },
     {
-      "id": "67332",
       "name": "wdhqydwdwe",
       "email": "test@gmail.com",
       "password": "sswwFTY",
       "gender": "male",
-      "role": "",
-      "isactive": false
+      "role": "officer",
+      "creationDate": "2024-05-13T09:51:13.471Z",
+      "isActive": true,
+      "id": "67332"
     },
     {
       "name": "joe doe",
@@ -69,8 +76,68 @@
       "password": "123456",
       "gender": "male",
       "role": "officer",
+      "creationDate": "2024-05-13T09:51:13.471Z",
       "isActive": true,
       "id": "8090"
+    },
+    {
+      "name": "wendy",
+      "email": "Ngiyewendy2@gmail.com",
+      "password": "1234567",
+      "gender": "male",
+      "role": "officer",
+      "creationDate": "2024-05-13T09:51:13.471Z",
+      "isActive": true,
+      "id": "41723"
+    },
+    {
+      "name": "john kim",
+      "email": "johnkim@gmail.com",
+      "password": "123456",
+      "gender": "female",
+      "role": "officer",
+      "creationDate": "2024-05-13T09:51:13.471Z",
+      "isActive": true,
+      "id": "5555"
+    },
+    {
+      "name": "clinton",
+      "email": "clinton@yahoo.com",
+      "password": "123456",
+      "gender": "male",
+      "creationDate": "2024-05-13T09:51:13.471Z",
+      "role": "manager",
+      "isActive": true,
+      "id": "9090"
+    }
+  ],
+  "Customers": [
+    {
+      "IdNumber": "34859638",
+      "CifID": "5478675230",
+      "AccNumber": "1120164664380",
+      "AccName": "SHEIKH ENTREPRISES",
+      "CaseNumber": "C204",
+      "AssignedTo": "mwebsdale0@people.com.cn",
+      "CreationDate": "1989-08-28",
+      "Status": "Completed",
+      "UpdatedDate": "2022-08-28",
+      "Comments": "ok",
+      "BranchId": "012",
+      "BranchName": "Karen Supreme",
+      "Address": "10369-00400",
+      "InitialLoanAmount": "600,000",
+      "InitialInstalments": "10,000",
+      "RefinanceAmount": " 100,000  ",
+      "LoanBalance": "100,000",
+      "NewInstalments": "8,000",
+      "InitialLoanTenure": "60",
+      "NewLoanTenure": "25",
+      "LoanAmount": "600,000",
+      "LoanPaid": "400,000",
+      "AmountToBeRecovered": "200,000",
+      "MonthsInDefault": "4",
+      "id": "c709"
     }
   ],
   "role": [
