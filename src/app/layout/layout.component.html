@@ -143,6 +143,8 @@
                   Tracking</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
                   Case</a></li>
+                  <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assigned-cases']">Assigned
+                      Cases</a></li>
 
             </ul>
           </div>
@@ -156,17 +158,17 @@
           </a>
           <div class="collapse" id="ui-advanced">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dragula.html">Search Document</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/clipboard.html">Request</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/clipboard.html">Retrieve</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/slider.html">Upload</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-search-document']">Search Document</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-request']">Request</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-retrieve']">Retrieve</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-upload']">Upload</a></li>
 
             </ul>
           </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
-            class="nav-link" [routerLink]="['contracts/app-contract']">
+            class="nav-link" [routerLink]="['contracts/app-contract-inter']">
             <i class="icon-paper menu-icon"></i>
             <span class="menu-title">Contracts</span>
 
@@ -183,7 +185,7 @@
               <li class="nav-item"><a class="nav-link"
                   [routerLink]="['billing-reconciliation/app-request-service']">Request
                   Service</a></li>
-              <li class="nav-item"><a class="nav-link" [routerLink]="['billing-reconciliation/app-view-request']">View
+              <li class="nav-item"><a class="nav-link" [routerLink]="['billing-reconciliation/app-view-requests']">View
                   Requests</a>
               </li>
               <li class="nav-item"><a class="nav-link" [routerLink]="['billing-reconciliation/app-create-claim']">Create
@@ -197,7 +199,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
-            class="nav-link" [routerLink]="['reports/app-reports-interphase']">
+            class="nav-link" [routerLink]="['reports/app-reports-inter']">
             <i class="icon-bar-graph menu-icon"></i>
             <span class="menu-title">Reports</span>
 
