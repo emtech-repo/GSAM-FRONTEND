@@ -16,6 +16,12 @@ export class AssignCaseComponent {
     // Navigate to the "case-details" route
     this.router.navigate(['/case-details']);
   }
+   goToAssignedCases() {
+    // Navigate to the "assigned cases" route
+    this.router.navigate(['/app-assigned-cases']);
+   
+  }
+
 
   
   searchQuery: string = '';
@@ -24,6 +30,9 @@ export class AssignCaseComponent {
   currentPage: number = 1;
   pageSize: number = 10;
   totalItems: number = 0;
+  totalCases: number =0;
+  assignedCases: number =0;
+  unassignedCasrs:number =0;
 
 
 
@@ -79,3 +88,7 @@ export class AssignCaseComponent {
     }
   }
 }
+
+
+
+  

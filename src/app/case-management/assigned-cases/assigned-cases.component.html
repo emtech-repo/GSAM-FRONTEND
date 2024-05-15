@@ -1,1 +1,77 @@
-<p>assigned-cases works!</p>
+<!-- <app-layout></app-layout> -->
+
+<div class="row">
+
+
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Assigned cases</p>
+
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
+                        <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
+                            style="width: auto; height: 30px;">
+                            <option value="SearchBy" disabled>SearchBy</option>
+                            <option value="cifId">CIF</option>
+                            <option value="assignedEmail">Assigned Email</option>
+                            <option value="accountName">Account Name</option>
+                            <option value="loanAccount">Loan Account</option>
+                            <!-- <option value="id">ID</option> -->
+                        </select>
+                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                            placeholder="Enter search value" class="form-control mr-4"
+                            style="height: 30px;width: 100%; ">
+                        <button (click)="search()" class="btn btn-primary small-btn"
+                            style="border-radius: 3px;">Search</button>
+                    </div>
+
+
+
+
+                    <!-- Export Buttons Container -->
+                    <div class="export-buttons-container">
+                        <button class="btn btn-primary mr-4 small-btn" style="margin-left: -60px;"
+                            (click)="exportToPDF()">Export PDF</button>
+                        <button class="btn btn-primary small-btn" style="margin-right: 4px;"
+                            (click)="exportToExcel()">Export Excel</button>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="example" class="display expandable-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Loan Account</th>
+                                            <th>CIF ID</th>
+                                            <th>Acc Name</th>
+                                            <th>Assigned To</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of statusData">
+                                            <td>{{ item.loanAccount }}</td>
+                                            <td>{{ item.cifId }}</td>
+                                            <td>{{ item.accountName }}</td>
+                                            <td>{{ item.assignedEmail }}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination-container" style="margin-left: 57%;">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

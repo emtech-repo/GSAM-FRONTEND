@@ -20,6 +20,7 @@ import { CreateTwoComponent } from './create-two/create-two.component';
 import { LoanAccountLookUpComponent } from './loan-account-look-up/loan-account-look-up.component';
 import { AssignPopupComponent } from './assign-popup/assign-popup.component';
 import { AssignedCasesComponent } from './assigned-cases/assigned-cases.component';
+import { AssignCardsComponent } from './assign-cards/assign-cards.component';
 
 
 
@@ -43,6 +44,7 @@ import { AssignedCasesComponent } from './assigned-cases/assigned-cases.componen
     LoanAccountLookUpComponent,
     AssignPopupComponent,
     AssignedCasesComponent,
+    AssignCardsComponent,
     
     
     

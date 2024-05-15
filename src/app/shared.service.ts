@@ -18,7 +18,7 @@ export class SharedService {
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
-  readonly AssignCaseUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
+  readonly UnAssignCaseUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
 
   readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
 
@@ -185,8 +185,8 @@ export class SharedService {
   }
 
 
-   getAssignCase(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.AssignCaseUrl}`)
+   getUnAssignCase(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.UnAssignCaseUrl}`)
       .pipe(
         tap((data: any[]) => console.log('Fetched AssignCase:', data)),
         map((data: any) => data['AssignCase']) 

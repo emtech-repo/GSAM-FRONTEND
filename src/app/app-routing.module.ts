@@ -16,6 +16,8 @@ import { LoanAccountLookUpComponent } from './case-management/loan-account-look-
 import { CreateTwoComponent } from './case-management/create-two/create-two.component';
 import { AssignCaseComponent } from './case-management/assign-case/assign-case.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AssignedCasesComponent } from './case-management/assigned-cases/assigned-cases.component';
+import { AssignCardsComponent } from './case-management/assign-cards/assign-cards.component';
 
 
 
@@ -92,6 +94,22 @@ export const routes: Routes = [
      {
       path: 'app-forgot-password',    
       component: ForgotPasswordComponent,
+    },
+
+     
+     {
+      path: 'app-assigned-cases',    
+      component: AssignedCasesComponent,
+    },
+
+     {
+      path: 'app-assign-cards',    
+      component: AssignCardsComponent,
+    },
+
+     {
+      path: 'app-assign-case',    
+      component: AssignCaseComponent,
     },
 
 
