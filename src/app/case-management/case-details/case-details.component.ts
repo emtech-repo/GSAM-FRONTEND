@@ -25,7 +25,7 @@ export class CaseDetailsComponent {
 
 goToAssignPopup() {
     //  this.router.navigate(['/assign-popup']);
-    // Navigate to the "admin page" route
+    
     this.bsModalRef = this.modalService.show(AssignPopupComponent); // Open modal and get modal reference
   }
  

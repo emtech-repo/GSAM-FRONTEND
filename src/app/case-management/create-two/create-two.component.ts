@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+
 
 
 
@@ -11,19 +13,26 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CreateTwoComponent {
     CreatedSuccessfully: any;
-  action: string | undefined;
+    action: string | undefined;
+     
+
 
     constructor(
-     private toastr: ToastrService,
-    public bsModalRef: BsModalRef 
+      private toastr: ToastrService,
+    public bsModalRef: BsModalRef,
+     private router: Router,
+    
   ) { }
 
-  
-   closeModal() {
+    closeModal() {
     this.bsModalRef.hide();
   }
-CreateCase() {
+     CreateCase() {
     console.log('Case Created approved');
+    
+   
+   
+ 
 
 
     // Set submittedSuccessfully to true and action to 'approve'
@@ -32,7 +41,15 @@ CreateCase() {
 
   }
   
-  
+  goToCreateCase() {
+    // Navigate to the create case" route
+    this.router.navigate(['/app-create-case']);
+
+  } 
 
  
 }
+function goToLoanAccountLookUp() {
+  throw new Error('Function not implemented.');
+}
+

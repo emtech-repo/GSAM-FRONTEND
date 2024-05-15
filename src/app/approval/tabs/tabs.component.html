@@ -63,22 +63,24 @@
                     <p><a href="#">Document Name: DocumentXYZ</a></p> <!-- Make Document Name a clickable link -->
                     <p>Submitted By: John Doe</p>
                     <p>Submission Date: 2024-04-15</p>
-            
+
                     <!-- View Submission button -->
-                            <button type="button" class="btn btn-primary btn-sm btn-block my-3">
-                                <span>View Submission</span>
-                            </button>
-            
+                    <button type="button" class="btn btn-primary btn-sm btn-block my-3">
+                        <span>View Submission</span>
+                    </button>
+
                     <!-- Comments -->
                     <div class="form-group mt-3">
                         <label for="comments">Comments:</label>
                         <textarea class="form-control" id="comments" rows="3"></textarea>
                     </div>
-            
+
                     <!-- Buttons -->
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-success" (click)="approveDocument()" style="margin-top: 10px;">Approve</button>
-                        <button type="button" class="btn btn-danger" (click)="rejectDocument()" style="margin-top: 10px;">Reject</button>
+                        <button type="button" class="btn btn-success" (click)="approveDocument()"
+                            style="margin-top: 10px;">Approve</button>
+                        <button type="button" class="btn btn-danger" (click)="rejectDocument()"
+                            style="margin-top: 10px;">Reject</button>
 
                     </div>
 
@@ -86,7 +88,7 @@
                     <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
                         Submitted Successfully!
                     </div>
-                    
+
                 </div>
             </ng-container>
 
@@ -102,33 +104,33 @@
                             <h5 class="card-title">
                                 <a href="https://www.example.com">Claim ID :A0106</a>
 
-                                </h5>
+                            </h5>
                             <p class="card-text">Claimant: John Doe</p>
                             <p class="card-text">Amount: $1000</p>
                             <p class="card-text">Date: 2024-04-15</p>
                         </div>
                     </div>
-            
+
                     <!-- Comments -->
                     <div class="form-group mt-3">
                         <label for="comments">Comments:</label>
                         <textarea class="form-control" id="comments" rows="3"></textarea>
                     </div>
-            
+
                     <!-- Buttons -->
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-success" (click)="approveClaim()"
                             style="margin-top: 10px;">Approve</button>
                         <button type="button" class="btn btn-danger" (click)="rejectClaim()"
                             style="margin-top: 10px;">Reject</button>
-            
+
                     </div>
-            
+
                     <!-- Submitted Successfully Alert -->
                     <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
                         Claim {{ action }}ed Successfully!
                     </div>
-            
+
                 </div>
             </ng-container>
 
@@ -142,37 +144,37 @@
                     <!-- Replace this with actual claim details -->
                     <div class="card mb-3">
                         <div class="card-body">
-                             <h5 class="card-title">
+                            <h5 class="card-title">
                                 <a href="https://www.example.com">Request ID :10106</a>
 
-                                </h5>
+                            </h5>
                             <p class="card-text">Requester user name: John kamau</p>
                             <p class="card-text">Amount: $1000</p>
                             <p class="card-text">Item: furniture</p>
                             <p class="card-text">Date: 2024-04-10</p>
                         </div>
                     </div>
-            
+
                     <!-- Comments -->
                     <div class="form-group mt-3">
                         <label for="comments">Comments:</label>
                         <textarea class="form-control" id="comments" rows="3"></textarea>
                     </div>
-            
+
                     <!-- Buttons -->
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-success" (click)="approveClaim()"
                             style="margin-top: 10px;">Approve</button>
                         <button type="button" class="btn btn-danger" (click)="rejectClaim()"
                             style="margin-top: 10px;">Reject</button>
-            
+
                     </div>
-            
+
                     <!-- Submitted Successfully Alert -->
                     <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
                         Request {{ action }}ed Successfully!
                     </div>
-            
+
                 </div>
             </ng-container>
 
@@ -184,36 +186,36 @@
                     <!-- Replace this with actual claim details -->
                     <div class="card mb-3">
                         <div class="card-body">
-                           <h5 class="card-title">
-                                <a href="https://www.example.com">Meeting  ID :1219</a>
+                            <h5 class="card-title">
+                                <a href="https://www.example.com">Meeting ID :1219</a>
 
-                                </h5>
+                            </h5>
                             <p class="card-text">User: John Doe</p>
                             <p class="card-text">Venue: Zoom</p>
                             <p class="card-text">Date: 2024-04-15</p>
                         </div>
                     </div>
-            
+
                     <!-- Comments -->
                     <div class="form-group mt-3">
                         <label for="comments">Comments:</label>
                         <textarea class="form-control" id="comments" rows="3"></textarea>
                     </div>
-            
+
                     <!-- Buttons -->
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-success" (click)="approveClaim()"
                             style="margin-top: 10px;">Approve</button>
                         <button type="button" class="btn btn-danger" (click)="rejectClaim()"
                             style="margin-top: 10px;">Reject</button>
-            
+
                     </div>
-            
+
                     <!-- Submitted Successfully Alert -->
                     <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
                         Meeting {{ action }}ed Successfully!
                     </div>
-            
+
                 </div>
             </ng-container>
 
@@ -224,7 +226,3 @@
         </div>
     </ng-container>
 </div>
-
-
-
-
