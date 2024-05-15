@@ -56,6 +56,7 @@ import { RegisterComponent } from './register/register.component';
 
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 
@@ -71,6 +72,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdminPageComponent,
     AdminPopupComponent,
     RegisterComponent,
+    ForgotPasswordComponent,
     
     
 
