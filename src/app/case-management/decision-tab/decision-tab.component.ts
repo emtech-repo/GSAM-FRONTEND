@@ -10,7 +10,7 @@ import { SharedService } from '../../shared.service';
   styleUrl: './decision-tab.component.css'
 })
 export class DecisionTabComponent {
-  Customers: any [] =[];
+  Customers: any[] = [];
   CustomersUrl: any;
 
   @Input() tabs: { title: string, content: string }[] = [];
@@ -24,16 +24,17 @@ export class DecisionTabComponent {
 
   ngOnInit() {
     this.getCustomers();
+
   }
-   
+
   getCustomers(): void {
     this.sharedService.getCustomers()
       .subscribe(Customers => {
         this.Customers = Customers;
-       
+
       });
   }
- goToCaseTracking() {
+  goToCaseTracking() {
     // Navigate to the "case tracking" route
     this.router.navigate(['/case-tracking']);
   }
@@ -42,9 +43,9 @@ export class DecisionTabComponent {
     this.router.navigate(['/home']);
   }
 
-  
 
- 
- 
+
+
+
 
 }
