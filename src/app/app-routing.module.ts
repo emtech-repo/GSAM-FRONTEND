@@ -103,9 +103,19 @@ export const routes: Routes = [
    {
     path: 'app-assign-case',
 
-    component: AssignCaseComponent,
-  },
+
+     
     
+
+    
+
+     {
+      path: 'app-assign-case',    
+      component: AssignCaseComponent,
+    },
+
+
+
  
     {
       path: 'case-management',
