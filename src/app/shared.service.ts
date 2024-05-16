@@ -16,11 +16,12 @@ export class SharedService {
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
-  readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+
   readonly UnAssignCaseUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
 
   readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+
 
 
   private readonly userDataUrl = 'assets/data/db.json';
@@ -30,10 +31,11 @@ export class SharedService {
   readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
-   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
+  readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
  readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
   readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
   // readonly CustomersUrl = 'assets/data/db.json';
+
    readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
 
 
@@ -223,12 +225,7 @@ export class SharedService {
   //   return this.http.get<any>(this.JsonDataUrl);
 
   // }
-  getUserInfo(): Observable<any> {
-    return this.http.get<any>(this.UserInfoUrl);
-
-
-  }
-
+ 
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.userDataUrl);
   }

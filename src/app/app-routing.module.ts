@@ -16,6 +16,8 @@ import { LoanAccountLookUpComponent } from './case-management/loan-account-look-
 import { CreateTwoComponent } from './case-management/create-two/create-two.component';
 import { AssignCaseComponent } from './case-management/assign-case/assign-case.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { CreateCaseComponent } from './case-management/create-case/create-case.component';
+
 
 
 
@@ -93,11 +95,11 @@ export const routes: Routes = [
       path: 'app-forgot-password',    
       component: ForgotPasswordComponent,
     },
-
-     
-    
-
-    
+      {
+      path: 'app-create-case',    
+      component: CreateCaseComponent,
+    },
+  
 
      {
       path: 'app-assign-case',    
@@ -115,6 +117,7 @@ export const routes: Routes = [
     path: 'approval',
     loadChildren: () => import('../app/approval/approval.module').then(m => m.ApprovalModule)
   },
+
   {
     path: 'documents',
     loadChildren: () => import('../app/documents/documents.module').then(m => m.DocumentsModule)
@@ -127,10 +130,12 @@ export const routes: Routes = [
     path: 'reports',
     loadChildren: () => import('../app/reports/reports.module').then(m => m.ReportsModule)
   },
+  
   {
     path: 'billing-reconciliation',
     loadChildren: () => import('../app/billing-reconciliation/billing-reconciliation.module').then(m => m.BillingReconciliationModule)
   },
+
   // {
   //   path: 'app-admin-page',
 

@@ -1,3 +1,4 @@
+
 <div class="col-md-12 grid-margin transparent">
     <div class="row">
         <div class="col-md-3 mb-3 stretch-card transparent">
@@ -10,8 +11,10 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;" (click)="showAssignedCases()">
             <div class="card card-dark-blue">
+
                 <div class="card-body">
                     <p class="mb-4">Assigned Cases</p>
                     <p class="fs-30 mb-2">200</p>
@@ -19,9 +22,11 @@
             </div>
         </div>
 
+
         <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;"
             (click)="showUnassignedCases()">
             <div class="card card-light-blue">
+
                 <div class="card-body">
                     <p class="mb-4">unassigned Cases</p>
                     <p class="fs-30 mb-2">155</p>
@@ -31,8 +36,10 @@
 
     </div>
 </div>
+
 <div class="row" *ngIf="showUnassignedCasesFlag">
     <div class="col-md-12 grid-margin stretch-card">
+
         <div class="card">
             <div class="card-body">
                 <p class="card-title">Unassigned Cases</p>
@@ -83,19 +90,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin-left: 57%;">
-                    <div class="col-12">
+             
+                    <div class="pagination-container" style="margin-left: 57%;">
                         <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
-                            (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
+                    <div>
+                        <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
+                            (click)="bsModalRef.hide()" (click)="exit()">Exit Page</button>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
-</div>
 
 <div class="row" *ngIf="showAssignedCasesFlag">
+
 
 
     <div class="row">
@@ -127,8 +139,10 @@
 
                     <!-- Export Buttons Container -->
                     <div class="export-buttons-container">
+
                         <button class="btn btn-primary mr-4 small-btn" (click)="exportToPDF()">Export PDF</button>
                         <button class="btn btn-primary small-btn" (click)="exportToExcel()">Export Excel</button>
+
 
                     </div>
 
@@ -163,6 +177,12 @@
                             (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
+
+                    <div>
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
+                       data-dismiss="modal" (click)="bsModalRef.hide()" (click)="exitPage()">Exit Page</button>
+                    </div>
+
                 </div>
             </div>
         </div>
