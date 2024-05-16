@@ -94,6 +94,16 @@ export const routes: Routes = [
       component: ForgotPasswordComponent,
     },
 
+     
+    
+
+    
+
+     {
+      path: 'app-assign-case',    
+      component: AssignCaseComponent,
+    },
+
 
 
  
