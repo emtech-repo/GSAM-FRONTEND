@@ -20,43 +20,6 @@
 
 .table-container tbody tr:nth-child(even) {
     background-color: #f2f2f2;
-<<<<<<< HEAD
-}
-
-.create-meeting {
-    background-color: #800000;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: 1px;
-    height: 40px;
-}
-
-.next {
-    background-color: #800000;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: 450px;
-    height: 40px;
-
-
-}
-
-.create-meeting:hover,
-.next:hover {
-    background-color: #00124c;
-}
-
-body {
-    background-color: rgb(236, 215, 250);
-=======
 
 } */
 /* Search container */
@@ -245,5 +208,4 @@ body {
       /* Adjust placeholder color if desired */
       /* You can adjust other properties here as needed */
 
->>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
 }

@@ -19,14 +19,17 @@
                                 <th>Account Name</th>
                                 <th>Sol Id</th>
                                 <th>Distress</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of filteredData" (click)="onRowClick(item)">
+                            <tr *ngFor="let item of filteredData" >
                                 <td>{{ item.acid }}</td>
                                 <td>{{ item.account_name}}</td>
                                 <td>{{ item.sol_code}}</td>
                                 <td>{{ item.verified_flag}}</td>
+                                <td><button type="button" class="btn btn-primary   small-btn" style="border-radius:3px ;"  (click)="goToCreateTwo(item.acid)" data-dismiss="modal"
+                                    (click)="bsModalRef.hide()">Create</button></td>
                             </tr>
                         </tbody>
                     </table>

@@ -25,15 +25,10 @@ export class RegisterComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-<<<<<<< HEAD
-      gender: ['male'],
-      role: [''],
-=======
        gender: ['male'],
      creationDate: [new Date()], // Initialize with current date
       role: [''],
 
->>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
       isactive: [false]
     });
   }

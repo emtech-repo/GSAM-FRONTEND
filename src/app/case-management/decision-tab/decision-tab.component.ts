@@ -3,13 +3,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
 
-<<<<<<< HEAD
-interface ApiResponse {
-  data: any[];
-  source: any[];
-}
-=======
->>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
 
 @Component({
   selector: 'app-decision-tab',
@@ -17,13 +10,8 @@ interface ApiResponse {
   styleUrl: './decision-tab.component.css'
 })
 export class DecisionTabComponent {
-<<<<<<< HEAD
-  UserInfoUrl: ApiResponse = { data: [], source: [] };
-
-=======
-  Customers: any [] =[];
+  Customers: any[] = [];
   CustomersUrl: any;
->>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
@@ -33,36 +21,19 @@ export class DecisionTabComponent {
     this.selectedIndex = index;
   }
   constructor(private router: Router, private sharedService: SharedService) { }
-<<<<<<< HEAD
-
-  ngOnInit(): void {
-    this.sharedService.getUserInfo().subscribe(
-      (data: ApiResponse) => {
-        console.log('Data received from API:', data);
-        this.UserInfoUrl = data;
-        console.log('Assigned JSON Data:', this.UserInfoUrl);
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching JSON data:', error);
-      }
-
-    );
-  }
-=======
->>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
 
   ngOnInit() {
     this.getCustomers();
   }
-   
+
   getCustomers(): void {
     this.sharedService.getCustomers()
       .subscribe(Customers => {
         this.Customers = Customers;
-       
+
       });
   }
- goToCaseTracking() {
+  goToCaseTracking() {
     // Navigate to the "case tracking" route
     this.router.navigate(['/case-tracking']);
   }
@@ -71,12 +42,9 @@ export class DecisionTabComponent {
     this.router.navigate(['/home']);
   }
 
-<<<<<<< HEAD
-=======
-  
 
- 
- 
 
->>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
+
+
+
 }

@@ -1,18 +1,5 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-import * as Highcharts from 'highcharts';
-import { Router } from '@angular/router';
-import { SharedService } from '../../shared.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
-
-interface ApiResponse {
-  data: any[];
-  source: any[];
-}
-=======
-
-import { Component, OnInit,OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
@@ -23,32 +10,23 @@ interface LoanDetailsResponse {
 }
 
 
->>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
 
 @Component({
   selector: 'app-search-case',
   templateUrl: './search-case.component.html',
   styleUrls: ['./search-case.component.css']
 })
-<<<<<<< HEAD
-export class SearchCaseComponent {
-  UserInfoUrl: ApiResponse = { data: [], source: [] };
-
-  
-  Highcharts: typeof Highcharts = Highcharts;
-=======
->>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
 
 export class SearchCaseComponent implements OnInit {
-  
+
   loanDetails: any;
   // LoanData: any = {};
   LoanData: any[] = [];
   // loanDetails:any[]=[];
   // activeTab: string = '';
-  loanItem :any;
+  loanItem: any;
   // Adjust the type as necessary
-  activeTab: string = 'general'; 
+  activeTab: string = 'general';
   // Assuming LoanData is the JSON object returned by the API
   pagedLoanData: any = {}; // Array to hold the currently displayed page data
   totalPages: number = 0;
@@ -62,7 +40,7 @@ export class SearchCaseComponent implements OnInit {
   constructor(private router: Router, private sharedService: SharedService) { }
 
   ngOnInit() {
-     // Assign a value to accountId
+    // Assign a value to accountId
     this.getLoan();
     // this.getLoanDetails();
   }
@@ -70,7 +48,7 @@ export class SearchCaseComponent implements OnInit {
     this.activeTab = tab;
   }
   // TypeScript
- 
+
 
   ngOnDestroy() {
     this.destroy$.next();
@@ -82,14 +60,14 @@ export class SearchCaseComponent implements OnInit {
     const endIndex = Math.min(startIndex + this.pageSize, this.totalItems);
     this.pagedLoanData = this.LoanData.slice(startIndex, endIndex);
   }
-    pageChanged(event: any): void {
+  pageChanged(event: any): void {
     this.currentPage = event.page;
     this.updatePagedLoanData();
   }
- 
+
   getLoan(): void {
     this.sharedService.getLoan().pipe(takeUntil(this.destroy$)).subscribe(
-      
+
       (response: any) => {
         // console.log('Loan Data:', response.entity);
         this.LoanData = response.entity; // Assuming 'entity' is an array of loan objects
@@ -102,7 +80,7 @@ export class SearchCaseComponent implements OnInit {
         console.error('Error fetching loans:', error);
       }
     );
-  }  
+  }
   filterData(): void {
     if (this.searchParams.value.trim() === '') {
       // If search value is empty, show all data
@@ -133,48 +111,6 @@ export class SearchCaseComponent implements OnInit {
       (error: HttpErrorResponse) => {
         console.error('Error fetching loan details:', error);
       }
-<<<<<<< HEAD
-    ]
-  };
-
-
-  goToCreateMeeting() {
-    // Navigate to the "Create Meeting" route
-    this.router.navigate(['/create-meeting']);
-  }
-  goToCaseDecision() {
-    // Navigate to the "Create Meeting" route
-    this.router.navigate(['/case-decision']);
-  }
-  constructor(private router: Router, private sharedService: SharedService) { }
-
-  ngOnInit(): void {
-    this.sharedService.getUserInfo().subscribe(
-      (data: ApiResponse) => {
-        console.log('Data received from API:', data);
-        this.UserInfoUrl = data;
-        console.log('Assigned JSON Data:', this.UserInfoUrl);
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching JSON data:', error);
-      }
-
-    );
-  }
-};
-
-
-
-
-
-
-
-
-
-
-
-=======
     );
   }
 }
->>>>>>> 72f93a49a8b38c5532c8ccb89630cc7fda3b2ec6
