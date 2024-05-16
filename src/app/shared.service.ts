@@ -17,13 +17,8 @@ export class SharedService {
   readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
-
-  readonly UnAssignCaseUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
-
-  readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
-
-
-
+ readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
+ readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
   private readonly userDataUrl = 'assets/data/db.json';
   baseUrl: string = "http://localhost:3000/";
   readonly APIUrl = 'https://192.168.89.189:7213';
@@ -33,10 +28,10 @@ export class SharedService {
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
  readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
-  readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
-  // readonly CustomersUrl = 'assets/data/db.json';
+  // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
+  readonly CustomersUrl = 'assets/data/db.json';
 
-   readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
+readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
 
 
 
@@ -46,6 +41,7 @@ export class SharedService {
   public isAuthenticated = false;
   public currentUser: any;
   public currentUserID: any;
+  UnAssigned: any;
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {
     // this.currentUser = localStorage.getItem('currentUser');
@@ -152,6 +148,7 @@ export class SharedService {
       map((response: any) => response.result) // Extracting only the 'result' array
     );
   }
+  
   getLoanDetails(accountId: string): Observable<any> {
     const url = `${this.DetailsURL}${accountId}`;
     return this.http.get<any>(url).pipe(
@@ -187,11 +184,11 @@ export class SharedService {
   }
 
 
-   getUnAssignCase(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.UnAssignCaseUrl}`)
+   getUnAssigned(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.UnAssignedUrl}`)
       .pipe(
-        tap((data: any[]) => console.log('Fetched AssignCase:', data)),
-        map((data: any) => data['AssignCase']) 
+        tap((data: any[]) => console.log('Fetched UnAssigned:', data)),
+        map((data: any) => data['UnAssigned']) 
       );
   }
 

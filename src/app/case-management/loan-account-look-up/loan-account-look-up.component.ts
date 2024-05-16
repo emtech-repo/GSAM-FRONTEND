@@ -24,7 +24,6 @@ export class LoanAccountLookUpComponent implements OnInit {
   loandata: any;
   recentActivityData: any[] = [];
   pagedLoanData: any;
-
   SearchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;

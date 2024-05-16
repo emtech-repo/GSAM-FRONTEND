@@ -56,30 +56,6 @@ export class CaseStatusComponent {
   }
 
 
-  // search() {
-  //   if (this.searchOption && this.searchTerm) {
-  //     this.statusData = this.statusData.filter(item => {
-  //       switch (this.searchOption) {
-  //         case 'assignedTo':
-  //           return item.assignedEmail.toLowerCase().includes(this.searchTerm.toLowerCase());
-  //         case 'cif':
-  //           return item.cifId.toLowerCase().includes(this.searchTerm.toLowerCase());
-  //         case 'accName':
-  //           return item.accountName.toLowerCase().includes(this.searchTerm.toLowerCase());
-  //         default:
-  //           return false;
-  //       }
-  //     });
-  //   } else {
-  //     this.statusData = [
-  //       { assignedEmail: 'john@example.com', cifId: '123', loanAccount: '456', accountName: 'Example Account', verifiedFlag: 'Verified' },
-  //     ];
-  //   }
-  // }
-
-
-
-
   getStatus(): void {
     this.sharedService.getStatus().subscribe(
       (result: any[]) => {

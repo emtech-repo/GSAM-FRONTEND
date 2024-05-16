@@ -1,1 +1,30 @@
 <p>create-claim works!</p>
+
+    
+    <title>Claim Creation Form</title>
+
+    <div class="container">
+        <h2>Claim Creation</h2>
+        <form>
+            <div class="form-group">
+                <label for="claimType">Claim Type:</label>
+                <label class="radio-inline"><input type="radio" name="claimType" value="internal"> Internal</label>
+                <label class="radio-inline"><input type="radio" name="claimType" value="external"> External</label>
+            </div>
+            <div class="form-group">
+                <label for="staffPF">Staff PF:</label>
+                <input type="text" class="form-control" id="staffPF" name="staffPF">
+            </div>
+            <!-- Add other form fields (Staff Name, Email Address, Account Number, Claim Amount, Claim Request Details) -->
+            <!-- Example: -->
+            <div class="form-group">
+                <label for="staffName">Staff Name:</label>
+                <input type="text" class="form-control" id="staffName" name="staffName">
+            </div>
+            <!-- ... other form fields ... -->
+            <button type="submit" class="btn btn-primary">Submit Claim</button>
+            <a href="#" class="btn btn-link">Attach Supporting Document</a>
+        </form>
+    </div>
+
+
