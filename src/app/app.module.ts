@@ -67,7 +67,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     AdminPageComponent,
     AdminPopupComponent,
     RegisterComponent,
-    ForgotPasswordComponent,
+    ForgotPasswordComponent
     
     
 

@@ -21,6 +21,7 @@ import { CreateCaseComponent } from './case-management/create-case/create-case.c
 
 
 
+
 export const routes: Routes = [
   {
       path: '',
@@ -98,9 +99,13 @@ export const routes: Routes = [
       path: 'app-create-case',    
       component: CreateCaseComponent,
     },
+    
+   {
+    path: 'app-assign-case',
 
-
-
+    component: AssignCaseComponent,
+  },
+    
  
     {
       path: 'case-management',
@@ -123,6 +128,7 @@ export const routes: Routes = [
     path: 'reports',
     loadChildren: () => import('../app/reports/reports.module').then(m => m.ReportsModule)
   },
+  
   {
     path: 'billing-reconciliation',
     loadChildren: () => import('../app/billing-reconciliation/billing-reconciliation.module').then(m => m.BillingReconciliationModule)
