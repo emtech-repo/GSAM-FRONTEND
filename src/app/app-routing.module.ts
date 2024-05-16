@@ -16,6 +16,7 @@ import { LoanAccountLookUpComponent } from './case-management/loan-account-look-
 import { CreateTwoComponent } from './case-management/create-two/create-two.component';
 import { AssignCaseComponent } from './case-management/assign-case/assign-case.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ClaimTabComponent } from './billing-reconciliation/claim-tab/claim-tab.component';
 
 
 
@@ -94,19 +95,19 @@ export const routes: Routes = [
       component: ForgotPasswordComponent,
     },
 
-     
-    
-
-    
 
      {
       path: 'app-assign-case',    
       component: AssignCaseComponent,
     },
 
+    // {
+    //   path: 'app-claim-tab',    
+    //   component: ClaimTabComponent,
+    // }, 
 
 
- 
+
     {
       path: 'case-management',
       loadChildren: () => import('../app/case-management/case-management.module').then(m => m.CaseManagementModule)

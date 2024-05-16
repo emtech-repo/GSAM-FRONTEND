@@ -6,6 +6,7 @@ import { RequestServiceComponent } from './request-service/request-service.compo
 import { ViewRequestsComponent } from './view-requests/view-requests.component';
 import { CreateClaimComponent } from './create-claim/create-claim.component';
 import { ViewClaimsComponent } from './view-claims/view-claims.component';
+import { ClaimTabComponent } from './claim-tab/claim-tab.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ViewClaimsComponent } from './view-claims/view-claims.component';
     RequestServiceComponent,
     ViewRequestsComponent,
     CreateClaimComponent,
-    ViewClaimsComponent
+    ViewClaimsComponent,
+    ClaimTabComponent
   ],
   imports: [
     CommonModule,

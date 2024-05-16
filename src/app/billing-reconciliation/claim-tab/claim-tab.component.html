@@ -1,0 +1,29 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)">
+        <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
+    </li>
+</ul>
+
+<!-- cONTENT FOR TABLES -->
+
+<div class="tab-content" style="background-color: #d3d3d3; border-radius: 20px;height: 80%;">
+    <ng-container *ngFor="let tab of tabs; let i = index">
+        <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
+           
+            <ng-container *ngIf="i === 0">
+                <!-- Display table for the "Refinance" tab -->
+
+                
+            </ng-container>
+            <ng-container *ngIf="i === 1">
+                <!-- Display content for "Restructure" tab -->
+
+              
+            </ng-container>
+          
+        </div>
+
+
+    </ng-container>
+
+</div> 
