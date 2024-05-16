@@ -19,7 +19,11 @@ export class SharedService {
   readonly UserInfoUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
-  readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+  readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+  readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
+
+  readonly ClosedUrl = 'http://192.168.2.23:5260/api/Case/ClosedCases';
+  readonly ActiveUrl = 'http://192.168.2.23:5260/api/Case/ActiveCases';
 
 
   private readonly userDataUrl = 'assets/data/db.json';
@@ -29,8 +33,8 @@ export class SharedService {
   readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
-   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
- readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
+  readonly CreateCaseUrl ='http://192.168.2.23:5260/api/Case/CreateCase';
+  readonly LoanAccountCaseUrl ='http://192.168.2.23:9006/accounts';
   readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
   // readonly CustomersUrl = 'assets/data/db.json';
    readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
@@ -69,10 +73,10 @@ export class SharedService {
   getUsersList(val: any) {
     return this.http.post<any>(this.APIUrl + '/users/get', val);
   }
-  getCases(): Observable<any> {
-    return this.http.get<any>(this.CasesUrl);
+//   getAssigned(): Observable<any> {
+//     return this.http.get<any>(this.AssignedUrl);
 
-  }
+//  }
 
 
   // addUser(val: any) {
@@ -142,9 +146,33 @@ export class SharedService {
       tap(data => console.log('Loan data:', data))
     );
   }
+  getAssigned(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.CasesUrl}`).pipe(
+      tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
+      map((response: any) => response.result) // Extracting only the 'result' array
+    );
+  }
+  getUnAssigned(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.CasesUrl}`).pipe(
+      tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
+      map((response: any) => response.result) // Extracting only the 'result' array
+    );
+  }
+  getActive(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.ActiveUrl}`).pipe(
+      tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
+      map((response: any) => response.result) // Extracting only the 'result' array
+    );
+  }
+  getClosed(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.ClosedUrl}`).pipe(
+      tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
+      map((response: any) => response.result) // Extracting only the 'result' array
+    );
+  }
 
-  getStatus(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.StatusUrl}`).pipe(
+  getCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.CasesUrl}`).pipe(
       tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
       map((response: any) => response.result) // Extracting only the 'result' array
     );
@@ -249,6 +277,35 @@ export class SharedService {
     }
     return false;
   }
+
+  isManager(): boolean {
+    // Example logic to check if user is an admin
+    // You can modify this based on how you store user roles in your system
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const parsedUser = JSON.parse(currentUser);
+      // Assuming user role is stored in 'role' property
+      return parsedUser.role === 'manager';
+    }
+    return false;
+  }
+  isOfficer(): boolean {
+    // Example logic to check if user is an admin
+    // You can modify this based on how you store user roles in your system
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const parsedUser = JSON.parse(currentUser);
+      // Assuming user role is stored in 'role' property
+      return parsedUser.role === 'officer';
+    }
+    return false;
+  }
+  
+
+  
+  
+ 
+
 
   
 

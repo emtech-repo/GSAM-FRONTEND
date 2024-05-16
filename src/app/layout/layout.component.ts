@@ -10,6 +10,8 @@ import { SharedService } from '../shared.service';
 export class LayoutComponent implements OnInit {
 
   isAdmin: boolean = false;
+  isManager: boolean = false;
+  isOfficer: boolean = false;
 
   constructor(
     public sharedService: SharedService, private router: Router
@@ -17,6 +19,9 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAdmin = this.sharedService.isAdmin();
+    this.isManager = this.sharedService.isManager();
+    this.isOfficer = this.sharedService.isOfficer();
+
   }
 
   

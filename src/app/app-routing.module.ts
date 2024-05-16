@@ -20,6 +20,10 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 
 
 
+
+
+
+
 export const routes: Routes = [
   {
       path: '',
@@ -93,6 +97,8 @@ export const routes: Routes = [
       path: 'app-forgot-password',    
       component: ForgotPasswordComponent,
     },
+  
+
 
 
 

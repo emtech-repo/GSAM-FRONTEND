@@ -15,6 +15,8 @@ import { CaseDetailsComponent } from './case-details/case-details.component';
 import { CreateCaseComponent } from './create-case/create-case.component';
 import { CreateTwoComponent } from './create-two/create-two.component';
 import { AssignedCasesComponent } from './assigned-cases/assigned-cases.component';
+import { CasesStatusComponent } from './cases-status/cases-status.component';
+// import { CasesStatusComponent } from './cases-status/cases-status.component';
 
 
 export const routes: Routes = [
@@ -87,11 +89,17 @@ export const routes: Routes = [
       
       component:CreateCaseComponent,
     },
+   
      {
       path: 'app-create-two',
       
       component:CreateTwoComponent,
     },
+  {
+    path: 'app-cases-status',
+
+    component: CasesStatusComponent,
+  },
   {
     path: 'app-assigned-cases',
 

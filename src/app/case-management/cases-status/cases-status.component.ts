@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { SharedService } from '../../shared.service';
@@ -6,35 +6,44 @@ import * as jspdf from 'jspdf';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-
-
 @Component({
-  selector: 'app-case-status',
-  templateUrl: './case-status.component.html',
-  styleUrl: './case-status.component.css'
+  selector: 'app-cases-status',
+  templateUrl: './cases-status.component.html',
+  styleUrl: './cases-status.component.css'
 })
-export class CaseStatusComponent {
-  showTotalCasesFlag = true;
-  showActiveCasesFlag = false;
-  showClosedCasesFlag = false;
+export class CasesStatusComponent {
+
+  showTotalCasesFlag: boolean = false;
+  showAssignedCasesFlag: boolean = false;
+  showUnassignedCasesFlag: boolean = false;
   searchOption: string = 'assignedTo';
 
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 3;
   totalItems: number = 0;
   totalCases: number = 0;
-  activeCases: number = 0;
-  closedCases: number = 0;
+  assignedCases: number = 0;
+  unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
+  UnAssignedData: any[] = []; // Your data array
+  AssignedData: any[] = []; // Your data array
   casesData: any[] = []; // Your data array
   cd: any;
+  showUnAssignedCasesFlag: boolean = true;
+
+  // showTotalCard: boolean = false;
+  // showAssignedCard: boolean = false;
+  // showUnassignedCard: boolean = false;
+
 
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
     this.getCases();
+    this.getAssigned();
+    this.getUnAssigned();
 
   }
   setSearchOption(option: string) {
@@ -45,8 +54,8 @@ export class CaseStatusComponent {
     this.currentPage = 1; // Reset current page for search
     this.casesData = this.casesData.filter(item => {
       switch (this.searchParams.param) {
-        // case 'cifId':
-        //   return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
+        case 'cifId':
+          return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
         case 'assignedEmail':
           return item.assignedEmail.toLowerCase().includes(this.searchParams.value.toLowerCase());
         case 'accountName':
@@ -77,8 +86,8 @@ export class CaseStatusComponent {
       }
     );
   }
-  getActive(): void {
-    this.sharedService.getActive().subscribe(
+  getUnAssigned(): void {
+    this.sharedService.getUnAssigned().subscribe(
       (result: any[]) => {
         // Assign the 'result' array to your component property
         this.casesData = result;
@@ -91,8 +100,9 @@ export class CaseStatusComponent {
       }
     );
   }
-  getClosed(): void {
-    this.sharedService.getClosed().subscribe(
+
+  getAssigned(): void {
+    this.sharedService.getAssigned().subscribe(
       (result: any[]) => {
         // Assign the 'result' array to your component property
         this.casesData = result;
@@ -108,15 +118,15 @@ export class CaseStatusComponent {
   calculateCaseCounts(): void {
     // Reset counts
     this.totalCases = this.casesData.length;
-    this.activeCases = 0;
-    this.closedCases = 0;
+    this.assignedCases = 0;
+    this.unassignedCases = 0;
 
     // Count assigned and unassigned cases
     this.casesData.forEach(item => {
       if (item.assigned === 'Y') {
-        this.activeCases++;
+        this.assignedCases++;
       } else {
-        this.closedCases++;
+        this.unassignedCases++;
       }
     });
   }
@@ -197,24 +207,29 @@ export class CaseStatusComponent {
     });
     return dataArray;
   }
+
+  showUnassignedCases() {
+    this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
+  }
+  showAssignedCases() {
+    this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
+  }
   showTotalCases() {
     this.showTotalCasesFlag = !this.showTotalCasesFlag;
   }
-  showActiveCases() {
-    this.showActiveCasesFlag = !this.showActiveCasesFlag;
-  }
-  showClosedCases() {
-    this.showClosedCasesFlag = !this.showClosedCasesFlag;
-  }
+
   exitPage() {
-    this.showActiveCasesFlag = false; // Set the flag to false to hide the assigned cases page
+    this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
   }
 
-  
   exit() {
-    this.showTotalCasesFlag = false;
-    this.showActiveCasesFlag = false;
-    this.showClosedCasesFlag = false;
+    this.showTotalCasesFlag = true;
+    this.showAssignedCasesFlag = false;
+    this.showUnassignedCasesFlag = false;
   }
 
+ 
 }
+
+
+
