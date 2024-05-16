@@ -99,15 +99,7 @@ export const routes: Routes = [
       path: 'app-create-case',    
       component: CreateCaseComponent,
     },
-    
-   {
-    path: 'app-assign-case',
-
-
-     
-    
-
-    
+  
 
      {
       path: 'app-assign-case',    
