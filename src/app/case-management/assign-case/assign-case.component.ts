@@ -16,8 +16,8 @@ import { saveAs } from 'file-saver';
   styleUrl: './assign-case.component.css'
 })
 export class AssignCaseComponent {
-    showUnassignedCasesFlag: boolean = false;
-    showAssignedCasesFlag: boolean = false;
+    showUnassignedCasesFlag: boolean = true;
+    showAssignedCasesFlag: boolean = true; 
     recentActivityData: any[] = [];
   modalService: any;
 
@@ -215,6 +215,14 @@ export class AssignCaseComponent {
     showAssignedCases() {
         this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
     } 
+
+    exitPage() {
+    this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+}
+
+    exit() {
+    this.showUnassignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+}
 
 }
 

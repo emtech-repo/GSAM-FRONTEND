@@ -83,17 +83,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin-left: 57%;">
-                    <div class="col-12">
+             
+                    <div class="pagination-container" style="margin-left: 57%;">
                         <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
-                            (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
+                    <div>
+                        <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
+                            (click)="bsModalRef.hide()" (click)="exit()">Exit Page</button>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
-</div>
+
 
 <div class="row"   *ngIf="showAssignedCasesFlag">
 
@@ -164,8 +169,8 @@
                         </pagination>
                     </div>
                     <div>
-                    <button type="button" class="btn btn-primary  small-btn" style="margin-right: -150px;border-radius:3px ;"
-                        data-dismiss="modal" (click)="bsModalRef.hide()">Create</button>
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
+                       data-dismiss="modal" (click)="bsModalRef.hide()" (click)="exitPage()">Exit Page</button>
                     </div>
                 </div>
             </div>
