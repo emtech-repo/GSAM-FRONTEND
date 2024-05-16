@@ -215,6 +215,15 @@ export class AssignCaseComponent {
     showAssignedCases() {
         this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
     } 
+        exitPage() {
+    this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+}
+
+    exit() {
+    this.showUnassignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+}
+
+
 
 }
 

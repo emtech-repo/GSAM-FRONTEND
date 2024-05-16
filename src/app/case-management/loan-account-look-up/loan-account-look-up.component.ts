@@ -6,9 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { CreateCaseComponent } from '../create-case/create-case.component';
+import { CreateTwoComponent } from '../create-two/create-two.component';
 
 
 
@@ -31,19 +31,25 @@ export class LoanAccountLookUpComponent implements OnInit {
   pageSize: number = 5;
   totalItems: number = 0;
   selectedItem: any;
+  modalService: any;
 
 
   constructor(
      private toastr: ToastrService,
     public bsModalRef: BsModalRef,
-    private sharedserv : SharedService 
+    private sharedserv : SharedService, 
+    private router: Router,
+    
     
   ) { }
 
-  
 
-  
+    goToCreateTwo() {
+    // Navigate to the "create two" route
+    this.router.navigate(['/app-create-two']);
+    this.bsModalRef = this.modalService.show(CreateTwoComponent); // Open modal and get modal reference
 
+  }
 
   ngOnInit(): void {
     this.fetchRecentActivity();
@@ -97,6 +103,10 @@ this.selectedItem = selectedItem;
         console.log('Selected item:', selectedItem);
         // Here you can handle the selected item, e.g., display its details, update a model, etc.
     }
+     closeModal() {
+    this.bsModalRef.hide();
+  }
+    
 }
 
 

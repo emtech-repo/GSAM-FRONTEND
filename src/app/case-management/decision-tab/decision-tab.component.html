@@ -24,22 +24,21 @@
                         REFINANCE INFORMATION</h1>
                     </div>
 
-                    <form class="form-inline" style=" margin-left: -15px;margin-top: 10px;">
-                      <div class="form-group mx-sm-3 mb-6 d-flex">
-                        <select class="form-control mr-2" id="dropdownMenu"
-                          style="width: 110px;height:30px ;  background-color:grey ; ">
-                          <option value="" style="color: white;">Search by..</option>
-                          <option value="option2">Loan Account</option>
-                          <option value="option4">Case Number</option>
-                          <option value="option5">CIF ID</option>
-                        </select>
-                        <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
-                          style="width: 650px; height: 30px; margin-left: 10px;">
-                        <button type="search" class="btn btn-primary btn-sm"
-                          style=" margin-left: 10px;border-radius: 5px;">Search</button>
-                      </div>
+                  <div class="form-group mx-sm-3 mb-6 d-flex">
+                    <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
+                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
+                      style="width: auto; height: 30px;">
+                      <option value="SearchBy" disabled>SearchBy</option>
+                      <option value="AccNumber">Loan Account</option>
+                      <option value="CaseNumber">Case Number</option>
+                      <option value="CifID">CIF ID</option> 
+                      <!-- <option value="id">ID</option> -->
+                    </select>
+                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                      class="form-control mr-4" style="height: 30px;width: 100%; ">
+                    <button (click)="search()" class="btn btn-primary small-btn" style="border-radius: 3px;">Search</button>
+                  </div>
 
-                    </form>
                     <div class="row">
                       <div class="col-md-4">
                         <!-- First Column -->
@@ -174,21 +173,21 @@
                       <h1 style="font-size: 25px;text-align: center;color: black;background-color: #e2532725;">
                         RESTRUCTURE INFORMATION</h1>
                     </div>
-                    <form class="form-inline" style=" margin-left: -15px;margin-top: 10px;">
-                      <div class="form-group mx-sm-3 mb-6 d-flex">
-                        <select class="form-control mr-2" id="dropdownMenu"
-                          style="width: 100px;height:30px ;  background-color:grey ; ">
-                          <option value="" style="color: white;">Search by..</option>
-                          <option value="option2">Loan Account</option>
-                          <option value="option4">Case Number</option>
-                          <option value="option5">CIF ID</option>
-                        </select>
-                        <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
-                          style="width: 650px; height: 30px; margin-left: 10px;">
-                        <button type="search" class="btn btn-primary btn-sm"
-                          style=" margin-left: 10px;border-radius: 5px;">Search</button>
-                      </div>
-                    </form>
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                      <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
+                      <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
+                        style="width: auto; height: 30px;">
+                        <option value="SearchBy" disabled>SearchBy</option>
+                        <option value="AccNumber">Loan Account</option>
+                        <option value="CaseNumber">Case Number</option>
+                        <option value="CifID">CIF ID</option>
+                      </select>
+                      <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                        class="form-control mr-4" style="height: 30px;width: 100%; ">
+                      <button (click)="search()" class="btn btn-primary small-btn" style="border-radius: 3px;">Search</button>
+                    </div>
+
+
                     <div class="row">
                       <div class="col-md-4">
                         <!-- First Column -->
@@ -320,22 +319,21 @@
                       <h1 style="font-size: 25px;text-align: center;color: black;background-color: #e2532725;">RECOVERY
                         INFORMATION</h1>
                     </div>
-                    <form class="form-inline" style=" margin-left: -15px;margin-top: 10px;">
-                      <div class="form-group mx-sm-3 mb-6 d-flex">
-                        <select class="form-control mr-2" id="dropdownMenu"
-                          style="width: 100px;height:30px ;  background-color:grey ; ">
-                          <option value="" style="color: white;">Search by..</option>
-                          <option value="option2">Loan Account</option>
-                          <option value="option4">Case Number</option>
-                          <option value="option5">CIF ID</option>
-                        </select>
-                        <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
-                          style="width: 650px; height: 30px; margin-left: 10px;">
-                        <button type="search" class="btn btn-primary btn-sm"
-                          style=" margin-left: 10px;border-radius: 5px;">Search</button>
-                      </div>
-                        
-                    </form>
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                      <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
+                      <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
+                        style="width: auto; height: 30px;">
+                        <option value="SearchBy" disabled>SearchBy</option>
+                        <option value="AccNumber">Loan Account</option>
+                        <option value="CaseNumber">Case Number</option>
+                        <option value="CifID">CIF ID</option>
+                        <!-- <option value="id">ID</option> -->
+                      </select>
+                      <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                        class="form-control mr-4" style="height: 30px;width: 100%; ">
+                      <button (click)="search()" class="btn btn-primary small-btn" style="border-radius: 3px;">Search</button>
+                    </div>
+>
 
                     <div class="row">
                       <div class="col-md-4">

@@ -13,10 +13,12 @@ import { NbCardModule } from '@nebular/theme';
   declarations: [
     ApprovalInterfaceComponent,
      TabsComponent 
+
+     
   ],
   imports: [
     CommonModule,
-    ApprovalRoutingModule,
+     ApprovalRoutingModule,
     FormsModule,
     NbCardModule
     
