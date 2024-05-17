@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { BsModalService } from 'ngx-bootstrap/modal';
+
+import { CreateTwoComponent } from '../create-two/create-two.component';
+
 import { LoanAccountLookUpComponent } from '../loan-account-look-up/loan-account-look-up.component';
 
 @Component({
@@ -28,6 +31,7 @@ export class CreateCaseComponent {
       this.selectedFunction = target.value;
       this.selectedLoanAccount = ''; // Reset the selected loan account when the function changes
     }
+
   }
 
 
@@ -37,13 +41,22 @@ export class CreateCaseComponent {
     this.router.navigate(['/home']);
   }
 
+  goToCreateTwo() {
+    // Navigate to the "admin page" route
+    this.bsModalRef = this.modalService.show(CreateTwoComponent); // Open modal and get modal reference
+
+  }
 
   searchLoanAccount(searchTerm: string) {
    
     this.bsModalRef = this.modalService.show(LoanAccountLookUpComponent);
-    // Open modal and get modal reference
+    // Open modal and get modal reference
+
 
   }
 
   
 }
+
+
+  

@@ -15,12 +15,13 @@
                                         <label for="role">Function</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <select class="form-control" (change)="onFunctionChange($event)">
-                                            <option value="choose option">Choose Option</option>
-                                            <option value="2">ADD</option>
-                                            <option value="3">MODIFY</option>
-                                            <option value="4">DELETE</option>
-                                            <option value="5">ENQUIRE</option>
+                                       <select class="form-control" (change)="onFunctionChange($event)">
+                                        <option value="choose option">Choose Option</option>
+                                        <option value="2">ADD</option>
+                                        <option value="3">MODIFY</option>
+                                        <option value="4">DELETE</option>
+                                        <option value="5">ENQUIRE</option>
+
                                         </select>
 
                                     </div>
@@ -34,8 +35,9 @@
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <!-- <input type="text" class="form-control" id="loanaccount" [(ngModel)]="selectedLoanAccount"> -->
-                                            <i class="icon-search menu-icon"
-                                                *ngIf="selectedFunction !== 'choose option'"
+
+                                            <i class="icon-search menu-icon" *ngIf="selectedFunction !== 'choose option'"
+
                                                 (click)="searchLoanAccount(selectedLoanAccount)"></i>
                                         </div>
                                     </div>

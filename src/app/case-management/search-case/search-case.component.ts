@@ -1,5 +1,5 @@
 
-import { Component, OnInit,OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
@@ -18,15 +18,15 @@ interface LoanDetailsResponse {
 })
 
 export class SearchCaseComponent implements OnInit {
-  
+
   loanDetails: any;
   // LoanData: any = {};
   LoanData: any[] = [];
   // loanDetails:any[]=[];
   // activeTab: string = '';
-  loanItem :any;
+  loanItem: any;
   // Adjust the type as necessary
-  activeTab: string = 'general'; 
+  activeTab: string = 'general';
   // Assuming LoanData is the JSON object returned by the API
   pagedLoanData: any = {}; // Array to hold the currently displayed page data
   totalPages: number = 0;
@@ -40,7 +40,7 @@ export class SearchCaseComponent implements OnInit {
   constructor(private router: Router, private sharedService: SharedService) { }
 
   ngOnInit() {
-     // Assign a value to accountId
+    // Assign a value to accountId
     this.getLoan();
     // this.getLoanDetails();
   }
@@ -48,7 +48,7 @@ export class SearchCaseComponent implements OnInit {
     this.activeTab = tab;
   }
   // TypeScript
- 
+
 
   ngOnDestroy() {
     this.destroy$.next();
@@ -60,14 +60,14 @@ export class SearchCaseComponent implements OnInit {
     const endIndex = Math.min(startIndex + this.pageSize, this.totalItems);
     this.pagedLoanData = this.LoanData.slice(startIndex, endIndex);
   }
-    pageChanged(event: any): void {
+  pageChanged(event: any): void {
     this.currentPage = event.page;
     this.updatePagedLoanData();
   }
- 
+
   getLoan(): void {
     this.sharedService.getLoan().pipe(takeUntil(this.destroy$)).subscribe(
-      
+
       (response: any) => {
         // console.log('Loan Data:', response.entity);
         this.LoanData = response.entity; // Assuming 'entity' is an array of loan objects
@@ -80,7 +80,7 @@ export class SearchCaseComponent implements OnInit {
         console.error('Error fetching loans:', error);
       }
     );
-  }  
+  }
   filterData(): void {
     if (this.searchParams.value.trim() === '') {
       // If search value is empty, show all data

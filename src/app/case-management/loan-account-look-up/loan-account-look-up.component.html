@@ -28,9 +28,11 @@
                                 <td>{{ item.account_name}}</td>
                                 <td>{{ item.sol_code}}</td>
                                 <td>{{ item.verified_flag}}</td>
-                                <td><button type="button" class="btn btn-primary   small-btn" style="border-radius:3px ;" (click)="goToCreateTwo()"  data-dismiss="modal"
+
+                                <td><button type="button" class="btn btn-primary   small-btn" style="border-radius:3px ;" (click)="goToCreateTwo(item.acid)"  data-dismiss="modal"
                                     (click)="bsModalRef.hide()">Create</button></td>
                                 
+
                             </tr>
                         </tbody>
                     </table>
