@@ -15,10 +15,16 @@ import { DocumentationComponent } from './case-management/documentation/document
 import { LoanAccountLookUpComponent } from './case-management/loan-account-look-up/loan-account-look-up.component';
 import { CreateTwoComponent } from './case-management/create-two/create-two.component';
 import { AssignCaseComponent } from './case-management/assign-case/assign-case.component';
+import { SearchdocumentComponent } from './documents/searchdocument/searchdocument.component';
+import { RequestComponent } from './documents/request/request.component';
+import { RetrieveComponent } from './documents/retrieve/retrieve.component';
+import { UploadComponent } from './documents/upload/upload.component';
+
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { CreateCaseComponent } from './case-management/create-case/create-case.component';
 
 import { ClaimTabComponent } from './billing-reconciliation/claim-tab/claim-tab.component';
+
 
 
 
@@ -92,6 +98,24 @@ export const routes: Routes = [
       path: 'assign-case',    
       component: AssignCaseComponent,
     },
+
+  {
+    path: 'searchdocument',
+    component: SearchdocumentComponent,
+  },
+  {
+    path: 'app-request',
+    component: RequestComponent,
+  },
+  {
+    path: 'app-retrieve',
+    component: RetrieveComponent,
+  },
+  {
+    path: 'app-upload',
+    component: UploadComponent,
+  },
+
      {
       path: 'app-forgot-password',    
       component: ForgotPasswordComponent,
@@ -124,10 +148,15 @@ export const routes: Routes = [
     loadChildren: () => import('../app/approval/approval.module').then(m => m.ApprovalModule)
   },
 
+
+
+
   {
     path: 'documents',
     loadChildren: () => import('../app/documents/documents.module').then(m => m.DocumentsModule)
   },
+
+
   {
     path: 'contracts',
     loadChildren: () => import('../app/contracts/contracts.module').then(m => m.ContractsModule)
@@ -141,6 +170,7 @@ export const routes: Routes = [
     path: 'billing-reconciliation',
     loadChildren: () => import('../app/billing-reconciliation/billing-reconciliation.module').then(m => m.BillingReconciliationModule)
   },
+
 
   // {
   //   path: 'app-admin-page',

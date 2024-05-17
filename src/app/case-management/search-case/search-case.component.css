@@ -1,28 +1,12 @@
-/* .table-container {
-    margin-top: 20px;
-    border: 1px solid #131212;
-    border-collapse: collapse;
-    margin-left:auto;
-    margin-right: auto;
+
+ 
+label {
+    font-weight: bold;
+  }
+.form-control {
+  width: 200px;
+  height:0px;
 }
-
-.table-container th,
-.table-container td {
-    border: 1px solid #131212;
-    padding: 8px;
-    text-align: left;
-}
-
-.table-container thead tr {
-    background-color: rgb(145, 18, 18);
-    color: white;
-}
-
-.table-container tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-
-} */
-/* Search container */
 
 .search-container {
     margin-bottom: 20px;
@@ -73,10 +57,8 @@
     pointer-events: none;
   }
   
-  /* Hide table if search term not present or no data */
-  table[hidden] {
-    display: none;
-  }
+ 
+  
     .container {
   
       white-space: nowrap;
@@ -94,20 +76,7 @@
       margin-bottom: 0px;
     }
   
-    .custom-list input[type="checkbox"] {
-      margin-right: 5px;
-      color: blue;
-      background-color: chartreuse;
-    }
-  
-    .table tbody tr {
-      height: px;
-    }
-  
-    input[type="checkbox"]:checked+label {
-      color: green;
-    }
-  
+    
     /* documentation.component.css */
   
     /* Style the table */
@@ -208,4 +177,26 @@
       /* Adjust placeholder color if desired */
       /* You can adjust other properties here as needed */
 
+}
+.tab-content-container {
+  width: 100%;
+  /* Adjust width as needed */
+  display: block;
+  /* Ensure proper display property */
+  overflow-x: auto;
+  /* Enable horizontal scrolling if necessary */
+  padding: 10px;
+  /* Adjust padding as needed */
+  margin-bottom: 20px;
+  /* Add margin to separate from other elements */
+}
+
+.tab-pane {
+  display: none;
+  /* Hide tab content by default */
+}
+
+.tab-pane.show {
+  display: block;
+  /* Display tab content when active */
 }
