@@ -109,6 +109,16 @@
       "role": "manager",
       "isActive": true,
       "id": "9090"
+    },
+    {
+      "name": "mercline too",
+      "email": "mercylinetoo@gmail.com",
+      "password": "123456",
+      "gender": "female",
+      "role": "officer",
+      "creationDate": "2024-05-15T06:41:58.735Z",
+      "isActive": true,
+      "id": "6060"
     }
   ],
   "Customers": [

@@ -37,6 +37,7 @@ export class DecisionTabComponent {
    setSearchOption(option: string) {
     this.searchOption = option;
   }
+
   search(): void {
     console.log('Search method called'); // Debugging line
     this.currentPage = 1; // Reset current page for search
@@ -54,6 +55,7 @@ export class DecisionTabComponent {
       }
     });
   }
+
 
   getCustomers(): void {
     this.sharedService.getCustomers()
