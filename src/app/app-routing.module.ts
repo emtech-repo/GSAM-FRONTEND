@@ -20,6 +20,11 @@ import { RequestComponent } from './documents/request/request.component';
 import { RetrieveComponent } from './documents/retrieve/retrieve.component';
 import { UploadComponent } from './documents/upload/upload.component';
 
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { CreateCaseComponent } from './case-management/create-case/create-case.component';
+
+
+
 
 
 
@@ -92,6 +97,7 @@ export const routes: Routes = [
       path: 'assign-case',    
       component: AssignCaseComponent,
     },
+
   {
     path: 'searchdocument',
     component: SearchdocumentComponent,
@@ -108,6 +114,26 @@ export const routes: Routes = [
     path: 'app-upload',
     component: UploadComponent,
   },
+
+     {
+      path: 'app-forgot-password',    
+      component: ForgotPasswordComponent,
+    },
+      {
+      path: 'app-create-case',    
+      component: CreateCaseComponent,
+    },
+  
+
+     {
+      path: 'app-assign-case',    
+      component: AssignCaseComponent,
+    },
+
+
+
+ 
+
     {
       path: 'case-management',
       loadChildren: () => import('../app/case-management/case-management.module').then(m => m.CaseManagementModule)
@@ -116,10 +142,31 @@ export const routes: Routes = [
     path: 'approval',
     loadChildren: () => import('../app/approval/approval.module').then(m => m.ApprovalModule)
   },
+
+
+
+
   {
     path: 'documents',
     loadChildren: () => import('../app/documents/documents.module').then(m => m.DocumentsModule)
   },
+
+
+  {
+    path: 'contracts',
+    loadChildren: () => import('../app/contracts/contracts.module').then(m => m.ContractsModule)
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('../app/reports/reports.module').then(m => m.ReportsModule)
+  },
+  
+  {
+    path: 'billing-reconciliation',
+    loadChildren: () => import('../app/billing-reconciliation/billing-reconciliation.module').then(m => m.BillingReconciliationModule)
+  },
+
+
   // {
   //   path: 'app-admin-page',
 

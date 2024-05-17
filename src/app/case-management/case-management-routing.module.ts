@@ -16,6 +16,7 @@ import { CreateCaseComponent } from './create-case/create-case.component';
 import { CreateTwoComponent } from './create-two/create-two.component';
 
 
+
 export const routes: Routes = [
   {
       path: '',
@@ -91,8 +92,7 @@ export const routes: Routes = [
       
       component:CreateTwoComponent,
     },
-    
-    
+  
     
 ]
 @NgModule({

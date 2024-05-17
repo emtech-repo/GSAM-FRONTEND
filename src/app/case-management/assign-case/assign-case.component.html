@@ -1,40 +1,48 @@
-<div class="row">
-    <div class="col-md-12 grid-margin transparent">
-        <div class="row">
-            <div class="col-md-3 mb-3 stretch-card transparent">
-                <div class="card card-tale">
-                    <div class="card-body">
-                        <p class="mb-4">Total Cases</p>
-                        <p class="fs-30 mb-2">355</p>
-                        <!-- <p>10.00% (30 days)</p> -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;">
-                <div class="card card-dark-blue">
-                    <div class="card-body">
-                        <p class="mb-4">Assigned Cases</p>
-                        <p class="fs-30 mb-2">200</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;">
-                <div class="card card-light-blue">
-                    <div class="card-body">
-                        <p class="mb-4">unassigned Cases</p>
-                        <p class="fs-30 mb-2">155</p>
-                    </div>
-                </div>
-            </div>
 
+<div class="col-md-12 grid-margin transparent">
+    <div class="row">
+        <div class="col-md-3 mb-3 stretch-card transparent">
+            <div class="card card-tale">
+                <div class="card-body">
+                    <p class="mb-4">Total Cases</p>
+                    <p class="fs-30 mb-2">355</p>
+                    <!-- <p class="fs-30 mb-2">{{ totalCases }}</p> -->
+
+                </div>
+            </div>
         </div>
+
+        <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;" (click)="showAssignedCases()">
+            <div class="card card-dark-blue">
+
+                <div class="card-body">
+                    <p class="mb-4">Assigned Cases</p>
+                    <p class="fs-30 mb-2">200</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;"
+            (click)="showUnassignedCases()">
+            <div class="card card-light-blue">
+
+                <div class="card-body">
+                    <p class="mb-4">unassigned Cases</p>
+                    <p class="fs-30 mb-2">155</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-<div class="row">
+
+<div class="row" *ngIf="showUnassignedCasesFlag">
     <div class="col-md-12 grid-margin stretch-card">
+
         <div class="card">
             <div class="card-body">
-                <p class="card-title">Cases</p>
+                <p class="card-title">Unassigned Cases</p>
 
                 <!-- SEEERCH BUTTON-->
                 <div class="row">
@@ -82,80 +90,101 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin-left: 57%;">
-                    <div class="col-12">
+             
+                    <div class="pagination-container" style="margin-left: 57%;">
                         <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
-                            (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
+                    <div>
+                        <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
+                            (click)="bsModalRef.hide()" (click)="exit()">Exit Page</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+<div class="row" *ngIf="showAssignedCasesFlag">
+
+
+
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Assigned cases</p>
+
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
+                        <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
+                            style="width: auto; height: 30px;">
+                            <option value="SearchBy" disabled>SearchBy</option>
+                            <option value="cifId">CIF</option>
+                            <option value="assignedEmail">Assigned Email</option>
+                            <option value="accountName">Account Name</option>
+                            <option value="loanAccount">Loan Account</option>
+                            <!-- <option value="id">ID</option> -->
+                        </select>
+                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                            placeholder="Enter search value" class="form-control mr-4"
+                            style="height: 30px;width: 100%; ">
+                        <button (click)="search()" class="btn btn-primary small-btn"
+                            style="border-radius: 3px;">Search</button>
+                    </div>
+
+
+
+
+                    <!-- Export Buttons Container -->
+                    <div class="export-buttons-container">
+
+                        <button class="btn btn-primary mr-4 small-btn" (click)="exportToPDF()">Export PDF</button>
+                        <button class="btn btn-primary small-btn" (click)="exportToExcel()">Export Excel</button>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="example" class="display expandable-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Loan Account</th>
+                                            <th>CIF ID</th>
+                                            <th>Acc Name</th>
+                                            <th>Assigned To</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of statusData">
+                                            <td>{{ item.loanAccount }}</td>
+                                            <td>{{ item.cifId }}</td>
+                                            <td>{{ item.accountName }}</td>
+                                            <td>{{ item.assignedEmail }}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination-container" style="margin-left: 57%;">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
+                    </div>
+
+                    <div>
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
+                       data-dismiss="modal" (click)="bsModalRef.hide()" (click)="exitPage()">Exit Page</button>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<!-- <form class="form-inline" style=" margin-left: -15px;margin-top: 10px;">
-                      <div class="form-group mx-sm-3 mb-6 d-flex">
-                        <select class="form-control mr-2" id="dropdownMenu"
-                          style="width: 100px;height:40px ;  background-color:grey ; ">
-                          <option value="" style="color: white;">Search by..</option>
-                          <option value="option1">ID</option>
-                          <option value="option2">Account NO.</option>
-                          <option value="option3">Acc Name</option>
-                          <option value="option4">Case Number</option>
-                          <option value="option5">CIF ID</option>
-                        </select>
-                        <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
-                          style="width: 650px; height: 40px; margin-left: 10px;">
-                        <button type="search" class="btn btn-primary btn-sm"
-                          style=" margin-left: 10px;border-radius: 5px;">Search</button>
-                      </div>
-                      
-                    </form>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th scope="col">Item ID</th>
-            <th scope="col">loan Acc</th>
-            <th scope="col">A/c Name</th>
-            <th scope="col">Date Received</th>
-            <th scope="col">STATUS</th>
-            <th scope="col">ACTION</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>001</td>
-            <td>123456789101</td>
-            <td>CARL INVESTMENT</td>
-            <td>10.04.24</td>
-            <td>UNASSIGNED</td>
-            <td><button type="button" class="assign"  (click)="goToCaseDetails()">View Case</button></td>
-        </tr>
-        <tr>
-            <td>002</td>
-            <td>123456789101</td>
-            <td>CARL INVESTMENT</td>
-            <td>10.04.24</td>
-            <td>UNASSIGNED</td>
-            <td><button type="button" class="assign"  (click)="goToCaseDetails()">View Case</button></td>
-        </tr>
-        <tr>
-            <td>003</td>
-            <td>123456789101</td>
-            <td>CARL INVESTMENT</td>
-            <td>10.04.24</td>
-            <td>UNASSIGNED</td>
-            <td><button type="button" class="assign"  (click)="goToCaseDetails()">View Case</button></td>
-        </tr>
-        <tr>
-            <td>004</td>
-            <td>123456789101</td>
-            <td>CARL INVESTMENT</td>
-            <td>10.04.24</td>
-            <td>UNASSIGNED</td>
-            <td><button type="button" class="assign"  (click)="goToCaseDetails()">View Case</button></td>
-        </tr>
-    </tbody>
-</table> -->
