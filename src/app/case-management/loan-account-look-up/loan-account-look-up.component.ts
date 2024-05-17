@@ -95,14 +95,7 @@ export class LoanAccountLookUpComponent implements OnInit {
       return this.recentActivityData;
     }
   }
-
-  onRowClick(selectedItem: any) {
-this.selectedItem = selectedItem;
-    this.bsModalRef.hide( );
-        console.log('Selected item:', selectedItem);
-        // Here you can handle the selected item, e.g., display its details, update a model, etc.
-    }
-     closeModal() {
+loseModal() {
     this.bsModalRef.hide();
   }
     

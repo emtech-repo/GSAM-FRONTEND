@@ -191,7 +191,7 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
         map((data: any) => data['UnAssigned']) 
       );
   }
-
+  
 
   getAccounts():Observable<any>{
     let apiUrl = `${this.LoanAccountCaseUrl}/la/all`;

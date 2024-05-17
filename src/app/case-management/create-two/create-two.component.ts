@@ -27,14 +27,13 @@ export class CreateTwoComponent {
     closeModal() {
     this.bsModalRef.hide();
   }
+
+
+
+
      CreateCase() {
     console.log('Case Created approved');
     
-   
-   
- 
-
-
     // Set submittedSuccessfully to true and action to 'approve'
     this.CreatedSuccessfully = true;
     this.action = 'Created';

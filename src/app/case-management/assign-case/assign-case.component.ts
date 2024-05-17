@@ -43,9 +43,11 @@ export class AssignCaseComponent {
   unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
   statusData: any[] = []; // Your data array
-   UnAssignedData: any[] = []; // Your data array
+  UnAssignedData: any[] = []; // Your data array
   cd: any;
-
+  data: any[] = [];
+ 
+ 
  
 
   ngOnInit(): void {
@@ -80,7 +82,8 @@ export class AssignCaseComponent {
       (result: any[]) => {
         // Assign the 'result' array to your component property
         this.UnAssignedData = result;
-        this.calculateCaseCounts(); // Calculate case counts after receiving data
+         this.calculateCaseCounts(); 
+        // Calculate case counts after receiving data
 
       },
       (error: HttpErrorResponse) => {
@@ -107,7 +110,12 @@ export class AssignCaseComponent {
       }
     );
   }
-  calculateCaseCounts(): void {
+
+
+
+ 
+  
+   calculateCaseCounts(): void {
     // Reset counts
     this.totalCases = this.statusData.length;
     this.assignedCases = 0;
@@ -121,31 +129,40 @@ export class AssignCaseComponent {
         this.unassignedCases++;
       }
     });
-    this.UnAssignedData.forEach(item => {
-      if (item.assigned === 'Y') {
+       this.UnAssignedData.forEach(item => {
+      if (item.unassigned === 'Y') {
         this.unassignedCases++;
       } else {
         this.assignedCases++;
       }
     });
+
+
+
+
   }
 
   // Method to handle page change event
   pageChanged(event: any): void {
     this.currentPage = event.page;
     this.getStatus();
+    this.getUnAssigned();
   }
+  
 
   // Method to handle search query change
   onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
     this.getStatus();
+    this.getUnAssigned();
   }
+
+  
 
   // Getter for filtered data based on search term
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      return this.statusData.filter(item => {
+      return this.statusData.filter, this.UnAssignedData.filter(item => {
         // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
@@ -155,8 +172,11 @@ export class AssignCaseComponent {
         return false;
       });
     } else {
-      return this.statusData;
+      return this.statusData,this.UnAssignedData;
+     
+
     }
+    
   }
 
 
