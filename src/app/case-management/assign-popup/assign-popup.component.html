@@ -1,0 +1,49 @@
+<section class="vh-40 bg-image">
+    <div class="mask d-flex h-90 gradient-custom-3">
+        <div class="container align-self-center">
+            <div class="row justify-content-center">
+                <div class="col-11">
+                    <h3 class="mb-7 pb-2 pb-md-0 mb-md-5"
+                        style="background-color: #800000c7; font-size: 25px; color: white; text-align: center; margin-top: 1px;">
+                        Assign Case Form
+                    </h3>
+                    <form>
+                        <div class="form-group row" style="margin-top: -30px;margin-bottom: 10px;">
+                            <div class="col-md-3">
+                                <label for="name"> Email</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="email" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row" style="margin-bottom: 10px;">
+                            <div class="col-md-3">
+                                <label for="name">PF Number</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="empnumber" />
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary small-btn" data-dismiss="modal"
+                                    (click)="bsModalRef.hide()" style="margin-top: 10px;">Assign</button>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
+                                    (click)="bsModalRef.hide()"
+                                    style="margin-left: 100px;margin-top: 10px;">Close</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

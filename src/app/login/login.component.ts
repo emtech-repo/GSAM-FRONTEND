@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared.service';
+
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 import usersData from '../../assets/data/db.json';
 
 
@@ -16,7 +19,10 @@ declare function showDangerToast(message: string, title?: string): void;
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private servive: SharedService, private router: Router) {
+  formData: any;
+  constructor(private servive: SharedService,
+    private fb: FormBuilder,
+    private router: Router) {
     servive.isAuthenticated = false;
   }
   changetype: any = true;
@@ -31,7 +37,19 @@ export class LoginComponent implements OnInit {
 
   response: any = {};
 
-  ngOnInit(): void { }
+
+  ngOnInit() {
+
+    this.formData = this.fb.group({
+      UserName: [''],
+      password: ['']
+
+    })
+
+
+  }
+
+
 
   replacer(i: any, val: any) {
     if (i === 'Password') {
@@ -47,6 +65,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.servive.loader = true;
 
+
     const user = usersData.user.find(
       (u: any) => u.email === this.userEmail && u.password === this.userPassword
     );
@@ -55,6 +74,7 @@ export class LoginComponent implements OnInit {
       // Check if the user has no role
       if (!user.role || user.role.trim() === '') {
         showDangerToast('Please contact Admin for activation', 'Inactive User');
+
       } else {
         showSuccessToast("Login Successful");
         localStorage.setItem('currentUser', JSON.stringify(user));

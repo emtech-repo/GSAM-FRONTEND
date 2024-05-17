@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-body">
+        <p class="card-title">loan Accounts</p>
+
+        <div class="row">
+            <div class="col-8 mb-3 ">
+                <input type="text" class="form-control" placeholder="filter..." [(ngModel)]="searchTerm"
+                    (ngModelChange)="onSearch()" style="height: 20px;width: 150%;">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive table-striped">
+                    <table id="example" class="display expandable-table bordered-table" style="width:100%">
+                        <!-- Table headers and rows -->
+                        <thead>
+                            <tr>
+                                <th>Loan Account</th>
+                                <th>Account Name</th>
+                                <th>Sol Id</th>
+                                <th>Distress</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of filteredData" >
+                                <td>{{ item.acid }}</td>
+                                <td>{{ item.account_name}}</td>
+                                <td>{{ item.sol_code}}</td>
+                                <td>{{ item.verified_flag}}</td>
+                                <td><button type="button" class="btn btn-primary   small-btn" style="border-radius:3px ;"  (click)="goToCreateTwo(item.acid)" data-dismiss="modal"
+                                    (click)="bsModalRef.hide()">Create</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left: 30%;">
+            <div class="col-12">
+                <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                    (pageChanged)="pageChanged($event)" [maxSize]="2" [rotate]="true" [boundaryLinks]="true">
+                </pagination>
+            </div>
+        </div>
+    </div>
+</div>

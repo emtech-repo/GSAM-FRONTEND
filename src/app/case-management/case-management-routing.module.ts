@@ -12,6 +12,9 @@ import { DecisionTabComponent } from './decision-tab/decision-tab.component';
 import { MeetingTabComponent } from './meeting-tab/meeting-tab.component';
 import { AssignCaseComponent } from './assign-case/assign-case.component';
 import { CaseDetailsComponent } from './case-details/case-details.component';
+import { CreateCaseComponent } from './create-case/create-case.component';
+import { CreateTwoComponent } from './create-two/create-two.component';
+
 
 export const routes: Routes = [
   {
@@ -78,6 +81,16 @@ export const routes: Routes = [
     path: 'app-case-details',
     component: CaseDetailsComponent,
   },
+  {
+      path: 'app-create-case',
+      
+      component:CreateCaseComponent,
+    },
+     {
+      path: 'app-create-two',
+      
+      component:CreateTwoComponent,
+    },
     
     
     

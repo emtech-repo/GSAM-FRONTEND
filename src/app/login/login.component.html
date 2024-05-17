@@ -1,4 +1,5 @@
 <div class="container-scroller">
+
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
@@ -37,13 +38,19 @@
                       Keep me signed in
                     </label>
                   </div>
-                  <a href="#" class="auth-link text-black">Forgot password?</a>
+                  <a [routerLink]="['/app-forgot-password']" class="text-primary">Forgot password?</a>
+                
+                   
+                   
                 </div>
-                <!-- <div class="mb-2">
+             
+              
+              <!-- <div class="mb-2">
                   <button type="button" class="btn btn-block btn-facebook auth-form-btn">
                     <i class="ti-facebook me-2"></i>Connect using facebook
                   </button>
                 </div> -->
+
                 <div class="text-center mt-4 font-weight-light">
                  Don't have an account? <a [routerLink]="['/Register']" class="text-primary">Register</a>
                 
@@ -52,10 +59,11 @@
  
               </form>
             </div>
+
           </div>
         </div>
       </div>
-      <!-- content-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
+    <!-- content-wrapper ends -->
+  
+  <!-- page-body-wrapper ends -->

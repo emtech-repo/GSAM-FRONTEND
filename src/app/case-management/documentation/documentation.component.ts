@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { SharedService } from '../../shared.service';
-import { Router } from '@angular/router';
 
-interface ApiResponse {
-  data: any[];
-  source: any[];
-}
+import { Component, OnInit, ViewChild, ElementRef, PLATFORM_ID, Inject, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { SharedService } from '../../shared.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { FormGroup, FormControl } from '@angular/forms';
+
+import { isPlatformBrowser } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-search-case',
@@ -14,95 +16,143 @@ interface ApiResponse {
   styleUrls: ['./documentation.component.css']
 })
 export class DocumentationComponent implements OnInit {
-  jsonData: any[] = [];
+
+  @ViewChild('searchDialog') searchDialog!: ElementRef;
+
   pageSize: number = 3;
   currentPage: number = 1;
   totalItems: number = 0;
+  searchBy: string = '';
+  filteredData: any[] = [];
+  searchClicked: boolean = false;
+  activeTab: string = '';
+  documents: any[] = [];
+  filteredDocuments: any[] = [];
   searchTerm: string = '';
-  searchBy: string = ''; // To store the selected column for searching
-  filteredData: any[] = []; // Filtered data to be displayed
-  searchClicked: boolean = false; // Tracks whether the search button has been clicked
+  loan :any[]=[];
+  cases: any[]=[];
+  startDate: string = '';
+  endDate: string = '';
+  searchForm = new FormGroup({
+    accNumber: new FormControl(''),
+    accName: new FormControl(''),
+    cifID: new FormControl(''),
+    startDate: new FormControl(''),
+    endDate: new FormControl('')
+  });
+  
+  
 
-  constructor(private router: Router, private sharedService: SharedService) { }
+  constructor(private router: Router, private sharedService: SharedService, @Inject(PLATFORM_ID) private platformId: Object, private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.getjsonData();
+    this.getDocument();
+    this.getLoan();
   }
 
-  getjsonData(): void {
-    this.sharedService.getJsonData().subscribe(
-      (data: ApiResponse) => {
-        this.jsonData = data.data; // Assign original data
-        this.totalItems = this.jsonData.length;
-        this.applySearchFilter(); // Apply search filter initially
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching JsonData:', error.message);
-      }
-    );
+  openModal(content: TemplateRef<Element>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
-  // Method to apply search filter
+  getDocument(): void {
+    this.sharedService.getDocuments().subscribe(documents => {
+      this.documents = documents;
+      this.filteredDocuments = documents;
+    });
+  }
+  getLoan(): void {
+    this.sharedService.getLoan().subscribe(loan=> {
+      this.loan = loan;
+      // this.filteredDocuments = documents;
+    });
+  }
+
   applySearchFilter(): void {
-    let filteredData = this.jsonData;
-    if (this.searchTerm && this.searchBy && this.searchClicked) { // Only apply filter if search button is clicked
+    let filteredData = this.documents;
+    if (this.searchTerm && this.searchBy && this.searchClicked) {
       filteredData = filteredData.filter(item =>
         item[this.searchBy].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     }
-    this.filteredData = filteredData; // Store filtered data
+    this.filteredData = filteredData;
     this.totalItems = this.filteredData.length;
   }
 
-  // Method to handle page change event
   pageChanged(event: any): void {
     this.currentPage = event.page;
-    this.applySearchFilter(); // Apply search filter on page change
-  }
-
-  // Method to handle search query change
-  onSearch(): void {
-    this.currentPage = 1; // Reset current page when performing a new search
-    this.searchClicked = true; // Set searchClicked toatrue when search button is clicked
     this.applySearchFilter();
   }
 
-  // Method to set the column to search by
+  onSearch(): void {
+    this.currentPage = 1;
+    this.searchClicked = true;
+    this.applySearchFilter();
+  }
+
   setSearchBy(column: string): void {
     this.searchBy = column;
-    this.applySearchFilter(); // Apply search filter when the search column changes
+    this.applySearchFilter();
+  }
+  
+
+
+
+  performSearch() {
+    this.searchTerm = this.searchForm.get('accName')?.value || '';
+    this.searchTerm = this.searchForm.get('accNumber')?.value || '';
+    this.startDate = this.searchForm.get('startDate')?.value || '';
+    this.endDate = this.searchForm.get('endDate')?.value || '';
+    
+    this.filterDocuments(); // Apply filters based on form inputs
   }
 
-  // Method to dynamically return the placeholder text for search input field
-  getPlaceholder(): string {
-    switch (this.searchBy) {
-      case 'ID Nation':
-        return 'Enter Account Number...';
-      case 'Nation':
-        return 'Enter Account Name...';
-      case 'ID Year':
-        return 'Enter National Id...';
-      case 'Year':
-        return 'Enter CIF...';
-      case 'Population':
-        return 'Enter Loan Amount...';
-      case 'Slug Nation':
-        return 'Enter Case Number...';
-      default:
-        return this.searchBy ? `Enter ${this.searchBy}` : 'Select search option first';
+  onSubmit(event?: Event) {
+    event?.preventDefault();
+    this.searchTerm = this.searchForm.get('accName')?.value || '';
+    this.searchTerm = this.searchForm.get('accNumber')?.value || '';
+    this.startDate = this.searchForm.get('startDate')?.value || '';
+    this.endDate = this.searchForm.get('endDate')?.value || '';
+    console.log(this.searchForm.value);
+    console.log(`Submit button clicked. Search Term: ${this.searchTerm}, Start Date: ${this.startDate}, End Date: ${this.endDate}`);
+    this.performSearch();
+
+  }
+
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+  }
+  customerFound: boolean = false;
+
+  filterDocuments() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.filteredDocuments = [...this.documents];
+      const startDate = new Date(this.startDate);
+      const endDate = new Date(this.endDate);
+      if (this.searchTerm.trim() !== '') {
+        this.filteredDocuments = this.filteredDocuments.filter(document => {
+          return document.accNumber.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            document.accName.toLowerCase().includes(this.searchTerm.toLowerCase());
+        });
+      }
+      if (this.startDate.trim() !== '' && this.endDate.trim() !== '') {
+        this.filteredDocuments = this.filteredDocuments.filter(document => {
+          const documentDate = new Date(document.nextpaymentdate.replace(/\/\d{2}\/\d{4}/, ''));
+          return documentDate >= startDate && documentDate <= endDate;
+        });
+      }
     }
+    this.customerFound = this.filteredDocuments.length > 0;
   }
+  // getCases(): void {
+  //   this.sharedService.getCases().subscribe(
+  //     cases => {
+  //       this.cases = cases;
+  //       console.log('Cases fetched:', cases);
+  //     },
+  //     error => {
+  //       console.error('Error fetching cases:', error);
+  //     }
+  //   );
+  // }
 
-  // Navigation methods
-  goToCreateMeeting() {
-    this.router.navigate(['/create-meeting']);
-  }
-
-  goToCaseDecision() {
-    this.router.navigate(['/case-decision']);
-  }
-
-  goToDocumentation() {
-    this.router.navigate(['/documentation']);
-  }
 }

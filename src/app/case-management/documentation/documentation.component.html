@@ -1,3 +1,183 @@
+
+
+
+   <div class="customerDetails">
+    
+        <!-- Corrected Modal Structure -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#searchDialog">
+            Search Documents
+        </button>
+        
+        <div class="modal fade" id="searchDialog" tabindex="-1" aria-labelledby="searchDialogLabel" aria-hidden="true">
+            <div class="modal-dialog" style="height:100px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Enter Search criteria</h4>
+                        <button type="button" class="close" aria-label="Close" data-bs-dismiss="modal" aria-hidden="true">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <form [formGroup]="searchForm" (submit)="onSubmit($event)">
+                        <div class="mb-3">
+                            <label for="accNumber" class="form-label">Account Number</label>
+                            <input class="form-control" placeholder="Enter Account Number" formControlName="accNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="accName" class="form-label">Account Name</label>
+                            <input class="form-control" placeholder="Enter Account Name" formControlName="accName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cifID" class="form-label">CIF ID</label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="Enter CIF Number" formControlName="cifID">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="startDate" class="form-label">From</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" placeholder="yyyy-mm-dd" formControlName="startDate">
+                                <div class="input-group-append">
+                                    <i class="bi bi-calendar-fill" style="cursor: pointer;"></i> <!-- Calendar icon -->
+                                </div>
+                            </div>
+                            <label for="endDate" class="form-label">End Date</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" placeholder="yyyy-mm-dd" formControlName="endDate">
+                            </div>
+                        </div>
+                        <!-- Your form fields here -->
+                        <div class="modal-footer d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success" id="proceedButton">
+                                <i class="bi bi-search" ></i> Proceed
+                            </button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+
+
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        
+        <div *ngIf="customerFound">
+            <p>Record Found</p>
+        </div>
+        
+        <!-- No Results Message -->
+        
+
+
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-generaldetails-tab" (click)="setActiveTab('general')"
+                    data-bs-toggle="pill" data-bs-target="#pills-generaldetails" type="button" role="tab"
+                    aria-controls="pills-generaldetails" aria-selected="false">General Details</button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-loan-details-tab" (click)="setActiveTab('loan')"
+                    data-bs-toggle="pill" data-bs-target="#pills-loan-details" type="button" role="tab"
+                    aria-controls="pills-loan-details" aria-selected="false">Loan Details</button>
+
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-contract-tab" (click)="setActiveTab('contract')"
+                    data-bs-toggle="pill" data-bs-target="#pills-contract" type="button" role="tab"
+                    aria-controls="pills-contract" aria-selected="false">Contract</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-collateral-tab" (click)="setActiveTab('collateral')"
+                    data-bs-toggle="pill" data-bs-target="#pills-collateral" type="button" role="tab"
+                    aria-controls="pills-collateral" aria-selected="false">Collateral</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-documents-tab" (click)="setActiveTab('documents')"
+                    data-bs-toggle="pill" data-bs-target="#pills-documents" type="button" role="tab"
+                    aria-controls="pills-documents" aria-selected="false">Documents</button>
+            </li>
+        </ul>
+    
+
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'general'}" id="pills-generaldetails"
+        role="tabpanel" aria-labelledby="pills-generaldetails-tab">
+        <div *ngIf="filteredDocuments && filteredDocuments.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Account Name</th>
+                        <th>ID</th>
+                        <th>CIF</th>
+                        <th>CaseNumber</th>
+                        <th>Account</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let document of filteredDocuments">
+                        <td>{{ document.accName}}</td>
+                        <td>{{ document.id }}</td>
+                        <td>{{ document.cifID }}</td>
+                        <td>{{ document.caseNumber }}</td>
+                        <td>{{ document.accNumber }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'loan'}" id="pills-loan-details" role="tabpanel"
+        aria-labelledby="pills-loan-details-tab">
+        <div *ngIf="filteredDocuments && filteredDocuments.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Account</th>
+                        <th>Loan Amount</th>
+                        <th>Account Name</th>
+                        <th>Installment</th>
+                        <th>Guarantor</th>
+                        <th>Guarantor phone no</th>
+                        <th>Next Installmenet</th>
+                        <th>Branch</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let document of filteredDocuments">
+                        <td>{{ document.accNumber }}</td>
+                        <td>{{ document.loanAmount }}</td>
+                        <td>{{ document.accName }}</td>
+                        <td>{{ document.installment }}</td>
+                        <td>{{ document.guarantor }}</td>
+                        <td>{{ document.guarantorphoneno }}</td>
+                        <td>{{ document.nextpaymentdate }}</td>
+                        <td>{{ document.branchName }}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'contract'}" id="pills-contract" role="tabpanel"
+        aria-labelledby="pills-contract-tab">
+        <div *ngIf="filteredDocuments && filteredDocuments.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Land Rates</th>
+                        <th>Date Updated</th>
+                        <th>Updated By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let document of filteredDocuments">
+                        <td>{{ document.passport }}</td>
+                        <td>{{ document.dateUpdated }}</td>
+                        <td>{{ document.updatedBy }}</td>
+
 <!-- <div class="container">
     <div class="row">
         <div class="col-md-8">
@@ -60,7 +240,7 @@
                     <option value="Population">Loan Amount</option>
                     <option value="Slug Nation">Case Number</option>
                 </select>
-                <input type="text" class="form-control" [(ngModel)]="searchTerm" (input)="onSearch()" [placeholder]="searchBy ? getPlaceholder() : 'Select search option first'" [disabled]="!searchBy">
+                <!-- <input type="text" class="form-control" [(ngModel)]="searchTerm" (input)="onSearch()" [placeholder]="searchBy ? getPlaceholder() : 'Select search option first'" [disabled]="!searchBy"> -->
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">Search</button>
                 </div>
@@ -90,9 +270,65 @@
                         <td>{{ item.Year }}</td>
                         <td>{{ item.Population }}</td>
                         <td>{{ item['Slug Nation'] }}</td>
+
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'collateral'}" id="pills-collateral" role="tabpanel"
+        aria-labelledby="pills-collateral-tab">
+        <div *ngIf="filteredDocuments && filteredDocuments.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Account Name</th>
+                        <th>Passport</th>
+                        <th>Date Updated</th>
+                        <th>Updated By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let document of filteredDocuments">
+                        <td>{{ document.accName }}</td>
+                        <td>{{ document.passport }}</td>
+                        <td>{{ document.dateUpdated }}</td>
+                        <td>{{ document.updatedBy }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'documents'}" id="pills-documents"
+        role="tabpanel" aria-labelledby="pills-documents-tab">
+
+        <div *ngIf="filteredDocuments && filteredDocuments.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Account Name</th>
+                        <th>Passport</th>
+                        <th>Date Updated</th>
+                        <th>Updated By</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let document of filteredDocuments">
+                        <td>{{ document.accName }}</td>
+                        <td>{{ document.passport }}</td>
+                        <td>{{ document.dateUpdated }}</td>
+                        <td>{{ document.updatedBy }}</td>
+                        <td>{{ document.updatedBy }}</td>
+                    </tr>
+                </tbody>                             
+            </table>
+            
+
+        </div>   
+        
 </div>
+

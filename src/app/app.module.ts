@@ -3,11 +3,13 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr'; 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+
 
 
 
@@ -21,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardsComponent } from './home/cards/cards.component';
 import { AnalysisComponent } from './home/analysis/analysis.component';
+
 
 import { ChartModule } from 'angular-highcharts';
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -52,6 +55,10 @@ import { RegisterComponent } from './register/register.component';
 
 
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+
+
 
 
 @NgModule({
@@ -63,11 +70,12 @@ import { RegisterComponent } from './register/register.component';
     CardsComponent,
     AnalysisComponent,
     AdminPageComponent,
-    
     AdminPopupComponent,
     RegisterComponent,
+    ForgotPasswordComponent,
     
     
+
     
     
     
@@ -92,6 +100,9 @@ import { RegisterComponent } from './register/register.component';
     MatDialogModule,
     MatCardModule,
     MatTableModule,
+    MatPaginatorModule, 
+    NgbModule,
+    ReactiveFormsModule,
     MatPaginatorModule,
     MatToolbarModule,
     MatIconModule,
@@ -105,7 +116,7 @@ import { RegisterComponent } from './register/register.component';
     
 
 
-    
+
     
 
 
@@ -114,6 +125,7 @@ import { RegisterComponent } from './register/register.component';
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),
+    
 
 
   ],

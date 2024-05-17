@@ -1,57 +1,115 @@
-<body>
-    <div class="container mt-5">
-        <h2 class="mb-4">CASE DETAILS</h2>
-        <table class="table table-bordered">
+<div class="container-xl h-100" style="width: 150%; margin-left: -9%">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-11">
 
-            <thead style="background-color: white; font-size : smaller;">
-                <tr style="background-color: grey;" class="text-strong">
-                    <th>CIF ID</th>
-                    <th>ACC NUMBER</th>
-                    <th>ACC NAME</th>
-
-
-                    <th>LOAN AMOUNT</th>
-                    <th>MONTHLY INSTALMENT</th>
-                    <th>NEXT PAYMENT DATE</th>
-                    <th>LAST PAYMENT DATE</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>CARL INVESTMENT</td>
-                    <td>1234567893456</td>
-                    <td>SUMMER</td>
-                    <td>600,000 USD</td>
-                    <td>10,000 USD</td>
-                    <td>28-03-24</td>
-                    <td>128-02-24</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="mt-4">
-            <h4>ASSIGN TO</h4>
-
-                <div class="form-group">
-                    <label for="email">PF Number</label>
-                    <input type="email" class="form-control" id="email">
+            <div class="card" style="border-radius: 15px">
+                <div style="margin-top:-40px ;">
+                    <h1 style="font-size: 25px;text-align: center;color:white;background-color:grey;">
+                        Case Details</h1>
                 </div>
-                <div class="form-group">
-                    <label for="name">Username</label>
-                    <input type="text" class="form-control" id="name">
-                </div>
-                <div class="form-group">
-                    <label for="pfNo">Email</label>
+                <div class="card-body">
+                    <div class="row align-items-center pt-4 pb-3">
 
-                    <input type="text" class="form-control" id="pfNo">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <!-- First Column -->
+                                <div class="row">
+                                    <div class="col-md-12 ps-9">
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inputloanaccount" style="margin-bottom: -1px;">Loan Account
+                                            </label>
+                                            <input type="text" class="form-control" id="loanAccount"
+                                                [(ngModel)]="filteredData[0].loanAccount" name="loanAccount"
+                                                [readonly]="true" [readonly]="true" />
+
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inputcasenumber">Case Number </label>
+                                            <input type="text" class="form-control" id="account_name" name="caseNumber "
+                                                [(ngModel)]="filteredData[0].caseNumber  " name="caseNumber "
+                                                [readonly]="true" />
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inputloan"> Loan Amount</label>
+                                            <input type="text" class="form-control" id="loanAmount"
+                                                [(ngModel)]="filteredData[0].loanAmount " name="loanAmount"
+                                                [readonly]="true" />
+
+                                        </div>
+                                        <div class="input-group" style="border-radius: 5px;margin-top: -20px;">
+                                            <label for="inputsundicatedflag">Syndicated</label>
+                                            <select class="input--style-5" name="members" style="width: 100%;">
+                                                <option value="member1">Yes</option>
+                                                <option value="member2">No</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Second Column -->
+                                <div class="row">
+                                    <div class="col-md-12 ps-9">
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inputcifId">CIF ID</label>
+                                            <input type="text" class="form-control" id="cifId" name="cifId"
+                                                [(ngModel)]="filteredData[0].cifId" name="cifId" [readonly]="true" />
+
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inpubranchid">Branch ID</label>
+                                            <input type="text" class="form-control" id="solId"
+                                                [(ngModel)]="filteredData[0].solId " name="solId" [readonly]="true" />
+
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inputinstalments">Monthly Instalments</label>
+                                            <input type="text" class="form-control" id="InitialMonthlyInstalments"
+                                                [(ngModel)]="filteredData[0].loanAccount " name="loanAccount"
+                                                [readonly]="true" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <!-- Third Column -->
+                                <div class="row">
+                                    <div class="col-md-12 ps-9">
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inputaccname">Acc Name</label>
+                                            <input type="text" class="form-control" id="accountName"
+                                                [(ngModel)]="filteredData[0].accountName" name="accountName"
+                                                name="accountName" [readonly]="true" />
+
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inputloantenure">Loan Tenure</label>
+                                            <input type="text" class="form-control" id="loanTenure" name="loanTenure"
+                                                [(ngModel)]="filteredData[0].loanTenure " name="loanTenure"
+                                                [readonly]="true" />
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inputloanbalance">Loan Balance</label>
+                                            <input type="text" class="form-control" id="loanBalance" name="loanBalance"
+                                                [(ngModel)]="filteredData[0].loanBalance " name="loanBalance"
+                                                [readonly]="true" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" class="assign small-btn" (click)="goToAssignPopup()">Assign
+                                Case</button>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">ASSIGN</button>
-            
+            </div>
         </div>
+
     </div>
-
-
-   
-
-</body>
+</div>

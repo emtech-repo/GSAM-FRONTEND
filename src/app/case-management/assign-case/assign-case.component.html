@@ -5,35 +5,88 @@
                 <div class="card card-tale">
                     <div class="card-body">
                         <p class="mb-4">Total Cases</p>
-                        <p class="fs-30 mb-2">40</p>
-                        <p>10.00% (30 days)</p>
+                        <p class="fs-30 mb-2">355</p>
+                        <!-- <p>10.00% (30 days)</p> -->
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3 stretch-card transparent">
+            <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;">
                 <div class="card card-dark-blue">
                     <div class="card-body">
-                        <p class="mb-4">Active cases</p>
-                        <p class="fs-30 mb-2">6</p>
-                        <p>22.00% (30 days)</p>
+                        <p class="mb-4">Assigned Cases</p>
+                        <p class="fs-30 mb-2">200</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3  stretch-card transparent">
+            <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;">
                 <div class="card card-light-blue">
                     <div class="card-body">
-                        <p class="mb-4">Closed Cases </p>
-                        <p class="fs-30 mb-2">30</p>
-                        <p>2.00% (30 days)</p>
+                        <p class="mb-4">unassigned Cases</p>
+                        <p class="fs-30 mb-2">155</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3  stretch-card transparent">
-                <div class="card card-light-danger">
-                    <div class="card-body">
-                        <p class="mb-4">Assigned</p>
-                        <p class="fs-30 mb-2">1</p>
-                        <p>0.22% (30 days)</p>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-title">Cases</p>
+
+                <!-- SEEERCH BUTTON-->
+                <div class="row">
+                    <div class="col-8 mb-3 ">
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm"
+                            (ngModelChange)="onSearch()" style="height: 20px;width: 150%;">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive table-striped">
+                            <table id="example" class="display expandable-table" style="width:100%">
+
+                                <!-- Table headers and rows -->
+                                <thead>
+                                    <tr>
+
+                                        <th>Case Number</th>
+                                        <th>CIF ID</th>
+                                        <th>Loan A/C</th>
+                                        <th>A/C Name</th>
+                                        <th>Assigned</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <tr *ngFor="let item of filteredData">
+                                        <td>{{ item.caseNumber }}</td>
+                                        <td>{{ item.cifId }}</td>
+                                        <td>{{ item.loanAccount }}</td>
+                                        <td>{{ item.accountName }}</td>
+                                        <td>{{ item.assigned }}</td>
+                                        <td><button type="button" class="assign small-btn"
+                                                (click)="goToCaseDetails()">View Case</button></td>
+                                    </tr>
+                                </tbody>
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 57%;">
+                    <div class="col-12">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                            (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
                     </div>
                 </div>
             </div>
@@ -42,20 +95,24 @@
 </div>
 
 
-<div class="form-group mx-sm-3 mb-6 d-flex">
-    <select class="form-control mr-2" id="dropdownMenu" style="width: 100px;background-color: grey; ">
-        <option value="" style="color: rgb(206, 200, 200);">Search by..</option>
-        <option value="option1">ID</option>
-        <option value="option2">Account NO.</option>
-        <option value="option3">Acc Name</option>
-        <option value="option4">Case Number</option>
-        <option value="option5">CIF ID</option>
-    </select>
-    <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
-        style="width: 300px; height: 40px; margin-left: 10px;">
-    <button type="search" class="btn btn-primary btn-sm"
-        style=" margin-left: 10px;border-radius: 5px;">Search</button>
-</div>
+<!-- <form class="form-inline" style=" margin-left: -15px;margin-top: 10px;">
+                      <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <select class="form-control mr-2" id="dropdownMenu"
+                          style="width: 100px;height:40px ;  background-color:grey ; ">
+                          <option value="" style="color: white;">Search by..</option>
+                          <option value="option1">ID</option>
+                          <option value="option2">Account NO.</option>
+                          <option value="option3">Acc Name</option>
+                          <option value="option4">Case Number</option>
+                          <option value="option5">CIF ID</option>
+                        </select>
+                        <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
+                          style="width: 650px; height: 40px; margin-left: 10px;">
+                        <button type="search" class="btn btn-primary btn-sm"
+                          style=" margin-left: 10px;border-radius: 5px;">Search</button>
+                      </div>
+                      
+                    </form>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -74,7 +131,7 @@
             <td>CARL INVESTMENT</td>
             <td>10.04.24</td>
             <td>UNASSIGNED</td>
-            <td><button type="button" class="assign"  (click)="goToCaseDetails()">ASSIGN</button></td>
+            <td><button type="button" class="assign"  (click)="goToCaseDetails()">View Case</button></td>
         </tr>
         <tr>
             <td>002</td>
@@ -82,7 +139,7 @@
             <td>CARL INVESTMENT</td>
             <td>10.04.24</td>
             <td>UNASSIGNED</td>
-            <td><button type="button" class="assign"  (click)="goToCaseDetails()">ASSIGN</button></td>
+            <td><button type="button" class="assign"  (click)="goToCaseDetails()">View Case</button></td>
         </tr>
         <tr>
             <td>003</td>
@@ -90,7 +147,7 @@
             <td>CARL INVESTMENT</td>
             <td>10.04.24</td>
             <td>UNASSIGNED</td>
-            <td><button type="button" class="assign"  (click)="goToCaseDetails()">ASSIGN</button></td>
+            <td><button type="button" class="assign"  (click)="goToCaseDetails()">View Case</button></td>
         </tr>
         <tr>
             <td>004</td>
@@ -98,15 +155,7 @@
             <td>CARL INVESTMENT</td>
             <td>10.04.24</td>
             <td>UNASSIGNED</td>
-            <td><button type="button" class="assign"  (click)="goToCaseDetails()">ASSIGN</button></td>
+            <td><button type="button" class="assign"  (click)="goToCaseDetails()">View Case</button></td>
         </tr>
     </tbody>
-</table>
-
-
-
-                
-
-                
-
-                
+</table> -->
