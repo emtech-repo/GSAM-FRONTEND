@@ -15,6 +15,10 @@ import { DocumentationComponent } from './case-management/documentation/document
 import { LoanAccountLookUpComponent } from './case-management/loan-account-look-up/loan-account-look-up.component';
 import { CreateTwoComponent } from './case-management/create-two/create-two.component';
 import { AssignCaseComponent } from './case-management/assign-case/assign-case.component';
+import { SearchdocumentComponent } from './documents/searchdocument/searchdocument.component';
+import { RequestComponent } from './documents/request/request.component';
+import { RetrieveComponent } from './documents/retrieve/retrieve.component';
+import { UploadComponent } from './documents/upload/upload.component';
 
 
 
@@ -88,10 +92,22 @@ export const routes: Routes = [
       path: 'assign-case',    
       component: AssignCaseComponent,
     },
-
-
-
- 
+  {
+    path: 'searchdocument',
+    component: SearchdocumentComponent,
+  },
+  {
+    path: 'app-request',
+    component: RequestComponent,
+  },
+  {
+    path: 'app-retrieve',
+    component: RetrieveComponent,
+  },
+  {
+    path: 'app-upload',
+    component: UploadComponent,
+  },
     {
       path: 'case-management',
       loadChildren: () => import('../app/case-management/case-management.module').then(m => m.CaseManagementModule)
@@ -99,6 +115,10 @@ export const routes: Routes = [
   {
     path: 'approval',
     loadChildren: () => import('../app/approval/approval.module').then(m => m.ApprovalModule)
+  },
+  {
+    path: 'documents',
+    loadChildren: () => import('../app/documents/documents.module').then(m => m.DocumentsModule)
   },
   // {
   //   path: 'app-admin-page',

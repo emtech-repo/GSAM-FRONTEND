@@ -156,10 +156,12 @@
           </a>
           <div class="collapse" id="ui-advanced">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dragula.html">Search Document</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/clipboard.html">Request</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/clipboard.html">Retrieve</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/slider.html">Upload</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-searchdocument']">Search</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-request']">Request</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-retrieve']">Retrieve</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-upload']">Upload</a></li>
+              
+              
 
             </ul>
           </div>
