@@ -18,8 +18,8 @@ export class SharedService {
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
-  readonly UnAssignCaseUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
-
+  readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
+readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
   readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
 
 
@@ -72,6 +72,8 @@ export class SharedService {
   getUsersList(val: any) {
     return this.http.post<any>(this.APIUrl + '/users/get', val);
   }
+
+
   getCases(): Observable<any> {
     return this.http.get<any>(this.CasesUrl);
 
@@ -131,6 +133,10 @@ export class SharedService {
       apiUrl += `?search=${encodeURIComponent(searchQuery)}`;
     }
 
+
+
+    
+
     return this.http.get<any[]>(apiUrl);
   }
 
@@ -187,13 +193,35 @@ export class SharedService {
   }
 
 
-   getUnAssignCase(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.UnAssignCaseUrl}`)
+   getUnAssigned(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.UnAssignedUrl}`)
       .pipe(
         tap((data: any[]) => console.log('Fetched AssignCase:', data)),
         map((data: any) => data['AssignCase']) 
       );
   }
+
+
+  getAssigned(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.AssignedUrl}`)
+      .pipe(
+        tap((data: any[]) => console.log('Fetched AssignCase:', data)),
+        map((data: any) => data['AssignCase']) 
+      );
+  }
+
+
+
+
+
+  
+  // getCases(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.CasesUrl}`)
+  //     .pipe(
+  //       tap((data: any[]) => console.log('Fetched Cases:', data)),
+  //       map((data: any) => data['Cases']) 
+  //     );
+  // }
 
 
   getAccounts():Observable<any>{

@@ -5,8 +5,8 @@
             <div class="card card-tale">
                 <div class="card-body">
                     <p class="mb-4">Total Cases</p>
-                    <p class="fs-30 mb-2">355</p>
-                    <!-- <p class="fs-30 mb-2">{{ totalCases }}</p> -->
+                    <!-- <p class="fs-30 mb-2">355</p> -->
+                    <p class="fs-30 mb-2">{{ totalCases }}</p>
 
                 </div>
             </div>
@@ -17,7 +17,8 @@
 
                 <div class="card-body">
                     <p class="mb-4">Assigned Cases</p>
-                    <p class="fs-30 mb-2">200</p>
+                    <p class="fs-30 mb-2">{{ assignedCases }}</p>
+                    <!-- <p class="fs-30 mb-2">200</p> -->
                 </div>
             </div>
         </div>
@@ -29,7 +30,8 @@
 
                 <div class="card-body">
                     <p class="mb-4">unassigned Cases</p>
-                    <p class="fs-30 mb-2">155</p>
+                    <p class="fs-30 mb-2">{{ unassignedCases }}</p>
+                    <!-- <p class="fs-30 mb-2">155</p> -->
                 </div>
             </div>
         </div>
@@ -160,7 +162,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of statusData">
+                                        <tr *ngFor="let item of casesData">
                                             <td>{{ item.loanAccount }}</td>
                                             <td>{{ item.cifId }}</td>
                                             <td>{{ item.accountName }}</td>

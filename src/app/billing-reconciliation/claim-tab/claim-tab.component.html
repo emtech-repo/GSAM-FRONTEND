@@ -11,14 +11,142 @@
         <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
            
             <ng-container *ngIf="i === 0">
-                <!-- Display table for the "Refinance" tab -->
+                <!-- Display table for the "External claim" tab -->
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Claim Form</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <form action="/submit_claim" method="post">
+            <div class="form-group">
+                <label for="staffPf">Staff PF:</label>
+                <input type="text" class="form-control" id="staffPf" name="staffPf">
+            </div>
+            <div class="form-group">
+                <label for="staffName">Staff Name:</label>
+                <input type="text" class="form-control" id="staffName" name="staffName">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="accountNumber">Account Number:</label>
+                <input type="text" class="form-control" id="accountNumber" name="accountNumber">
+            </div>
+            <div class="form-group">
+                <label for="claimAmount">Claim Amount:</label>
+                <input type="number" class="form-control" id="claimAmount" name="claimAmount">
+            </div>
+            <div class="form-group">
+                <label for="claimDetails">Claim Request Details:</label>
+                <textarea class="form-control" id="claimDetails" name="claimDetails" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Claim Type:</label>
+                <div class="btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="claimType" value="internal" checked> INTERNAL
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="claimType" value="external"> EXTERNAL
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="supportingDocument">Attach Supporting Document:</label>
+                <input type="file" class="form-control-file" id="supportingDocument" name="supportingDocument">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Claim</button>
+        </form>
+    </div>
+
+   
+</body>
+
+</html>
+
+
 
                 
+     
+
+<!-- /////////////////////////////////////////////////////////////////// -->
             </ng-container>
             <ng-container *ngIf="i === 1">
-                <!-- Display content for "Restructure" tab -->
+                <!-- Display content for "Internal claim" tab -->
 
-              
+            <!DOCTYPE html>
+            <html lang="en">
+            
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+                <title>Claim Form</title>
+            </head>
+            
+            <body>
+                <div class="container mt-5">
+                    <form action="/submit_claim" method="post">
+                        <div class="form-group">
+                            <label for="staffPf">Staff PF:</label>
+                            <input type="text" class="form-control" id="staffPf" name="staffPf">
+                        </div>
+                        <div class="form-group">
+                            <label for="staffName">Staff Name:</label>
+                            <input type="text" class="form-control" id="staffName" name="staffName">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address:</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="accountNumber">Account Number:</label>
+                            <input type="text" class="form-control" id="accountNumber" name="accountNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="claimAmount">Claim Amount:</label>
+                            <input type="number" class="form-control" id="claimAmount" name="claimAmount">
+                        </div>
+                        <div class="form-group">
+                            <label for="claimDetails">Claim Request Details:</label>
+                            <textarea class="form-control" id="claimDetails" name="claimDetails" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Claim Type:</label>
+                            <div class="btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                    <input type="radio" name="claimType" value="internal" checked> INTERNAL
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="claimType" value="external"> EXTERNAL
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="supportingDocument">Attach Supporting Document:</label>
+                            <input type="file" class="form-control-file" id="supportingDocument" name="supportingDocument">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Claim</button>
+                    </form>
+                </div>
+            
+                <!-- Include Bootstrap JS and jQuery -->
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            </body>
+            
+            </html>
+
             </ng-container>
           
         </div>
