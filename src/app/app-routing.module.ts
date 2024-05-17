@@ -23,6 +23,7 @@ import { UploadComponent } from './documents/upload/upload.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { CreateCaseComponent } from './case-management/create-case/create-case.component';
 
+import { ClaimTabComponent } from './billing-reconciliation/claim-tab/claim-tab.component';
 
 
 
@@ -125,14 +126,18 @@ export const routes: Routes = [
     },
   
 
+
      {
       path: 'app-assign-case',    
       component: AssignCaseComponent,
     },
 
+    // {
+    //   path: 'app-claim-tab',    
+    //   component: ClaimTabComponent,
+    // }, 
 
 
- 
 
     {
       path: 'case-management',
