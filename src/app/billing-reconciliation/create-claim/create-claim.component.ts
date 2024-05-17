@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class CreateClaimComponent {
 
+   selectedIndex = 0;
+  refinanceContent = `<table class="table">...</table>`; 
+  tabs = [
+    { title: 'External Claim', content: '' },
+    { title: 'Internal Claim', content: '' }, 
+
+  ];
+
+  selectTab(index: number) {
+    this.selectedIndex = index;
+  }
+
 }

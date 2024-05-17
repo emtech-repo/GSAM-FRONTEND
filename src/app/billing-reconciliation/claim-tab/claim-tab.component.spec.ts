@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssignedCasesComponent } from './assigned-cases.component';
+import { ClaimTabComponent } from './claim-tab.component';
 
-describe('AssignedCasesComponent', () => {
-  let component: AssignedCasesComponent;
-  let fixture: ComponentFixture<AssignedCasesComponent>;
+describe('ClaimTabComponent', () => {
+  let component: ClaimTabComponent;
+  let fixture: ComponentFixture<ClaimTabComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AssignedCasesComponent]
+      declarations: [ClaimTabComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AssignedCasesComponent);
+    fixture = TestBed.createComponent(ClaimTabComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

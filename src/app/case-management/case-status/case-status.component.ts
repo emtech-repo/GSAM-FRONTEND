@@ -18,7 +18,6 @@ export class CaseStatusComponent {
   showActiveCasesFlag = false;
   showClosedCasesFlag = false;
   searchOption: string = 'assignedTo';
-
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;

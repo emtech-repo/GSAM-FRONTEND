@@ -63,10 +63,9 @@
                 </div>
               </div>
               <div class="preview-item-content">
-                <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                <h6 class="preview-subject font-weight-normal" [routerLink]="['app-admin-page']">New user registration</h6>
                 <p class="font-weight-light small-text mb-0 text-muted">
-                  2 days ago
-                </p>
+                  just now
               </div>
             </a>
           </div>
@@ -143,10 +142,13 @@
                   Decision</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-tracking']">Case
                   Tracking</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
-                  Case</a></li>
-                  <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assigned-cases']">Assigned
-                      Cases</a></li>
+              <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
+                  Case</a></li> -->
+                  <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
+                      Case</a></li>
+                      <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['billing-reconciliation/app-claim-tab']">Claim
+                          Tab</a></li> -->
+
 
             </ul>
           </div>
@@ -160,10 +162,14 @@
           </a>
           <div class="collapse" id="ui-advanced">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-search-document']">Search Document</a></li>
+
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-searchdocument']">Search</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-request']">Request</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-retrieve']">Retrieve</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-upload']">Upload</a></li>
+              
+              
+
 
             </ul>
           </div>

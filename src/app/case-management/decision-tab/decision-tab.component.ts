@@ -12,6 +12,13 @@ import { SharedService } from '../../shared.service';
 export class DecisionTabComponent {
   Customers: any[] = [];
   CustomersUrl: any;
+  searchParams = { param: '', value: '' }
+  currentPage: number = 1;
+  searchOption: string = 'AccNumber';
+
+
+
+
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
@@ -26,6 +33,29 @@ export class DecisionTabComponent {
     this.getCustomers();
 
   }
+
+   setSearchOption(option: string) {
+    this.searchOption = option;
+  }
+
+  search(): void {
+    console.log('Search method called'); // Debugging line
+    this.currentPage = 1; // Reset current page for search
+    this.Customers = this.Customers.filter(item => {
+      switch (this.searchParams.param) {
+        case 'loanAccount':
+          return item.AccNumber.toLowerCase().includes(this.searchParams.value.toLowerCase());
+        case 'CifID':
+          return item.CifID.toLowerCase().includes(this.searchParams.value.toLowerCase());
+        case 'CaseNumber':
+          return item.CaseNumber.toLowerCase().includes(this.searchParams.value.toLowerCase());
+       
+        default:
+          return false;
+      }
+    });
+  }
+
 
   getCustomers(): void {
     this.sharedService.getCustomers()

@@ -1,38 +1,79 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-
-
+import { SharedService } from '../../shared.service';
 
 @Component({
   selector: 'app-create-two',
   templateUrl: './create-two.component.html',
-  styleUrl: './create-two.component.css'
+  styleUrls: ['./create-two.component.css']
 })
-export class CreateTwoComponent {
-    CreatedSuccessfully: any;
-  action: string | undefined;
+export class CreateTwoComponent implements OnInit {
+  loanDetails: any = {}; // Initialize as an empty object
+  CreatedSuccessfully: boolean = false;
+  details: any;
+  caseId: number | undefined;
 
-    constructor(
-     private toastr: ToastrService,
-    public bsModalRef: BsModalRef 
+
+
+
+  constructor(
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    public bsModalRef: BsModalRef,
+    private sharedService: SharedService
   ) { }
 
+  ngOnInit() {
+    // Access details from the route state
+    if (history.state && history.state.details) {
+      this.details = history.state.details;
+      this.loanDetails = this.details.entity;
+      // Log the fetched loanDetails object
+      console.log('Loan Details:', this.loanDetails);
+    }
+  }
   
-   closeModal() {
+
+  closeModal() {
     this.bsModalRef.hide();
   }
-CreateCase() {
-    console.log('Case Created approved');
 
+  CreateCase() {
+    console.log('Creating Case...');
 
-    // Set submittedSuccessfully to true and action to 'approve'
-    this.CreatedSuccessfully = true;
-    this.action = 'Created';
+    // Log the entire loanDetails object for inspection
+    console.log('Current loanDetails:', this.loanDetails);
 
+    // Create a new object with only the required fields
+    const requestData = {
+      CifId: this.loanDetails?.customerCode ?? '',
+      AccountName: this.loanDetails?.accountName ?? '',
+      LoanAmount: this.loanDetails?.loan?.principalAmount ?? '',
+      LoanTenure: this.loanDetails?.loan?.loanPeriodMonths ?? '',
+      SolId: this.loanDetails?.solCode ?? '',
+      LoanBalance: this.loanDetails?.accountBalance ?? '',
+      LoanAccount: this.loanDetails?.acid ?? '',
+      SyndicatedFlag: this.loanDetails?.SyndicatedFlag ?? ''
+    };
+
+    console.log('Data to be sent:', requestData); // Log the data to be sent
+
+    // Send the request data to the API
+    this.sharedService.createCase(requestData)
+      .subscribe(response => {
+        console.log('Case created successfully:', response);
+        this.CreatedSuccessfully = true;
+        this.caseId = response.caseId;
+        this.toastr.success(`Case created successfully Case ID: ${response.caseId}`, 'Success');
+        // Automatically hide the alert after a few seconds
+        setTimeout(() => {
+          this.CreatedSuccessfully = false;
+        }, 5000); // Adjust the timeout duration as needed
+      }, error => {
+        console.error('Error creating case:', error);
+        this.toastr.error('Failed to create case. Please try again.', 'Error');
+      });
   }
-  
-  
-
- 
 }
