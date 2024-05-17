@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3 stretch-card transparent"(click)="showActiveCases()">
+                <div class="col-md-3 mb-3 stretch-card transparent" (click)="showActiveCases()">
                     <div class="card card-dark-blue">
                         <div class="card-body">
                             <p class="mb-4">Active Cases</p>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3  stretch-card transparent"(click)="showClosedCases()">
+                <div class="col-md-3 mb-3  stretch-card transparent" (click)="showClosedCases()">
                     <div class="card card-light-blue">
                         <div class="card-body">
                             <p class="mb-4">Closed Cases</p>
@@ -114,14 +114,15 @@
                             (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
-                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ; margin-right: 50px;"
-                        data-dismiss="modal" (click)="exit()">Exit </button>
+                    <button type="button" class="btn btn-primary  small-btn"
+                        style="border-radius:3px ; margin-right: 50px;" data-dismiss="modal" (click)="exit()">Exit
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-        <div class="row" *ngIf="showActiveCasesFlag">
+    <div class="row" *ngIf="showActiveCasesFlag">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
@@ -193,89 +194,91 @@
                             (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
-                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ; margin-right: 50px;"
-                        data-dismiss="modal" (click)="exit()">Exit </button>
+                    <button type="button" class="btn btn-primary  small-btn"
+                        style="border-radius:3px ; margin-right: 50px;" data-dismiss="modal" (click)="exit()">Exit
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-        <div class="row" *ngIf="showClosedCasesFlag">
-            <div class="col-md-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-title">Closed Cases</p>
-        
-        
-        
-                        <!-- Search Form -->
-                        <!-- Search Form -->
-                        <!-- Search Form -->
-                        <div class="form-group mx-sm-3 mb-6 d-flex">
-                            <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
-                            <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                                style="width: auto; height: auto;">
-                                <option value="SearchBy" disabled>SearchBy</option>
-                                <option value="cifId">CIF</option>
-                                <option value="accountName">Account Name</option>
-                                <option value="loanAccount">Loan Account</option>
-                                <!-- <option value="id">ID</option> -->
-                            </select>
-                            <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
-                                placeholder="Enter search value" class="form-control mr-4"
-                                style="width: 300px; height: 20px; margin-right: 15px;">
-                            <button (click)="search()" class="btn btn-primary btn-sm"
-                                style="border-radius: 5px;">Search</button>
-                        </div>
-        
-        
-        
-        
-                        <!-- Export Buttons Container -->
-                        <div class="export-buttons-container">
-                            <button class="btn btn-primary mr-2  small-btn" style="margin-left: -1px;"
-                                (click)="exportToPDF()">Export PDF</button>
-                            <button class="btn btn-primary  small-btn" (click)="exportToExcel()">Export Excel</button>
-                        </div>
-        
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="table-responsive">
-                                    <table id="example" class="display expandable-table" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Case number</th>
-                                                <th>CIF</th>
-                                                <th>Loan Account</th>
-                                                <th>Account Name</th>
-                                                <th>Verified</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let item of casesData">
-                                                <!-- <td>{{ item.assignedEmail }}</td> -->
-                                                <td>{{ item.caseNumber }}</td>
-                                                <td>{{ item.cifId }}</td>
-                                                <td>{{ item.loanAccount }}</td>
-                                                <td>{{ item.accountName }}</td>
-                                                <td>{{ item.verifiedFlag }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+    <div class="row" *ngIf="showClosedCasesFlag">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Closed Cases</p>
+
+
+
+                    <!-- Search Form -->
+                    <!-- Search Form -->
+                    <!-- Search Form -->
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
+                        <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
+                            style="width: auto; height: auto;">
+                            <option value="SearchBy" disabled>SearchBy</option>
+                            <option value="cifId">CIF</option>
+                            <option value="accountName">Account Name</option>
+                            <option value="loanAccount">Loan Account</option>
+                            <!-- <option value="id">ID</option> -->
+                        </select>
+                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                            placeholder="Enter search value" class="form-control mr-4"
+                            style="width: 300px; height: 20px; margin-right: 15px;">
+                        <button (click)="search()" class="btn btn-primary btn-sm"
+                            style="border-radius: 5px;">Search</button>
+                    </div>
+
+
+
+
+                    <!-- Export Buttons Container -->
+                    <div class="export-buttons-container">
+                        <button class="btn btn-primary mr-2  small-btn" style="margin-left: -1px;"
+                            (click)="exportToPDF()">Export PDF</button>
+                        <button class="btn btn-primary  small-btn" (click)="exportToExcel()">Export Excel</button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="example" class="display expandable-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Case number</th>
+                                            <th>CIF</th>
+                                            <th>Loan Account</th>
+                                            <th>Account Name</th>
+                                            <th>Verified</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of casesData">
+                                            <!-- <td>{{ item.assignedEmail }}</td> -->
+                                            <td>{{ item.caseNumber }}</td>
+                                            <td>{{ item.cifId }}</td>
+                                            <td>{{ item.loanAccount }}</td>
+                                            <td>{{ item.accountName }}</td>
+                                            <td>{{ item.verifiedFlag }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="pagination-container">
-                            <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
-                                (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
-                            </pagination>
-                        </div>
-                        <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ; margin-right: 50px;"
-                            data-dismiss="modal" (click)="exit()">Exit </button>
                     </div>
+                    <div class="pagination-container">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
+                    </div>
+                    <button type="button" class="btn btn-primary  small-btn"
+                        style="border-radius:3px ; margin-right: 50px;" data-dismiss="modal" (click)="exit()">Exit
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
 </div>
 
 <style>

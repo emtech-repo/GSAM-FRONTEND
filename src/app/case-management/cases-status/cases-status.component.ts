@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { SharedService } from '../../shared.service';
@@ -17,6 +17,7 @@ export class CasesStatusComponent {
   showAssignedCasesFlag: boolean = false;
   showUnassignedCasesFlag: boolean = false;
   searchOption: string = 'assignedTo';
+  // assignedCases: any[] = [];
 
   searchQuery: string = '';
   searchTerm: string = '';
@@ -31,14 +32,14 @@ export class CasesStatusComponent {
   AssignedData: any[] = []; // Your data array
   casesData: any[] = []; // Your data array
   cd: any;
-  showUnAssignedCasesFlag: boolean = true;
+  // showUnAssignedCasesFlag: boolean = true;
 
   // showTotalCard: boolean = false;
   // showAssignedCard: boolean = false;
   // showUnassignedCard: boolean = false;
 
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService, private ngZone: NgZone) { }
 
   ngOnInit(): void {
     this.getCases();
@@ -86,17 +87,28 @@ export class CasesStatusComponent {
       }
     );
   }
+  // getUnAssigned(): void {
+  //   this.sharedService.getUnAssigned().subscribe(
+  //     (result: any[]) => {
+
+  //       this.UnAssignedData = result;
+  //       this.calculateCaseCounts(); 
+  //     },
+  //     (error: HttpErrorResponse) => {
+  //       console.error('Error fetching Status:', error);
+
+  //     }
+  //   );
+  // }
   getUnAssigned(): void {
     this.sharedService.getUnAssigned().subscribe(
       (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.casesData = result;
-        this.calculateCaseCounts(); // Calculate case counts after receiving data
-
+        console.log('Unassigned cases:', result); // Add this line
+        this.UnAssignedData = result;
+        this.calculateCaseCounts();
       },
       (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
+        console.error('Error fetching unassigned cases:', error);
       }
     );
   }
@@ -105,7 +117,7 @@ export class CasesStatusComponent {
     this.sharedService.getAssigned().subscribe(
       (result: any[]) => {
         // Assign the 'result' array to your component property
-        this.casesData = result;
+        this.AssignedData = result;
         this.calculateCaseCounts(); // Calculate case counts after receiving data
 
       },
@@ -208,14 +220,26 @@ export class CasesStatusComponent {
     return dataArray;
   }
 
+  // 
   showUnassignedCases() {
-    this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
+    this.showUnassignedCasesFlag = true;
+    this.showAssignedCasesFlag = false;
+    this.showTotalCasesFlag = false;
   }
+
   showAssignedCases() {
-    this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
+    this.sharedService.getAssigned().subscribe(data => {
+    this.AssignedData = data;
+    this.showAssignedCasesFlag = true;
+    this.showUnassignedCasesFlag = false;
+    this.showTotalCasesFlag = false;
+    });
   }
+
   showTotalCases() {
-    this.showTotalCasesFlag = !this.showTotalCasesFlag;
+    this.showTotalCasesFlag = true;
+    this.showAssignedCasesFlag = false;
+    this.showUnassignedCasesFlag = false;
   }
 
   exitPage() {
@@ -227,8 +251,27 @@ export class CasesStatusComponent {
     this.showAssignedCasesFlag = false;
     this.showUnassignedCasesFlag = false;
   }
+  fetchData() {
+    // Simulate fetching data
+    setTimeout(() => {
+      this.casesData = [
+        // Populate your data here
+      ];
+      this.AssignedData = [
+        // Populate your data here
+      ];
+      this.UnAssignedData = [
+        // Populate your data here
+      ];
 
- 
+      // Set flags to true to initially show all tables
+      this.showTotalCasesFlag = true;
+      this.showAssignedCasesFlag = true;
+      this.showUnassignedCasesFlag = true;
+    }, 1000); // Simulated delay
+  }
+  
+
 }
 
 

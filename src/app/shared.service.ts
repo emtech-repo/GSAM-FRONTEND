@@ -22,15 +22,16 @@ export class SharedService {
   readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
   readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
 
+  readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
   readonly ClosedUrl = 'http://192.168.2.23:5260/api/Case/ClosedCases';
   readonly ActiveUrl = 'http://192.168.2.23:5260/api/Case/ActiveCases';
+  private apiUrlBase = 'http://192.168.2.23:5260/api/';
 
 
   private readonly userDataUrl = 'assets/data/db.json';
   baseUrl: string = "http://localhost:3000/";
   readonly APIUrl = 'https://192.168.89.189:7213';
   readonly baseURL = 'assets/data/db.json'
-  readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
   readonly CreateCaseUrl ='http://192.168.2.23:5260/api/Case/CreateCase';
@@ -38,6 +39,7 @@ export class SharedService {
   readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
   // readonly CustomersUrl = 'assets/data/db.json';
    readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
+
 
 
 
@@ -146,16 +148,45 @@ export class SharedService {
       tap(data => console.log('Loan data:', data))
     );
   }
-  getAssigned(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.CasesUrl}`).pipe(
-      tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
-      map((response: any) => response.result) // Extracting only the 'result' array
-    );
-  }
+  // getAssigned(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.AssignedUrl}`).pipe(
+  //     tap((data: any[]) => console.log('Fetched:', data)), 
+  //     map((response: any) => response.result) 
+  //   );
+  // }
+  // getAssigned(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.baseUrl}/assigned`).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
   getUnAssigned(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.CasesUrl}`).pipe(
-      tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
-      map((response: any) => response.result) // Extracting only the 'result' array
+    return this.http.get<any[]>(`${this.baseUrl}/unassigned`);
+  }
+  getAssigned(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/assigned`);
+  }
+  // getUnAssigned(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.UnAssignedUrl}`).pipe(
+  //     tap((data: any[]) => console.log('Fetched:', data)), 
+  //     map((response: any) => response.result) 
+  //   );
+  // }
+  getCasesUrl(): string {
+    return `${this.apiUrlBase}cases`;
+  }
+
+  getActiveUrl(): string {
+    return `${this.apiUrlBase}active`;
+  }
+
+  getClosedUrl(): string {
+    return `${this.apiUrlBase}closed`;
+  }
+
+  getFromApi(url: string): Observable<any[]> {
+    return this.http.get<any[]>(url).pipe(
+      tap((data: any[]) => console.log('Fetched:', data)),
+      map((response: any) => response.result)
     );
   }
   getActive(): Observable<any[]> {
