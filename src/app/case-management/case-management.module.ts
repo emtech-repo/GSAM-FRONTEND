@@ -24,6 +24,8 @@ import { AssignPopupComponent } from './assign-popup/assign-popup.component';
 
 
 
+
+
 @NgModule({
  declarations: [
     SearchCaseComponent,
@@ -41,6 +43,7 @@ import { AssignPopupComponent } from './assign-popup/assign-popup.component';
     CreateTwoComponent,
     LoanAccountLookUpComponent,
     AssignPopupComponent,
+
     
     
     

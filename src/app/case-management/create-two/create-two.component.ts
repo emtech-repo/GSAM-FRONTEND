@@ -3,13 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+
 import { SharedService } from '../../shared.service';
+
 
 @Component({
   selector: 'app-create-two',
   templateUrl: './create-two.component.html',
   styleUrls: ['./create-two.component.css']
 })
+
 export class CreateTwoComponent implements OnInit {
   loanDetails: any = {}; // Initialize as an empty object
   CreatedSuccessfully: boolean = false;
@@ -36,6 +39,7 @@ export class CreateTwoComponent implements OnInit {
   closeModal() {
     this.bsModalRef.hide();
   }
+
 
   CreateCase() {
     console.log('Creating Case...');
@@ -70,5 +74,6 @@ export class CreateTwoComponent implements OnInit {
       });
   }
 
-  }
+ 
+
 

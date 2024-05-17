@@ -37,6 +37,7 @@ export class LoanAccountLookUpComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     public bsModalRef: BsModalRef,
+
     private sharedserv: SharedService,
     private router: Router,
 
@@ -61,6 +62,8 @@ export class LoanAccountLookUpComponent implements OnInit {
 
 
 
+
+  }
 
   ngOnInit(): void {
     this.fetchRecentActivity();
@@ -107,6 +110,20 @@ export class LoanAccountLookUpComponent implements OnInit {
       return this.recentActivityData;
     }
   }
+
+
+  onRowClick(selectedItem: any) {
+this.selectedItem = selectedItem;
+    this.bsModalRef.hide( );
+        console.log('Selected item:', selectedItem);
+        // Here you can handle the selected item, e.g., display its details, update a model, etc.
+    }
+     closeModal() {
+    this.bsModalRef.hide();
+  }
+    
+}
+
 
 
   closeModal() {

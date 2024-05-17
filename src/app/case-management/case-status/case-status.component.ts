@@ -15,7 +15,6 @@ import { saveAs } from 'file-saver';
 })
 export class CaseStatusComponent {
   searchOption: string = 'assignedTo';
-
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
