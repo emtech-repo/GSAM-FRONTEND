@@ -78,15 +78,14 @@
                                 <div class="d-flex justify-content-between">
                                     <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="closeModal()" style="margin-right: 1px;border-radius:3px ; ">Exit Page</button>
                                     <button type="button" class="btn btn-primary small-btn" style="margin-right: -150px;border-radius:3px ;" (click)="CreateCase()">Create</button>
+                            <p *ngIf="CreatedSuccessfully" class="api-response">{{ 'Case created successfully. Case ID: ' + caseId }}</p>
 
                                 </div>
-                                <!-- Display success message if CreatedSuccessfully is true -->
-                               <div class="alert-container">
-                                    <div class="alert alert-success mt-3" *ngIf="CreatedSuccessfully">
-                                        Created Successfully: Case ID: {{ caseId }}
-                                    </div>
-                                    
-                                </div>
+                              
+                                 <div class="alert alert-success mt-3" *ngIf="CreatedSuccessfully">
+                                    Created Created  Successfully: Case No: {{ caseId }}
+                                 </div>
+
                             </div>
                         </div>
                     </div>
