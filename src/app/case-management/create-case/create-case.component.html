@@ -21,6 +21,7 @@
                                         <option value="3">MODIFY</option>
                                         <option value="4">DELETE</option>
                                         <option value="5">ENQUIRE</option>
+
                                         </select>
 
                                     </div>
@@ -29,12 +30,14 @@
                             <div class="col-md-6" *ngIf="selectedFunction !== 'choose option'">
                                 <div class="form-group row" style="margin-bottom: 10px;">
                                     <div class="col-md-3">
-                                        <label for="loanaccount">Loan Account</label>
+                                        <label for="loanaccount">loan Account</label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <!-- <input type="text" class="form-control" id="loanaccount" [(ngModel)]="selectedLoanAccount"> -->
+
                                             <i class="icon-search menu-icon" *ngIf="selectedFunction !== 'choose option'"
+
                                                 (click)="searchLoanAccount(selectedLoanAccount)"></i>
                                         </div>
                                     </div>

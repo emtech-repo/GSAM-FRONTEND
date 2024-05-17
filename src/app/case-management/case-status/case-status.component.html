@@ -1,13 +1,6 @@
 <!-- <app-layout></app-layout> -->
 
 <div class="row">
-    <form class="form-inline">
-        <div class="form-group mx-sm-3 mb-6 d-flex">
-            <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
-                style="width: 200px; height: 20px;margin-left: 2px;">
-            <button type="search by" class="btn btn-primary btn-sm">Search</button>
-        </div>
-    </form>
     <div class="row">
         <div class="col-md-12 grid-margin transparent">
             <div class="row">
@@ -20,7 +13,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3 stretch-card transparent">
+                <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;">
                     <div class="card card-dark-blue">
                         <div class="card-body">
                             <p class="mb-4">Assigned Cases</p>
@@ -29,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3  stretch-card transparent">
+                <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;">
                     <div class="card card-light-blue">
                         <div class="card-body">
                             <p class="mb-4">unassigned Cases</p>
@@ -47,15 +40,11 @@
                 <div class="card-body">
                     <p class="card-title">Case Management</p>
 
-
-
-                    <!-- Search Form -->
-                    <!-- Search Form -->
+                   
                     <!-- Search Form -->
                     <div class="form-group mx-sm-3 mb-6 d-flex">
-                        <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
                         <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                            style="width: auto; height: auto;">
+                            style="width: auto; height: 30px;">
                             <option value="SearchBy" disabled>SearchBy</option>
                             <option value="cifId">CIF</option>
                             <option value="assignedEmail">Assigned Email</option>
@@ -63,11 +52,9 @@
                             <option value="loanAccount">Loan Account</option>
                             <!-- <option value="id">ID</option> -->
                         </select>
-                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
-                            placeholder="Enter search value" class="form-control mr-4"
-                            style="width: 300px; height: 20px; margin-right: 15px;">
-                        <button (click)="search()" class="btn btn-primary btn-sm"
-                            style="border-radius: 5px;">Search</button>
+                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                            class="form-control mr-4" style="height: 30px;width: 100%; ">
+                        <button (click)="search()" class="btn btn-primary small-btn" style="border-radius: 3px;">Search</button>
                     </div>
 
 
@@ -75,9 +62,9 @@
 
                     <!-- Export Buttons Container -->
                     <div class="export-buttons-container">
-                        <button class="btn btn-primary mr-2  small-btn" style="margin-left: -1px;"
-                            (click)="exportToPDF()">Export PDF</button>
-                        <button class="btn btn-primary  small-btn" (click)="exportToExcel()">Export Excel</button>
+                        <button class="btn btn-primary mr-4 small-btn" style="margin-left: -60px;" (click)="exportToPDF()">Export PDF</button>
+                        <button class="btn btn-primary small-btn" style="margin-right: 4px;" (click)="exportToExcel()">Export Excel</button>
+
                     </div>
 
                     <div class="row">

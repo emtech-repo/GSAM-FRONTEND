@@ -10,10 +10,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
-
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -72,7 +68,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     AdminPageComponent,
     AdminPopupComponent,
     RegisterComponent,
-    ForgotPasswordComponent,
+    ForgotPasswordComponent
     
     
 
@@ -112,7 +108,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    BrowserAnimationsModule, // required animations module
+    BrowserAnimationsModule,
+    ApprovalModule // required animations module
     
 
 

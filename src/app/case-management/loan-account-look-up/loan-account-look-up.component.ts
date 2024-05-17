@@ -5,7 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BsModalRef, } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { CreateTwoComponent } from '../create-two/create-two.component';
