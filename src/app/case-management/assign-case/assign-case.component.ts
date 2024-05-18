@@ -16,8 +16,8 @@ import { saveAs } from 'file-saver';
   styleUrl: './assign-case.component.css'
 })
 export class AssignCaseComponent {
-    showUnassignedCasesFlag: boolean = true;
-    showAssignedCasesFlag: boolean = true;
+     showUnassignedCasesFlag: boolean = true;
+     showAssignedCasesFlag: boolean = true;
     recentActivityData: any[] = [];
      modalService: any;
    
@@ -44,7 +44,7 @@ export class AssignCaseComponent {
   searchParams = { param: '', value: '' }
 
   UnAssignedData: any[] = []; // Your data array
-   statusData: any[] = []; // Your data array
+  statusData: any[] = []; // Your data array
   AssignedData: any[] = []; // Your data array
   casesData: any[] = []; // Your data array
   cd: any;
@@ -63,6 +63,9 @@ export class AssignCaseComponent {
     this.getCases();
     this.getAssigned();
 
+  }
+  getStatus() {
+    throw new Error('Method not implemented.');
   }
   setSearchOption(option: string) {
     this.searchOption = option;
@@ -101,7 +104,7 @@ export class AssignCaseComponent {
       }
     );
   }
-
+ 
 
 
 
@@ -139,12 +142,8 @@ getAssigned(): void {
     );
   }
 
-<
-   goToCaseDetails() {
-    // Navigate to the "case-details" route
-    this.router.navigate(['/case-details']);
-  }
 
+  
 
 
   
