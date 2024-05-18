@@ -48,6 +48,7 @@ export class DecisionTabComponent {
     this.getStatus();
   }
 
+
   
   getStatus(): void {
     this.sharedService.getStatus().subscribe(
@@ -60,11 +61,13 @@ export class DecisionTabComponent {
       (error: HttpErrorResponse) => {
         console.error('Error fetching Status:', error);
         // Handle errors here, if necessary
+
       }
     );
   }
 
- 
+
+
   goToHome() {
     // Navigate to the "home" route
     this.router.navigate(['/home']);

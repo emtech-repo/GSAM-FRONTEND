@@ -23,8 +23,7 @@ export class AssignCaseComponent {
    
     
 
-  constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
-    public bsModalRef: BsModalRef) { }
+
 
   goToCaseDetails() {
     // Navigate to the "case-details" route
@@ -33,6 +32,7 @@ export class AssignCaseComponent {
   
   
  searchOption: string = 'assignedTo';
+
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
@@ -42,17 +42,26 @@ export class AssignCaseComponent {
   assignedCases: number = 0;
   unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
-  statusData: any[] = []; // Your data array
+
   UnAssignedData: any[] = []; // Your data array
+   statusData: any[] = []; // Your data array
+  AssignedData: any[] = []; // Your data array
+  casesData: any[] = []; // Your data array
   cd: any;
-  data: any[] = [];
- 
- 
+
+
+  constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
+    public bsModalRef: BsModalRef) { }
+
+   
+
  
 
   ngOnInit(): void {
     this.getStatus();
     this.getUnAssigned();
+    this.getCases();
+    this.getAssigned();
 
   }
   setSearchOption(option: string) {
@@ -61,7 +70,7 @@ export class AssignCaseComponent {
   search(): void {
     console.log('Search method called'); // Debugging line
     this.currentPage = 1; // Reset current page for search
-    this.statusData = this.statusData.filter(item => {
+    this.casesData = this.casesData.filter(item => {
       switch (this.searchParams.param) {
         case 'cifId':
           return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
@@ -96,11 +105,11 @@ export class AssignCaseComponent {
 
 
 
-  getStatus(): void {
-    this.sharedService.getStatus().subscribe(
+  getCases(): void {
+    this.sharedService.getCases().subscribe(
       (result: any[]) => {
         // Assign the 'result' array to your component property
-        this.statusData = result;
+        this.casesData = result;
         this.calculateCaseCounts(); // Calculate case counts after receiving data
 
       },
@@ -112,17 +121,42 @@ export class AssignCaseComponent {
   }
 
 
-
  
+
+
+getAssigned(): void {
+    this.sharedService.getAssigned().subscribe(
+      (result: any[]) => {
+        // Assign the 'result' array to your component property
+        this.AssignedData = result;
+        this.calculateCaseCounts(); // Calculate case counts after receiving data
+
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching Status:', error);
+        // Handle errors here, if necessary
+      }
+    );
+  }
+
+<
+   goToCaseDetails() {
+    // Navigate to the "case-details" route
+    this.router.navigate(['/case-details']);
+  }
+
+
+
   
-   calculateCaseCounts(): void {
+  calculateCaseCounts(): void {
+
     // Reset counts
-    this.totalCases = this.statusData.length;
+    this.totalCases = this.casesData.length;
     this.assignedCases = 0;
     this.unassignedCases = 0;
 
     // Count assigned and unassigned cases
-    this.statusData.forEach(item => {
+    this.casesData.forEach(item => {
       if (item.assigned === 'Y') {
         this.assignedCases++;
       } else {
@@ -226,7 +260,7 @@ export class AssignCaseComponent {
     });
     return dataArray;
   }
- 
+
 
    showUnassignedCases() {
         this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;

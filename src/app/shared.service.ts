@@ -11,14 +11,20 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
-  
- 
+
+
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
   readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
- readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
- readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+
+
+  readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
+readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+  readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+
+
+
   private readonly userDataUrl = 'assets/data/db.json';
   baseUrl: string = "http://localhost:3000/";
   readonly APIUrl = 'https://192.168.89.189:7213';
@@ -26,12 +32,14 @@ export class SharedService {
   readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
+
   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
  readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
   // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
   readonly CustomersUrl = 'assets/data/db.json';
 
 readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
+
 
 
 
@@ -68,12 +76,36 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
   getUsersList(val: any) {
     return this.http.post<any>(this.APIUrl + '/users/get', val);
   }
+
+
   getCases(): Observable<any> {
     return this.http.get<any>(this.CasesUrl);
 
   }
+  // createCase(loanDetails: any): Observable<any> {
+    
+  //   return this.http.post<any>(this.CreateCaseUrl, loanDetails);
+  // }
 
 
+
+  createCase(loanDetails: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { headers: headers };
+
+    // Convert loanDetails object to JSON string
+    const loanDetailsJson = JSON.stringify(loanDetails);
+
+    // Make HTTP POST request with JSON string as the request body
+    return this.http.post<any>(this.CreateCaseUrl, loanDetailsJson, options);
+  }
+
+
+
+
+
+
+  
   // addUser(val: any) {
   //   return this.http.post<any>(this.APIUrl + '/users/insert', val);
   // }
@@ -127,6 +159,10 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
       apiUrl += `?search=${encodeURIComponent(searchQuery)}`;
     }
 
+
+
+    
+
     return this.http.get<any[]>(apiUrl);
   }
 
@@ -175,11 +211,11 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
         map((data: any) => data['documents']) // Assuming 'document' is the key containing your documents
       );
   }
-   getCreateCase(): Observable<any[]> {
+  getCreateCase(): Observable<any[]> {
     return this.http.get<any[]>(`${this.CreateCaseUrl}`)
       .pipe(
         tap((data: any[]) => console.log('Fetched CreateCase:', data)),
-        map((data: any) => data['CreateCase']) 
+        map((data: any) => data['CreateCase'])
       );
   }
 
@@ -187,16 +223,40 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
    getUnAssigned(): Observable<any[]> {
     return this.http.get<any[]>(`${this.UnAssignedUrl}`)
       .pipe(
+        tap((data: any[]) => console.log('Fetched AssignCase:', data)),
+        map((data: any) => data['AssignCase']) 
+      );
+  }
+
+
+  getAssigned(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.AssignedUrl}`)
+
+      .pipe(
         tap((data: any[]) => console.log('Fetched UnAssigned:', data)),
         map((data: any) => data['UnAssigned']) 
       );
   }
   
 
+
+
+
+  
+  // getCases(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.CasesUrl}`)
+  //     .pipe(
+  //       tap((data: any[]) => console.log('Fetched Cases:', data)),
+  //       map((data: any) => data['Cases']) 
+  //     );
+  // }
+
+
   getAccounts():Observable<any>{
+
     let apiUrl = `${this.LoanAccountCaseUrl}/la/all`;
     return this.http.get<any>(apiUrl).pipe(map(
-      res=> {
+      res => {
         return res || {}
       }
     ))
@@ -206,11 +266,11 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
     return this.http.get<any[]>(`${this.CustomersUrl}`)
       .pipe(
         tap((data: any[]) => console.log('Fetched Customers:', data)),
-        map((data: any) => data['Customers']) 
+        map((data: any) => data['Customers'])
       );
   }
-   
-  
+
+
   getMeetings(): Observable<any[]> {
     return this.http.get<any[]>(this.MeetingsUrl);
   }
@@ -255,7 +315,7 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
     return false;
   }
 
-  
+
 
 
 
@@ -268,7 +328,7 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
     return this.http.post(this.baseUrl + 'user', data);
   }
 
- 
+
   updateEmployee(id: number, updatedFields: any): Observable<any> {
     // Include all fields in the update request
     const allFields = { ...updatedFields }; // Copy the updatedFields object
@@ -278,11 +338,11 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
 
   // updateEmployee(id: number, updatedFields: any): Observable<any> {
   //   return this.http.put(this.baseUrl + `user/${id}`, updatedFields);
-    
+
   // }
   // updateEmployee(id: number, data: any): Observable<any> {
   //   return this.http.put(this.baseUrl + `user/${id}`, data);
-    
+
   // }
 
   getEmployeeList(): Observable<any> {
@@ -291,7 +351,7 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
 
   deleteEmployee(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + `user/${id}`);
-    
+
   }
 
   // this.yourService.updateData(updatedData).subscribe(() => {

@@ -12,3 +12,7 @@
     height: 30px;
 
 }
+.alert{
+  background-color: rgb(221, 58, 58);
+  color: rgb(10, 10, 10);
+}

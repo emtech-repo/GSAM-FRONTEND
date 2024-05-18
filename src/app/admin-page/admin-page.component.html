@@ -3,7 +3,7 @@
 
 <div class="main-body">
   <div>
-    <label>Search User</label>
+    <label>Filter</label>
     <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Search by PF eg. 10923" #input>
   </div>
 
@@ -14,8 +14,7 @@
           <th>P.F/ID</th>
           <th>Name</th>
           <th>Email</th>
-         
-          <th>Creation Date</th>
+          <th>Gender</th>
           <th>Status</th>
           <th>Role</th>
           <th>Action</th>
@@ -26,9 +25,7 @@
           <td>{{row.id}}</td>
           <td>{{ row.name }}</td>
           <td>{{ row.email }}</td>
-          
-          <td>{{ row.creationDate }}</td>
-
+          <td>{{ row.gender }}</td>
           <td>{{ row.isActive? "Active" : "Inactive" }}</td>
           <td>
             {{ row.role === ""? "Unassigned" : row.role }}
