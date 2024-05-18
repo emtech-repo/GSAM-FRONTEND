@@ -132,10 +132,12 @@ export const routes: Routes = [
       component: AssignCaseComponent,
     },
 
+
     // {
     //   path: 'app-claim-tab',    
     //   component: ClaimTabComponent,
     // }, 
+
 
 
 

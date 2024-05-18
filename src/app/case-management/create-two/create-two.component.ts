@@ -40,11 +40,13 @@ export class CreateTwoComponent implements OnInit {
     this.bsModalRef.hide();
   }
 
+
   CreateCase() {
     console.log('Creating Case...');
 
     // Log the entire loanDetails object for inspection
     console.log('Current loanDetails:', this.loanDetails);
+
 
     // Create a new object with only the required fields
     const requestData = {

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
+import { BsModalRef, } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -10,15 +11,16 @@ import { SharedService } from '../../shared.service';
   styleUrl: './decision-tab.component.css'
 })
 export class DecisionTabComponent {
-  Customers: any[] = [];
-  CustomersUrl: any;
-  searchParams = { param: '', value: '' }
+    showRefinanceDetailsFlag: boolean = true;
+    showRestructureDetailsFlag: boolean = true;
+   showRecoveryDetailsFlag: boolean = true;
+ 
   currentPage: number = 1;
-  searchOption: string = 'AccNumber';
+  dataSource: any[] = [];
+  dataSourceFiltered: any[] = [];
+   statusData: any[] = []; // Your data array
 
-
-
-
+  
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
@@ -27,52 +29,72 @@ export class DecisionTabComponent {
   selectTab(index: number) {
     this.selectedIndex = index;
   }
-  constructor(private router: Router, private sharedService: SharedService) { }
+  constructor(private router: Router, private sharedService: SharedService,
+    public bsModalRef: BsModalRef) { }
 
-  ngOnInit() {
-    this.getCustomers();
+ 
 
+   applyFilter(event: any) {
+    const filterValue = event.target.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+    if (filterValue.trim() === '') {
+      // If the input value is empty, show the original data
+      this.dataSourceFiltered = this.dataSource;
+    } else {
+      // Otherwise, filter the original data based on the input value
+      this.dataSourceFiltered = this.dataSource.filter(item => item.id.toString().includes(filterValue));
+    }
+  }
+  ngOnInit(): void {
+    this.getStatus();
   }
 
-   setSearchOption(option: string) {
-    this.searchOption = option;
-  }
 
-  search(): void {
-    console.log('Search method called'); // Debugging line
-    this.currentPage = 1; // Reset current page for search
-    this.Customers = this.Customers.filter(item => {
-      switch (this.searchParams.param) {
-        case 'loanAccount':
-          return item.AccNumber.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'CifID':
-          return item.CifID.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'CaseNumber':
-          return item.CaseNumber.toLowerCase().includes(this.searchParams.value.toLowerCase());
-       
-        default:
-          return false;
+  
+  getStatus(): void {
+    this.sharedService.getStatus().subscribe(
+      (result: any[]) => {
+        // Assign the 'result' array to your component property
+        this.statusData = result;
+        // Calculate case counts after receiving data
+
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching Status:', error);
+        // Handle errors here, if necessary
+
       }
-    });
+    );
   }
 
 
-  getCustomers(): void {
-    this.sharedService.getCustomers()
-      .subscribe(Customers => {
-        this.Customers = Customers;
 
-      });
-  }
-  goToCaseTracking() {
-    // Navigate to the "case tracking" route
-    this.router.navigate(['/case-tracking']);
-  }
   goToHome() {
     // Navigate to the "home" route
     this.router.navigate(['/home']);
   }
 
+
+   showRefinanceDetails() {
+        this.showRefinanceDetailsFlag = !this.showRefinanceDetailsFlag;
+    } 
+     showRestructureDetails() {
+        this.showRestructureDetailsFlag = !this.showRestructureDetailsFlag;
+    } 
+     showRecoveryDetails() {
+        this.showRecoveryDetailsFlag = !this.showRecoveryDetailsFlag;
+    } 
+
+        exitPage() {
+    this.showRefinanceDetailsFlag = false; // Set the flag to false to hide the assigned cases page
+}
+
+    exit() {
+    this.showRestructureDetailsFlag = false; // Set the flag to false to hide the assigned cases page
+}
+
+    exits() {
+    this.showRecoveryDetailsFlag = false; // Set the flag to false to hide the assigned cases page
+}
 
 
 

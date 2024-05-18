@@ -16,15 +16,22 @@ import { saveAs } from 'file-saver';
   styleUrl: './assign-case.component.css'
 })
 export class AssignCaseComponent {
-    showUnassignedCasesFlag: boolean = false;
-    showAssignedCasesFlag: boolean = false;
+    showUnassignedCasesFlag: boolean = true;
+    showAssignedCasesFlag: boolean = true;
     recentActivityData: any[] = [];
-  modalService: any;
+     modalService: any;
+   
+    
 
 
 
-
-searchOption: string = 'assignedTo';
+  goToCaseDetails() {
+    // Navigate to the "case-details" route
+    this.router.navigate(['/case-details']);
+  }
+  
+  
+ searchOption: string = 'assignedTo';
 
   searchQuery: string = '';
   searchTerm: string = '';
@@ -35,8 +42,9 @@ searchOption: string = 'assignedTo';
   assignedCases: number = 0;
   unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
-  UnAssignedData: any[] = []; // Your data array
 
+  UnAssignedData: any[] = []; // Your data array
+   statusData: any[] = []; // Your data array
   AssignedData: any[] = []; // Your data array
   casesData: any[] = []; // Your data array
   cd: any;
@@ -45,24 +53,17 @@ searchOption: string = 'assignedTo';
   constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
     public bsModalRef: BsModalRef) { }
 
-    ngOnInit(): void {
+   
+
+ 
+
+  ngOnInit(): void {
+    this.getStatus();
+    this.getUnAssigned();
     this.getCases();
     this.getAssigned();
-    this.getUnAssigned();
 
   }
-
- 
-  
-  
-
- 
-
-
-
-
-  
- 
   setSearchOption(option: string) {
     this.searchOption = option;
   }
@@ -85,8 +86,23 @@ searchOption: string = 'assignedTo';
     });
   }
 
+   getUnAssigned(): void {
+    this.sharedService. getUnAssigned().subscribe(
+      (result: any[]) => {
+        // Assign the 'result' array to your component property
+        this.UnAssignedData = result;
+         this.calculateCaseCounts(); 
+        // Calculate case counts after receiving data
 
- 
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching Status:', error);
+        // Handle errors here, if necessary
+      }
+    );
+  }
+
+
 
 
   getCases(): void {
@@ -105,18 +121,7 @@ searchOption: string = 'assignedTo';
   }
 
 
-  getUnAssigned(): void {
-    this.sharedService.getUnAssigned().subscribe(
-      (result: any[]) => {
-        console.log('Unassigned cases:', result); // Add this line
-        this.UnAssignedData = result;
-        this.calculateCaseCounts();
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching unassigned cases:', error);
-      }
-    );
-  }
+ 
 
 
 getAssigned(): void {
@@ -134,6 +139,7 @@ getAssigned(): void {
     );
   }
 
+<
    goToCaseDetails() {
     // Navigate to the "case-details" route
     this.router.navigate(['/case-details']);
@@ -143,6 +149,7 @@ getAssigned(): void {
 
   
   calculateCaseCounts(): void {
+
     // Reset counts
     this.totalCases = this.casesData.length;
     this.assignedCases = 0;
@@ -156,10 +163,55 @@ getAssigned(): void {
         this.unassignedCases++;
       }
     });
+       this.UnAssignedData.forEach(item => {
+      if (item.unassigned === 'Y') {
+        this.unassignedCases++;
+      } else {
+        this.assignedCases++;
+      }
+    });
+
+
+
+
   }
 
- 
+  // Method to handle page change event
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.getStatus();
+    this.getUnAssigned();
+  }
   
+
+  // Method to handle search query change
+  onSearch(): void {
+    this.currentPage = 1; // Reset current page when performing a new search
+    this.getStatus();
+    this.getUnAssigned();
+  }
+
+  
+
+  // Getter for filtered data based on search term
+  get filteredData() {
+    if (this.searchTerm !== undefined && this.searchTerm !== null) {
+      return this.statusData.filter, this.UnAssignedData.filter(item => {
+        // Convert item properties to string and check if any property contains the search term
+        for (let key in item) {
+          if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
+            return true;
+          }
+        }
+        return false;
+      });
+    } else {
+      return this.statusData,this.UnAssignedData;
+     
+
+    }
+    
+  }
 
 
   exportToExcel(): void {
@@ -182,7 +234,16 @@ getAssigned(): void {
       // Add other properties here based on your table structure
     ]);
 
-   ;
+    // doc.autoTableSetDefaults({
+    //   headStyles: { fillColor: [100, 100, 255] },
+    //   bodyStyles: { textColor: 0 },
+    //   alternateRowStyles: { fillColor: [245, 245, 245] },
+    // });
+
+    // doc.autoTable({
+    //   head: [headers],
+    //   body: tableData,
+    // });
     doc.save('table.pdf');
   }
 
@@ -199,66 +260,7 @@ getAssigned(): void {
     });
     return dataArray;
   }
- 
-    closeModal() {
-    this.bsModalRef.hide();
-  }
-    
 
-
- 
-  
-
-
- 
-
-  fetchRecentActivity(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-
-    this.sharedService.getRecentActivity(this.searchQuery)
-      .subscribe((response: any) => { // Specify the type of the response
-        if (response && response.statusCode === 200) {
-          const result = response.result as any[];
-          if (Array.isArray(result)) {
-            this.recentActivityData = result.slice(startIndex, endIndex);
-            this.totalItems = result.length;
-          } else {
-            console.error('Error: Data result is not an array.');
-          }
-        } else {
-          console.error('Error: Unexpected status code:', response && response.statusCode);
-        }
-      }, error => {
-        console.error('Error fetching recent activity:', error);
-      });
-  }
-
-
-  pageChanged(event: any): void {
-    this.currentPage = event.page;
-    this.fetchRecentActivity();
-  }
-
-  onSearch(): void {
-    this.currentPage = 1;
-    this.fetchRecentActivity();
-  }
-
-  get filteredData() {
-    if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      return this.recentActivityData.filter(item => {
-        for (let key in item) {
-          if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
-            return true;
-          }
-        }
-        return false;
-      });
-    } else {
-      return this.recentActivityData;
-    }
-  }
 
    showUnassignedCases() {
         this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
