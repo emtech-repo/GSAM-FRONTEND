@@ -80,10 +80,15 @@
                                     <button type="button" class="btn btn-primary small-btn" style="margin-right: -150px;border-radius:3px ;" (click)="CreateCase()">Create</button>
 
                                 </div>
-                              
+                              <!-- <p *ngIf="caseId">Case ID: {{ caseId }}</p> -->
                                  <div class="alert alert-success mt-3" *ngIf="CreatedSuccessfully">
-                                    Created Created  Successfully: Case No: {{ caseId }}
-                                 </div>
+                                    Created Successfully: Case No: {{ caseId }}
+                                    </div>
+
+                                    <!-- Alert for errors -->
+                                    <div class="alert alert-danger mt-3" *ngIf="CreatedSuccessfully || errorMessage">
+                                    {{ errorMessage }}
+                                    </div>
 
                             </div>
                         </div>
