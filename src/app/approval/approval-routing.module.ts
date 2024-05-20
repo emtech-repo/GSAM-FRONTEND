@@ -7,8 +7,13 @@ const routes: Routes = [
   {
     path: 'app-approval-interface',
     component: ApprovalInterfaceComponent,
+
+  }
+  
+
   },
  
+
 ];
 
 @NgModule({
