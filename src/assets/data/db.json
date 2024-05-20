@@ -109,6 +109,7 @@
       "role": "manager",
       "isActive": true,
       "id": "9090"
+
     },
     {
 
@@ -122,8 +123,7 @@
       "id": "5777"
     }
 
-      
-  ],
+       ],
   "Customers": [
     {
       "IdNumber": "34859638",
