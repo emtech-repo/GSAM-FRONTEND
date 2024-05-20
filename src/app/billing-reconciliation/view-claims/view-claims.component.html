@@ -1,1 +1,84 @@
-<p>view-claims works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claims Screen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container mt-3">
+        <!-- Header -->
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <h2 class="text-center bg-danger text-white p-2">CLAIMS</h2>
+            </div>
+        </div>
+
+        <!-- Dropdown Button -->
+        <div class="row mb-4">
+            <div class="col-md-12 d-flex justify-content-end">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">VIEW</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <!-- Dropdown menu items -->
+                        <a class="dropdown-item" href="#">Option 1</a>
+                        <a class="dropdown-item" href="#">Option 2</a>
+                        <!-- Add more options as needed -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <form action="#" method="#">
+            <input type="text" placeholder="Search By">
+            <!-- Additional form controls as needed -->
+        </form>
+
+        <!-- Table with Claims Data -->
+        <!-- Table structure here with appropriate Bootstrap classes -->
+        <!-- Example: -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Claim ID</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Comments</th>
+                    <!-- Add more columns as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>687432</td>
+                    <td>Approved</td>
+                    <td>$4500</td>
+                    <td>Ensure amount tally with the invoice</td>
+                    <!-- Add more rows as needed -->
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <!-- Buttons at the bottom of the table for navigation and actions -->
+        <button type="button" class="btn btn-primary">BACK</button>
+        <button type="button" class="btn btn-danger">CLOSE</button>
+        <!-- Add more buttons as needed -->
+    </div>
+
+    <!-- Include jQuery and Bootstrap JS files -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpU6W5b7XvI9zr/3gP1fGzqzXyJQf4tJw"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4Ck4SOF7gXjzYDFFkz/5Kk5+JZ3JZbm"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

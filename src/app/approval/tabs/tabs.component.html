@@ -95,43 +95,79 @@
 
             <ng-container *ngIf="i === 2">
                 <!-- Display content for "Claims Approval" tab -->
-                <div class="container mt-3">
-                    <!-- Claim details -->
-                    <h5>Claim Details:</h5>
-                    <!-- Replace this with actual claim details -->
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="https://www.example.com">Claim ID :A0106</a>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve Claim Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
 
-                            </h5>
-                            <p class="card-text">Claimant: John Doe</p>
-                            <p class="card-text">Amount: $1000</p>
-                            <p class="card-text">Date: 2024-04-15</p>
-                        </div>
-                    </div>
+<div class="container mt-5">
+    <!-- <h2 class="text-center mb-4">APPROVE CLAIM</h2> -->
 
-                    <!-- Comments -->
-                    <div class="form-group mt-3">
-                        <label for="comments">Comments:</label>
-                        <textarea class="form-control" id="comments" rows="3"></textarea>
-                    </div>
+    <!-- Form fields -->
+    <div class="form-row mb-3">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="SERVICE NAME">
+        </div>
+        <div class="col">
+            <select class="form-control">
+                <option>SERVICE PROVIDER</option>
+            </select>
+        </div>
+        <div class="col">
+            <select class="form-control">
+                <option>SERVICE ID</option>
+            </select>
+        </div>
+    </div>
 
-                    <!-- Buttons -->
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-success" (click)="approveClaim()"
-                            style="margin-top: 10px;">Approve</button>
-                        <button type="button" class="btn btn-danger" (click)="rejectClaim()"
-                            style="margin-top: 10px;">Reject</button>
+    <!-- Additional form fields -->
+    <div class="form-row mb-3">
+        <div class="col-md-6 col-sm-12">
+            <input type="text" class="form-control" placeholder="ACCOUNT NUMBER">
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <input type="text" class="form-control" placeholder="CONTACT INFO">
+        </div>
+    </div>
 
-                    </div>
+    <!-- Claim amount field -->
+    <div class="form-group mb-3">
+        <label for="claimAmount">CLAIM AMOUNT</label>
+        <input type="text" id="claimAmount" class="form-control">
+    </div>
 
-                    <!-- Submitted Successfully Alert -->
-                    <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
-                        Claim {{ action }}ed Successfully!
-                    </div>
+    <!-- Service details textarea -->
+    <div class="form-group mb-3">
+        <label for="serviceDetails">SERVICE DETAILS</label>
+        <textarea id="serviceDetails" class="form-control"></textarea>
+    </div>
 
-                </div>
+    <!-- Supporting documents section -->
+    <div class="form-group mb-3">
+        <label>SUPPORTING DOCUMENTS</label>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-secondary">VIEW</button>
+            <button type="button" class="btn btn-secondary">DOWNLOAD</button>
+            <button type="button" class="btn btn-secondary">UPLOAD</button>
+        </div>
+    </div>
+
+    <!-- Navigation buttons -->
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary">PREVIOUS</button>
+        <button type="button" class="btn btn-danger">RETURN TO MAKER</button>
+        <button type="button" class="btn btn-warning">REJECT</button>
+        <button type="button" class="btn btn-success">APPROVE</button>
+    </div>
+</div>
+
+</body>
+</html>
+
             </ng-container>
 
 
