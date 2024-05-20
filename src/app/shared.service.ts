@@ -18,6 +18,7 @@ export class SharedService {
   readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
+
   readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
 readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
   readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
@@ -34,10 +35,10 @@ readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
 
   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
  readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
-  readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
-  // readonly CustomersUrl = 'assets/data/db.json';
+  // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
+  readonly CustomersUrl = 'assets/data/db.json';
 
-   readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
+readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
 
 
 
@@ -48,6 +49,7 @@ readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
   public isAuthenticated = false;
   public currentUser: any;
   public currentUserID: any;
+  UnAssigned: any;
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {
     // this.currentUser = localStorage.getItem('currentUser');
@@ -182,6 +184,7 @@ readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
       map((response: any) => response.result) // Extracting only the 'result' array
     );
   }
+  
   getLoanDetails(accountId: string): Observable<any> {
     const url = `${this.DetailsURL}${accountId}`;
     return this.http.get<any>(url).pipe(
@@ -228,12 +231,13 @@ readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
 
   getAssigned(): Observable<any[]> {
     return this.http.get<any[]>(`${this.AssignedUrl}`)
+
       .pipe(
-        tap((data: any[]) => console.log('Fetched AssignCase:', data)),
-        map((data: any) => data['AssignCase']) 
+        tap((data: any[]) => console.log('Fetched UnAssigned:', data)),
+        map((data: any) => data['UnAssigned']) 
       );
   }
-
+  
 
 
 

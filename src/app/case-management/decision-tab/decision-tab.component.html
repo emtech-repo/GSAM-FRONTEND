@@ -11,300 +11,345 @@
     <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
       <!-- Display tab content based on selectedIndex -->
       <ng-container *ngIf="i === 0">
-        <!-- Display table for the "Refinance" tab -->
-
-        <div class="container-xl h-100" style="width: 150%; margin-left: -9%;">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-11">
-              <div class="card" style="border-radius: 15px">
-                <div class="card-body">
-                  <div class="row align-items-center pt-4 pb-3">
-                    <div style="margin-top:-40px ;">
-                      <h1 style="font-size: 25px;text-align: center;color: black;background-color: #e2532725; ">
-                        REFINANCE INFORMATION</h1>
-                    </div>
-
-                  <div class="form-group mx-sm-3 mb-6 d-flex">
-                    <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
-                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                      style="width: auto; height: 30px;">
-                      <option value="SearchBy" disabled>SearchBy</option>
-                      <option value="AccNumber">Loan Account</option>
-                      <option value="CaseNumber">Case Number</option>
-                      <option value="CifID">CIF ID</option> 
-                      <!-- <option value="id">ID</option> -->
-                    </select>
-                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
-                      class="form-control mr-4" style="height: 30px;width: 100%; ">
-                    <button (click)="search()" class="btn btn-primary small-btn" style="border-radius: 3px;">Search</button>
-                  </div>
-
-                    <div class="row">
-                      <div class="col-md-4">
-                        <!-- First Column -->
-                        <div class="row">
-                          <div class="col-md-12 ps-9" *ngFor="let Customers of Customers">
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
-                              <input type="text" class="form-control" id="CifID" [(ngModel)]="Customers.CifID"
-                                name="CifID" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputcase number" style="margin-bottom: -1px;">Case Number </label>
-                              <input type="text" class="form-control" id="CaseNumber" [(ngModel)]="Customers.CaseNumber"
-                                name="CaseNumber" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
-                              <input type="text" class="form-control" id="InitialLoanAmount"
-                                [(ngModel)]="Customers.InitialLoanAmount" name="InitialLoanAmount" [readonly]="true" />
-
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputamount" style="margin-bottom: -1px;">Refinance amount</label>
-                              <input type="text" class="form-control" id="RefinanceAmount" name="RefinanceAmount" />
-
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <!-- Second Column -->
-                        <div class="row">
-                          <div class="col-md-12 ps-9" *ngFor="let Customers of Customers">
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloanaccount" style="margin-bottom: -1px;">Loan Account </label>
-                              <input type="text" class="form-control" id="AccNumber" [(ngModel)]="Customers.AccNumber"
-                                name="AccNumber" [readonly]="true" />
-
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputbranch" style="margin-bottom: -1px;">Branch Name</label>
-                              <input type="text" class="form-control" id="BranchName" [(ngModel)]="Customers.BranchName"
-                                name="BranchName" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputintallment" style="margin-bottom: -1px;">Initial Instalments</label>
-                              <input type="text" class="form-control" id="InitialInstalments"
-                                [(ngModel)]="Customers.InitialInstalments" name="InitialInstalments"
-                                [readonly]="true" />
-
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloantenure" style="margin-bottom: -1px;">New Loan Tenure</label>
-                              <input type="number" class="form-control" id="loan tenure" name="new loan tenure" />
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <!-- Third Column -->
-                        <div class="row">
-                          <div class="col-md-12 ps-9" *ngFor="let Customers of Customers">
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputaccname" style="margin-bottom: -1px;">Acc Name</label>
-                              <input type="text" class="form-control" id="AccName" [(ngModel)]="Customers.AccName"
-                                name="AccName" [readonly]="true" />
-
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloan" style="margin-bottom: -1px;">Loan Tenure</label>
-                              <input type="text" class="form-control" id="InitialLoanTenure"
-                                [(ngModel)]="Customers.InitialLoanTenure" name="InitialLoanTenure" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputbalance" style="margin-bottom: -1px;">Loan Balance</label>
-                              <input type="text" class="form-control" id="LoanBalance"
-                                [(ngModel)]="Customers.LoanBalance" name="LoanBalance" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputinstalments" style="margin-bottom: -1px;">New Instalments</label>
-                              <input type="text" class="form-control" id="NewMonthlyInstalments"
-                                name="NewMonthlyInstalments" />
+          <!-- Display content for "Refinance" tab -->
+          
+          <div class="container-xl h-100" style="width: 150%; margin-left: -9% ;">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col-xl-11">
+                <div class="card" style="border-radius: 15px">
+                  <div class="card-body">
+                    <div class="row align-items-center pt-4 pb-3">
+          
+                      <div class="main-body">
+                        <div>
+                          <label>Loan Account Details</label>
+                          <input type="text" class="form-control" (keyup)="applyFilter($event)"
+                            placeholder="Search by loan Account " #input>
+                        </div><div class="row">
+                          <div class="col-12">
+                            <div class="table-responsive">
+                              <table id="example" class="display expandable-table" style="width:100%">
+                                <thead>
+                                  <tr>
+                                    <th>loan Account</th>
+                                    <th>CIF ID</th>
+                                    <th>Account Name</th>
+                                    <th>Case Number</th>
+                                    <th>Loan Amount</th>
+                                    <th>Loan Balance</th>
+                                    <th>Branch Id</th>
+                                    <th>Loan Tenure</th>
+                                    <th>Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of statusData">
+                                    <td>{{ item.loanAccount }}</td>
+                                    <td>{{ item.cifId }}</td>
+                                    <td>{{ item.accountName }}</td>
+                                    <td>{{ item.caseNumber}}</td>
+                                    <td>{{ item.loanAmount }}</td>
+                                    <td>{{ item.loanBalance }}</td>
+                                    <td>{{ item.solId }}</td>
+                                    <td>{{ item.loanTenure }}</td>
+                                    <td><button class="btn btn-primary  btn-sm" (click)="showRefinanceDetails()">Proceed</button></td>
+                                  </tr>
+                                </tbody>
+                              </table>
                             </div>
                           </div>
                         </div>
+          
+                       
                       </div>
                     </div>
-                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;margin-top: -20px;">
-                      <div class="d-flex flex-start w-100">
-                        <div data-mdb-input-init class="form-outline w-100">
-                          <label class="form-label" for="textAreaExample" style="color: blue">Comments</label>
-                          <textarea class="form-control" id="textAreaExample" rows="4"
-                            style="background: #fff;height: 80px;"></textarea>
-
-                        </div>
-                      </div>
-
-                    </div>
-
                   </div>
                 </div>
               </div>
+          
             </div>
-
+          
           </div>
-          <div class="col-md-9">
-            <div class="px-5 py-4">
-              <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-primary small-btn" (click)="goToHome()"
-                  style="margin-left: 50px;">Exit Page</button>
-                <button type="button" class="btn btn-primary small-btn" (click)=" goToCaseTracking()">Submit</button>
+          
+          <div class="row"  *ngIf="showRefinanceDetailsFlag">
+            <div class="col-md-13 grid-margin stretch-card">
+              <div class="card" style="margin-top:5px ;">
+                <div class="card-body">
+                  <p class="card-title">Refinance Form</p>
+          
+                  <div class="row" *ngIf="showRefinanceDetailsFlag">
+                    <div class="col-md-4">
+          
+                      <div class="row">
+                        <div class="col-md-12 ps-9">
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
+                            <input type="text" class="form-control" id="CifID" 
+                              [readonly]="true" />
+                          </div>
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Case Number </label>
+                            <input type="text" class="form-control" id="CaseNumber"  [readonly]="true" />
+                          </div>
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
+                            <input type="text" class="form-control" id="InitialLoanAmount"
+                             name="InitialLoanAmount" [readonly]="true" />
+          
+                          </div>
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputamount" style="margin-bottom: -1px;">Refinance amount</label>
+                            <input type="text" class="form-control" id="RefinanceAmount" name="RefinanceAmount" />
 
+                          </div>
+          
+                        </div>
+                      </div>
+                    </div>
+          
+                    <div class="col-md-4">
+          
+                      <div class="row">
+                        <div class="col-md-12 ps-9">
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Loan Account </label>
+                            <input type="text" class="form-control" id="AccNumber" [readonly]="true" />
+          
+                          </div>
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
+                            <input type="text" class="form-control" id="BranchName" [readonly]="true" />
+                          </div>
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Initial Instalments</label>
+                            <input type="text" class="form-control" id="InitialInstalments" [readonly]="true" />
+          
+                          </div>
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputloantenure" style="margin-bottom: -1px;">New Loan Tenure</label>
+                            <input type="number" class="form-control" id="loan tenure" name="new loan tenure" />
+                          
+                          </div>
+          
+          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <!-- Third Column -->
+                      <div class="row">
+                        <div class="col-md-12 ps-9">
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
+                            <input type="text" class="form-control" id="AccName" [readonly]="true" />
+          
+                          </div>
+          
+                          <!-- Your input fields for the third column -->
+                          <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputloan" style="margin-bottom: -1px;">Loan Tenure</label>
+                          <input type="text" class="form-control" id="InitialLoanTenure" />
+                          </div>
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputbalance" style="margin-bottom: -1px;">Loan Balance</label>
+                            <input type="text" class="form-control" id="LoanBalance" [readonly]="true" />
+                          </div>
+                          <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputinstalments" style="margin-bottom: -1px;">New Instalments</label>
+                            <input type="text" class="form-control" id="NewMonthlyInstalments" name="NewMonthlyInstalments" />
+                          </div>
+          
+                        </div>
+                      </div>
+                    </div>
+                    <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                      <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
+                      <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                      <div style="margin-top: 2px;">
+                        <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
+                          (click)=" exitPage()" style="margin-left: 50px; margin-right: 10px;">Exit Page</button>
+                        <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
+                          (click)=" exitPage()" style="margin-left: 600px;">Submit</button>
+                      </div>
+          
+                    </div>
+          
+          
+                  </div>
+          
+          
+          
+                </div>
               </div>
             </div>
           </div>
-        </div>
       </ng-container>
       <ng-container *ngIf="i === 1">
-        <!-- Display content for "Restructure" tab -->
-
-        <div class="container-xl h-100" style="width: 150%; margin-left: -9%  ;">
+        <!-- Display content for "Recover" tab -->
+        
+        <div class="container-xl h-100" style="width: 150%; margin-left: -9% ;">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-11">
               <div class="card" style="border-radius: 15px">
                 <div class="card-body">
                   <div class="row align-items-center pt-4 pb-3">
-                    <div style="margin-top:-40px ;">
-                      <h1 style="font-size: 25px;text-align: center;color: black;background-color: #e2532725;">
-                        RESTRUCTURE INFORMATION</h1>
-                    </div>
-                    <div class="form-group mx-sm-3 mb-6 d-flex">
-                      <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
-                      <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                        style="width: auto; height: 30px;">
-                        <option value="SearchBy" disabled>SearchBy</option>
-                        <option value="AccNumber">Loan Account</option>
-                        <option value="CaseNumber">Case Number</option>
-                        <option value="CifID">CIF ID</option>
-                      </select>
-                      <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
-                        class="form-control mr-4" style="height: 30px;width: 100%; ">
-                      <button (click)="search()" class="btn btn-primary small-btn" style="border-radius: 3px;">Search</button>
-                    </div>
-
-
-                    <div class="row">
-                      <div class="col-md-4">
-                        <!-- First Column -->
-                        <div class="row">
-                          <div class="col-md-12 ps-9" *ngFor="let Customers of Customers">
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
-                              <input type="text" class="form-control" id="CifID" [(ngModel)]="Customers.CifID"
-                                name="CifID" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputcasenumber" style="margin-bottom: -1px;">Case Number </label>
-                              <input type="text" class="form-control" id="CaseNumber" [(ngModel)]="Customers.CaseNumber"
-                                name="CaseNumber" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
-                              <input type="text" class="form-control" id="InitialLoanAmount"
-                                [(ngModel)]="Customers.InitialLoanAmount" name="InitialLoanAmount" [readonly]="true" />
-
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloantenure" style="margin-bottom: -1px;">New Loan Tenure</label>
-                              <input type="number" class="form-control" id="loan tenure" name="new loan tenure" />
-                            </div>
-
-                          </div>
-                        </div>
+        
+                    <div class="main-body">
+                      <div>
+                        <label>Loan Accounts Details</label>
+                        <input type="text" class="form-control" (keyup)="applyFilter($event)"
+                          placeholder="Search by loan Account " #input>
                       </div>
-
-                      <div class="col-md-4">
-                        <!-- Second Column -->
-                        <div class="row">
-                          <div class="col-md-12 ps-9" *ngFor="let Customers of Customers">
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloanaccount" style="margin-bottom: -1px;">Loan Accout</label>
-                              <input type="text" class="form-control" id="AccNumber" [(ngModel)]="Customers.AccNumber"
-                                name="AccNumber" [readonly]="true" />
-
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputbranchname" style="margin-bottom: -1px;">Branch Name</label>
-                              <input type="text" class="form-control" id="BranchName" [(ngModel)]="Customers.BranchName"
-                                name="BranchName" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputinstalments" style="margin-bottom: -1px;">Initial Instalments</label>
-                              <input type="text" class="form-control" id="InitialInstalments"
-                                [(ngModel)]="Customers.InitialInstalments" name="InitialInstalments"
-                                [readonly]="true" />
-
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputinstalments" style="margin-bottom: -1px;">New Instalments</label>
-                              <input type="text" class="form-control" id="NewMonthlyInstalments"
-                                name="NewMonthlyInstalments" />
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <!-- Third Column -->
-                        <div class="row">
-                          <div class="col-md-12 ps-9" *ngFor="let Customers of Customers">
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputEmail4" style="margin-bottom: -1px;">Account Name</label>
-                              <input type="text" class="form-control" id="AccName" [(ngModel)]="Customers.AccName"
-                                name="AccName" [readonly]="true" />
-
-                            </div>
-
-                            <!-- Your input fields for the third column -->
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloantenure" style="margin-bottom: -1px;">Loan Tenure</label>
-                              <input type="text" class="form-control" id="InitialLoanTenure"
-                                [(ngModel)]="Customers.InitialLoanTenure" name="InitialLoanTenure" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloanbalance" style="margin-bottom: -1px;">Loan Balance</label>
-                              <input type="text" class="form-control" id="LoanBalance"
-                                [(ngModel)]="Customers.LoanBalance" name="LoanBalance" [readonly]="true" />
-                            </div>
-
-                          </div>
+        
+                      <div class="col-12">
+                        <div class="table-responsive">
+                          <table id="example" class="display expandable-table" style="width:100%">
+                            <thead>
+                              <tr>
+                                <th>loan Account</th>
+                                <th>CIF ID</th>
+                                <th>Account Name</th>
+                                <th>Case Number</th>
+                                <th>Loan Amount</th>
+                                <th>Loan Balance</th>
+                                <th>Branch Id</th>
+                                <th>Loan Tenure</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of statusData">
+                                <td>{{ item.loanAccount }}</td>
+                                <td>{{ item.cifId }}</td>
+                                <td>{{ item.accountName }}</td>
+                                <td>{{ item.caseNumber}}</td>
+                                <td>{{ item.loanAmount }}</td>
+                                <td>{{ item.loanBalance }}</td>
+                                <td>{{ item.solId }}</td>
+                                <td>{{ item.loanTenure }}</td>
+                                <td><button class="btn btn-primary  btn-sm" (click)="showRestructureDetails()">Proceed</button></td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
-                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;margin-top: -20px;">
-                      <div class="d-flex flex-start w-100">
-                        <div data-mdb-input-init class="form-outline w-100">
-                          <label class="form-label" for="textAreaExample" style="color: blue">COMMENTS</label>
-                          <textarea class="form-control" id="textAreaExample" rows="4"
-                            style="background: #fff;height: 80px;"></textarea>
-
-                        </div>
-                      </div>
-                    </div>
-
                   </div>
-
                 </div>
               </div>
             </div>
+        
           </div>
-          <div class="col-md-9">
-            <div class="px-5 py-4">
-              <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-primary small-btn" (click)="goToHome()"
-                  style="margin-left: 50px;">Exit Page</button>
-                <button type="button" class="btn btn-primary small-btn" (click)=" goToCaseTracking()">Submit</button>
-
+        
+        </div>
+        
+        <div class="row"*ngIf="showRestructureDetailsFlag">
+          <div class="col-md-13 grid-margin stretch-card">
+            <div class="card" style="margin-top:5px ;">
+              <div class="card-body">
+                <p class="card-title">Restructure Form</p>
+        
+                <div class="row" *ngIf="showRestructureDetailsFlag">
+                  <div class="col-md-4">
+        
+                    <div class="row">
+                      <div class="col-md-12 ps-9" >
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
+                          <input type="text" class="form-control" id="CifID"
+                            [readonly]="true" />
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputEmail4" style="margin-bottom: -1px;">Case Number </label>
+                          <input type="text" class="form-control" id="CaseNumber" 
+                            name="CaseNumber" [readonly]="true" />
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
+                          <input type="text" class="form-control" id="InitialLoanAmount"
+                           name="InitialLoanAmount" [readonly]="true" />
+        
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputloantenure" style="margin-bottom: -1px;">New Loan Tenure</label>
+                          <input type="number" class="form-control" id="loan tenure" name="new loan tenure" />
+                        </div>
+        
+                      </div>
+                    </div>
+                  </div>
+        
+                  <div class="col-md-4">
+        
+                    <div class="row">
+                      <div class="col-md-12 ps-9">
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputEmail4" style="margin-bottom: -1px;">Loan Account </label>
+                          <input type="text" class="form-control" id="AccNumber" [readonly]="true" />
+        
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
+                          <input type="text" class="form-control" id="BranchName" [readonly]="true" />
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputEmail4" style="margin-bottom: -1px;">Initial Instalments</label>
+                          <input type="text" class="form-control" id="InitialInstalments" [readonly]="true" />
+        
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputinstalments" style="margin-bottom: -1px;">New Instalments</label>
+                          <input type="text" class="form-control" id="NewMonthlyInstalments" name="NewMonthlyInstalments" />
+                        </div>
+        
+        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <!-- Third Column -->
+                    <div class="row">
+                      <div class="col-md-12 ps-9">
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
+                          <input type="text" class="form-control" id="AccName" [readonly]="true" />
+        
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputEmail4" style="margin-bottom: -1px;">Loan Tenure</label>
+                          <input type="text" class="form-control" id="InitialLoanTenure" [readonly]="true" />
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                          <label for="inputloanbalance" style="margin-bottom: -1px;">Loan Balance</label>
+                          <input type="text" class="form-control" id="LoanBalance" [readonly]="true" />
+                        </div>
+        
+                      </div>
+                    </div>
+                  </div>
+                  <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                    <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
+                    <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                    <div style="margin-top: 2px;">
+                      <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
+                        (click)="exit()" style="margin-left: 50px; margin-right: 10px;">Exit Page</button>
+                      <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
+                        (click)="exit()" style="margin-left: 600px;">Submit</button>
+                    </div>
+        
+                  </div>
+        
+        
+                </div>
+        
+        
+        
               </div>
             </div>
           </div>
         </div>
+    
       </ng-container>
       <ng-container *ngIf="i === 2">
         <!-- Display content for "Recover" tab -->
@@ -315,142 +360,160 @@
               <div class="card" style="border-radius: 15px">
                 <div class="card-body">
                   <div class="row align-items-center pt-4 pb-3">
-                    <div style="margin-top:-40px ;">
-                      <h1 style="font-size: 25px;text-align: center;color: black;background-color: #e2532725;">RECOVERY
-                        INFORMATION</h1>
-                    </div>
-                    <div class="form-group mx-sm-3 mb-6 d-flex">
-                      <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
-                      <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                        style="width: auto; height: 30px;">
-                        <option value="SearchBy" disabled>SearchBy</option>
-                        <option value="AccNumber">Loan Account</option>
-                        <option value="CaseNumber">Case Number</option>
-                        <option value="CifID">CIF ID</option>
-                        <!-- <option value="id">ID</option> -->
-                      </select>
-                      <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
-                        class="form-control mr-4" style="height: 30px;width: 100%; ">
-                      <button (click)="search()" class="btn btn-primary small-btn" style="border-radius: 3px;">Search</button>
-                    </div>
->
-
-                    <div class="row">
-                      <div class="col-md-4">
-                        <!-- First Column -->
-                        <div class="row">
-                          <div class="col-md-12 ps-9" *ngFor="let Customers of Customers">
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
-                              <input type="text" class="form-control" id="CifID" [(ngModel)]="Customers.CifID"
-                                name="CifID" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputEmail4" style="margin-bottom: -1px;">Case Number </label>
-                              <input type="text" class="form-control" id="CaseNumber" [(ngModel)]="Customers.CaseNumber"
-                                name="CaseNumber" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
-                              <input type="text" class="form-control" id="InitialLoanAmount"
-                                [(ngModel)]="Customers.InitialLoanAmount" name="InitialLoanAmount" [readonly]="true" />
-
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputEmail4" style="margin-bottom: -1px;">Months in Default</label>
-                              <input type="text" class="form-control" id="MonthsInDefault"
-                                [(ngModel)]="Customers.MonthsInDefault" name="MonthsInDefault" [readonly]="true" />
-                            </div>
-
-                          </div>
-                        </div>
+                   
+                    <div class="main-body">
+                      <div>
+                        <label>Loan Account Details</label>
+                        <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Search by loan Account "
+                          #input>
                       </div>
-
-                      <div class="col-md-4">
-                        <!-- Second Column -->
-                        <div class="row">
-                          <div class="col-md-12 ps-9" *ngFor="let Customers of Customers">
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputEmail4" style="margin-bottom: -1px;">Loan Account </label>
-                              <input type="text" class="form-control" id="AccNumber" [(ngModel)]="Customers.AccNumber"
-                                name="AccNumber" [readonly]="true" />
-
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
-                              <input type="text" class="form-control" id="BranchName" [(ngModel)]="Customers.BranchName"
-                                name="BranchName" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputEmail4" style="margin-bottom: -1px;">Initial Instalments</label>
-                              <input type="text" class="form-control" id="InitialInstalments"
-                                [(ngModel)]="Customers.InitialInstalments" name="InitialInstalments"
-                                [readonly]="true" />
-
-                            </div>
-
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <!-- Third Column -->
-                        <div class="row">
-                          <div class="col-md-12 ps-9" *ngFor="let Customers of Customers">
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
-                              <input type="text" class="form-control" id="AccName" [(ngModel)]="Customers.AccName"
-                                name="AccName" [readonly]="true" />
-
-                            </div>
-
-                            <!-- Your input fields for the third column -->
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputEmail4" style="margin-bottom: -1px;">Loan Tenure</label>
-                              <input type="text" class="form-control" id="InitialLoanTenure"
-                                [(ngModel)]="Customers.InitialLoanTenure" name="InitialLoanTenure" [readonly]="true" />
-                            </div>
-                            <div class="form-group" style="margin-top: -20px;">
-                              <label for="inputEmail4" style="margin-bottom: -1px;">loan Balance</label>
-                              <input type="text" class="form-control" id="AmountToBeRecovered"
-                                [(ngModel)]="Customers.AmountToBeRecovered" name="AmountToBeRecovered"
-                                [readonly]="true" />
-
-                            </div>
-
-                          </div>
-                        </div>
+                    
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        <table id="example" class="display expandable-table" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th>loan Account</th>
+                              <th>CIF ID</th>
+                              <th>Account Name</th>
+                              <th>Case Number</th>
+                              <th>Loan Amount</th>
+                              <th>Loan Balance</th>
+                              <th>Branch Id</th>
+                              <th>Loan Tenure</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of statusData">
+                              <td>{{ item.loanAccount }}</td>
+                              <td>{{ item.cifId }}</td>
+                              <td>{{ item.accountName }}</td>
+                              <td>{{ item.caseNumber}}</td>
+                              <td>{{ item.loanAmount }}</td>
+                              <td>{{ item.loanBalance }}</td>
+                              <td>{{ item.solId }}</td>
+                              <td>{{ item.loanTenure }}</td>
+                              <td><button class="btn btn-primary  btn-sm"(click)="showRecoveryDetails()">Proceed</button></td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
-                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;margin-top: -20px;">
-                      <div class="d-flex flex-start w-100">
-                        <div data-mdb-input-init class="form-outline w-100">
-                          <label class="form-label" for="textAreaExample" style="color: blue">Recovery updates</label>
-                          <textarea class="form-control" id="textAreaExample" rows="4"
-                            style="background: #fff;height: 80px;"></textarea>
-
-                        </div>
+                    </div>
+                     </div>
+                     </div>
                       </div>
+                    </div>
+                    
+                    </div>
+                   
+                  </div>
+     
+      <div class="row" *ngIf="showRecoveryDetailsFlag">
+        <div class="col-md-13 grid-margin stretch-card">
+          <div class="card" style="margin-top:5px ;">
+            <div class="card-body">
+              <p  class="card-title" >Recovery Form</p>
 
+              <div class="row" >
+                <div class="col-md-4">
+                
+                  <div class="row">
+                    <div class="col-md-12 ps-9" >
+                      <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
+                        <input type="text" class="form-control" id="CifID" 
+                          [readonly]="true" />
+                      </div>
+                      <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Case Number </label>
+                        <input type="text" class="form-control" id="CaseNumber" 
+                          [readonly]="true" />
+                      </div>
+                      <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
+                        <input type="text" class="form-control" id="InitialLoanAmount" 
+                          name="InitialLoanAmount" [readonly]="true" />
+                
+                      </div>
+                      <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Months in Default</label>
+                        <input type="text" class="form-control" id="MonthsInDefault"
+                          name="MonthsInDefault" [readonly]="true" />
+                      </div>
+                
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-          </div>
-          <div class="col-md-9">
-            <div class="px-5 py-4" style="margin-top: -20px;">
-              <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-primary small-btn" (click)="goToHome()"
-                  style="margin-left: 50px;">Exit Page</button>
-                <button type="button" class="btn btn-primary small-btn" (click)=" goToCaseTracking()">Submit</button>
-
+                <div class="col-md-4">
+                 
+                  <div class="row">
+                    <div class="col-md-12 ps-9">
+                      <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Loan Account </label>
+                        <input type="text" class="form-control" id="AccNumber" [readonly]="true" />
+                
+                      </div>
+                      <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
+                        <input type="text" class="form-control" id="BranchName" [readonly]="true" />
+                      </div>
+                      <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Initial Instalments</label>
+                        <input type="text" class="form-control" id="InitialInstalments" [readonly]="true" />
+                
+                      </div>
+                
+                
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <!-- Third Column -->
+                  <div class="row">
+                    <div class="col-md-12 ps-9">
+                      <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
+                        <input type="text" class="form-control" id="AccName" [readonly]="true" />
+              
+                      </div>
+              
+                      <!-- Your input fields for the third column -->
+                      <div class="form-group" style="margin-top: -20px;">
+                      <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
+                      <input type="text" class="form-control" id="AccName" [readonly]="true" /> 
+                      </div>
+                      <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Loan Tenure</label>
+                        <input type="text" class="form-control" id="InitialLoanTenure" [readonly]="true" />
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                  <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                    <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Recovery updates</label>
+                    <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                    <div   style="margin-top: 2px;">
+                      <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
+                      (click)="exits()" style="margin-left: 50px; margin-right: 10px;">Exit Page</button>
+                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
+                      (click)="exits()" style="margin-left: 600px;">Submit</button></div>
+                    
+                  </div>
+                                
+                            
               </div>
+      
+      
+      
             </div>
           </div>
         </div>
+      </div>
+ 
       </ng-container>
     </div>
 

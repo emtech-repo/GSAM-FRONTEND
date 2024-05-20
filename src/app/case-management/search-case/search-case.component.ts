@@ -26,6 +26,7 @@ export class SearchCaseComponent implements OnInit {
 
 
 
+  // loanDetails: any;
 
   // LoanData: any = {};
   LoanData: any[] = [];

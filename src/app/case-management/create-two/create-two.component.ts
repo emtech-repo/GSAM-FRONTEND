@@ -1,23 +1,22 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-
 import { SharedService } from '../../shared.service';
-
 
 @Component({
   selector: 'app-create-two',
   templateUrl: './create-two.component.html',
   styleUrls: ['./create-two.component.css']
 })
-
 export class CreateTwoComponent implements OnInit {
   loanDetails: any = {}; // Initialize as an empty object
   CreatedSuccessfully: boolean = false;
   details: any;
   caseId: number | undefined;
+
+
+
 
   constructor(
     private toastr: ToastrService,
@@ -35,6 +34,7 @@ export class CreateTwoComponent implements OnInit {
       console.log('Loan Details:', this.loanDetails);
     }
   }
+  
 
   closeModal() {
     this.bsModalRef.hide();
@@ -46,6 +46,7 @@ export class CreateTwoComponent implements OnInit {
 
     // Log the entire loanDetails object for inspection
     console.log('Current loanDetails:', this.loanDetails);
+
 
     // Create a new object with only the required fields
     const requestData = {
@@ -68,13 +69,13 @@ export class CreateTwoComponent implements OnInit {
         this.CreatedSuccessfully = true;
         this.caseId = response.caseId;
         this.toastr.success(`Case created successfully Case ID: ${response.caseId}`, 'Success');
+        // Automatically hide the alert after a few seconds
+        setTimeout(() => {
+          this.CreatedSuccessfully = false;
+        }, 5000); // Adjust the timeout duration as needed
       }, error => {
         console.error('Error creating case:', error);
         this.toastr.error('Failed to create case. Please try again.', 'Error');
       });
   }
-
- 
-
-
 }

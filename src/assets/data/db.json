@@ -109,11 +109,21 @@
       "role": "manager",
       "isActive": true,
       "id": "9090"
-    }
-    
 
-    
-  ],
+    },
+    {
+
+      "name": "hanna",
+      "email": "hann@gmail.com",
+      "password": "1234567",
+      "gender": "female",
+      "role": "officer",
+      "creationDate": "2024-05-14T08:02:21.299Z",
+      "isActive": true,
+      "id": "5777"
+    }
+
+       ],
   "Customers": [
     {
       "IdNumber": "34859638",

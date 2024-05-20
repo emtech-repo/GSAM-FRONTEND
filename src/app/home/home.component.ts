@@ -51,6 +51,53 @@ export class HomeComponent implements OnInit {
       title: "assign case",
       path: "../../../case-management/app-assign-case"
     },
+     {
+      title: "view claim",
+      path: "../../../billing-reconciliation/app-view-claims"
+    },
+     {
+      title: "create claim",
+      path: "../../../billing-reconciliation/app-create-claim"
+    },
+     {
+      title: "request service",
+      path: "../../../billing-reconciliation/request-service"
+    },
+      {
+      title: " view request ",
+      path: "../../../billing-reconciliation/app-view-requests"
+    },
+     {
+      title: "contracts ",
+      path: "../../../contracts/app-contract-inter"
+    },
+    
+     {
+      title: " reports ",
+      path: "../../../'reports/app-reports-inter"
+    },
+     {
+      title: " search document ",
+      path: "../../../documents/app-search-document"
+    },
+     {
+      title: "retrieve document ",
+      path: "../../../documents/app-retrieve"
+    },
+     {
+      title: " request document ",
+      path: "../../../documents/app-request"
+    },
+     {
+      title: " upload document ",
+      path: "../../../documents/app-upload"
+    },
+    
+    
+    
+    
+    
+    
     
     
     
