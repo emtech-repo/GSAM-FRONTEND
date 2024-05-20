@@ -14,6 +14,7 @@ export class CreateTwoComponent implements OnInit {
   CreatedSuccessfully: boolean = false;
   details: any;
   caseId: number | undefined;
+  errorMessage: string = '';
 
 
 
@@ -67,15 +68,22 @@ export class CreateTwoComponent implements OnInit {
       .subscribe(response => {
         console.log('Case created successfully:', response);
         this.CreatedSuccessfully = true;
-        this.caseId = response.caseId;
-        this.toastr.success(`Case created successfully Case ID: ${response.caseId}`, 'Success');
+        this.caseId = response.result.caseNumber; // Assuming response.result.caseNumber is the correct path
+        this.toastr.success(`Case created successfully Case ID: ${response.result.caseNumber}`, 'Success');
         // Automatically hide the alert after a few seconds
         setTimeout(() => {
           this.CreatedSuccessfully = false;
         }, 5000); // Adjust the timeout duration as needed
       }, error => {
         console.error('Error creating case:', error);
-        this.toastr.error('Failed to create case. Please try again.', 'Error');
+        // Check if the error status is 400 and extract the message from the error response
+        if (error.status === 400 && error.error && error.error.message) {
+          // Display the error message
+          this.toastr.error(error.error.message, 'Error');
+        } else {
+          // Fallback error message for other cases
+          this.toastr.error('Failed to create case. Please try again.', 'Error');
+        }
       });
-  }
+}
 }

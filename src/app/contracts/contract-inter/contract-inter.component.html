@@ -1,1 +1,19 @@
-<p>contract-inter works!</p>
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-generaldetails-tab" (click)="setActiveTab('general')"
+                    data-bs-toggle="pill" data-bs-target="#pills-generaldetails" type="button" role="tab"
+                    aria-controls="pills-generaldetails" aria-selected="false">View  Contract</button>
+            </li>
+    
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-loan-details-tab" (click)="setActiveTab('loan')" data-bs-toggle="pill"
+                    data-bs-target="#pills-loan-details" type="button" role="tab" aria-controls="pills-loan-details"
+                    aria-selected="false">  Update Contracts</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-repayment-tab" (click)="setActiveTab('repaymnent')" data-bs-toggle="pill"
+                    data-bs-target="#pills-repayment" type="button" role="tab" aria-controls="pills-repayment"
+                    aria-selected="false">Repayment Schedule</button>
+            </li>
+           
+        </ul>
