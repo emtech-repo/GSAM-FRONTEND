@@ -5,6 +5,7 @@ import { ViewClaimsComponent } from './view-claims/view-claims.component';
 import { RequestServiceComponent } from './request-service/request-service.component';
 import { ViewRequestsComponent } from './view-requests/view-requests.component';
 import { ClaimTabComponent } from './claim-tab/claim-tab.component';
+import { ApproveClaimComponent } from './approve-claim/approve-claim.component';
 
 export const routes: Routes = [
   {
@@ -29,10 +30,10 @@ export const routes: Routes = [
     component: ViewRequestsComponent,
   },
 
-  //  {
-  //   path: 'app-claim-tab',
-  //   component: ClaimTabComponent,
-  // },
+   {
+    path: 'app-approve-claim',
+    component: ApproveClaimComponent,
+  },
 
 
 

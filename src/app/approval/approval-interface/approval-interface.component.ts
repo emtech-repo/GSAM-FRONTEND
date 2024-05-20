@@ -25,7 +25,8 @@ export class ApprovalInterfaceComponent {
     { title: 'Documents', content: '' }, // Initial empty content for other tabs
     { title: 'Claims', content: '' },
     { title: 'Requests', content: '' },
-    { title: 'Meetings', content: '' }
+    { title: 'Meetings', content: '' },
+
   ];
 
   // Method to handle tab selection
