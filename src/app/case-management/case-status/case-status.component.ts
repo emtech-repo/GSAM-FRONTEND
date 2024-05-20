@@ -24,13 +24,13 @@ export class CaseStatusComponent {
   assignedCases: number = 0;
   unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
-  statusData: any[] = []; // Your data array
+  AssignedData: any[] = []; // Your data array
   cd: any;
 
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
-    this.getStatus();
+    this.getAssigned();
 
   }
   setSearchOption(option: string) {
@@ -39,7 +39,7 @@ export class CaseStatusComponent {
   search(): void {
     console.log('Search method called'); // Debugging line
     this.currentPage = 1; // Reset current page for search
-    this.statusData = this.statusData.filter(item => {
+    this.AssignedData = this.AssignedData.filter(item => {
       switch (this.searchParams.param) {
         case 'cifId':
           return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
@@ -56,11 +56,11 @@ export class CaseStatusComponent {
   }
 
 
-  getStatus(): void {
-    this.sharedService.getStatus().subscribe(
+  getAssigned(): void {
+    this.sharedService.getAssigned().subscribe(
       (result: any[]) => {
         // Assign the 'result' array to your component property
-        this.statusData = result;
+        this.AssignedData = result;
         this.calculateCaseCounts(); // Calculate case counts after receiving data
 
       },
@@ -72,12 +72,12 @@ export class CaseStatusComponent {
   }
   calculateCaseCounts(): void {
     // Reset counts
-    this.totalCases = this.statusData.length;
+    this.totalCases = this.AssignedData.length;
     this.assignedCases = 0;
     this.unassignedCases = 0;
 
     // Count assigned and unassigned cases
-    this.statusData.forEach(item => {
+    this.AssignedData.forEach(item => {
       if (item.assigned === 'Y') {
         this.assignedCases++;
       } else {
@@ -89,19 +89,19 @@ export class CaseStatusComponent {
   // Method to handle page change event
   pageChanged(event: any): void {
     this.currentPage = event.page;
-    this.getStatus();
+    this.getAssigned();
   }
 
   // Method to handle search query change
   onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
-    this.getStatus();
+   this.getAssigned();
   }
 
   // Getter for filtered data based on search term
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      return this.statusData.filter(item => {
+      return this.AssignedData.filter(item => {
         // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
@@ -111,7 +111,7 @@ export class CaseStatusComponent {
         return false;
       });
     } else {
-      return this.statusData;
+      return this.AssignedData;
     }
   }
 

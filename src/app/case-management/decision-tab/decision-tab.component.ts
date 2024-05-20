@@ -18,7 +18,8 @@ export class DecisionTabComponent {
   currentPage: number = 1;
   dataSource: any[] = [];
   dataSourceFiltered: any[] = [];
-  AssignedsData: any[] = []; // Your data array
+ AssignedData: any[] = []; // Your data array
+    
 
   
 
@@ -46,7 +47,6 @@ export class DecisionTabComponent {
   }
   ngOnInit(): void {
     this.getAssigned();
-    
   }
 
 

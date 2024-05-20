@@ -44,7 +44,6 @@ export class AssignCaseComponent {
   searchParams = { param: '', value: '' }
 
   UnAssignedData: any[] = []; // Your data array
-  statusData: any[] = []; // Your data array
   AssignedData: any[] = []; // Your data array
   casesData: any[] = []; // Your data array
   cd: any;
@@ -58,15 +57,12 @@ export class AssignCaseComponent {
  
 
   ngOnInit(): void {
-    this.getStatus();
     this.getUnAssigned();
     this.getCases();
     this.getAssigned();
 
   }
-  getStatus() {
-    throw new Error('Method not implemented.');
-  }
+ 
   setSearchOption(option: string) {
     this.searchOption = option;
   }
@@ -178,7 +174,7 @@ getAssigned(): void {
   // Method to handle page change event
   pageChanged(event: any): void {
     this.currentPage = event.page;
-    this.getStatus();
+    this.getAssigned();
     this.getUnAssigned();
   }
   
@@ -186,8 +182,8 @@ getAssigned(): void {
   // Method to handle search query change
   onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
-    this.getStatus();
     this.getUnAssigned();
+     this.getAssigned();
   }
 
   
@@ -195,7 +191,7 @@ getAssigned(): void {
   // Getter for filtered data based on search term
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      return this.statusData.filter, this.UnAssignedData.filter(item => {
+      return this.AssignedData.filter, this.UnAssignedData.filter(item => {
         // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
@@ -205,7 +201,7 @@ getAssigned(): void {
         return false;
       });
     } else {
-      return this.statusData,this.UnAssignedData;
+      return this.AssignedData;
      
 
     }
