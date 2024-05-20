@@ -62,6 +62,7 @@ export class CaseStatusComponent {
 
 
 
+
   getCases(): void {
     this.sharedService.getCases().subscribe(
       (result: any[]) => {
@@ -78,6 +79,7 @@ export class CaseStatusComponent {
   }
   getActive(): void {
     this.sharedService.getActive().subscribe(
+
       (result: any[]) => {
         // Assign the 'result' array to your component property
         this.casesData = result;

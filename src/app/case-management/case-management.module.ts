@@ -48,6 +48,7 @@ import { CasesStatusComponent } from './cases-status/cases-status.component';
     CreateTwoComponent,
     LoanAccountLookUpComponent,
     AssignPopupComponent,
+   
 
     AssignedCasesComponent,
     CasesStatusComponent
