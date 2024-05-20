@@ -26,15 +26,19 @@ export class CaseStatusComponent {
   assignedCases: number = 0;
   unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
+
   data: any[] = []; // Your data array
+
   cd: any;
   apiUrl: string = '';
 
   constructor(private sharedService: SharedService, private http: HttpClient) { }
 
   ngOnInit(): void {
+
     this.fetchData();
     this.apiUrl = this.sharedService.ActivityUrl;
+
 
   }
   setSearchOption(option: string) {
@@ -43,7 +47,9 @@ export class CaseStatusComponent {
   search(): void {
     console.log('Search method called'); // Debugging line
     this.currentPage = 1; // Reset current page for search
+
     this.data = this.data.filter(item => {
+
       switch (this.searchParams.param) {
         case 'cifId':
           return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
@@ -58,6 +64,7 @@ export class CaseStatusComponent {
       }
     });
   }
+
 
 
   // getCases(): void {
@@ -78,6 +85,7 @@ export class CaseStatusComponent {
       if (response && response.result && Array.isArray(response.result)) {
         this.data = response.result;
         this.calculateCaseCounts();
+
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -104,19 +112,25 @@ export class CaseStatusComponent {
   // Method to handle page change event
   pageChanged(event: any): void {
     this.currentPage = event.page;
+
     this.fetchData();
+
   }
 
   // Method to handle search query change
   onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
+
     this.fetchData();
+
   }
 
   // Getter for filtered data based on search term
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
+
       return this.data.filter(item => {
+
         // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
@@ -126,7 +140,9 @@ export class CaseStatusComponent {
         return false;
       });
     } else {
+
       return this.data;
+
     }
   }
 
