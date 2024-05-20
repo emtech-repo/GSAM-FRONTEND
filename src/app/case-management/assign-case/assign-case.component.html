@@ -1,10 +1,10 @@
-
 <div class="col-md-12 grid-margin transparent">
     <div class="row">
         <div class="col-md-3 mb-3 stretch-card transparent">
             <div class="card card-tale">
                 <div class="card-body">
                     <p class="mb-4">Total Cases</p>
+
                     <p class="fs-30 mb-2">{{ totalCases }}</p>
 
 
@@ -12,21 +12,20 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-3 stretch-card transparent"  (click)="showAssignedCases()">
+        <div class="col-md-3 mb-3 stretch-card transparent" (click)="showAssignedCases()">
             <div class="card card-tale">
                 <div class="card-body">
                     <p class="mb-4">Assigned Cases</p>
                     <p class="fs-30 mb-2">{{ assignedCases }}</p>
 
-        
-        
+
+
 
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3 mb-3  stretch-card transparent" 
-            (click)="showUnassignedCases()">
+        <div class="col-md-3 mb-3  stretch-card transparent" (click)="showUnassignedCases()">
             <div class="card card-light-blue">
 
                 <div class="card-body">
@@ -50,10 +49,10 @@
 
                 <!-- SEEERCH BUTTON-->
                 <div class="row">
-                    <div>
-    <label>Filter</label>
-    <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Search by PF eg. 10923" #input>
-  <!-- </div> -->
+                    <div class="col-8 mb-3 ">
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm"
+                            (ngModelChange)="onSearch()" style="height: 20px;width: 150%;">
+                    </div>
                 </div>
 
                 <div class="row">
@@ -77,14 +76,14 @@
 
 
                                 <tbody>
-                                    <tr  *ngFor="let item of UnAssignedData">
-                                    <td>{{ item.caseNumber }}</td>
-                                    <td>{{ item.cifId }}</td>
-                                    <td>{{ item.loanAccount }}</td>
-                                    <td>{{ item.accountName }}</td>
-                                    <td>{{ item.loanBalance }}</td>
-                                    <td>{{ item.assigned }}</td>
-                                    <td><button type="button" class="assign small-btn"
+                                    <tr *ngFor="let item of UnAssignedData">
+                                        <td>{{ item.caseNumber }}</td>
+                                        <td>{{ item.cifId }}</td>
+                                        <td>{{ item.loanAccount }}</td>
+                                        <td>{{ item.accountName }}</td>
+                                        <td>{{ item.loanBalance }}</td>
+                                        <td>{{ item.assigned }}</td>
+                                        <td><button type="button" class="assign small-btn"
                                                 (click)="goToCaseDetails()">View Case</button></td>
                                     </tr>
                                 </tbody>
@@ -96,30 +95,31 @@
                         </div>
                     </div>
                 </div>
-             
-                    <div class="pagination-container" >
-                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
-                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
-                        </pagination>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
-                            (click)="bsModalRef.hide()" (click)="exit()">Exit Page</button>
-                    </div>
+
+                <div class="pagination-container" style="margin-left: 57%;">
+                    <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                        (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                    </pagination>
                 </div>
-                
+                <div>
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
+                        data-dismiss="modal" (click)="bsModalRef.hide()" (click)="exit()">Exit Page</button>
+                </div>
             </div>
+
         </div>
     </div>
+</div>
 
 
- <div class="row" *ngIf="showAssignedCasesFlag">
+<div class="row" *ngIf="showAssignedCasesFlag">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <p class="card-title">Assigned Cases</p>
 
 
+                <!-- Search Form -->
                 <div class="form-group mx-sm-3 mb-6 d-flex">
                     <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
                         style="width: auto; height: 30px;">
@@ -128,21 +128,23 @@
                         <option value="assignedEmail">Assigned Email</option>
                         <option value="accountName">Account Name</option>
                         <option value="loanAccount">Loan Account</option>
+                        <!-- <option value="id">ID</option> -->
                     </select>
                     <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
                         placeholder="Enter search value" class="form-control mr-4" style="height: 30px;width: 100%; ">
-                    <button (click)="onSearch()" class="btn btn-primary small-btn"
+                    <button (click)="search()" class="btn btn-primary small-btn"
                         style="border-radius: 3px;">Search</button>
                 </div>
 
 
 
 
+                <!-- Export Buttons Container -->
                 <div class="export-buttons-container" style="margin-left: 150;">
-                    <button class="btn btn-primary mr-4 small-btn"  (click)="exportToPDF()">Export
+                    <button class="btn btn-primary mr-4 small-btn" (click)="exportToPDF()">Export
                         PDF</button>
                     <button class="btn btn-primary small-btn" (click)="exportToExcel()">Export Excel</button>
-                
+
                 </div>
 
 
@@ -160,7 +162,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of AssignedData">
+                                    <tr *ngFor="let item of statusData">
                                         <td>{{ item.loanAccount }}</td>
                                         <td>{{ item.cifId }}</td>
                                         <td>{{ item.accountName }}</td>
@@ -179,13 +181,10 @@
                     </pagination>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
-                        (click)="bsModalRef.hide()" (click)=" exitPage()">Exit Page</button>
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
+                        data-dismiss="modal" (click)="bsModalRef.hide()" (click)=" exitPage()">Exit Page</button>
                 </div>
             </div>
         </div>
     </div>
-</div> 
-
-
-    
+</div>
