@@ -35,16 +35,6 @@ export class DecisionTabComponent {
 
  
 
-   applyFilter(event: any) {
-    const filterValue = event.target.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
-    if (filterValue.trim() === '') {
-      // If the input value is empty, show the original data
-      this.dataSourceFiltered = this.dataSource;
-    } else {
-      // Otherwise, filter the original data based on the input value
-      this.dataSourceFiltered = this.dataSource.filter(item => item.id.toString().includes(filterValue));
-    }
-  }
   ngOnInit(): void {
     this.getAssigned();
   }
@@ -65,6 +55,18 @@ export class DecisionTabComponent {
 
       }
     );
+  }
+
+  
+   applyFilter(event: any) {
+    const filterValue = event.target.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+    if (filterValue.trim() === '') {
+      // If the input value is empty, show the original data
+      this.dataSourceFiltered = this.dataSource;
+    } else {
+      // Otherwise, filter the original data based on the input value
+      this.dataSourceFiltered = this.dataSource.filter(item => item.id.toString().includes(filterValue));
+    }
   }
 
 

@@ -23,8 +23,6 @@ export class AssignCaseComponent {
    
     
 
-
-
   goToCaseDetails() {
     // Navigate to the "case-details" route
     this.router.navigate(['/case-details']);
@@ -42,7 +40,6 @@ export class AssignCaseComponent {
   assignedCases: number = 0;
   unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
-
   UnAssignedData: any[] = []; // Your data array
   AssignedData: any[] = []; // Your data array
   casesData: any[] = []; // Your data array
@@ -54,144 +51,64 @@ export class AssignCaseComponent {
 
    
 
- 
-
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.getUnAssigned();
-    this.getCases();
     this.getAssigned();
-
-  }
- 
-  setSearchOption(option: string) {
-    this.searchOption = option;
-  }
-  search(): void {
-    console.log('Search method called'); // Debugging line
-    this.currentPage = 1; // Reset current page for search
-    this.casesData = this.casesData.filter(item => {
-      switch (this.searchParams.param) {
-        case 'cifId':
-          return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'assignedEmail':
-          return item.assignedEmail.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'accountName':
-          return item.accountName.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'loanAccount':
-          return item.loanAccount.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        default:
-          return false;
-      }
-    });
-  }
-
-   getUnAssigned(): void {
-    this.sharedService. getUnAssigned().subscribe(
-      (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.UnAssignedData = result;
-         this.calculateCaseCounts(); 
-        // Calculate case counts after receiving data
-
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
-      }
-    );
-  }
- 
-
-
-
-  getCases(): void {
-    this.sharedService.getCases().subscribe(
-      (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.casesData = result;
-        this.calculateCaseCounts(); // Calculate case counts after receiving data
-
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
-      }
-    );
-  }
-
-
- 
-
-
-getAssigned(): void {
-    this.sharedService.getAssigned().subscribe(
+   }
+     getAssigned(): void {
+     this.sharedService.getAssigned().subscribe(
       (result: any[]) => {
         // Assign the 'result' array to your component property
         this.AssignedData = result;
-        this.calculateCaseCounts(); // Calculate case counts after receiving data
+       this.calculateCaseCounts();
 
       },
       (error: HttpErrorResponse) => {
         console.error('Error fetching Status:', error);
         // Handle errors here, if necessary
+
       }
     );
   }
 
-
-  
-
-
-  
-  calculateCaseCounts(): void {
-
+   calculateCaseCounts(): void {
     // Reset counts
-    this.totalCases = this.casesData.length;
+    this.totalCases = this.AssignedData.length;
     this.assignedCases = 0;
     this.unassignedCases = 0;
 
     // Count assigned and unassigned cases
-    this.casesData.forEach(item => {
+    this.AssignedData.forEach(item => {
       if (item.assigned === 'Y') {
         this.assignedCases++;
       } else {
         this.unassignedCases++;
       }
     });
-       this.UnAssignedData.forEach(item => {
-      if (item.unassigned === 'Y') {
-        this.unassignedCases++;
-      } else {
-        this.assignedCases++;
+  }
+
+
+
+  
+ getUnAssigned(): void {
+    this.sharedService.getUnAssigned().subscribe(
+      (result: any[]) => {
+        // Assign the 'result' array to your component property
+        this.UnAssignedData = result;
+        // Calculate case counts after receiving data
+
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching Status:', error);
+        // Handle errors here, if necessary
+
       }
-    });
-
-
-
-
+    );
   }
 
-  // Method to handle page change event
-  pageChanged(event: any): void {
-    this.currentPage = event.page;
-    this.getAssigned();
-    this.getUnAssigned();
-  }
-  
-
-  // Method to handle search query change
-  onSearch(): void {
-    this.currentPage = 1; // Reset current page when performing a new search
-    this.getUnAssigned();
-     this.getAssigned();
-  }
-
-  
-
-  // Getter for filtered data based on search term
-  get filteredData() {
+    get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      return this.AssignedData.filter, this.UnAssignedData.filter(item => {
+      return this.AssignedData.filter(item => {
         // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
@@ -202,12 +119,8 @@ getAssigned(): void {
       });
     } else {
       return this.AssignedData;
-     
-
     }
-    
   }
-
 
   exportToExcel(): void {
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.getDataArray());
@@ -256,6 +169,38 @@ getAssigned(): void {
     return dataArray;
   }
 
+
+  
+
+  
+   applyFilter(event: any) {
+    const filterValue = event.target.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+    if (filterValue.trim() === '') {
+      // If the input value is empty, show the original data
+      this.UnAssignedData = this.UnAssignedData;
+    } else {
+      // Otherwise, filter the original data based on the input value
+       this.UnAssignedData =  this.UnAssignedData.filter(item => item.id.toString().includes(filterValue));
+    }
+  }
+    pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.getUnAssigned();
+    
+  }
+   onSearch(): void {
+    this.currentPage = 1; // Reset current page when performing a new search
+   this.getAssigned();
+  }
+
+
+
+
+
+   
+ 
+
+ 
 
    showUnassignedCases() {
         this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
