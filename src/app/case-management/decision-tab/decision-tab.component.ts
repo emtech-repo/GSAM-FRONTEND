@@ -18,7 +18,7 @@ export class DecisionTabComponent {
   currentPage: number = 1;
   dataSource: any[] = [];
   dataSourceFiltered: any[] = [];
-   statusData: any[] = []; // Your data array
+  AssignedsData: any[] = []; // Your data array
 
   
 
@@ -45,16 +45,17 @@ export class DecisionTabComponent {
     }
   }
   ngOnInit(): void {
-    this.getStatus();
+    this.getAssigned();
+    
   }
 
 
   
-  getStatus(): void {
-    this.sharedService.getStatus().subscribe(
+  getAssigned(): void {
+    this.sharedService.getAssigned().subscribe(
       (result: any[]) => {
         // Assign the 'result' array to your component property
-        this.statusData = result;
+        this.AssignedData = result;
         // Calculate case counts after receiving data
 
       },
