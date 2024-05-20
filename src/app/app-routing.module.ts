@@ -24,6 +24,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { CreateCaseComponent } from './case-management/create-case/create-case.component';
 
 import { ClaimTabComponent } from './billing-reconciliation/claim-tab/claim-tab.component';
+import { ApproveClaimComponent } from './billing-reconciliation/approve-claim/approve-claim.component';
 
 
 
@@ -132,10 +133,10 @@ export const routes: Routes = [
       component: AssignCaseComponent,
     },
 
-    // {
-    //   path: 'app-claim-tab',    
-    //   component: ClaimTabComponent,
-    // }, 
+    {
+      path: 'app-approve-claim',    
+      component: ApproveClaimComponent,
+    }, 
 
 
 
