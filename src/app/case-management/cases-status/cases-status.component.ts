@@ -2,20 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 
-
 import { SharedService } from '../../shared.service';
 import * as jspdf from 'jspdf';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-
-
-
 @Component({
-  selector: 'app-case-status',
-  templateUrl: './case-status.component.html',
-  styleUrl: './case-status.component.css'
+  selector: 'app-cases-status',
+  templateUrl: './cases-status.component.html',
+  styleUrl: './cases-status.component.css'
 })
-export class CaseStatusComponent {
+export class CasesStatusComponent {
   searchOption: string = 'assignedTo';
   searchQuery: string = '';
   searchTerm: string = '';
@@ -23,22 +19,19 @@ export class CaseStatusComponent {
   pageSize: number = 5;
   totalItems: number = 0;
   totalCases: number = 0;
-  assignedCases: number = 0;
-  unassignedCases: number = 0;
+  activeCases: number = 0;
+  closedCases: number = 0;
   searchParams = { param: '', value: '' }
-
-  data: any[] = []; // Your data array
-
+  // casesData: any[] = [];
   cd: any;
   apiUrl: string = '';
+  data: any[] = [];
 
-  constructor(private sharedService: SharedService, private http: HttpClient) { }
+  constructor(private sharedService: SharedService, private http: HttpClient,) { }
 
   ngOnInit(): void {
-
-    this.fetchData();
     this.apiUrl = this.sharedService.ActivityUrl;
-
+    this.fetchData();
 
   }
   setSearchOption(option: string) {
@@ -47,9 +40,7 @@ export class CaseStatusComponent {
   search(): void {
     console.log('Search method called'); // Debugging line
     this.currentPage = 1; // Reset current page for search
-
     this.data = this.data.filter(item => {
-
       switch (this.searchParams.param) {
         case 'cifId':
           return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
@@ -66,13 +57,13 @@ export class CaseStatusComponent {
   }
 
 
-
   // getCases(): void {
   //   this.sharedService.getCases().subscribe(
   //     (result: any[]) => {
-        
+       
   //       this.casesData = result;
   //       this.calculateCaseCounts(); 
+
   //     },
   //     (error: HttpErrorResponse) => {
   //       console.error('Error fetching Status:', error);
@@ -85,7 +76,6 @@ export class CaseStatusComponent {
       if (response && response.result && Array.isArray(response.result)) {
         this.data = response.result;
         this.calculateCaseCounts();
-
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -93,44 +83,28 @@ export class CaseStatusComponent {
       console.error('Error fetching data from API:', error);
     });
   }
-  // calculateCaseCounts(): void {
-   
-  //   this.totalCases = this.casesData.length;
-  //   this.assignedCases = 0;
-  //   this.unassignedCases = 0;
-
-   
-  //   this.casesData.forEach(item => {
-  //     if (item.assigned === 'Y') {
-  //       this.assignedCases++;
-  //     } else {
-  //       this.unassignedCases++;
-  //     }
-  //   });
-  // }
+  calculateCaseCounts(): void {
+    this.totalCases = this.data.length;
+    this.activeCases = this.data.filter(item => item.assigned === "N").length;
+    this.closedCases = this.data.filter(item => item.assigned === "Y").length;
+  }
 
   // Method to handle page change event
   pageChanged(event: any): void {
     this.currentPage = event.page;
-
     this.fetchData();
-
   }
 
   // Method to handle search query change
   onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
-
     this.fetchData();
-
   }
 
   // Getter for filtered data based on search term
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
-
       return this.data.filter(item => {
-
         // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
@@ -140,9 +114,7 @@ export class CaseStatusComponent {
         return false;
       });
     } else {
-
       return this.data;
-
     }
   }
 
@@ -194,10 +166,6 @@ export class CaseStatusComponent {
     return dataArray;
   }
 
-  calculateCaseCounts(): void {
-    this.totalCases = this.data.length;
-    this.assignedCases = this.data.filter(item => item.assigned === "Y").length;
-    this.unassignedCases = this.data.filter(item => item.assigned === "N").length;
-  }
-
 }
+
+

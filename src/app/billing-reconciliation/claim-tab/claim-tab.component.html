@@ -18,57 +18,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Claim Form</title>
+    <title>Claim Creation Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
+
     <div class="container mt-5">
-        <form action="/submit_claim" method="post">
-            <div class="form-group">
-                <label for="staffPf">Staff PF:</label>
-                <input type="text" class="form-control" id="staffPf" name="staffPf">
+        <div class="row mb-3">
+            <div class="col">
+                <h2>CLAIM</h2>
+                <h4>CREATION</h4>
             </div>
-            <div class="form-group">
-                <label for="staffName">Staff Name:</label>
-                <input type="text" class="form-control" id="staffName" name="staffName">
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address:</label>
-                <input type="email" class="form-control" id="email" name="email">
-            </div>
-            <div class="form-group">
-                <label for="accountNumber">Account Number:</label>
-                <input type="text" class="form-control" id="accountNumber" name="accountNumber">
-            </div>
-            <div class="form-group">
-                <label for="claimAmount">Claim Amount:</label>
-                <input type="number" class="form-control" id="claimAmount" name="claimAmount">
-            </div>
-            <div class="form-group">
-                <label for="claimDetails">Claim Request Details:</label>
-                <textarea class="form-control" id="claimDetails" name="claimDetails" rows="4"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Claim Type:</label>
-                <div class="btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary active">
-                        <input type="radio" name="claimType" value="internal" checked> INTERNAL
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="claimType" value="external"> EXTERNAL
-                    </label>
+        </div>
+
+   
+
+        <form>
+            <!-- Dropdowns -->
+            <div class="form-group row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <label for="service-name">Service Name</label>
+                    <select id="service-name" name="service-name" class="form-control">
+                        <option value="Lawyers">Option 1</option>
+                        <option value="Drinking Water">Option 2</option>
+                        <!-- Add more options here -->
+                    </select>
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="service-provider">Service Provider</label>
+                    <select id="service-provider" name="service-provider" class="form-control">
+                        <option value="Sam & Advocates">Provider 1</option>
+                        <option value="Nairobi Water">Provider 2</option>
+                        <!-- Add more providers here -->
+                    </select>
+                </div>
+
+
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <label for="service-name">Account Number</label>
+                    <select id="service-name" name="service-name" class="form-control">
+                        <option value="option1">987654321</option>
+                        <option value="option2">1357972877</option>
+                        <!-- Add more options here -->
+                    </select>
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="service-provider">Email Address</label>
+                    <select id="service-provider" name="service-provider" class="form-control">
+                        <option value="provider1">johnkatumo305.com</option>
+                        <option value="provider2">johnkatumo.co.ke</option>
+                        <!-- Add more providers here -->
+                    </select>
+                </div>
+
+
+
+
+                <div class="col-md-4">
+                    <label for="service-date">Service Date</label>
+                    <input type="date" id="service-date" name="service-date" class="form-control">
                 </div>
             </div>
+
+            <!-- Other input fields (Account Number, Email Address, Claim Amount, Claim Request Details) go here -->
+
             <div class="form-group">
-                <label for="supportingDocument">Attach Supporting Document:</label>
-                <input type="file" class="form-control-file" id="supportingDocument" name="supportingDocument">
+                <label for="claim-details">Claim Request Details</label>
+                <textarea id="claim-details" name="claim-details" class="form-control" rows="4"></textarea>
             </div>
+
+            <div class="form-group">
+                <label for="supporting-doc">Attach Supporting Document</label>
+                <input type="file" id="supporting-doc" name="supporting-doc" class="form-control-file">
+            </div>
+
             <button type="submit" class="btn btn-primary">Submit Claim</button>
         </form>
     </div>
 
-   
 </body>
 
 </html>
@@ -84,68 +114,92 @@
                 <!-- Display content for "Internal claim" tab -->
 
             <!DOCTYPE html>
-            <html lang="en">
-            
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-                <title>Claim Form</title>
-            </head>
-            
-            <body>
-                <div class="container mt-5">
-                    <form action="/submit_claim" method="post">
-                        <div class="form-group">
-                            <label for="staffPf">Staff PF:</label>
-                            <input type="text" class="form-control" id="staffPf" name="staffPf">
-                        </div>
-                        <div class="form-group">
-                            <label for="staffName">Staff Name:</label>
-                            <input type="text" class="form-control" id="staffName" name="staffName">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address:</label>
-                            <input type="email" class="form-control" id="email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="accountNumber">Account Number:</label>
-                            <input type="text" class="form-control" id="accountNumber" name="accountNumber">
-                        </div>
-                        <div class="form-group">
-                            <label for="claimAmount">Claim Amount:</label>
-                            <input type="number" class="form-control" id="claimAmount" name="claimAmount">
-                        </div>
-                        <div class="form-group">
-                            <label for="claimDetails">Claim Request Details:</label>
-                            <textarea class="form-control" id="claimDetails" name="claimDetails" rows="4"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Claim Type:</label>
-                            <div class="btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-secondary active">
-                                    <input type="radio" name="claimType" value="internal" checked> INTERNAL
-                                </label>
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="claimType" value="external"> EXTERNAL
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="supportingDocument">Attach Supporting Document:</label>
-                            <input type="file" class="form-control-file" id="supportingDocument" name="supportingDocument">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit Claim</button>
-                    </form>
+    <html>
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Claim Creation Form</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    
+    <body>
+    
+        <div class="container mt-5">
+            <div class="row mb-3">
+                <div class="col">
+                    <h2>CLAIM</h2>
+                    <h4>CREATION</h4>
                 </div>
-            
-                <!-- Include Bootstrap JS and jQuery -->
-                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            </body>
-            
-            </html>
+            </div>
+    
+    
+    
+            <form>
+                <!-- Dropdowns -->
+                <div class="form-group row">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <label for="service-name">Staff PF</label>
+                        <select id="service-name"service-name ="service-name" class="form-control">
+                            <option value="Lawyers">Option 1</option>
+                            <option value="Drinking Water">Option 2</option>
+                            <!-- Add more options here -->
+                        </select>
+                    </div>
+    
+                    <div class="col-md-4">
+                        <label for="service-provider">Staff Name</label>
+                        <select id="service-provider" name="service-provider" class="form-control">
+                            <option value="Sam & Advocates">Provider 1</option>
+                            <option value="Nairobi Water">Provider 2</option>
+                            <!-- Add more providers here -->
+                        </select>
+                    </div>
+    
+    
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <label for="service-name">Email address</label>
+                        <select id="service-name" name="service-name" class="form-control">
+                            <option value="option1">987654321</option>
+                            <option value="option2">1357972877</option>
+                            <!-- Add more options here -->
+                        </select>
+                    </div>
+    
+                    <div class="col-md-4">
+                        <label for="service-provider">Account Number</label>
+                        <select id="service-provider" name="service-provider" class="form-control">
+                            <option value="provider1">johnkatumo305.com</option>
+                            <option value="provider2">johnkatumo.co.ke</option>
+                            <!-- Add more providers here -->
+                        </select>
+                    </div>
+    
+    
+    
+    
+                   
+                </div>
+    
+                <!-- Other input fields (Account Number, Email Address, Claim Amount, Claim Request Details) go here -->
+    
+                <div class="form-group">
+                    <label for="claim-details">Claim Request Details</label>
+                    <textarea id="claim-details" name="claim-details" class="form-control" rows="4"></textarea>
+                </div>
+    
+                <div class="form-group">
+                    <label for="supporting-doc">Attach Supporting Document</label>
+                    <input type="file" id="supporting-doc" name="supporting-doc" class="form-control-file">
+                </div>
+    
+                <button type="submit" class="btn btn-primary">Submit Claim</button>
+            </form>
+        </div>
+    
+    </body>
+    
+    </html>
 
             </ng-container>
           

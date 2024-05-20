@@ -308,6 +308,28 @@ export class SharedService {
     }
     return false;
   }
+  isManager(): boolean {
+    // Example logic to check if user is an admin
+    // You can modify this based on how you store user roles in your system
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const parsedUser = JSON.parse(currentUser);
+      // Assuming user role is stored in 'role' property
+      return parsedUser.role === 'manager';
+    }
+    return false;
+  }
+  isOfficer(): boolean {
+    // Example logic to check if user is an admin
+    // You can modify this based on how you store user roles in your system
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const parsedUser = JSON.parse(currentUser);
+      // Assuming user role is stored in 'role' property
+      return parsedUser.role === 'officer';
+    }
+    return false;
+  }
 
 
 
