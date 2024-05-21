@@ -70,13 +70,13 @@ export class CaseStatusComponent {
   // getCases(): void {
   //   this.sharedService.getCases().subscribe(
   //     (result: any[]) => {
-        
+
   //       this.casesData = result;
   //       this.calculateCaseCounts(); 
   //     },
   //     (error: HttpErrorResponse) => {
   //       console.error('Error fetching Status:', error);
-        
+
   //     }
   //   );
   // }
@@ -94,12 +94,12 @@ export class CaseStatusComponent {
     });
   }
   // calculateCaseCounts(): void {
-   
+
   //   this.totalCases = this.casesData.length;
   //   this.assignedCases = 0;
   //   this.unassignedCases = 0;
 
-   
+
   //   this.casesData.forEach(item => {
   //     if (item.assigned === 'Y') {
   //       this.assignedCases++;
