@@ -1,76 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Refinance Report</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
 
-<body>
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="row">
+            <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                <form class="form-inline" style="margin-left: -15px; margin-top: 15px;">
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <div class="search-bar" style="margin-left: 1px; border-radius: 20px; width: 700px;">
+                            <input type="text" placeholder="Search..." [(ngModel)]="searchQuery" (input)="filterItems()"
+                                name="searchQuery" style="height: 30px;width: 100%;border-radius: 5px;color: maroon; ">
+                            <ul *ngIf="showDropdown && filteredItems.length > 0">
+                                <li *ngFor="let item of filteredItems" (click)="navigateToPage(item)">{{ item.title }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
 
-    <div class="container mt-3">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Loan Refinance Report</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <input type="search" class="form-control" placeholder="Search by Report name">
-                    </li>
-                </ul>
+                
+
             </div>
-        </nav>
 
-        <!-- Form -->
-        <div class="card p-3 mt-3">
-            <form>
-                <!-- Branch ID -->
-                <div class="form-group row">
-                    <label for="branchId" class="col-sm-2 col-form-label">Branch ID</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="branchId" class="form-control">
-                    </div>
-                </div>
-
-                <!-- Scheme Code -->
-                <div class="form-group row">
-                    <label for="schemeCode" class="col-sm-2 col-form-label">Scheme Code</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="schemeCode" class="form-control">
-                    </div>
-                </div>
-
-                <!-- Date Range -->
-                <div class="form-group row">
-                    <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
-                    <div class="col-sm-4">
-                        <input type="date" id="startDate" class="form-control">
-                    </div>
-                    <label for="endDate" class="col-sm-2 col-form-label">End Date</label>
-                    <div class="col-sm-4">
-                        <input type="date" id="endDate" class="form-control">
-                    </div>
-                </div>
-
-                <!-- Buttons -->
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <button type="button" class="btn btn-secondary">Cancel</button>
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        <button type="button" class="btn btn-primary">Generate</button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
+</div>
 
-    <!-- Bootstrap JS (optional) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-
-</html>

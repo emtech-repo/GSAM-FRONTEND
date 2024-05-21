@@ -53,6 +53,7 @@ import { RegisterComponent } from './register/register.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 
@@ -109,7 +110,11 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     MatInputModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
-    ApprovalModule // required animations module
+    ApprovalModule,
+   NgMultiSelectDropDownModule,
+  NgMultiSelectDropDownModule.forRoot(),
+
+
     
 
 
