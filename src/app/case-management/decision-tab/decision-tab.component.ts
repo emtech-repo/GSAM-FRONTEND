@@ -18,7 +18,8 @@ export class DecisionTabComponent {
   currentPage: number = 1;
   dataSource: any[] = [];
   dataSourceFiltered: any[] = [];
-   statusData: any[] = []; // Your data array
+ AssignedData: any[] = []; // Your data array
+    
 
   
 
@@ -34,27 +35,17 @@ export class DecisionTabComponent {
 
  
 
-   applyFilter(event: any) {
-    const filterValue = event.target.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
-    if (filterValue.trim() === '') {
-      // If the input value is empty, show the original data
-      this.dataSourceFiltered = this.dataSource;
-    } else {
-      // Otherwise, filter the original data based on the input value
-      this.dataSourceFiltered = this.dataSource.filter(item => item.id.toString().includes(filterValue));
-    }
-  }
   ngOnInit(): void {
-    this.getStatus();
+    this.getAssigned();
   }
 
 
   
-  getStatus(): void {
-    this.sharedService.getStatus().subscribe(
+  getAssigned(): void {
+    this.sharedService.getAssigned().subscribe(
       (result: any[]) => {
         // Assign the 'result' array to your component property
-        this.statusData = result;
+        this.AssignedData = result;
         // Calculate case counts after receiving data
 
       },
@@ -64,6 +55,18 @@ export class DecisionTabComponent {
 
       }
     );
+  }
+
+  
+   applyFilter(event: any) {
+    const filterValue = event.target.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+    if (filterValue.trim() === '') {
+      // If the input value is empty, show the original data
+      this.dataSourceFiltered = this.dataSource;
+    } else {
+      // Otherwise, filter the original data based on the input value
+      this.dataSourceFiltered = this.dataSource.filter(item => item.id.toString().includes(filterValue));
+    }
   }
 
 

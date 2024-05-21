@@ -20,6 +20,11 @@ import { CreateTwoComponent } from './create-two/create-two.component';
 import { LoanAccountLookUpComponent } from './loan-account-look-up/loan-account-look-up.component';
 import { AssignPopupComponent } from './assign-popup/assign-popup.component';
 
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
+import { CasesStatusComponent } from './cases-status/cases-status.component';
+
+
 
 
 
@@ -43,6 +48,7 @@ import { AssignPopupComponent } from './assign-popup/assign-popup.component';
     CreateTwoComponent,
     LoanAccountLookUpComponent,
     AssignPopupComponent,
+    CasesStatusComponent,
    
 
     
@@ -58,7 +64,8 @@ import { AssignPopupComponent } from './assign-popup/assign-popup.component';
     HighchartsChartModule,
     PaginationModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule
 
 
 
