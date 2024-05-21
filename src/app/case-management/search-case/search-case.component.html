@@ -38,7 +38,7 @@
                             <td>{{ loanItem.account_name }}</td>
                             <td>{{ loanItem.id }}</td>
                             <td>
-                                <button class="btn btn-sm btn-info" (click)="getLoanDetails(loanItem.acid)">View Details</button>
+                                <button class="btn btn-sm btn-info" (click)="showTabs = true; getLoanDetails(loanItem.acid)">View Details</button>
                             </td>
                         </tr>
                     </tbody>
@@ -57,7 +57,7 @@
 
     
     
-    <div class="container-fluid">
+    <div *ngIf="showTabs" class="container-fluid">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="pills-generaldetails-tab" (click)="setActiveTab('general')"
@@ -92,15 +92,17 @@
             </li>
         </ul>
     
-        <div class="tab-content-container">
-            <div class1="col-md-12 grid-margin stretch-card">
+       
+        <div class="card" >
+            <div class="col-md-12 grid-margin stretch-card">
                 <div class="container-fluid">
+        
+                    <!-- General Details Tab -->
                     <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'general'}" id="pills-generaldetails"
                         role="tabpanel" aria-labelledby="pills-general-tab">
-        
                         <div *ngIf="loanDetails">
                             <div class="row gx-2">
-                                
+                               
                                 <div class="col-md-3">
                                     <div class="form-group mb-2">
                                         <label for="accountName">CIF ID:</label>
@@ -176,176 +178,189 @@
                                 <div class="col-md-3">
                                     <div class="form-group mb-2">
                                         <label for="cashExceptionLimitDr">Cash Limit dr:</label>
-                                        <input type="text" id="cashExceptionLimitDr" class="form-control" [value]="loanDetails?.cashExceptionLimitDr" readonly>
+                                        <input type="text" id="cashExceptionLimitDr" class="form-control" [value]="loanDetails?.cashExceptionLimitDr"
+                                            readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group mb-2">
                                         <label for="glSubhead">GL-Subhead:</label>
-                                        <input type="text" id="glSubhead" class="form-control" [value]="loanDetails?.glSubhead"
-                                            readonly>
+                                        <input type="text" id="glSubhead" class="form-control" [value]="loanDetails?.glSubhead" readonly>
                                     </div>
                                 </div>
                                 
+                                </div>
+                                </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'loan'}" id="pills-loan-details" role="tabpanel"
+                                    aria-labelledby="pills-loandetails-tab">
+                                    <div *ngIf="loanDetails">
+                                        <div class="row gx-2">
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="accountName">Account Name:</label>
+                                                    <input type="text" id="accountName" class="form-control" [value]="loanDetails?.accountName"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="productCode">Loan Code:</label>
+                                                    <input type="text" id="productCode" class="form-control" [value]="loanDetails?.productCode"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="collateralsTotal">Collateral Total:</label>
+                                                    <input type="text" id="collateralsTotal" class="form-control"
+                                                        [value]="loanDetails.loan.collateralsTotal" readonly>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="interestCalculationMethod">Interest Type:</label>
+                                                    <input type="text" id="interestCalculationMethod" class="form-control"
+                                                        [value]="loanDetails.loan.interestCalculationMethod" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="disbursementDate">Disbursement Date:</label>
+                                                    <input type="text" id="disbursementDate" class="form-control"
+                                                        [value]="loanDetails.loan.disbursementDate" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="dailyInterestAmount">Daily Interest Amount:</label>
+                                                    <input type="text" id="dailyInterestAmount" class="form-control"
+                                                        [value]="loanDetails.loan.dailyInterestAmount" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="currentRate">Current Rate:</label>
+                                                    <input type="text" id="currentRate" class="form-control" [value]="loanDetails.loan.currentRate"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="installmentAmount">Installment:</label>
+                                                    <input type="text" id="installmentAmount" class="form-control"
+                                                        [value]="loanDetails.loan.installmentAmount" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="frequencyPeriod">Frequency:</label>
+                                                    <input type="text" id="frequencyPeriod" class="form-control"
+                                                        [value]="loanDetails.loan.frequencyPeriod" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="PrincipalAmount">PrincipalAmount:</label>
+                                                    <input type="text" id="principalAmount" class="form-control" [value]="loanDetails.loan.netAmount"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="accountOwnership">Scheme Type:</label>
+                                                    <input type="text" id="accountOwnership" class="form-control"
+                                                        [value]="loanDetails?.accountOwnership" readonly>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="glCode">GL:</label>
+                                                    <input type="text" id="glCode" class="form-control" [value]="loanDetails?.glCode" readonly>
+                                                </div>
+                                
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="loanPeriodMonths">Loan Tenure(Months):</label>
+                                                    <input type="text" id="loanPeriodMonths" class="form-control"
+                                                        [value]="loanDetails.loan.loanPeriodMonths" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="loanPeriodDays">Perfoming Days:</label>
+                                                    <input type="text" id="loanPeriodDays" class="form-control"
+                                                        [value]="loanDetails.loan.loanPeriodDays" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="disbursmentAccount">Cr account:</label>
+                                                    <input type="text" id="disbursmentAccount" class="form-control"
+                                                        [value]="loanDetails.loan.disbursmentAccount" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="disbursedBy">Disbursed By</label>
+                                                    <input type="text" id="disbursedBy" class="form-control" [value]="loanDetails.loan.disbursedBy"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="maturityDate">Related Fees:</label>
+                                                    <input type="text" id="maturityDate" class="form-control" [value]="loanDetails.loan.feesAmount"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="maturityDate">Maturity Date:</label>
+                                                    <input type="text" id="maturityDate" class="form-control" [value]="loanDetails.loan.maturityDate"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="disbursmentVerifiedBy">Approved by:</label>
+                                                    <input type="text" id="disbursmentVerifiedBy" class="form-control"
+                                                        [value]="loanDetails.loan.disbursmentVerifiedBy" readonly>
+                                                </div>
+                                            </div>
+                                <!-- More fields here as per original content -->
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'loan'}" id="pills-loan-details"
-                        role="tabpanel" aria-labelledby="pills-loandetails-tab">
-                        <div *ngIf="loanDetails">
-                            <div class="row gx-2">
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="accountName">Account Name:</label>
-                                        <input type="text" id="accountName" class="form-control" [value]="loanDetails?.accountName" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="productCode">Loan Code:</label>
-                                        <input type="text" id="productCode" class="form-control" [value]="loanDetails?.productCode" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="collateralsTotal">Collateral Total:</label>
-                                        <input type="text" id="collateralsTotal" class="form-control" [value]="loanDetails.loan.collateralsTotal" readonly>
-                                    </div>
-                                </div> 
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="interestCalculationMethod">Interest Type:</label>
-                                        <input type="text" id="interestCalculationMethod" class="form-control" [value]="loanDetails.loan.interestCalculationMethod" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="disbursementDate">Disbursement Date:</label>
-                                        <input type="text" id="disbursementDate" class="form-control" [value]="loanDetails.loan.disbursementDate"
-                                            readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="dailyInterestAmount">Daily Interest Amount:</label>
-                                        <input type="text" id="dailyInterestAmount" class="form-control"[value]="loanDetails.loan.dailyInterestAmount" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="currentRate">Current Rate:</label>
-                                        <input type="text" id="currentRate" class="form-control" [value]="loanDetails.loan.currentRate" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="installmentAmount">Installment:</label>
-                                        <input type="text" id="installmentAmount" class="form-control" [value]="loanDetails.loan.installmentAmount"
-                                            readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="frequencyPeriod">Frequency:</label>
-                                        <input type="text" id="frequencyPeriod" class="form-control" [value]="loanDetails.loan.frequencyPeriod"
-                                            readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="PrincipalAmount">PrincipalAmount:</label>
-                                        <input type="text" id="principalAmount" class="form-control"
-                                            [value]="loanDetails.loan.netAmount" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="accountOwnership">Scheme Type:</label>
-                                        <input type="text" id="accountOwnership" class="form-control" [value]="loanDetails?.accountOwnership"
-                                            readonly>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="glCode">GL:</label>
-                                        <input type="text" id="glCode" class="form-control" [value]="loanDetails?.glCode" readonly>
-                                    </div> 
-
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="loanPeriodMonths">Loan Tenure(Months):</label>
-                                        <input type="text" id="loanPeriodMonths" class="form-control" [value]="loanDetails.loan.loanPeriodMonths" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="loanPeriodDays">Perfoming Days:</label>
-                                        <input type="text" id="loanPeriodDays" class="form-control" [value]="loanDetails.loan.loanPeriodDays" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="disbursmentAccount">Cr account:</label>
-                                        <input type="text" id="disbursmentAccount" class="form-control" [value]="loanDetails.loan.disbursmentAccount" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="disbursedBy">Disbursed By</label>
-                                        <input type="text" id="disbursedBy" class="form-control" [value]="loanDetails.loan.disbursedBy" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="maturityDate">Related Fees:</label>
-                                        <input type="text" id="maturityDate" class="form-control" [value]="loanDetails.loan.feesAmount" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="maturityDate">Maturity Date:</label>
-                                        <input type="text" id="maturityDate" class="form-control" [value]="loanDetails.loan.maturityDate" readonly>
-                                    </div>
-                                </div>
-                               
-                                <div class="col-md-3">
-                                    <div class="form-group mb-2">
-                                        <label for="disbursmentVerifiedBy">Approved by:</label>
-                                        <input type="text" id="disbursmentVerifiedBy" class="form-control" [value]="loanDetails.loan.disbursmentVerifiedBy" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        
                     
-                    </div>
+        
+                    <!-- Repayment Tab -->
                     <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'repayment'}" id="pills-repayment"
                         role="tabpanel" aria-labelledby="pills-repaymnet-tab">
-                    
                         <div *ngIf="loanDetails">
-                            <div class="row ">
+                            <div class="row">
                                 <div class="col">
                                     <div class="form-group mb-2">
-                                        
                                         <div class="container">
-                                            
                                             <label for="loanSchedules">Loan Repayment Schedule:</label>
                                             <div style="display: flex; align-items: center;">
-                                                <img src="../assets/images/equity-bank.png" class="me-2" alt="logo" style="margin-right: 10px;width: 50px; height: auto;" />
+                                                <img src="../assets/images/equity-bank.png" class="me-2" alt="logo"
+                                                    style="margin-right: 10px;width: 50px; height: auto;" />
                                                 <div>
                                                     <p>Account Name: {{loanDetails?.accountName}}</p>
                                                     <p>Account Number: {{loanDetails?.acid}}</p>
                                                     <p>Date: {{getCurrentDate()}}</p>
                                                 </div>
                                             </div>
-
-
-                                            <div >
+                                            <div>
                                                 <table class="table mt-3 styled-table">
                                                     <thead class="thead-dark">
-                                                        
-                                                        <tr >
+                                                        <tr>
                                                             <th>ID</th>
                                                             <th>Start Date</th>
                                                             <th>Installment Number</th>
@@ -354,7 +369,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        
                                                         <tr *ngFor="let schedule of loanDetails.loan.loanSchedules">
                                                             <td>{{ schedule.id }}</td>
                                                             <td>{{ schedule.startDate }}</td>
@@ -365,56 +379,80 @@
                                                     </tbody>
                                                 </table>
                                                 <div>
-                                                    <button class="btn btn-sm btn-info" (click)="downloadPDF()">Download</button>
-                                                <div>
-                                            
+                                                    <button class="btn btn-sm btn-info"
+                                                        (click)="downloadPDF()">Download</button>
+                                                </div>
                                             </div>
-                                         </div>
-                                        
+                                        </div>
                                     </div>
                                 </div>
-                    
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'collateral'}" id="pills-collateral" role="tabpanel"
-                        aria-labelledby="pills-collateral-tab">
-                        <div *ngIf="loanDetails">
-                          <div class="col-md-3">
-                                <div class="form-group mb-2">
-                                    <label for="accountName">total:</label>
-                                    <input type="text" id="accountName" class="form-control" [value]="loanDetails?.accountName"
-                                        readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'guarantor'}" id="pills-guarantor" role="tabpanel"
-                        aria-labelledby="pills-guarantor-tab">
+        
+                    <!-- Guarantor Tab -->
+                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'guarantor'}" id="pills-guarantor"
+                        role="tabpanel" aria-labelledby="pills-guarantor-tab">
                         <div *ngIf="loanDetails">
                             <div class="col-md-3">
                                 <div class="form-group mb-2">
-                                    <label for="accountName">Acount Name:</label>
-                                    <input type="text" id="accountName" class="form-control"
-                                        [value]="loanDetails?.accountName" readonly>
+                                    <label for="accountName">Account Name:</label>
+                                    <input type="text" id="accountName" class="form-control" [value]="loanDetails?.accountName"
+                                    readonly>
+                                    
+                                </div>
+                                <div>
+                                    <table class="table mt-3 styled-table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Gurantor Code</th>
+                                                <th>Account Name</th>
+                                                <th>Gurantor Type</th>
+                                                <th>Amount Guaranteed</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let schedule of loanDetails.loan.loanGuarantors
+">
+                                                <td>{{ schedule.id }}</td>
+                                                <td>{{ schedule.guarantorCustomerCode}}</td>
+                                                <td>{{ schedule.loanSeries }}</td>
+                                                <td>{{ schedule.guarantorType }}</td>
+                                                <td>{{ schedule.guaranteeAmount}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <button class="btn btn-sm btn-info" (click)="downloadPDF()">Download</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'documents'}" id="pills-documents" role="tabpanel"
-                        aria-labelledby="pills-documents-tab">
-                        
+                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'collateral'}" id="pills-collateral" role="tabpanel"
+                        aria-labelledby="pills-collateral-tab">
+                        <div *ngIf="loanDetails">
+                            <div class="col-md-3">
+                                <div class="form-group mb-2">
+                                    <label for="accountName">Account Name:</label>
+                                    <input type="text" id="accountName" class="form-control" [value]="loanDetails?.accountName" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Documents Tab -->
+                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'documents'}" id="pills-documents"
+                        role="tabpanel" aria-labelledby="pills-documents-tab">
                         <div *ngIf="loanDetails">
                             <button class="btn btn-link" [routerLink]="['/documents/app-retrieve']">Go to Documentation</button>
                         </div>
-                        
                     </div>
+        
                 </div>
-               
             </div>
         </div>
-     
 
        
     </div>
