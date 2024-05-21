@@ -1,6 +1,7 @@
 
 
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 import { HttpErrorResponse } from '@angular/common/http';
@@ -34,6 +35,9 @@ export class SearchCaseComponent implements OnInit {
   loanItem: any;
   // Adjust the type as necessary
   activeTab: string = 'general';
+  
+  showTabs: boolean = false; // Property to control the visibility of the tabs
+
   // Assuming LoanData is the JSON object returned by the API
   pagedLoanData: any = {}; // Array to hold the currently displayed page data
   totalPages: number = 0;
@@ -47,7 +51,7 @@ export class SearchCaseComponent implements OnInit {
   @ViewChild('content') content!: ElementRef; 
 
 
-  constructor(private router: Router, private sharedService: SharedService) { }
+  constructor(private router: Router, private sharedService: SharedService, private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     // Assign a value to accountId
@@ -156,6 +160,7 @@ export class SearchCaseComponent implements OnInit {
   }
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+    
   }
   // In your Angular component
  
@@ -188,6 +193,7 @@ export class SearchCaseComponent implements OnInit {
         this.filterData();
         this.updatePagedLoanData();
         this.setActiveTab('general');
+        this.cdRef.detectChanges(); 
       },
       (error: HttpErrorResponse) => {
         console.error('Error fetching loans:', error);
@@ -221,6 +227,7 @@ export class SearchCaseComponent implements OnInit {
         // Handle loan details here
         // const url = '/search-case/' + acccountId; // Adjust the URL as needed
         // window.open(url, '_blank');
+        this.showTabs = true;
       },
       (error: HttpErrorResponse) => {
         console.error('Error fetching loan details:', error);
