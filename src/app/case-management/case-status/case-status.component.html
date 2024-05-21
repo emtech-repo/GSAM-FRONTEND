@@ -1,5 +1,3 @@
-<!-- <app-layout></app-layout> -->
-
 <div class="row">
     <div class="row">
         <div class="col-md-12 grid-margin transparent">
@@ -97,34 +95,12 @@
                         </div>
                     </div>
                     <div class="pagination-container">
-                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                        <!-- <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
                             (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
-                        </pagination>
+                        </pagination> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    /* CSS for Even Rows */
-    #example tr:nth-child(even) {
-        background-color: #c0c0c0;
-        /* Grey background for even rows */
-    }
-
-    /* CSS for Odd Rows */
-    #example tr:nth-child(odd) {
-        background-color: #ffffff;
-        /* White background for odd rows */
-    }
-</style>
-
-
-<style>
-    .export-buttons-container {
-        margin-bottom: 10px;
-        text-align: right;
-    }
-</style>
