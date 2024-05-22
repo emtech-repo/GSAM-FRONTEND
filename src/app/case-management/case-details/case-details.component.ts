@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { AssignPopupComponent } from '../assign-popup/assign-popup.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SharedService } from '../../shared.service';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import {  OnInit } from '@angular/core';
+
 
 
 
@@ -10,15 +14,16 @@ import { SharedService } from '../../shared.service';
   templateUrl: './case-details.component.html',
   styleUrl: './case-details.component.css'
 })
-export class CaseDetailsComponent {
-   recentActivityData: any[] = [];
+export class CaseDetailsComponent  implements OnInit  {
      totalItems: number = 0;
+selectedItem: any;
+selectedRowData: any;
 
 
  
   
 
-  constructor(private modalService: BsModalService,private sharedService: SharedService) { }
+  constructor(private modalService: BsModalService,private sharedService: SharedService,private http: HttpClient,private route: ActivatedRoute) { }
  
    bsModalRef: BsModalRef | undefined;
 
@@ -31,62 +36,37 @@ goToAssignPopup() {
  
   searchQuery: string = '';
   searchTerm: string = '';
+  UnAssigneddata: any[] = []; 
+  
 
-  currentPage: number = 1;
+   currentPage: number = 1;
   pageSize: number = 10;
+   UnAssignedUrl: string = '';
+
  
 
 
-  ngOnInit(): void {
-    this.fetchRecentActivity();
+   ngOnInit(): void {
+    // Retrieve the selected row data from the route parameter
+    this.route.params.subscribe(params => {
+      this.selectedRowData = JSON.parse(params['selectedRow']);
+    });
+  }
+ 
+
+   UnAssigned(): void {
+    this.http.get<any>(this.UnAssignedUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.UnAssigneddata = response.result;
+
+      } else {
+        console.error('Invalid data received from API:', response);
+      }
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
   }
 
-  fetchRecentActivity(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-
-    this.sharedService.getRecentActivity(this.searchQuery)
-      .subscribe((response: any) => { // Specify the type of the response
-        if (response && response.statusCode === 200) {
-          const result = response.result as any[];
-          if (Array.isArray(result)) {
-            this.recentActivityData = result.slice(startIndex, endIndex);
-            this.totalItems = result.length;
-          } else {
-            console.error('Error: Data result is not an array.');
-          }
-        } else {
-          console.error('Error: Unexpected status code:', response && response.statusCode);
-        }
-      }, error => {
-        console.error('Error fetching recent activity:', error);
-      });
-  }
-
-
-  pageChanged(event: any): void {
-    this.currentPage = event.page;
-    this.fetchRecentActivity();
-  }
-
-  onSearch(): void {
-    this.currentPage = 1;
-    this.fetchRecentActivity();
-  }
-
-  get filteredData() {
-    if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      return this.recentActivityData.filter(item => {
-        for (let key in item) {
-          if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
-            return true;
-          }
-        }
-        return false;
-      });
-    } else {
-      return this.recentActivityData;
-    }
-  }
+  
 
 }

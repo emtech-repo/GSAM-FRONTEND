@@ -87,3 +87,23 @@ table td {
     margin-right: 10px;
     /* Adjust the value to increase or decrease space */
 }
+
+
+/* CSS for Even Rows */
+#example tr:nth-child(even) {
+    background-color: #c0c0c0;
+    /* Grey background for even rows */
+}
+
+/* CSS for Odd Rows */
+#example tr:nth-child(odd) {
+    background-color: #ffffff;
+    /* White background for odd rows */
+}
+
+.export-buttons-container {
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+
