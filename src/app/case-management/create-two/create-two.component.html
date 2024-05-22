@@ -68,7 +68,7 @@
                             <label for="inputEmail4">Syndicated</label>
                             <select class="input--style-5" name="members" style="width: 100%;" [(ngModel)]="loanDetails.SyndicatedFlag">
                                 <option value="Y">Yes</option>
-                                <option value="N">N0</option>
+                                <option value="N">No</option>
                             </select>
                         </div>
                     </div>
@@ -76,8 +76,8 @@
                         <div class="col-md-9">
                             <div class="px-5 py-4">
                                 <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="closeModal()" style="margin-right: 1px;border-radius:3px ; ">Exit Page</button>
-                                    <button type="button" class="btn btn-primary small-btn" style="margin-right: -150px;border-radius:3px ;" (click)="CreateCase()">Create</button>
+                                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"  style="margin-right: 1px;border-radius:3px ;"  (click)="goToCreateCase()">Exit Page</button>
+                                    <button type="button" class="btn btn-primary small-btn" style="margin-right: -150px;border-radius:3px ;" >Create</button>
 
                                 </div>
                               <!-- <p *ngIf="caseId">Case ID: {{ caseId }}</p> -->

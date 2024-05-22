@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
 import { BsModalRef, } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
+
 
 
 @Component({
@@ -18,7 +19,8 @@ export class DecisionTabComponent {
   currentPage: number = 1;
   dataSource: any[] = [];
   dataSourceFiltered: any[] = [];
- AssignedData: any[] = []; // Your data array
+  Assigneddata: any[] = []; 
+  AssignedUrl: string = '';
     
 
   
@@ -31,31 +33,31 @@ export class DecisionTabComponent {
     this.selectedIndex = index;
   }
   constructor(private router: Router, private sharedService: SharedService,
-    public bsModalRef: BsModalRef) { }
+    public bsModalRef: BsModalRef, private http: HttpClient) { }
 
  
+ ngOnInit(): void {
 
-  ngOnInit(): void {
+    
+    this.AssignedUrl= this.sharedService.AssignedUrl;
+
     this.getAssigned();
   }
 
-
-  
   getAssigned(): void {
-    this.sharedService.getAssigned().subscribe(
-      (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.AssignedData = result;
-        // Calculate case counts after receiving data
+    this.http.get<any>(this.AssignedUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.Assigneddata = response.result;
+       
 
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
-
+      } else {
+        console.error('Invalid data received from API:', response);
       }
-    );
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
   }
+ 
 
   
    applyFilter(event: any) {
