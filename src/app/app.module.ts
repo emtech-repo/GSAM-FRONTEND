@@ -95,6 +95,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    FormsModule,
+    
     BrowserAnimationsModule,
     ApprovalModule,
    NgMultiSelectDropDownModule,
