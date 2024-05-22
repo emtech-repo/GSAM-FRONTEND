@@ -21,6 +21,8 @@ export class SharedService {
 
   readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
   readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+  readonly ActiveUrl ='http://192.168.2.23:5260/api/Case/ActiveCases';
+  readonly ClosedUrl = 'http://192.168.2.23:5260/api/Case/ClosedCases';
 
 
 
@@ -33,9 +35,8 @@ export class SharedService {
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
 
   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
- readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
+   readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
   // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
- readonly CustomersUrl = 'assets/data/db.json';
 
  readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
 
@@ -231,6 +232,22 @@ export class SharedService {
         map((data: any) => data['UnAssigned']) 
       );
   }
+  getActive(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.ActiveUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched Active:', data)),
+        map((data: any) => data['Active'])
+      );
+  }
+  getClosed(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.ClosedUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched Closed:', data)),
+        map((data: any) => data['Closed'])
+      );
+  }
   
 
 
@@ -256,13 +273,7 @@ export class SharedService {
     ))
 
   }
-  getCustomers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.CustomersUrl}`)
-      .pipe(
-        tap((data: any[]) => console.log('Fetched Customers:', data)),
-        map((data: any) => data['Customers'])
-      );
-  }
+ 
 
 
   getMeetings(): Observable<any[]> {

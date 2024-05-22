@@ -12,6 +12,9 @@ import { saveAs } from 'file-saver';
   styleUrl: './cases-status.component.css'
 })
 export class CasesStatusComponent {
+  showActiveCasesFlag: boolean = true;
+  showClosedCasesFlag: boolean = true;
+  showTotalCasesFlag: boolean = true;
   searchOption: string = 'assignedTo';
   searchQuery: string = '';
   searchTerm: string = '';
@@ -25,13 +28,22 @@ export class CasesStatusComponent {
   // casesData: any[] = [];
   cd: any;
   apiUrl: string = '';
+  ActiveUrl: string = '';
+  ClosedUrl: string = '';
   data: any[] = [];
+  ClosedData: any[] = [];
+  ActiveData: any[] = [];
+  
 
   constructor(private sharedService: SharedService, private http: HttpClient,) { }
 
   ngOnInit(): void {
     this.apiUrl = this.sharedService.ActivityUrl;
+    this.ActiveUrl = this.sharedService.ActiveUrl
+    this.ClosedUrl = this.sharedService.ClosedUrl
     this.fetchData();
+    this.getActive();
+    this.getClosed();
 
   }
   setSearchOption(option: string) {
@@ -57,20 +69,20 @@ export class CasesStatusComponent {
   }
 
 
-  // getCases(): void {
-  //   this.sharedService.getCases().subscribe(
-  //     (result: any[]) => {
+   getCases(): void {
+     this.sharedService.getCases().subscribe(
+      (result: any[]) => {
        
-  //       this.casesData = result;
-  //       this.calculateCaseCounts(); 
+         this.data = result;
+        this.calculateCaseCounts(); 
 
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       console.error('Error fetching Status:', error);
+       },
+       (error: HttpErrorResponse) => {
+         console.error('Error fetching Status:', error);
         
-  //     }
-  //   );
-  // }
+       }
+     );
+  }
   fetchData(): void {
     this.http.get<any>(this.apiUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
@@ -83,6 +95,40 @@ export class CasesStatusComponent {
       console.error('Error fetching data from API:', error);
     });
   }
+  getActive(): void {
+    this.http.get<any>(this.ActiveUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.ActiveData = response.result;
+        this.calculateCaseCounts();
+      } else {
+        console.error('Invalid data received from API:', response);
+      }
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
+  }
+  getClosed(): void {
+    this.http.get<any>(this.ClosedUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.ClosedData = response.result;
+        this.calculateCaseCounts();
+      } else {
+        console.error('Invalid data received from API:', response);
+      }
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
+  }
+  showClosedCases() {
+    this.showClosedCasesFlag = !this.showClosedCasesFlag;
+  }
+  showActiveCases() {
+    this.showActiveCasesFlag = !this.showActiveCasesFlag;
+  }
+  showTotalCases() {
+    this.showTotalCasesFlag = !this.showTotalCasesFlag;
+  }
+
   calculateCaseCounts(): void {
     this.totalCases = this.data.length;
     this.activeCases = this.data.filter(item => item.assigned === "N").length;
@@ -119,38 +165,38 @@ export class CasesStatusComponent {
   }
 
 
-  exportToExcel(): void {
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.getDataArray());
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const data: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(data, 'table.xlsx');
-  }
+  // exportToExcel(): void {
+  //   const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.getDataArray());
+  //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  //   const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  //   const data: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+  //   saveAs(data, 'table.xlsx');
+  // }
 
-  exportToPDF(): void {
-    const doc = new jspdf.default();
-    const headers = ['Quote#', 'Product', 'Business type', 'Policy holder', 'Premium', 'Status', 'Updated at'];
-    const tableData = this.filteredData.map(item => [
-      item.userId,
-      item.id,
-      item.title,
-      item.completed,
-      // Add other properties here based on your table structure
-    ]);
+  // exportToPDF(): void {
+  //   const doc = new jspdf.default();
+  //   const headers = ['Quote#', 'Product', 'Business type', 'Policy holder', 'Premium', 'Status', 'Updated at'];
+  //   const tableData = this.filteredData.map(item => [
+  //     item.userId,
+  //     item.id,
+  //     item.title,
+  //     item.completed,
+  //     // Add other properties here based on your table structure
+  //   ]);
 
-    // doc.autoTableSetDefaults({
-    //   headStyles: { fillColor: [100, 100, 255] },
-    //   bodyStyles: { textColor: 0 },
-    //   alternateRowStyles: { fillColor: [245, 245, 245] },
-    // });
+  //   // doc.autoTableSetDefaults({
+  //   //   headStyles: { fillColor: [100, 100, 255] },
+  //   //   bodyStyles: { textColor: 0 },
+  //   //   alternateRowStyles: { fillColor: [245, 245, 245] },
+  //   // });
 
-    // doc.autoTable({
-    //   head: [headers],
-    //   body: tableData,
-    // });
-    doc.save('table.pdf');
-  }
+  //   // doc.autoTable({
+  //   //   head: [headers],
+  //   //   body: tableData,
+  //   // });
+  //   doc.save('table.pdf');
+  // }
 
   getDataArray(): any[][] {
     const dataArray: any[][] = [];
@@ -165,6 +211,18 @@ export class CasesStatusComponent {
     });
     return dataArray;
   }
+
+  ex() {
+    this.showTotalCasesFlag = false; // Set the flag to false to hide the Total cases page
+  }
+  exit() {
+    this.showActiveCasesFlag = false; // Set the flag to false to hide the assigned cases page
+  }
+
+  exitPage() {
+    this.showClosedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+  }
+ 
 
 }
 
