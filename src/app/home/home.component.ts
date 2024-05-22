@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
     },
      {
       title: "request service",
-      path: "../../../billing-reconciliation/request-service"
+      path: "../../../billing-reconciliation/app-request-service"
     },
       {
       title: " view request ",
