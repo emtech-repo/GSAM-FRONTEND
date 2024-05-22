@@ -19,29 +19,22 @@
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputloanaccount" style="margin-bottom: -1px;">Loan Account
                                             </label>
-                                            <input type="text" class="form-control" id="loanAccount"
-                                                [(ngModel)]=" UnAssigneddata[0].loanAccount" name="loanAccount"
-                                                [readonly]="true" [readonly]="true" />
+                                            <input type="text" class="form-control" id="CifID" [value]=" UnAssigneddata.loanAccount|| ''" readonly />
+
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputcasenumber">Case Number </label>
-                                            <input type="text" class="form-control" id="account_name" name="caseNumber "
-                                                [readonly]="true" />
+                                            <input type="text" class="form-control" id="caseNumber" [value]=" UnAssigneddata.caseNumber|| ''" readonly />
+
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputloan"> Loan Amount</label>
-                                            <input type="text" class="form-control" id="loanAmount"
-                                                [readonly]="true" />
+                                        <input type="text" class="form-control" id="loanAmount" [value]=" UnAssigneddata.loanAmount|| ''" readonly />
+
 
                                         </div>
-                                        <div class="input-group" style="border-radius: 5px;margin-top: -20px;">
-                                            <label for="inputsundicatedflag">Syndicated</label>
-                                            <select class="input--style-5" name="members" style="width: 100%;">
-                                                <option value="member1">Yes</option>
-                                                <option value="member2">No</option>
-                                            </select>
-                                        </div>
+                                        
 
                                     </div>
                                 </div>
@@ -52,23 +45,22 @@
                                     <div class="col-md-12 ps-9">
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputcifId">CIF ID</label>
-                                            <input type="text" class="form-control" id="cifId" name="cifId"
-                                                [(ngModel)]="UnAssigneddata[0].cifId" name="cifId" [readonly]="true" />
+                                             <input type="text" class="form-control" id="cifId" [value]=" UnAssigneddata.cifId|| ''" readonly />
+
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inpubranchid">Branch ID</label>
-                                            <input type="text" class="form-control" id="solId"
-                                                [(ngModel)]="UnAssigneddata[0].solId " name="solId" [readonly]="true" />
+                                          <input type="text" class="form-control" id="solId" [value]=" UnAssigneddata.solId|| ''" readonly />
+
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inputinstalments">Monthly Instalments</label>
-                                            <input type="text" class="form-control" id="InitialMonthlyInstalments"
-                                                [(ngModel)]="UnAssigneddata[0].loanAccount " name="loanAccount"
-                                                [readonly]="true" />
-
+                                            <label for="inputloanbalance">Loan Balance</label>
+                                            <input type="text" class="form-control" id="loanBalance" [value]=" UnAssigneddata.loanBalance|| ''" readonly />
+                                        
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -79,21 +71,23 @@
                                     <div class="col-md-12 ps-9">
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputaccname">Acc Name</label>
-                                            <input type="text" class="form-control" id="accountName"
-                                                name="accountName" [readonly]="true" />
+                                           <input type="text" class="form-control" id="accountName" [value]=" UnAssigneddata.accountName|| ''" readonly />
+
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputloantenure">Loan Tenure</label>
-                                            <input type="text" class="form-control" id="loanTenure" name="loanTenure"
-                                                [readonly]="true" />
+                                             <input type="text" class="form-control" id="loanTenure" [value]=" UnAssigneddata.loanTenure|| ''" readonly />
+
                                         </div>
-                                        <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inputloanbalance">Loan Balance</label>
-                                            <input type="text" class="form-control" id="loanBalance" name="loanBalance"
-                                                [(ngModel)]="UnAssigneddata[0].loanBalance " name="loanBalance"
-                                                [readonly]="true" />
+                                        <div class="input-group" style="border-radius: 5px;margin-top: -20px;">
+                                            <label for="inputsundicatedflag">Syndicated</label>
+                                            <select class="input--style-5" name="members" style="width: 100%;">
+                                                <option value="member1">Yes</option>
+                                                <option value="member2">No</option>
+                                            </select>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>

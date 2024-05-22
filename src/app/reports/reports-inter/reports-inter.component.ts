@@ -14,91 +14,47 @@ export class ReportsInterComponent implements OnInit {
   showDropdown: boolean = false; // Flag to show/hide dropdown
   items: any[] = [
     {
-      title: "create case",
+      title: "Loan Refinance Report",
       path: "../../../case-management/app-create-case"
     },
      {
-      title: "Search case",
+      title: "Loan Restructure Report",
       path: "../../../case-management/app-search-case"
     },
      {
-      title: " case status",
+      title: " Loan Recovery Report",
       path: "../../../case-management/app-case-status"
     },
      {
-      title: "documentation",
+      title: "Claim Reports",
       path: "../../../case-management/app-documentation"
     },
      {
-      title: "create meeting",
+      title: "Request Service Reports",
       path: "../../../case-management/app-create-meeting"
     },
      {
-      title: "case tracking",
+      title: "created cases reports",
       path: "../../../case-management/app-case-tracking"
     },
     {
-      title: "case decision",
+      title: "Unnasigned cases reports",
       path: "../../../case-management/app-case-decision"
     },
     
      {
-      title: "update user",
+      title: "assigned cases reports",
       path: "../../../app-admin-page"
     },
     
      {
-      title: "assign case",
+      title: "Active cases reports",
       path: "../../../case-management/app-assign-case"
     },
      {
-      title: "view claim",
+      title: "",
       path: "../../../billing-reconciliation/app-view-claims"
     },
-     {
-      title: "create claim",
-      path: "../../../billing-reconciliation/app-create-claim"
-    },
-     {
-      title: "request service",
-      path: "../../../billing-reconciliation/request-service"
-    },
-      {
-      title: " view request ",
-      path: "../../../billing-reconciliation/app-view-requests"
-    },
-     {
-      title: "contracts ",
-      path: "../../../contracts/app-contract-inter"
-    },
-    
-     {
-      title: " reports ",
-      path: "../../../'reports/app-reports-inter"
-    },
-     {
-      title: " search document ",
-      path: "../../../documents/app-search-document"
-    },
-     {
-      title: "retrieve document ",
-      path: "../../../documents/app-retrieve"
-    },
-     {
-      title: " request document ",
-      path: "../../../documents/app-request"
-    },
-     {
-      title: " upload document ",
-      path: "../../../documents/app-upload"
-    },
-    
-    
-    
-    
-    
-    
-    
     
     
 
