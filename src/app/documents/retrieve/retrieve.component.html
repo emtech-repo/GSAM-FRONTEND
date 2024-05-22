@@ -3,31 +3,41 @@
         <div class="col-12 col-lg-2 ">
             <div class="card small-card">
                 <div class="card-body">
+                    
                     <div class="d-grid">
-                        
-                        <button class="btn btn-primary btn-sm" (click)="toggleModal()">+ Add File</button>
-                        <div id="myModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fileUploadDialog">
+                            + Add File
+                        </button>
+                    
+                        <div class="modal fade" id="fileUploadDialog" tabindex="-1" aria-labelledby="fileUploadDialogLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" style="height: auto;">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Modal Header</h4>
+                                        <h4 class="modal-title" id="modal-basic-title">Upload File</h4>
+                                        <button type="button" class="close" aria-label="Close" data-bs-dismiss="modal" aria-hidden="true">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Some text in the modal.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <form (submit)="uploadFile($event)">
+                                            <div class="mb-3">
+                                                <label for="fileInput" class="form-label">Choose File</label>
+                                                <input type="file" class="form-control" id="fileInput" accept=".csv, .xlsx" #fileInput>
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-between">
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="bi bi-upload"></i> Upload
+                                                </button>
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                
-
-                  <h5 class="my-3">DMS</h5>
+                    <h5 class="my-3">DMS</h5>
                     <div class="fm-menu">
                         <div class="list-group list-group-flush">
                             <a href="javascript:;" class="list-group-item py-1"><i
@@ -38,10 +48,7 @@
                                     class="bx bx-analyse me-2"></i><span>Recents Files</span></a>
                             <a href="javascript:;" class="list-group-item py-1"><i
                                     class="bx bx-plug me-2"></i><span>Starred</span></a>
-                            <a href="javascript:;" class="list-group-item py-1"><i
-                                    class="bx bx-trash-alt me-2"></i><span>Deleted Files</span></a>
-                            <a href="javascript:;" class="list-group-item py-1"><i
-                                    class="bx bx-file me-2"></i><span>Archive</span></a>
+                            
                         </div>
                     </div>
                 </div>
@@ -77,7 +84,6 @@
                                         </div>
                                     </div>
                                 </div>
-                        
                                 <div class="col-12 col-lg-4 mb-3">
                                     <div class="card shadow border radius-5"
                                         style="background-image: url('assets/images/L.jpeg'); background-size: cover; background-position: center; height: 100px;">

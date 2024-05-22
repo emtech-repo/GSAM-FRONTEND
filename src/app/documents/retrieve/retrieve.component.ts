@@ -1,40 +1,45 @@
-import { Component, Renderer2, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, TemplateRef, Inject, PLATFORM_ID } from '@angular/core';
+import { Router } from '@angular/router';
+import { SharedService } from '../../shared.service'; // Import your SharedService
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-retrieve',
   templateUrl: './retrieve.component.html',
   styleUrls: ['./retrieve.component.css']
 })
-export class RetrieveComponent implements AfterViewInit {
-  isModalVisible = false;
-  modalElement?: HTMLElement;
+export class RetrieveComponent {
+  @ViewChild('searchDialog') searchDialog!: ElementRef;
+  searchForm: FormGroup; // Define searchForm FormGroup
 
-  constructor(private renderer: Renderer2, private el: ElementRef, private cdr: ChangeDetectorRef) { }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.modalElement = this.el.nativeElement.querySelector('#myModal');
-      this.cdr.detectChanges(); // Trigger change detection
+  constructor(private router: Router, private sharedService: SharedService, @Inject(PLATFORM_ID) private platformId: Object, private modalService: NgbModal) {
+    // Initialize searchForm FormGroup
+    this.searchForm = new FormGroup({
+      accNumber: new FormControl(''),
+      accName: new FormControl(''),
+      cifID: new FormControl(''),
+      startDate: new FormControl(''),
+      endDate: new FormControl('')
     });
   }
 
-  toggleModal() {
-    if (this.isModalVisible) {
-      this.hideModal();
-    } else {
-      this.showModal();
-    }
+  openModal(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
-  showModal() {
-    if (this.modalElement) {
-      this.renderer.addClass(this.modalElement, 'show');
-    }
+  onSubmit(event?: Event) {
+    // Your form submission logic here
   }
-
-  hideModal() {
-    if (this.modalElement) {
-      this.renderer.removeClass(this.modalElement, 'show');
+  uploadFile(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      // Example: Send the file to a backend endpoint
+      // // this.http.post('/api/upload', file).subscribe(
+      //   response => console.log(response),
+      //   error => console.error(error)
+      // );
     }
   }
 }
