@@ -189,6 +189,14 @@ label {
   /* Adjust padding as needed */
   margin-bottom: 20px;
   /* Add margin to separate from other elements */
+
+  /* Align contents to the far left */
+  text-align: left;
+  /* Corrected to align content to the left */
+  padding-left: 0;
+  /* Removes extra padding on the left side */
+  margin-left: 0;
+  /* Corrected to remove extra margin on the left side */
 }
 
 .tab-pane {
