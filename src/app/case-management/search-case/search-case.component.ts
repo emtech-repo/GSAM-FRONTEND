@@ -41,7 +41,7 @@ export class SearchCaseComponent implements OnInit {
 
   // Assuming LoanData is the JSON object returned by the API
   pagedLoanData: any = {}; // Array to hold the currently displayed page data
-  totalPages: number = 0;
+  totalPages: number = 5;
   currentPage: number = 1;
   pageSize: number = 5;
   totalItems: number = 0;

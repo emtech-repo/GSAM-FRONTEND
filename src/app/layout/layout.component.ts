@@ -30,7 +30,9 @@ export class LayoutComponent implements OnInit {
       this.router.navigate(['/Authenticate']);
 
   }
-
+  navigateToRetrieve() {
+    this.router.navigate(['/documents/retrieve']); // Navigate to the RetrieveComponent in the Documents module
+  }
 
   
 
