@@ -8,6 +8,9 @@ import { CreateClaimComponent } from './create-claim/create-claim.component';
 import { ViewClaimsComponent } from './view-claims/view-claims.component';
 import { ClaimTabComponent } from './claim-tab/claim-tab.component';
 import { ApproveClaimComponent } from './approve-claim/approve-claim.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -18,10 +21,13 @@ import { ApproveClaimComponent } from './approve-claim/approve-claim.component';
     ViewClaimsComponent,
     ClaimTabComponent,
     ApproveClaimComponent
+    
   ],
   imports: [
     CommonModule,
-    BillingReconciliationRoutingModule
+    BillingReconciliationRoutingModule,
+    PaginationModule.forRoot(), 
+    FormsModule
   ]
 })
 export class BillingReconciliationModule { }
