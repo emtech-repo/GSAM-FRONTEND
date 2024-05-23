@@ -15,16 +15,14 @@
                                         <label for="role">Function</label>
                                     </div>
                                     <div class="col-md-9">
-                                       <select class="form-control" (change)="onFunctionChange($event)">
-                                        <option value="choose option">Choose Option</option>
-                                        <option value="2">ADD</option>
-                                        <option value="3">MODIFY</option>
-                                        <option value="4">DELETE</option>
-                                        <option value="5">ENQUIRE</option>
-
+                                        <select class="form-control" (change)="onFunctionChange($event)">
+                                            <option value="choose option">Choose Option</option>
+                                            <option value="2">INQUIRE</option>
+                                            <option value="5">ADD</option>
+                                            <!-- Add more options as needed -->
                                         </select>
-
                                     </div>
+
                                 </div>
                             </div>
                             <div class="col-md-6" *ngIf="selectedFunction !== 'choose option'">

@@ -11,6 +11,9 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
+  updateRowData(row: any) {
+    throw new Error('Method not implemented.');
+  }
 
 
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
@@ -218,8 +221,8 @@ export class SharedService {
    getUnAssigned(): Observable<any[]> {
     return this.http.get<any[]>(`${this.UnAssignedUrl}`)
       .pipe(
-        tap((data: any[]) => console.log('Fetched AssignCase:', data)),
-        map((data: any) => data['AssignCase']) 
+        tap((data: any[]) => console.log('Fetched UnAssignCase:', data)),
+        map((data: any) => data['UnAssignCase']) 
       );
   }
 

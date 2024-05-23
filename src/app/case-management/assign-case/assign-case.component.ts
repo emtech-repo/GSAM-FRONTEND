@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { BsModalRef, } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
+import { CaseDetailsComponent } from '../case-details/case-details.component';
+import { AssignPopupComponent } from '../assign-popup/assign-popup.component';
 
 
 
@@ -15,23 +17,27 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './assign-case.component.css'
 })
 export class AssignCaseComponent {
-     showUnassignedCasesFlag: boolean = true;
-     showAssignedCasesFlag: boolean = true;
-      showAllCasesFlag: boolean = true;
-       recentActivityData: any[] = [];
-       modalService: any;
-        row: any;
-      constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
-    public bsModalRef: BsModalRef, private http: HttpClient) { }
+  showUnassignedCasesFlag: boolean = false;
+  showAssignedCasesFlag: boolean = false;
+  showAllCasesFlag: boolean = true;
+  recentActivityData: any[] = [];
+  modalService: any;
+  row: any;
+  loanAccount: any; // Declare the variable
+ constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
+  public bsModalRef: BsModalRef, private http: HttpClient) { }
 
    
   goToCaseDetails(selectedRow: any): void {
     // Log the selected row data
     console.log('Selected row:', selectedRow);
-
     // Navigate to the "case-details" route and pass the selected row data as a parameter
-    this.router.navigate(['/case-details', { selectedRow: JSON.stringify(selectedRow) }]);
+    this.router.navigate(['/case-details', { selectedRow: (selectedRow) }]);
   }
+
+  
+
+
   
  searchOption: string = 'assignedTo';
   searchQuery: string = '';
@@ -201,15 +207,24 @@ export class AssignCaseComponent {
   
    showUnassignedCases() {
         this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
+         this.showAllCasesFlag = false;
+         this.showAssignedCasesFlag = false;
+
     }
      showAllCases() {
         this.showAllCasesFlag = !this.showAllCasesFlag ;
+           this.showAssignedCasesFlag = false;
+       this.showUnassignedCasesFlag = false;
+
     }
 
    
 
     showAssignedCases() {
         this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
+           this.showAllCasesFlag = false;
+       this.showUnassignedCasesFlag = false;
+
     } 
         exitPage() {
     this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
@@ -221,6 +236,15 @@ export class AssignCaseComponent {
   ex() {
     this.showAllCasesFlag = false; // Set the flag to false to hide the assigned cases page
 }
+
+   rows: any[] = [];
+
+  
+
+  onRowClick(row: any) {
+    this.sharedService.updateRowData(row);
+  }
+
 
 
 }
