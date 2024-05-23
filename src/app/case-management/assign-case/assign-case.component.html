@@ -235,8 +235,11 @@
                                         <td>{{ item.accountName }}</td>
                                         <td>{{ item.loanBalance }}</td>
                                         <td>{{ item.assigned }}</td>
-                                        <td><button type="button" class="assign small-btn"
-                                                (click)="goToCaseDetails(item)"  >View Case</button></td>
+                                        <td><button type="button" class="assign small-btn" (click)="navigateToCaseDetails(item)">View Case</button></td>
+
+
+                                        <!-- <td><button type="button" class="assign small-btn"
+                                                (click)="goToCaseDetails(item)"  >View Case</button></td> -->
                                     </tr>
                                 </tbody>
 

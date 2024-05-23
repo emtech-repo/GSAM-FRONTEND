@@ -24,14 +24,21 @@ export class AssignCaseComponent {
       constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
     public bsModalRef: BsModalRef, private http: HttpClient) { }
 
-   
-  goToCaseDetails(selectedRow: any): void {
-    // Log the selected row data
-    console.log('Selected row:', selectedRow);
 
-    // Navigate to the "case-details" route and pass the selected row data as a parameter
-    this.router.navigate(['/case-details', { selectedRow: JSON.stringify(selectedRow) }]);
-  }
+  navigateToCaseDetails(selectedItem: any): void {
+  const url = `/case-details/${encodeURIComponent(JSON.stringify(selectedItem))}`;
+  this.router.navigateByUrl(url);
+}
+    
+
+   
+  // goToCaseDetails(selectedRow: any): void {
+  //   // Log the selected row data
+  //   console.log('Selected row:', selectedRow);
+
+  //   // Navigate to the "case-details" route and pass the selected row data as a parameter
+  //   this.router.navigate(['/case-details', { selectedRow: JSON.stringify(selectedRow) }]);
+  // }
   
  searchOption: string = 'assignedTo';
   searchQuery: string = '';
