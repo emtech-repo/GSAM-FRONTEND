@@ -49,20 +49,20 @@ export class CaseDetailsComponent  implements OnInit  {
   // Assuming the selected row data is passed as a query parameter named 'selectedRow'
   this.route.queryParams.subscribe(params => {
     if (params['selectedRow']) {
-      this.UnAssigneddata = JSON.parse(decodeURIComponent(params['selectedRow']));
+      this.UnAssigneddata = (decodeURIComponent(params['selectedRow']));
     }
   });
 }
-     requestData = {
-      CifId: this. UnAssigneddata?.CifId ?? '',
-      accountName: this. UnAssigneddata?.accountName ?? '',
-      loanAmoun: this. UnAssigneddata?. loanAmount ?? '',
-      loanTenure: this. UnAssigneddata?.loanTenure ?? '',
-      SolId: this. UnAssigneddata?.SolId ?? '',
-      LoanBalance: this. UnAssigneddata?. LoanBalance ?? '',
-      LoanAccount: this. UnAssigneddata?.loanAccount ?? '',
-      SyndicatedFlag: this. UnAssigneddata?.SyndicatedFlag ?? ''
-    };
+    //  requestData = {
+    //   CifId: this. UnAssigneddata?.CifId ?? '',
+    //   accountName: this. UnAssigneddata?.accountName ?? '',
+    //   loanAmoun: this. UnAssigneddata?. loanAmount ?? '',
+    //   loanTenure: this. UnAssigneddata?.loanTenure ?? '',
+    //   SolId: this. UnAssigneddata?.SolId ?? '',
+    //   LoanBalance: this. UnAssigneddata?. LoanBalance ?? '',
+    //   LoanAccount: this. UnAssigneddata?.loanAccount ?? '',
+    //   SyndicatedFlag: this. UnAssigneddata?.SyndicatedFlag ?? ''
+    // };
 
 
   
