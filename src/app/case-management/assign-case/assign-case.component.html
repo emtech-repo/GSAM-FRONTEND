@@ -94,6 +94,7 @@
                                         <th>Branch code</th>
                                         <th>Loan Balance</th>
                                         
+                                        
 
                                     </tr>
                                 </thead>
@@ -264,9 +265,11 @@
                                         <td>{{ item.loanBalance }}</td>
                                         <td>{{ item.syndicatedFlag }}</td>
                                         <td>{{ item.assigned }}</td>
+
                                         <td><button type="button" class="assign small-btn"
 
                                                 (click)="goToCaseDetails(item.loanAccount)"  >View Case</button></td>
+
 
                                     </tr>
                                 </tbody>

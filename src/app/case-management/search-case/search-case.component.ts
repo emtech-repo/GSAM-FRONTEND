@@ -253,10 +253,17 @@ export class SearchCaseComponent implements OnInit {
     // Navigate to the "home" route
     this.router.navigate(['/doucuments']);
   }
+
+   exitPage() {
+    this.showTabs = false; // Set the flag to false to hide the assigned cases page
+}
+
+
   activateTabAndNavigate(tabName: string): void {
     this.activeTab = tabName; // Update the active tab state
     if (tabName === 'documents') {
       this.router.navigate(['/documents/app-retrieve']); // Navigate to the documents page
     }
   }
+
 }
