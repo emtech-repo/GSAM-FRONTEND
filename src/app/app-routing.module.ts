@@ -25,6 +25,7 @@ import { CreateCaseComponent } from './case-management/create-case/create-case.c
 
 import { ClaimTabComponent } from './billing-reconciliation/claim-tab/claim-tab.component';
 import { ApproveClaimComponent } from './billing-reconciliation/approve-claim/approve-claim.component';
+import { TotalCasesComponent } from './case-management/total-cases/total-cases.component';
 
 
 
@@ -125,6 +126,9 @@ export const routes: Routes = [
       path: 'app-create-case',    
       component: CreateCaseComponent,
     },
+  { path: 'dashboard/:cardType',
+   component: HomeComponent },
+  
   
 
 

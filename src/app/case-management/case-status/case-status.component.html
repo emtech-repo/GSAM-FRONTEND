@@ -82,18 +82,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-<<<<<<< HEAD
                                         <tr *ngFor="let item of data">
-=======
-
                                         <tr *ngFor="let item of data">
-
->>>>>>> 3a8fd1623bd2b7e89442b9d43f2af767adc9ba76
-                                            <td>{{ item.assignedEmail }}</td>
                                             <td>{{ item.cifId }}</td>
                                             <td>{{ item.loanAccount }}</td>
                                             <td>{{ item.accountName }}</td>
                                             <td>{{ item.verifiedFlag }}</td>
+                                            <td>{{ item.assignedEmail }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -102,7 +97,7 @@
                     </div>
                     <div class="pagination-container">
                         <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
-                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                            (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
                     <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
@@ -163,12 +158,11 @@
                                     <tbody>
     
                                         <tr *ngFor="let item of AssignedData">
-    
-                                            <td>{{ item.assignedEmail }}</td>
                                             <td>{{ item.cifId }}</td>
                                             <td>{{ item.loanAccount }}</td>
                                             <td>{{ item.accountName }}</td>
                                             <td>{{ item.verifiedFlag }}</td>
+                                            <td>{{ item.assignedEmail }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -177,7 +171,7 @@
                     </div>
                     <div class="pagination-container">
                         <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
-                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                            (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
                     <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
@@ -243,7 +237,6 @@
                                             <td>{{ item.cifId }}</td>
                                             <td>{{ item.loanAccount }}</td>
                                             <td>{{ item.accountName }}</td>
-                                            <td>{{ item.assignedEmail }}</td>
                                             <td>{{ item.verifiedFlag }}</td>
                                         </tr>
                                     </tbody>
@@ -253,7 +246,7 @@
                     </div>
                     <div class="pagination-container">
                         <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
-                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                            (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
                     <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"

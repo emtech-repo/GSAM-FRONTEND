@@ -23,6 +23,9 @@ import { AssignPopupComponent } from './assign-popup/assign-popup.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { CasesStatusComponent } from './cases-status/cases-status.component';
+import { ActiveCasesComponent } from './active-cases/active-cases.component';
+import { ClosedCasesComponent } from './closed-cases/closed-cases.component';
+// import { TotalCasesComponent } from './total-cases/total-cases.component';
 
 
 
@@ -49,6 +52,9 @@ import { CasesStatusComponent } from './cases-status/cases-status.component';
     LoanAccountLookUpComponent,
     AssignPopupComponent,
     CasesStatusComponent,
+    ActiveCasesComponent,
+    ClosedCasesComponent,
+    
    
 
     
