@@ -68,14 +68,25 @@ export class SearchCaseComponent implements OnInit {
     // const blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     // FileSaver.saveAs(blob, 'schedule.xlsx');
   }
-
   downloadPDF(): void {
     const tableData = this.getTableData();
-    const pdfContent = this.generatePDFContent(tableData);
+    const imgData = '../assets/images/equity-bank.png'; // Path to your image
+
+    const pdfContent = this.generatePDFContent(tableData, imgData); // Call the function with image data
     const pdf = new jsPDF();
     pdf.text(pdfContent, 10, 10);
     pdf.save('schedule.pdf');
   }
+
+
+  // downloadPDF(): void {
+  //   const tableData = this.getTableData();
+  //   // const pdfContent = this.generatePDFContent(tableData, imgData);
+  //   const pdfContent = this.generatePDFContent(tableData, imgData);
+  //   const pdf = new jsPDF();
+  //   pdf.text(pdfContent, 10, 10);
+  //   pdf.save('schedule.pdf');
+  // }
 
   getTableData(): any[] {
     const tableRows = Array.from(document.querySelectorAll('table tbody tr'));
@@ -91,14 +102,17 @@ export class SearchCaseComponent implements OnInit {
     return data;
   }  
 
-  generatePDFContent(tableData: any[]): string {
+  // generatePDFContent(tableData: any[]): string 
+  generatePDFContent(tableData: any[], imageData: string): string{
     const doc = new jsPDF();
     const imgData = '../assets/images/equity-bank.png'; // Path to your image
+    
 
     // Add image
     const fontSize = 8;
     doc.setFontSize(fontSize);
     doc.addImage(imgData, 'PNG', 10, 10, 20, 0); // Adjust the x, y, width, height as necessary
+    
 
     // Add text content
     doc.setFontSize(12);
@@ -238,5 +252,11 @@ export class SearchCaseComponent implements OnInit {
   goToDouments() {
     // Navigate to the "home" route
     this.router.navigate(['/doucuments']);
+  }
+  activateTabAndNavigate(tabName: string): void {
+    this.activeTab = tabName; // Update the active tab state
+    if (tabName === 'documents') {
+      this.router.navigate(['/documents/app-retrieve']); // Navigate to the documents page
+    }
   }
 }

@@ -1,45 +1,68 @@
-import { Component, ViewChild, ElementRef, TemplateRef, Inject, PLATFORM_ID } from '@angular/core';
-import { Router } from '@angular/router';
-import { SharedService } from '../../shared.service'; // Import your SharedService
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl } from '@angular/forms';
+import { SharedService } from '../../shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-retrieve',
   templateUrl: './retrieve.component.html',
   styleUrls: ['./retrieve.component.css']
 })
-export class RetrieveComponent {
-  @ViewChild('searchDialog') searchDialog!: ElementRef;
-  searchForm: FormGroup; // Define searchForm FormGroup
+export class RetrieveComponent implements OnInit, OnDestroy {
+  uploadForm!: FormGroup;
+  folders = ['Personal Documents', 'Litigation', 'Collaterals', 'Contracts'];
+  selectedFolder: string = '';
+  private fileCountsSubscription: Subscription | undefined;
 
-  constructor(private router: Router, private sharedService: SharedService, @Inject(PLATFORM_ID) private platformId: Object, private modalService: NgbModal) {
-    // Initialize searchForm FormGroup
-    this.searchForm = new FormGroup({
-      accNumber: new FormControl(''),
-      accName: new FormControl(''),
-      cifID: new FormControl(''),
-      startDate: new FormControl(''),
-      endDate: new FormControl('')
+  constructor(
+    private formBuilder: FormBuilder, // Inject FormBuilder here
+    private modalService: NgbModal,
+    private sharedService: SharedService
+  ) { }
+
+  ngOnInit() {
+    // Initialize the form in ngOnInit
+    this.initUploadForm();
+  }
+
+  ngOnDestroy() {
+    if (this.fileCountsSubscription) {
+      this.fileCountsSubscription.unsubscribe();
+    }
+  }
+
+  initUploadForm(): void {
+    this.uploadForm = this.formBuilder.group({
+      file: [null, Validators.required],
+      folder: [this.selectedFolder, Validators.required],
+      accountName: ['', Validators.required],
+      accountNumber: ['', Validators.required]
     });
   }
 
-  openModal(content: TemplateRef<any>) {
+  openModal(content: any, folder: string): void {
+    this.selectedFolder = folder;
+    this.uploadForm.patchValue({ folder: folder });
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
-  onSubmit(event?: Event) {
-    // Your form submission logic here
-  }
-  uploadFile(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files && fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      // Example: Send the file to a backend endpoint
-      // // this.http.post('/api/upload', file).subscribe(
-      //   response => console.log(response),
-      //   error => console.error(error)
-      // );
-    }
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('folder', this.uploadForm.get('folder')!.value);
+    formData.append('accountName', this.uploadForm.get('accountName')!.value);
+    formData.append('accountNumber', this.uploadForm.get('accountNumber')!.value);
+    formData.append('file', this.uploadForm.get('file')!.value);
+
+    this.sharedService.uploadDocument(formData).subscribe(
+      response => {
+        console.log('File uploaded successfully:', response);
+        // Handle success, e.g., display a success message
+      },
+      error => {
+        console.error('Error uploading file:', error);
+        // Handle error, e.g., display an error message
+      }
+    );
   }
 }

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -39,6 +39,10 @@ export class SharedService {
   // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
 
  readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
+  private storageKey = 'uploads';
+  private dataUrl = '/assets/data/data.json';
+  private documentsUrl = 'http://localhost:3000/uploads';
+  // private documentsUrl = '/assets/data/data.json';
 
 
 
@@ -76,7 +80,13 @@ export class SharedService {
   getUsersList(val: any) {
     return this.http.post<any>(this.APIUrl + '/users/get', val);
   }
+  
 
+  uploadDocument(formData: FormData) {
+    return this.http.post(this.documentsUrl, formData);
+  }
+  
+ 
 
   getCases(): Observable<any> {
     return this.http.get<any>(this.CasesUrl);
