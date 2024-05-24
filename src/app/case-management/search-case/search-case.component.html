@@ -60,7 +60,6 @@
                 <div id="tabCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                     
-<<<<<<< HEAD
                         <div >
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
@@ -117,59 +116,6 @@
                                                             <input type="text" id="accountName" class="form-control" [value]="loanDetails?.id"
                                                                 readonly>
                                                         </div>
-=======
-                    <div >
-                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-generaldetails-tab" (click)="setActiveTab('general')"
-                                    data-bs-toggle="pill" data-bs-target="#pills-generaldetails" type="button" role="tab"
-                                    aria-controls="pills-generaldetails" aria-selected="false">General Details</button>
-                            </li>
-                    
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-loan-details-tab" (click)="setActiveTab('loan')" data-bs-toggle="pill"
-                                    data-bs-target="#pills-loan-details" type="button" role="tab" aria-controls="pills-loan-details"
-                                    aria-selected="false">Loan Details</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-repayment-tab" (click)="setActiveTab('repaymnent')" data-bs-toggle="pill"
-                                    data-bs-target="#pills-repayment" type="button" role="tab" aria-controls="pills-repayment"
-                                    aria-selected="false">Repayment Schedule</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-collateral-tab" (click)="setActiveTab('collateral')"
-                                    data-bs-toggle="pill" data-bs-target="#pills-collateral" type="button" role="tab"
-                                    aria-controls="pills-collateral" aria-selected="false">Collaterals</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-guarantor-tab" (click)="setActiveTab('guarantor')" data-bs-toggle="pill"
-                                    data-bs-target="#pills-guarantor" type="button" role="tab" aria-controls="pills-guarantor"
-                                    aria-selected="false">Guarantor</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-documents-tab" (click)="setActiveTab('documents')" data-bs-toggle="pill"
-                                    data-bs-target="#pills-documents" type="button" role="tab" aria-controls="pills-documents"
-                                    aria-selected="false">Documents</button>
-                            </li>
-                        </ul>
-                    
-                    
-                        <div class="container">
-                            <div class="col-md-12 grid-margin stretch-card">
-                                <div class="container-fluid">
-                    
-                                    <!-- General Details Tab -->
-                                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'general'}"
-                                        id="pills-generaldetails" role="tabpanel" aria-labelledby="pills-general-tab">
-                                        <div *ngIf="loanDetails">
-                                            <div class="row gx-2">
-                    
-                                                <div class="col-md-3">
-                                                    <div class="form-group mb-2">
-                                                        <label for="accountName">CIF ID:</label>
-                                                        <input type="text" id="accountName" class="form-control" [value]="loanDetails?.id"
-                                                            readonly>
->>>>>>> 86d2781bc14ea0ee20db73a9baf03665af26956a
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group mb-2">
