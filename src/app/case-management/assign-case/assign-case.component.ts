@@ -93,7 +93,7 @@ export class AssignCaseComponent {
     this.AssignedUrl = this.sharedService.AssignedUrl;
 
     this.fetchData();
-    this.getUnAssigned();
+    this.UnAssigned();
     this.getAssigned();
 
 
