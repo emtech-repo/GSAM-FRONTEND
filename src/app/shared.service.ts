@@ -254,18 +254,11 @@ export class SharedService {
     // Create an object with caseNumber and email properties
     const dataToSend = { caseNumber: caseNumber, UserName: UserName };
 
-    // Convert the object to a JSON string
-    const jsonData = JSON.stringify(dataToSend);
-
-    // Make the HTTP POST request with the JSON string as the request body
-    return this.http.post<any>(this.AssignCaseUrl, jsonData, { headers: headers })
-      .pipe(
-        catchError(error => {
-          console.error('Error in assignCase method:', error);
-          throw error;
-        })
-      );
+    // Make the HTTP POST request with the object as the request body
+    return this.http.post<any>(`${this.AssignCaseUrl}?UserName=${UserName}`, dataToSend, { headers: headers })
+      
   }
+
 
   // getUnAssigned(loanAccount: string): Observable<any> {
   //   const url = `${this.UnAssignedUrl}${loanAccount}`;
