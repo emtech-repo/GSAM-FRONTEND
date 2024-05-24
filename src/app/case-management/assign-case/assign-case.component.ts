@@ -22,23 +22,49 @@ export class AssignCaseComponent {
   recentActivityData: any[] = [];
   modalService: any;
   row: any;
-  loanAccount: any; // Declare the variable
- constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
-  public bsModalRef: BsModalRef, private http: HttpClient) { }
 
-   
-  goToCaseDetails(selectedRow: any): void {
-    // Log the selected row data
-    console.log('Selected row:', selectedRow);
-    // Navigate to the "case-details" route and pass the selected row data as a parameter
-    this.router.navigate(['/case-details', { selectedRow: (selectedRow) }]);
+  constructor(private router: Router, private sharedService: SharedService, private toastr: ToastrService,
+    public bsModalRef: BsModalRef, private http: HttpClient) { }
+
+
+  // goToCaseDetails(selectedRow: any): void {
+  //   // Log the selected row data
+  //   console.log('Selected row:', selectedRow);
+
+  //   // Navigate to the "case-details" route and pass the selected row data as a parameter
+  //   this.router.navigate(['/case-details', selectedRow]);
+  // }
+
+
+  // goToCaseDetails(loanAccount: string) {
+  //   // Call the API to fetch details using the specific 'loanAccount' as parameter
+  //   this.sharedService.getUnAssigned(loanAccount).subscribe(
+  //     (details: any) => {
+  //       // Once details are fetched successfully, navigate to the "case-details" route
+  //       console.log('Selected: LOAN ACCOUNT', loanAccount);
+
+  //       this.router.navigate(['/case-details'], { state: { loanAccount, details } });
+  //     },
+  //     (error: any) => {
+  //       // Handle error if details fetching fails
+  //       console.error('Failed to fetch CASES:', error);
+  //       // Navigate to the "case-details" route without details
+  //       this.router.navigate(['/case-details'], { state: { loanAccount } });
+  //     }
+  //   );
+  // }
+  goToCaseDetails(loanAccount: any): void {
+    console.log('Navigating to case details with loan account:', loanAccount);
+    this.router.navigate(['/case-details', loanAccount]);
   }
 
-  
 
 
-  
- searchOption: string = 'assignedTo';
+
+
+
+  searchOption: string = 'assignedTo';
+
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
@@ -51,8 +77,8 @@ export class AssignCaseComponent {
 
 
   data: any[] = []; // Your data array
-  UnAssigneddata: any[] = []; 
-  Assigneddata: any[] = []; 
+  UnAssigneddata: any[] = [];
+  Assigneddata: any[] = [];
   cd: any;
   apiUrl: string = '';
   AssignedUrl: string = '';
@@ -61,10 +87,10 @@ export class AssignCaseComponent {
 
   ngOnInit(): void {
 
-    
+
     this.apiUrl = this.sharedService.ActivityUrl;
     this.UnAssignedUrl = this.sharedService.UnAssignedUrl;
-    this.AssignedUrl= this.sharedService.AssignedUrl;
+    this.AssignedUrl = this.sharedService.AssignedUrl;
 
     this.fetchData();
     this.getUnAssigned();
@@ -72,6 +98,7 @@ export class AssignCaseComponent {
 
 
   }
+
 
   setSearchOption(option: string) {
     this.searchOption = option;
@@ -113,7 +140,9 @@ export class AssignCaseComponent {
     });
   }
 
-   getUnAssigned(): void {
+
+  UnAssigned(): void {
+
     this.http.get<any>(this.UnAssignedUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.UnAssigneddata = response.result;
@@ -126,8 +155,8 @@ export class AssignCaseComponent {
       console.error('Error fetching data from API:', error);
     });
   }
- 
- getAssigned(): void {
+
+  getAssigned(): void {
     this.http.get<any>(this.AssignedUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.Assigneddata = response.result;
@@ -140,8 +169,8 @@ export class AssignCaseComponent {
       console.error('Error fetching data from API:', error);
     });
   }
- 
- 
+
+
 
   // Method to handle page change event
   pageChanged(event: any): void {
@@ -203,47 +232,40 @@ export class AssignCaseComponent {
   }
 
 
-  
-   showUnassignedCases() {
-        this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
-         this.showAllCasesFlag = false;
-         this.showAssignedCasesFlag = false;
 
-    }
-     showAllCases() {
-        this.showAllCasesFlag = !this.showAllCasesFlag ;
-           this.showAssignedCasesFlag = false;
-       this.showUnassignedCasesFlag = false;
+  showUnassignedCases() {
+    this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
+    this.showAllCasesFlag = false;
+    this.showAssignedCasesFlag = false;
 
-    }
+  }
+  showAllCases() {
+    this.showAllCasesFlag = !this.showAllCasesFlag;
+    this.showAssignedCasesFlag = false;
+    this.showUnassignedCasesFlag = false;
 
-   
-
-    showAssignedCases() {
-        this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
-           this.showAllCasesFlag = false;
-       this.showUnassignedCasesFlag = false;
-
-    } 
-        exitPage() {
-    this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
-}
-
-    exit() {
-    this.showUnassignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
-}
-  ex() {
-    this.showAllCasesFlag = false; // Set the flag to false to hide the assigned cases page
-}
-
-   rows: any[] = [];
-
-  
-
-  onRowClick(row: any) {
-    this.sharedService.updateRowData(row);
   }
 
+
+
+  showAssignedCases() {
+    this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
+    this.showAllCasesFlag = false;
+    this.showUnassignedCasesFlag = false;
+
+
+  }
+
+  exit() {
+    this.showUnassignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+  }
+  ex() {
+    this.showAllCasesFlag = false; // Set the flag to false to hide the assigned cases page
+
+  }
+  exitPage() {
+    this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+  }
 
 
 }

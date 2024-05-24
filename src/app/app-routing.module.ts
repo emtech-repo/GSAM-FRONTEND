@@ -79,7 +79,7 @@ export const routes: Routes = [
     component: CaseDecisionComponent,
   },
   {
-    path: 'case-details',
+    path: 'case-details/:loanAccount',
     component: CaseDetailsComponent
   },
     {
