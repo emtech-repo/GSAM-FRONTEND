@@ -15,6 +15,12 @@ import { CaseDetailsComponent } from './case-details/case-details.component';
 import { CreateCaseComponent } from './create-case/create-case.component';
 import { CreateTwoComponent } from './create-two/create-two.component';
 import { CasesStatusComponent } from './cases-status/cases-status.component';
+import { SearchCasesComponent } from './search-cases/search-cases.component';
+
+import { TotalCasesComponent } from './total-cases/total-cases.component';
+import { ClosedCasesComponent } from './closed-cases/closed-cases.component';
+import { ActiveCasesComponent } from './active-cases/active-cases.component';
+
 
 
 
@@ -24,6 +30,18 @@ export const routes: Routes = [
       redirectTo: 'Dashboard',
       pathMatch: 'full',
     },
+  {
+    path: 'app-total-cases',
+    component: TotalCasesComponent
+  },
+  {
+    path: 'app-active-cases',
+    component: ActiveCasesComponent
+  },
+  {
+    path: 'app-closed-cases',
+    component: ClosedCasesComponent
+  },
     
     {
       path: 'app-case-approval',
@@ -99,6 +117,11 @@ export const routes: Routes = [
       path: 'app-create-two',
       
       component:CreateTwoComponent,
+    },
+      {
+      path: 'app-search-cases',
+      
+      component:SearchCasesComponent,
     },
     
      
