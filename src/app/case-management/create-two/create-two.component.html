@@ -1,7 +1,6 @@
-
 <div class="container-xl h-100" style="width: 150%; margin-left: -9%">
 
-    
+
 
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-xl-10">
@@ -12,30 +11,34 @@
                         <div class="col-md-6 ps-9" style="margin-top: -25px;">
                             <div class="form-group">
                                 <label for="CifID">CIF ID</label>
-                                
-                                <input type="text" class="form-control" id="CifID" [value]="loanDetails.customerCode || ''" readonly />
+
+                                <input type="text" class="form-control" id="CifID"
+                                    [value]="loanDetails.customerCode || ''" readonly />
                             </div>
                         </div>
                         <!-- account name -->
                         <div class="col-md-6 ps-9" style="margin-top: -20px;">
                             <div class="form-group">
                                 <label for="LoanTenure">Account Name</label>
-                                <input type="text" class="form-control" id="LoanTenure" [value]="loanDetails.accountName|| ''" readonly />
+                                <input type="text" class="form-control" id="LoanTenure"
+                                    [value]="loanDetails.accountName|| ''" readonly />
                             </div>
                         </div>
-                     
+
                         <!-- Loan Account -->
                         <div class="col-md-6 ps-9" style="margin-top: -25px;">
                             <div class="form-group">
                                 <label for="AccNumber">Loan Amount</label>
-                                <input type="text" class="form-control" id="AccNumber" [value]="loanDetails.loan.principalAmount || ''" readonly />
+                                <input type="text" class="form-control" id="AccNumber"
+                                    [value]="loanDetails.loan.principalAmount || ''" readonly />
                             </div>
                         </div>
                         <!-- Acc Name -->
                         <div class="col-md-6 ps-9" style="margin-top: -20px;">
                             <div class="form-group">
                                 <label for="AccName">Loan Tenure</label>
-                                <input type="text" class="form-control" id="AccName" [value]="loanDetails.loan.repaymentPeriod || ''" readonly />
+                                <input type="text" class="form-control" id="AccName"
+                                    [value]="loanDetails.loan.repaymentPeriod || ''" readonly />
                             </div>
                         </div>
                         <!-- Add other fields here -->
@@ -43,52 +46,59 @@
                         <div class="col-md-6 ps-9" style="margin-top: -20px;">
                             <div class="form-group">
                                 <label for="BranchName">Branch ID</label>
-                                <input type="text" class="form-control" id="BranchName" [value]="loanDetails.solCode || ''" readonly />
+                                <input type="text" class="form-control" id="BranchName"
+                                    [value]="loanDetails.solCode || ''" readonly />
                             </div>
                         </div>
                         <!-- Case Number -->
                         <div class="col-md-6 ps-9" style="margin-top: -20px;">
                             <div class="form-group">
                                 <label for="CaseNumber">Loan Balance</label>
-                               <input type="text" class="form-control" id="accountBalance" [value]="loanDetails.accountBalance || ''" readonly />
+                                <input type="text" class="form-control" id="accountBalance"
+                                    [value]="loanDetails.accountBalance || ''" readonly />
                             </div>
                         </div>
                         <!-- Loan Amount -->
                         <div class="col-md-6 ps-9" style="margin-top: -20px;">
                             <div class="form-group">
                                 <label for="RemainingLoanAmount">Loan Account</label>
-                                <input type="text" class="form-control" id="RemainingLoanAmount" [value]="loanDetails.acid|| ''" readonly />
+                                <input type="text" class="form-control" id="RemainingLoanAmount"
+                                    [value]="loanDetails.acid|| ''" readonly />
                             </div>
                         </div>
-                       
-                        
+
+
                         <!-- Syndicated -->
-                       <div class="col-md-6 ps-9" style="margin-top: -40px;">
-                        <div class="input-group" style="border-radius: 5px;">
-                            <label for="inputEmail4">Syndicated</label>
-                            <select class="input--style-5" name="members" style="width: 100%;" [(ngModel)]="loanDetails.SyndicatedFlag">
-                                <option value="Y">Yes</option>
-                                <option value="N">No</option>
-                            </select>
+                        <div class="col-md-6 ps-9" style="margin-top: -40px;">
+                            <div class="input-group" style="border-radius: 5px;">
+                                <label for="inputEmail4">Syndicated</label>
+                                <select class="input--style-5" name="members" style="width: 100%;"
+                                    [(ngModel)]="loanDetails.SyndicatedFlag">
+                                    <option value="Y">Yes</option>
+                                    <option value="N">No</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                                            <!-- Buttons for actions -->
+                        <!-- Buttons for actions -->
                         <div class="col-md-9">
                             <div class="px-5 py-4">
                                 <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="closeModal()" style="margin-right: 1px;border-radius:3px ; ">Exit Page</button>
-                                    <button type="button" class="btn btn-primary small-btn" style="margin-right: -150px;border-radius:3px ;" (click)="CreateCase()">Create</button>
+                                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
+                                        style="margin-right: 1px;border-radius:3px ;" (click)="goToCreateCase()">Exit
+                                        Page</button>
+                                    <button type="button" class="btn btn-primary small-btn"
+                                        style="margin-right: -150px;border-radius:3px ;">Create</button>
 
                                 </div>
-                              <!-- <p *ngIf="caseId">Case ID: {{ caseId }}</p> -->
-                                 <div class="alert alert-success mt-3" *ngIf="CreatedSuccessfully">
+                                <!-- <p *ngIf="caseId">Case ID: {{ caseId }}</p> -->
+                                <div class="alert alert-success mt-3" *ngIf="CreatedSuccessfully">
                                     Created Successfully: Case No: {{ caseId }}
-                                    </div>
+                                </div>
 
-                                    <!-- Alert for errors -->
-                                    <div class="alert alert-danger mt-3" *ngIf="CreatedSuccessfully || errorMessage">
+                                <!-- Alert for errors -->
+                                <div class="alert alert-danger mt-3" *ngIf="CreatedSuccessfully || errorMessage">
                                     {{ errorMessage }}
-                                    </div>
+                                </div>
 
                             </div>
                         </div>

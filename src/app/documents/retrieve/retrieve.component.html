@@ -9,21 +9,37 @@
                             + Add File
                         </button>
                     
-                        <div class="modal fade" id="fileUploadDialog" tabindex="-1" aria-labelledby="fileUploadDialogLabel"
-                            aria-hidden="true">
+                        <div class="modal fade" id="fileUploadDialog" tabindex="-1" aria-labelledby="fileUploadDialogLabel" aria-hidden="true">
                             <div class="modal-dialog" style="height: auto;">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="modal-basic-title">Upload File</h4>
+                                        <h4 class="modal-title" id="modal-basic-title">
+                                            {{ selectedFolder ? 'Upload File to ' + selectedFolder : 'Upload File' }}
+                                        </h4>
                                         <button type="button" class="close" aria-label="Close" data-bs-dismiss="modal" aria-hidden="true">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form (submit)="uploadFile($event)">
+                                        <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+                                            <div class="mb-3">
+                                                <label for="folderSelect" class="form-label">Folder</label>
+                                                <select id="folderSelect" class="form-select" formControlName="folder">
+                                                    <option *ngFor="let folder of folders" [value]="folder">{{ folder }}</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="accountName" class="form-label">Account Name</label>
+                                                <input type="text" id="accountName" class="form-control" formControlName="accountName">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="accountNumber" class="form-label">Account Number</label>
+                                                <input type="number" id="accountNumber" class="form-control" formControlName="accountNumber">
+                                            </div>
                                             <div class="mb-3">
                                                 <label for="fileInput" class="form-label">Choose File</label>
-                                                <input type="file" class="form-control" id="fileInput" accept=".csv, .xlsx" #fileInput>
+                                              <input type="file" id="file" class="form-control" formControlName="file" />
+
                                             </div>
                                             <div class="modal-footer d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">
@@ -36,6 +52,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                     <h5 class="my-3">DMS</h5>
                     <div class="fm-menu">
@@ -70,20 +88,22 @@
                         <div class="card" style="padding: 10px;">
                             <h5 style="margin-bottom: 10px;">Document Folders</h5>
                             <div class="row mt-2">
-                                <div class="col-12 col-lg-4 mb-3">
+                               <div class="col-12 col-lg-4 mb-3">
                                     <div class="card shadow border radius-5"
                                         style="background-image: url('assets/images/p.jpeg'); background-size: cover; background-position: center; height: 100px;">
                                         <div class="card-body d-flex flex-column justify-content-end"
                                             style="background: rgba(0, 0, 0, 0.5); padding: 10px;">
                                             <div class="d-flex align-items-center mb-1">
                                                 <div class="font-30 text-white"><i class="bx bxs-folder"></i></div>
-                                                <div class="user-plus ml-auto text-white" style="font-size: 14px;">+</div>
+                                                <div class="user
+                                                -plus ml-auto text-white" style="font-size: 14px;">+</div>
                                             </div>
                                             <h6 class="mb-0 text-white font-weight-bold" style="font-size: 14px;">Personal Documents</h6>
                                             <small class="text-white font-weight-bold" style="font-size: 10px;">15 files</small>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
+
                                 <div class="col-12 col-lg-4 mb-3">
                                     <div class="card shadow border radius-5"
                                         style="background-image: url('assets/images/L.jpeg'); background-size: cover; background-position: center; height: 100px;">
@@ -91,13 +111,14 @@
                                             style="background: rgba(0, 0, 0, 0.5); padding: 10px;">
                                             <div class="d-flex align-items-center mb-1">
                                                 <div class="font-30 text-white"><i class="bx bxs-folder"></i></div>
-                                                <div class="user-plus ml-auto text-white" style="font-size: 14px;">+</div>
+                                                <div class="user
+                                                -plus ml-auto text-white" style="font-size: 14px;">+</div>
                                             </div>
                                             <h6 class="mb-0 text-white font-weight-bold" style="font-size: 14px;">Litigation</h6>
                                             <small class="text-white font-weight-bold" style="font-size: 10px;">15 files</small>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
                         
                                 <div class="col-12 col-lg-4 mb-3">
                                     <div class="card shadow border radius-5"
@@ -111,7 +132,7 @@
                                             <small class="text-white font-weight-bold" style="font-size: 10px;">345 files</small>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
                         
                                 <div class="col-12 col-lg-4 mb-3">
                                     <div class="card shadow border radius-5"
@@ -125,7 +146,7 @@
                                             <small class="text-white font-weight-bold" style="font-size: 10px;">345 files</small>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                         </div>
 

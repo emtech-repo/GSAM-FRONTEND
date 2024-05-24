@@ -52,7 +52,7 @@
                                     <td>{{ item.loanBalance }}</td>
                                     <td>{{ item.solId }}</td>
                                     <td>{{ item.loanTenure }}</td>
-                                    <td><button class="btn btn-primary  btn-sm" (click)="showRefinanceDetails()">Proceed</button></td>
+                                    <td><button class="btn btn-primary  btn-sm" (click)="showRefinanceDetails(item)">Proceed</button></td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -227,7 +227,7 @@
                                 <td>{{ item.loanBalance }}</td>
                                 <td>{{ item.solId }}</td>
                                 <td>{{ item.loanTenure }}</td>
-                                <td><button class="btn btn-primary  btn-sm" (click)="showRestructureDetails()">Proceed</button></td>
+                                <td><button class="btn btn-primary  btn-sm" (click)="showRestructureDetails(item)">Proceed</button></td>
                               </tr>
                             </tbody>
                           </table>
@@ -394,7 +394,7 @@
                               <td>{{ item.loanBalance }}</td>
                               <td>{{ item.solId }}</td>
                               <td>{{ item.loanTenure }}</td>
-                              <td><button class="btn btn-primary  btn-sm"(click)="showRecoveryDetails()">Proceed</button></td>
+                              <td><button class="btn btn-primary  btn-sm"(click)="showRecoveryDetails(item)">Proceed</button></td>
                             </tr>
                           </tbody>
                         </table>

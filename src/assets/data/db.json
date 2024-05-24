@@ -75,7 +75,7 @@
       "email": "gsam@gmail.com",
       "password": "123456",
       "gender": "male",
-      "role": "officer",
+      "role": "manager",
       "creationDate": "2024-05-13T09:51:13.471Z",
       "isActive": true,
       "id": "8090"
@@ -109,10 +109,8 @@
       "role": "manager",
       "isActive": true,
       "id": "9090"
-
     },
     {
-
       "name": "hanna",
       "email": "hann@gmail.com",
       "password": "1234567",
@@ -122,9 +120,7 @@
       "isActive": true,
       "id": "5777"
     }
-
-       ],
-  
+  ],
   "role": [
     {
       "code": "officer",
@@ -175,5 +171,15 @@
       "havedelete": false,
       "id": "44a6"
     }
+  ],
+  "uploads": [
+    {
+      "id": "284e",
+      "file": "C:\\fakepath\\schedule (2).xlsx",
+      "folder": "Personal Documents",
+      "accountName": "Francis AND Tongi",
+      "accountNumber": 444
+    }
+  
   ]
 }

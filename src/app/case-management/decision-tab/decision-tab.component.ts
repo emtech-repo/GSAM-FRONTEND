@@ -12,9 +12,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './decision-tab.component.css'
 })
 export class DecisionTabComponent {
-    showRefinanceDetailsFlag: boolean = true;
-    showRestructureDetailsFlag: boolean = true;
-   showRecoveryDetailsFlag: boolean = true;
+    showRefinanceDetailsFlag: boolean = false;
+    showRestructureDetailsFlag: boolean = false;
+    showRecoveryDetailsFlag: boolean = false;
  
   currentPage: number = 1;
   dataSource: any[] = [];
@@ -79,14 +79,23 @@ export class DecisionTabComponent {
   }
 
 
-   showRefinanceDetails() {
+   showRefinanceDetails(selectedRow: any) {
         this.showRefinanceDetailsFlag = !this.showRefinanceDetailsFlag;
-    } 
-     showRestructureDetails() {
+         this.showRestructureDetailsFlag = false;
+       this.showRecoveryDetailsFlag = false;
+
+    }
+
+     showRestructureDetails(selectedRow: any) {
         this.showRestructureDetailsFlag = !this.showRestructureDetailsFlag;
+         this.showRefinanceDetailsFlag = false;
+       this.showRecoveryDetailsFlag = false;
     } 
-     showRecoveryDetails() {
+
+     showRecoveryDetails(selectedRow: any) {
         this.showRecoveryDetailsFlag = !this.showRecoveryDetailsFlag;
+         this.showRefinanceDetailsFlag = false;
+       this.showRestructureDetailsFlag = false;
     } 
 
         exitPage() {

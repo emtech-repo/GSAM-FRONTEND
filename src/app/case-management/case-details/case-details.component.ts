@@ -52,6 +52,7 @@ export class CaseDetailsComponent implements OnInit {
   }
 
 
+
     requestData = {
       caseNumber: this.UnAssigneddata?.caseNumber ?? '',
       // CifId: this.UnAssigneddata?.CifId ?? '',
@@ -66,6 +67,7 @@ export class CaseDetailsComponent implements OnInit {
       // assigned: this.UnAssigneddata?.assigned ?? '', 
       assignedEmail: this.UnAssigneddata?.assignedEmail ?? '', 
       // statusActive: this.UnAssigneddata?.statusActive ?? ''
+
 
 
   };

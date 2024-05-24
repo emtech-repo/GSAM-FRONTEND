@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 
+
 @Component({
   selector: 'app-assign-case',
   templateUrl: './assign-case.component.html',
@@ -21,6 +22,7 @@ export class AssignCaseComponent {
   recentActivityData: any[] = [];
   modalService: any;
   row: any;
+
   constructor(private router: Router, private sharedService: SharedService, private toastr: ToastrService,
     public bsModalRef: BsModalRef, private http: HttpClient) { }
 
@@ -62,6 +64,7 @@ export class AssignCaseComponent {
 
 
   searchOption: string = 'assignedTo';
+
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
@@ -90,7 +93,7 @@ export class AssignCaseComponent {
     this.AssignedUrl = this.sharedService.AssignedUrl;
 
     this.fetchData();
-    this.UnAssigned();
+    this.getUnAssigned();
     this.getAssigned();
 
 
@@ -137,7 +140,9 @@ export class AssignCaseComponent {
     });
   }
 
+
   UnAssigned(): void {
+
     this.http.get<any>(this.UnAssignedUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.UnAssigneddata = response.result;
@@ -227,6 +232,7 @@ export class AssignCaseComponent {
   }
 
 
+
   showUnassignedCases() {
     this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
     this.showAllCasesFlag = false;
@@ -247,6 +253,7 @@ export class AssignCaseComponent {
     this.showAllCasesFlag = false;
     this.showUnassignedCasesFlag = false;
 
+
   }
 
   exit() {
@@ -254,9 +261,11 @@ export class AssignCaseComponent {
   }
   ex() {
     this.showAllCasesFlag = false; // Set the flag to false to hide the assigned cases page
+
   }
   exitPage() {
     this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
   }
+
 
 }

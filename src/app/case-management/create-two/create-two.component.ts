@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-create-two',
@@ -23,7 +25,8 @@ export class CreateTwoComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     public bsModalRef: BsModalRef,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -39,6 +42,12 @@ export class CreateTwoComponent implements OnInit {
 
   closeModal() {
     this.bsModalRef.hide();
+  }
+    
+  goToCreateCase(): void {
+    
+    // Navigate to the "case-details" route and pass the selected row data as a parameter
+    this.router.navigate(['/app-create-case']);
   }
 
 
