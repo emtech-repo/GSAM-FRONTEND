@@ -1,60 +1,110 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-
-
-import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import  FileSaver from 'file-saver';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import  jsPDF from 'jspdf';
-interface LoanDetailsResponse {
-  entity: any; // Define the structure according to your API response
-}
 
 @Component({
   selector: 'app-search-cases',
   templateUrl: './search-cases.component.html',
-  styleUrl: './search-cases.component.css'
+  styleUrls: ['./search-cases.component.css']
 })
-export class SearchCasesComponent  implements OnInit {
-  
-  CasesData: any[] = [];
-  loanItem: any;
-  activeTab: string = 'general';
-  
-  showTabs: boolean = false; // Property to control the visibility of the tabs
+export class SearchCasesComponent implements OnInit {
 
-  // Assuming LoanData is the JSON object returned by the API
-  pagedLoanData: any = {}; // Array to hold the currently displayed page data
-  totalPages: number = 5;
+  loanAccount: any;
+  loanItem: any;
+  pagedCasesdata: any;
+  searchOption: string = 'assignedTo';
+  searchQuery: string = '';
+  searchTerm: string = '';
+  loanDetails: any;
+  loandata: any;
+  recentActivityData: any[] = [];
+  SearchQuery: string = '';
   currentPage: number = 1;
   pageSize: number = 5;
   totalItems: number = 0;
-  searchParams: any = { param: 'acid', value: '' };
-  
-  private destroy$ = new Subject<void>();
-  loanDetails: any = { entity: {} }; // Initialize with an empty object
-  @ViewChild('content') content!: ElementRef; 
-   
+  selectedItem: any;
+  searchParams = { param: '', value: '' };
+  data: any[] = [];
+  cd: any;
+  apiUrl: string = '';
+  activeTab: string = 'general';
+  showTabs: boolean = false;
 
+  constructor(
+    private router: Router,
+    private sharedService: SharedService,
+    private toastr: ToastrService,
+    public bsModalRef: BsModalRef,
+    private http: HttpClient
+  ) {}
 
-  constructor(private router: Router, private sharedService: SharedService, private cdRef: ChangeDetectorRef) { }
-
-  ngOnInit() {
-   
-    this.getCases();
-    
+  ngOnInit(): void {
+    this.apiUrl = this.sharedService.ActivityUrl;
+    this.fetchData();
   }
-  // 
-  downloadExcel(): void {
-    const tableData = this.getTableData();
-    // Implement logic to convert tableData to Excel format
-    // For example, you can use a library like ExcelJS
-    // const excelData = convertToExcelFormat(tableData);
-    // const blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    // FileSaver.saveAs(blob, 'schedule.xlsx');
+
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.fetchData();
+  }
+
+  onSearch(): void {
+    this.currentPage = 1;
+    this.fetchData();
+  }
+
+  fetchData(): void {
+    this.http.get<any>(this.apiUrl).subscribe(
+      response => {
+        if (response && response.result && Array.isArray(response.result)) {
+          this.data = response.result;
+          this.totalItems = this.data.length;
+          const startIndex = (this.currentPage - 1) * this.pageSize;
+          const endIndex = startIndex + this.pageSize;
+          this.pagedCasesdata = this.data.slice(startIndex, endIndex);
+        } else {
+          console.error('Invalid data received from API:', response);
+        }
+      },
+      error => {
+        console.error('Error fetching data from API:', error);
+      }
+    );
+  }
+
+  search(): void {
+    this.currentPage = 1;
+    this.fetchData();
+  }
+
+  getLoanDetails(acccountId: string): void {
+    this.sharedService.getLoanDetails(acccountId).subscribe(
+      (response: any) => {
+        console.log('Loan Details:', response.entity);
+        this.loanDetails = response.entity;
+        this.showTabs = true;
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error fetching loan details:', error);
+      }
+    );
+  }
+
+  getCurrentDate(): string {
+    const currentDate: Date = new Date();
+    const day: number = currentDate.getDate();
+    const month: number = currentDate.getMonth() + 1; // Months are zero based
+    const year: number = currentDate.getFullYear();
+
+    // Pad day and month with leading zeros if needed
+    const formattedDay: string = (day < 10) ? '0' + day : day.toString();
+    const formattedMonth: string = (month < 10) ? '0' + month : month.toString();
+
+    return `${year}-${formattedMonth}-${formattedDay}`;
   }
 
   downloadPDF(): void {
@@ -64,7 +114,6 @@ export class SearchCasesComponent  implements OnInit {
     pdf.text(pdfContent, 10, 10);
     pdf.save('schedule.pdf');
   }
-
   getTableData(): any[] {
     const tableRows = Array.from(document.querySelectorAll('table tbody tr'));
     const data: any[] = [];
@@ -133,101 +182,15 @@ export class SearchCasesComponent  implements OnInit {
   }
 
 
-
- 
-  getCurrentDate(): string {
-    const currentDate: Date = new Date();
-    const day: number = currentDate.getDate();
-    const month: number = currentDate.getMonth() + 1; // Months are zero based
-    const year: number = currentDate.getFullYear();
-
-    // Pad day and month with leading zeros if needed
-    const formattedDay: string = (day < 10) ? '0' + day : day.toString();
-    const formattedMonth: string = (month < 10) ? '0' + month : month.toString();
-
-    return `${year}-${formattedMonth}-${formattedDay}`;
-  }
-  setActiveTab(tab: string): void {
+   setActiveTab(tab: string): void {
     this.activeTab = tab;
     
   }
-  // In your Angular component
- 
-  // TypeScript
+    exitPage() {
+    this.showTabs = false; // Set the flag to false to hide the assigned cases page
+}
 
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  updatePagedLoanData(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = Math.min(startIndex + this.pageSize, this.totalItems);
-    this.pagedLoanData = this.CasesData.slice(startIndex, endIndex);
-  }
-  pageChanged(event: any): void {
-    this.currentPage = event.page;
-    this.updatePagedLoanData();
-  }
-
-  getCases(): void {
-    this.sharedService.getLoan().pipe(takeUntil(this.destroy$)).subscribe(
-
-      (response: any) => {
-        // console.log('Loan Data:', response.entity);
-        this.CasesData = response.entity; // Assuming 'entity' is an array of loan objects
-        this.totalItems = this.CasesData.length;
-        this.totalPages = Math.ceil(this.totalItems / this.pageSize);
-        this.filterData();
-        this.updatePagedLoanData();
-        this.setActiveTab('general');
-        this.cdRef.detectChanges(); 
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching loans:', error);
-      }
-    );
-  }
-  filterData(): void {
-    if (this.searchParams.value.trim() === '') {
-      // If search value is empty, show all data
-      this.CasesData = [...this.CasesData];
-    } else {
-      // Filter data based on selected parameter and value
-      this.CasesData = this.CasesData.filter(item => {
-        return item[this.searchParams.param] === this.searchParams.value;
-      });
-    }
-    this.totalItems = this.CasesData.length;
-    this.totalPages = Math.ceil(this.totalItems / this.pageSize);
-  }
-  search(): void {
-    console.log('Search method called'); // Add this line for debugging
-    this.currentPage = 1;
-    this.getCases();
+  
     
-  }
-  getLoanDetails(acccountId: string): void {
-    this.sharedService.getLoanDetails(acccountId).subscribe(
-      (response: any) => {
-        console.log('Loan Details:', response.entity);
-        this.loanDetails = response.entity;
-        // Handle loan details here
-        // const url = '/search-case/' + acccountId; // Adjust the URL as needed
-        // window.open(url, '_blank');
-        this.showTabs = true;
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching loan details:', error);
-      }
-    );
-  }
-  goToDouments() {
-    // Navigate to the "home" route
-    this.router.navigate(['/doucuments']);
-  }
-  
-  
 
 }
