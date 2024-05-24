@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
 import { BsModalRef, } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
+
 
 
 @Component({
@@ -11,14 +12,16 @@ import { BsModalRef, } from 'ngx-bootstrap/modal';
   styleUrl: './decision-tab.component.css'
 })
 export class DecisionTabComponent {
-    showRefinanceDetailsFlag: boolean = true;
-    showRestructureDetailsFlag: boolean = true;
-   showRecoveryDetailsFlag: boolean = true;
+    showRefinanceDetailsFlag: boolean = false;
+    showRestructureDetailsFlag: boolean = false;
+    showRecoveryDetailsFlag: boolean = false;
  
   currentPage: number = 1;
   dataSource: any[] = [];
   dataSourceFiltered: any[] = [];
-   statusData: any[] = []; // Your data array
+  Assigneddata: any[] = []; 
+  AssignedUrl: string = '';
+    
 
   
 
@@ -30,10 +33,33 @@ export class DecisionTabComponent {
     this.selectedIndex = index;
   }
   constructor(private router: Router, private sharedService: SharedService,
-    public bsModalRef: BsModalRef) { }
+    public bsModalRef: BsModalRef, private http: HttpClient) { }
 
  
+ ngOnInit(): void {
 
+    
+    this.AssignedUrl= this.sharedService.AssignedUrl;
+
+    this.getAssigned();
+  }
+
+  getAssigned(): void {
+    this.http.get<any>(this.AssignedUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.Assigneddata = response.result;
+       
+
+      } else {
+        console.error('Invalid data received from API:', response);
+      }
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
+  }
+ 
+
+  
    applyFilter(event: any) {
     const filterValue = event.target.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
     if (filterValue.trim() === '') {
@@ -44,27 +70,6 @@ export class DecisionTabComponent {
       this.dataSourceFiltered = this.dataSource.filter(item => item.id.toString().includes(filterValue));
     }
   }
-  ngOnInit(): void {
-    this.getStatus();
-  }
-
-
-  
-  getStatus(): void {
-    this.sharedService.getStatus().subscribe(
-      (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.statusData = result;
-        // Calculate case counts after receiving data
-
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
-
-      }
-    );
-  }
 
 
 
@@ -74,14 +79,23 @@ export class DecisionTabComponent {
   }
 
 
-   showRefinanceDetails() {
+   showRefinanceDetails(selectedRow: any) {
         this.showRefinanceDetailsFlag = !this.showRefinanceDetailsFlag;
-    } 
-     showRestructureDetails() {
+         this.showRestructureDetailsFlag = false;
+       this.showRecoveryDetailsFlag = false;
+
+    }
+
+     showRestructureDetails(selectedRow: any) {
         this.showRestructureDetailsFlag = !this.showRestructureDetailsFlag;
+         this.showRefinanceDetailsFlag = false;
+       this.showRecoveryDetailsFlag = false;
     } 
-     showRecoveryDetails() {
+
+     showRecoveryDetails(selectedRow: any) {
         this.showRecoveryDetailsFlag = !this.showRecoveryDetailsFlag;
+         this.showRefinanceDetailsFlag = false;
+       this.showRestructureDetailsFlag = false;
     } 
 
         exitPage() {

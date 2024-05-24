@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12 grid-margin transparent">
             <div class="row">
-                <div class="col-md-3 mb-3 stretch-card transparent">
+                <div class="col-md-3 mb-3 stretch-card transparent" (click)="showTotalCases()">
                     <div class="card card-tale">
                         <div class="card-body">
                             <p class="mb-4">Total Cases</p>
@@ -13,7 +13,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;">
+                <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;" (click)="showAssignedCases()">
                     <div class="card card-dark-blue">
                         <div class="card-body">
                             <p class="mb-4">Assigned Cases</p>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;">
+                <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;"(click)="showUnAssignedCases()">
                     <div class="card card-light-blue">
                         <div class="card-body">
                             <p class="mb-4">unassigned Cases</p>
@@ -34,11 +34,11 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="showTotalCasesFlag">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <p class="card-title">Case Management</p>
+                    <p class="card-title">Total Cases</p>
 
                    
                     <!-- Search Form -->
@@ -61,11 +61,11 @@
 
 
                     <!-- Export Buttons Container -->
-                    <div class="export-buttons-container">
+                    <!-- <div class="export-buttons-container">
                         <button class="btn btn-primary mr-4 small-btn" style="margin-left: -60px;" (click)="exportToPDF()">Export PDF</button>
                         <button class="btn btn-primary small-btn" style="margin-right: 4px;" (click)="exportToExcel()">Export Excel</button>
 
-                    </div>
+                    </div> -->
 
                     <div class="row">
                         <div class="col-12">
@@ -82,7 +82,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of casesData">
+<<<<<<< HEAD
+                                        <tr *ngFor="let item of data">
+=======
+
+                                        <tr *ngFor="let item of data">
+
+>>>>>>> 3a8fd1623bd2b7e89442b9d43f2af767adc9ba76
                                             <td>{{ item.assignedEmail }}</td>
                                             <td>{{ item.cifId }}</td>
                                             <td>{{ item.loanAccount }}</td>
@@ -99,6 +105,159 @@
                             (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
+                        (click)="ex()">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="showAssignedCasesFlag">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Assigned Cases</p>
+    
+    
+                    <!-- Search Form -->
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
+                            style="width: auto; height: 30px;">
+                            <option value="SearchBy" disabled>SearchBy</option>
+                            <option value="cifId">CIF</option>
+                            <option value="assignedEmail">Assigned Email</option>
+                            <option value="accountName">Account Name</option>
+                            <option value="loanAccount">Loan Account</option>
+                            <!-- <option value="id">ID</option> -->
+                        </select>
+                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                            placeholder="Enter search value" class="form-control mr-4" style="height: 30px;width: 100%; ">
+                        <button (click)="search()" class="btn btn-primary small-btn"
+                            style="border-radius: 3px;">Search</button>
+                    </div>
+    
+    
+    
+    
+                    <!-- Export Buttons Container -->
+                    <!-- <div class="export-buttons-container">
+                            <button class="btn btn-primary mr-4 small-btn" style="margin-left: -60px;" (click)="exportToPDF()">Export PDF</button>
+                            <button class="btn btn-primary small-btn" style="margin-right: 4px;" (click)="exportToExcel()">Export Excel</button>
+    
+                        </div> -->
+    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="example" class="display expandable-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Assigned To</th>
+                                            <th>CIF</th>
+                                            <th>Loan Type</th>
+                                            <th>Acc Name</th>
+                                            <th>Status</th>
+    
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+    
+                                        <tr *ngFor="let item of AssignedData">
+    
+                                            <td>{{ item.assignedEmail }}</td>
+                                            <td>{{ item.cifId }}</td>
+                                            <td>{{ item.loanAccount }}</td>
+                                            <td>{{ item.accountName }}</td>
+                                            <td>{{ item.verifiedFlag }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination-container">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
+                    </div>
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
+                        (click)="exitPage()">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="showUnAssignedCasesFlag">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">UnAssigned Cases</p>
+    
+    
+                    <!-- Search Form -->
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
+                            style="width: auto; height: 30px;">
+                            <option value="SearchBy" disabled>SearchBy</option>
+                            <option value="cifId">CIF</option>
+                            <option value="assignedEmail">Assigned Email</option>
+                            <option value="accountName">Account Name</option>
+                            <option value="loanAccount">Loan Account</option>
+                            <!-- <option value="id">ID</option> -->
+                        </select>
+                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                            placeholder="Enter search value" class="form-control mr-4" style="height: 30px;width: 100%; ">
+                        <button (click)="search()" class="btn btn-primary small-btn"
+                            style="border-radius: 3px;">Search</button>
+                    </div>
+    
+    
+    
+    
+                    <!-- Export Buttons Container -->
+                    <!-- <div class="export-buttons-container">
+                            <button class="btn btn-primary mr-4 small-btn" style="margin-left: -60px;" (click)="exportToPDF()">Export PDF</button>
+                            <button class="btn btn-primary small-btn" style="margin-right: 4px;" (click)="exportToExcel()">Export Excel</button>
+    
+                        </div> -->
+    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="example" class="display expandable-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Assigned To</th>
+                                            <th>CIF</th>
+                                            <th>Loan Type</th>
+                                            <th>Acc Name</th>
+                                            <th>Status</th>
+    
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+    
+                                        <tr *ngFor="let item of UnAssignedData">
+    
+                                            
+                                            <td>{{ item.cifId }}</td>
+                                            <td>{{ item.loanAccount }}</td>
+                                            <td>{{ item.accountName }}</td>
+                                            <td>{{ item.assignedEmail }}</td>
+                                            <td>{{ item.verifiedFlag }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination-container">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
+                    </div>
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
+                         (click)="exit()">Exit</button>
                 </div>
             </div>
         </div>

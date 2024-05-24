@@ -3,10 +3,11 @@ import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
 import { BsModalRef, } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { HttpErrorResponse } from '@angular/common/http';
-import * as jspdf from 'jspdf';
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
+import { HttpClient } from '@angular/common/http';
+import { CaseDetailsComponent } from '../case-details/case-details.component';
+import { AssignPopupComponent } from '../assign-popup/assign-popup.component';
+
+
 
 
 
@@ -16,23 +17,29 @@ import { saveAs } from 'file-saver';
   styleUrl: './assign-case.component.css'
 })
 export class AssignCaseComponent {
-     showUnassignedCasesFlag: boolean = true;
-     showAssignedCasesFlag: boolean = true;
-    recentActivityData: any[] = [];
-     modalService: any;
+  showUnassignedCasesFlag: boolean = false;
+  showAssignedCasesFlag: boolean = false;
+  showAllCasesFlag: boolean = true;
+  recentActivityData: any[] = [];
+  modalService: any;
+  row: any;
+  loanAccount: any; // Declare the variable
+ constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
+  public bsModalRef: BsModalRef, private http: HttpClient) { }
+
    
-    
-
-
-
-  goToCaseDetails() {
-    // Navigate to the "case-details" route
-    this.router.navigate(['/case-details']);
+  goToCaseDetails(selectedRow: any): void {
+    // Log the selected row data
+    console.log('Selected row:', selectedRow);
+    // Navigate to the "case-details" route and pass the selected row data as a parameter
+    this.router.navigate(['/case-details', { selectedRow: (selectedRow) }]);
   }
+
   
+
+
   
  searchOption: string = 'assignedTo';
-
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
@@ -43,37 +50,39 @@ export class AssignCaseComponent {
   unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
 
-  UnAssignedData: any[] = []; // Your data array
-  statusData: any[] = []; // Your data array
-  AssignedData: any[] = []; // Your data array
-  casesData: any[] = []; // Your data array
+
+  data: any[] = []; // Your data array
+  UnAssigneddata: any[] = []; 
+  Assigneddata: any[] = []; 
   cd: any;
+  apiUrl: string = '';
+  AssignedUrl: string = '';
+  UnAssignedUrl: string = '';
 
-
-  constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
-    public bsModalRef: BsModalRef) { }
-
-   
-
- 
 
   ngOnInit(): void {
-    this.getStatus();
-    this.getUnAssigned();
-    this.getCases();
+
+    
+    this.apiUrl = this.sharedService.ActivityUrl;
+    this.UnAssignedUrl = this.sharedService.UnAssignedUrl;
+    this.AssignedUrl= this.sharedService.AssignedUrl;
+
+    this.fetchData();
+    this.UnAssigned();
     this.getAssigned();
 
+
   }
-  getStatus() {
-    throw new Error('Method not implemented.');
-  }
+
   setSearchOption(option: string) {
     this.searchOption = option;
   }
   search(): void {
     console.log('Search method called'); // Debugging line
     this.currentPage = 1; // Reset current page for search
-    this.casesData = this.casesData.filter(item => {
+
+    this.data = this.data.filter(item => {
+
       switch (this.searchParams.param) {
         case 'cifId':
           return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
@@ -89,113 +98,74 @@ export class AssignCaseComponent {
     });
   }
 
-   getUnAssigned(): void {
-    this.sharedService. getUnAssigned().subscribe(
-      (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.UnAssignedData = result;
-         this.calculateCaseCounts(); 
-        // Calculate case counts after receiving data
 
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
+
+  fetchData(): void {
+    this.http.get<any>(this.apiUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.data = response.result;
+        this.calculateCaseCounts();
+
+      } else {
+        console.error('Invalid data received from API:', response);
       }
-    );
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
+  }
+
+   UnAssigned(): void {
+    this.http.get<any>(this.UnAssignedUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.UnAssigneddata = response.result;
+        this.calculateCaseCounts();
+
+      } else {
+        console.error('Invalid data received from API:', response);
+      }
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
   }
  
+ getAssigned(): void {
+    this.http.get<any>(this.AssignedUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.Assigneddata = response.result;
+        this.calculateCaseCounts();
 
-
-
-  getCases(): void {
-    this.sharedService.getCases().subscribe(
-      (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.casesData = result;
-        this.calculateCaseCounts(); // Calculate case counts after receiving data
-
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
+      } else {
+        console.error('Invalid data received from API:', response);
       }
-    );
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
   }
-
-
  
-
-
-getAssigned(): void {
-    this.sharedService.getAssigned().subscribe(
-      (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.AssignedData = result;
-        this.calculateCaseCounts(); // Calculate case counts after receiving data
-
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
-      }
-    );
-  }
-
-
-  
-
-
-  
-  calculateCaseCounts(): void {
-
-    // Reset counts
-    this.totalCases = this.casesData.length;
-    this.assignedCases = 0;
-    this.unassignedCases = 0;
-
-    // Count assigned and unassigned cases
-    this.casesData.forEach(item => {
-      if (item.assigned === 'Y') {
-        this.assignedCases++;
-      } else {
-        this.unassignedCases++;
-      }
-    });
-       this.UnAssignedData.forEach(item => {
-      if (item.unassigned === 'Y') {
-        this.unassignedCases++;
-      } else {
-        this.assignedCases++;
-      }
-    });
-
-
-
-
-  }
+ 
 
   // Method to handle page change event
   pageChanged(event: any): void {
     this.currentPage = event.page;
-    this.getStatus();
-    this.getUnAssigned();
+
+    this.fetchData();
+
   }
-  
 
   // Method to handle search query change
   onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
-    this.getStatus();
-    this.getUnAssigned();
-  }
 
-  
+    this.fetchData();
+
+  }
 
   // Getter for filtered data based on search term
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      return this.statusData.filter, this.UnAssignedData.filter(item => {
+
+      return this.data.filter(item => {
+
         // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
@@ -205,46 +175,13 @@ getAssigned(): void {
         return false;
       });
     } else {
-      return this.statusData,this.UnAssignedData;
-     
+
+      return this.data;
 
     }
-    
   }
 
 
-  exportToExcel(): void {
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.getDataArray());
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const data: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(data, 'table.xlsx');
-  }
-
-  exportToPDF(): void {
-    const doc = new jspdf.default();
-    const headers = ['Quote#', 'Product', 'Business type', 'Policy holder', 'Premium', 'Status', 'Updated at'];
-    const tableData = this.filteredData.map(item => [
-      item.userId,
-      item.id,
-      item.title,
-      item.completed,
-      // Add other properties here based on your table structure
-    ]);
-
-    // doc.autoTableSetDefaults({
-    //   headStyles: { fillColor: [100, 100, 255] },
-    //   bodyStyles: { textColor: 0 },
-    //   alternateRowStyles: { fillColor: [245, 245, 245] },
-    // });
-
-    // doc.autoTable({
-    //   head: [headers],
-    //   body: tableData,
-    // });
-    doc.save('table.pdf');
-  }
 
   getDataArray(): any[][] {
     const dataArray: any[][] = [];
@@ -260,15 +197,34 @@ getAssigned(): void {
     return dataArray;
   }
 
+  calculateCaseCounts(): void {
+    this.totalCases = this.data.length;
+    this.assignedCases = this.data.filter(item => item.assigned === "Y").length;
+    this.unassignedCases = this.data.filter(item => item.assigned === "N").length;
+  }
 
+
+  
    showUnassignedCases() {
         this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
+         this.showAllCasesFlag = false;
+         this.showAssignedCasesFlag = false;
+
+    }
+     showAllCases() {
+        this.showAllCasesFlag = !this.showAllCasesFlag ;
+           this.showAssignedCasesFlag = false;
+       this.showUnassignedCasesFlag = false;
+
     }
 
    
 
     showAssignedCases() {
         this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
+           this.showAllCasesFlag = false;
+       this.showUnassignedCasesFlag = false;
+
     } 
         exitPage() {
     this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
@@ -277,6 +233,17 @@ getAssigned(): void {
     exit() {
     this.showUnassignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
 }
+  ex() {
+    this.showAllCasesFlag = false; // Set the flag to false to hide the assigned cases page
+}
+
+   rows: any[] = [];
+
+  
+
+  onRowClick(row: any) {
+    this.sharedService.updateRowData(row);
+  }
 
 
 

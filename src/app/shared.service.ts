@@ -11,6 +11,9 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
+  updateRowData(row: any) {
+    throw new Error('Method not implemented.');
+  }
 
 
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
@@ -20,8 +23,9 @@ export class SharedService {
 
 
   readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
-readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
-  readonly StatusUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+  readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+  readonly ActiveUrl ='http://192.168.2.23:5260/api/Case/ActiveCases';
+  readonly ClosedUrl = 'http://192.168.2.23:5260/api/Case/ClosedCases';
 
 
 
@@ -34,11 +38,10 @@ readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
 
   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
- readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
+   readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
   // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
-  readonly CustomersUrl = 'assets/data/db.json';
 
-readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
+ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
 
 
 
@@ -178,12 +181,7 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
     );
   }
 
-  getStatus(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.StatusUrl}`).pipe(
-      tap((data: any[]) => console.log('Fetched:', data)), // Logging fetched data
-      map((response: any) => response.result) // Extracting only the 'result' array
-    );
-  }
+  
   
   getLoanDetails(accountId: string): Observable<any> {
     const url = `${this.DetailsURL}${accountId}`;
@@ -223,8 +221,8 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
    getUnAssigned(): Observable<any[]> {
     return this.http.get<any[]>(`${this.UnAssignedUrl}`)
       .pipe(
-        tap((data: any[]) => console.log('Fetched AssignCase:', data)),
-        map((data: any) => data['AssignCase']) 
+        tap((data: any[]) => console.log('Fetched UnAssignCase:', data)),
+        map((data: any) => data['UnAssignCase']) 
       );
   }
 
@@ -235,6 +233,22 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
       .pipe(
         tap((data: any[]) => console.log('Fetched UnAssigned:', data)),
         map((data: any) => data['UnAssigned']) 
+      );
+  }
+  getActive(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.ActiveUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched Active:', data)),
+        map((data: any) => data['Active'])
+      );
+  }
+  getClosed(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.ClosedUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched Closed:', data)),
+        map((data: any) => data['Closed'])
       );
   }
   
@@ -262,13 +276,7 @@ readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
     ))
 
   }
-  getCustomers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.CustomersUrl}`)
-      .pipe(
-        tap((data: any[]) => console.log('Fetched Customers:', data)),
-        map((data: any) => data['Customers'])
-      );
-  }
+ 
 
 
   getMeetings(): Observable<any[]> {

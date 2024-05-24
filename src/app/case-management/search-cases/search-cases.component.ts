@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -15,26 +13,15 @@ interface LoanDetailsResponse {
   entity: any; // Define the structure according to your API response
 }
 
-
-
 @Component({
-  selector: 'app-search-case',
-  templateUrl: './search-case.component.html',
-  styleUrls: ['./search-case.component.css']
+  selector: 'app-search-cases',
+  templateUrl: './search-cases.component.html',
+  styleUrl: './search-cases.component.css'
 })
-
-export class SearchCaseComponent implements OnInit {
-
-
-
-  // loanDetails: any;
-
-  // LoanData: any = {};
-  LoanData: any[] = [];
-  // loanDetails:any[]=[];
-  // activeTab: string = '';
+export class SearchCasesComponent  implements OnInit {
+  
+  CasesData: any[] = [];
   loanItem: any;
-  // Adjust the type as necessary
   activeTab: string = 'general';
   
   showTabs: boolean = false; // Property to control the visibility of the tabs
@@ -50,14 +37,15 @@ export class SearchCaseComponent implements OnInit {
   private destroy$ = new Subject<void>();
   loanDetails: any = { entity: {} }; // Initialize with an empty object
   @ViewChild('content') content!: ElementRef; 
+   
 
 
   constructor(private router: Router, private sharedService: SharedService, private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-    // Assign a value to accountId
-    this.getLoan();
-    // this.getLoanDetails();
+   
+    this.getCases();
+    
   }
   // 
   downloadExcel(): void {
@@ -176,20 +164,20 @@ export class SearchCaseComponent implements OnInit {
   updatePagedLoanData(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = Math.min(startIndex + this.pageSize, this.totalItems);
-    this.pagedLoanData = this.LoanData.slice(startIndex, endIndex);
+    this.pagedLoanData = this.CasesData.slice(startIndex, endIndex);
   }
   pageChanged(event: any): void {
     this.currentPage = event.page;
     this.updatePagedLoanData();
   }
 
-  getLoan(): void {
+  getCases(): void {
     this.sharedService.getLoan().pipe(takeUntil(this.destroy$)).subscribe(
 
       (response: any) => {
         // console.log('Loan Data:', response.entity);
-        this.LoanData = response.entity; // Assuming 'entity' is an array of loan objects
-        this.totalItems = this.LoanData.length;
+        this.CasesData = response.entity; // Assuming 'entity' is an array of loan objects
+        this.totalItems = this.CasesData.length;
         this.totalPages = Math.ceil(this.totalItems / this.pageSize);
         this.filterData();
         this.updatePagedLoanData();
@@ -204,20 +192,20 @@ export class SearchCaseComponent implements OnInit {
   filterData(): void {
     if (this.searchParams.value.trim() === '') {
       // If search value is empty, show all data
-      this.LoanData = [...this.LoanData];
+      this.CasesData = [...this.CasesData];
     } else {
       // Filter data based on selected parameter and value
-      this.LoanData = this.LoanData.filter(item => {
+      this.CasesData = this.CasesData.filter(item => {
         return item[this.searchParams.param] === this.searchParams.value;
       });
     }
-    this.totalItems = this.LoanData.length;
+    this.totalItems = this.CasesData.length;
     this.totalPages = Math.ceil(this.totalItems / this.pageSize);
   }
   search(): void {
     console.log('Search method called'); // Add this line for debugging
     this.currentPage = 1;
-    this.getLoan();
+    this.getCases();
     
   }
   getLoanDetails(acccountId: string): void {
@@ -239,4 +227,7 @@ export class SearchCaseComponent implements OnInit {
     // Navigate to the "home" route
     this.router.navigate(['/doucuments']);
   }
+  
+  
+
 }

@@ -1,1 +1,66 @@
-<p>reports-inter works!</p>
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="row">
+            <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                <form class="form-inline" style="margin-top: 0;">
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <div class="search-bar" style="border-radius: 20px; width: 700px;">
+                            <input type="text" placeholder="Search report name" [(ngModel)]="searchQuery"
+                                (input)="filterItems()" name="searchQuery"
+                                style="height: 30px;width: 100%;border-radius: 5px;color: maroon; ">
+                            <ul *ngIf="showDropdown && filteredItems.length > 0">
+                                <li *ngFor="let item of filteredItems" (click)="navigateToPage(item)">{{ item.title }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <!-- Form -->
+    <div class="card p-3 mt-3">
+        <form>
+            <!-- Branch ID -->
+            <div class="form-group row">
+                <label for="branchId" class="col-sm-2 col-form-label">Branch ID</label>
+                <div class="col-sm-10">
+                    <input type="text" id="branchId" class="form-control">
+                </div>
+            </div>
+
+            <!-- Scheme Code -->
+            <div class="form-group row">
+                <label for="schemeCode" class="col-sm-2 col-form-label">Scheme Code</label>
+                <div class="col-sm-10">
+                    <input type="text" id="schemeCode" class="form-control">
+                </div>
+            </div>
+
+            <!-- Date Range -->
+            <div class="form-group row">
+                <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
+                <div class="col-sm-4">
+                    <input type="date" id="startDate" class="form-control">
+                </div>
+                <label for="endDate" class="col-sm-2 col-form-label">End Date</label>
+                <div class="col-sm-4">
+                    <input type="date" id="endDate" class="form-control">
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <button type="button" class="btn btn-primary">Generate</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
