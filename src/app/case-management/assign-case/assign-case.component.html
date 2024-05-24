@@ -88,6 +88,7 @@
                                         <th>Branch code</th>
                                         <th>Loan Balance</th>
                                         
+                                        
 
                                     </tr>
                                 </thead>
@@ -247,7 +248,7 @@
 
 
                                 <tbody>
-                                    <tr *ngFor="let item of UnAssigneddata"  (click)="onRowClick(row)">
+                                    <tr *ngFor="let item of UnAssigneddata"  >
                                         <td>{{ item.caseNumber }}</td>
                                         <td>{{ item.loanAccount }}</td>
                                         <td>{{ item.cifId }}</td>
@@ -258,8 +259,7 @@
                                         <td>{{ item.loanBalance }}</td>
                                         <td>{{ item.syndicatedFlag }}</td>
                                         <td>{{ item.assigned }}</td>
-                                        <td><button type="button" class="assign small-btn"
-                                        (click)="goToCaseDetails(item)" >Assign</button></td>
+                                        <td><button type="button" class="assign small-btn" (click)="goToCaseDetails(item.loanAccount)">View </button></td>
                                     </tr>
                                 </tbody>
 

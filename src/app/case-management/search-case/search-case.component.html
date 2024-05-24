@@ -18,31 +18,41 @@
                    
 
                 </div>
-
-                <table class="table mt-3">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Loan account</th>
-                            <th>Verified Flag</th>
-                            <th>SOL CODE</th>
-                            <th>Account Name</th>
-                            <th>CIF</th>
-                            <th>Actions</th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let loanItem of pagedLoanData">
-                            <td>{{ loanItem.acid }}</td>
-                            <td>{{ loanItem.verified_flag }}</td>
-                            <td>{{ loanItem.sol_code }}</td>
-                            <td>{{ loanItem.account_name }}</td>
-                            <td>{{ loanItem.id }}</td>
-                            <td>
-                                <button class="btn btn-sm btn-info" (click)="showTabs = true; getLoanDetails(loanItem.acid)">View Details</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+             
+                   
+                        <div class="table-responsive">
+                            <table id="example" class="display expandable-table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Loan account</th>
+                                        <th>Verified Flag</th>
+                                        <th>SOL CODE</th>
+                                        <th>Account Name</th>
+                                        <th>CIF</th>
+                                        <th>Actions</th>
+                
+                                    </tr>
+                
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let loanItem of pagedLoanData">
+                                        <td>{{ loanItem.acid }}</td>
+                                        <td>{{ loanItem.verified_flag }}</td>
+                                        <td>{{ loanItem.sol_code }}</td>
+                                        <td>{{ loanItem.account_name }}</td>
+                                        <td>{{ loanItem.id }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" (click)="showTabs = true; getLoanDetails(loanItem.acid)">View
+                                                Details</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                
+                        </div>
+                   
+                
+                           
 
                 <div class="row">
                     <div class="col-12">
@@ -203,6 +213,10 @@
                                                         <input type="text" id="glSubhead" class="form-control"
                                                             [value]="loanDetails?.glSubhead" readonly>
                                                     </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;margin-left:260%;"
+                                                            data-dismiss="modal" (click)="exitPage()">Exit Page</button>
+                                                    </div>
                                                 </div>
                     
                                             </div>
@@ -348,6 +362,10 @@
                                                         <input type="text" id="disbursmentVerifiedBy" class="form-control"
                                                             [value]="loanDetails.loan.disbursmentVerifiedBy" readonly>
                                                     </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;margin-left:260%;"
+                                                            data-dismiss="modal" (click)="exitPage()">Exit Page</button>
+                                                    </div>
                                                 </div>
                                                 <!-- More fields here as per original content -->
                                             </div>
@@ -375,8 +393,9 @@
                                                                 </div>
                                                             </div>
                                                             <div>
-                                                                <table class="table mt-3 styled-table">
-                                                                    <thead class="thead-dark">
+                                                                <div   class="table-responsive">
+                                                                <table  id="example" class="display expandable-table" style="width:100%">
+                                                                    <thead >
                                                                         <tr>
                                                                             <th>ID</th>
                                                                             <th>Start Date</th>
@@ -395,16 +414,25 @@
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
+                                                                </div>
                                                                 <div>
                                                                     <button class="btn btn-sm btn-info"
                                                                         (click)="downloadPDF()">Download</button>
                                                                 </div>
+                                                                
                                                             </div>
+                                                            
                                                         </div>
+                                                        
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;margin-left:90%;"
+                                                            data-dismiss="modal" (click)="exitPage()">Exit Page</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
                     
                                     <!-- Guarantor Tab -->
@@ -445,6 +473,10 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div>
+                                                <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;margin-left:90%;"
+                                                    data-dismiss="modal" (click)="exitPage()">Exit Page</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'collateral'}" id="pills-collateral"
@@ -456,8 +488,15 @@
                                                     <input type="text" id="accountName" class="form-control"
                                                         [value]="loanDetails?.accountName" readonly>
                                                 </div>
+                                                
                                             </div>
+                                            
                                         </div>
+                                        <div>
+                                            <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;margin-left:90%;"
+                                                data-dismiss="modal" (click)="exitPage()">Exit Page</button>
+                                        </div>
+                                        
                                     </div>
                     
                                     <!-- Documents Tab -->
@@ -466,6 +505,10 @@
                                         <div *ngIf="loanDetails">
                                             <button class="btn btn-link" [routerLink]="['/documents/app-retrieve']">Go to
                                                 Documentation</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;margin-left:90%;"
+                                                data-dismiss="modal" (click)="exitPage()">Exit Page</button>
                                         </div>
                                     </div>
                     
