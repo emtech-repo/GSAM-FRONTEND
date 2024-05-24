@@ -39,6 +39,8 @@ import { RegisterComponent } from './register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { TotalCasesComponent } from './case-management/total-cases/total-cases.component';
+
 
 
 
@@ -56,6 +58,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     AdminPopupComponent,
     RegisterComponent,
     ForgotPasswordComponent,
+    TotalCasesComponent,
   
     
 
