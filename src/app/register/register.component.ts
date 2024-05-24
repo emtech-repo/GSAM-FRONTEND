@@ -25,8 +25,8 @@ export class RegisterComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-       gender: ['male'],
-     creationDate: [new Date()], // Initialize with current date
+      gender: ['male'],
+       creationDate: [new Date()], // Initialize with current date
       role: [''],
 
       isactive: [false]

@@ -8,42 +8,48 @@
                         Assign Case Form
                     </h3>
                     <form>
-                        <div class="form-group row" style="margin-top: -30px;margin-bottom: 10px;">
+                        <!-- Adjusted margin for better spacing -->
+                        <div class="form-group row" style="margin-bottom: 20px;">
                             <div class="col-md-3">
-                                <label for="name"> Email</label>
+                                <label for="searchEmail">Case Number</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="email" />
+                                <p>Case Number: {{ caseNumber }}</p>
                             </div>
                         </div>
 
-                        <div class="form-group row" style="margin-bottom: 10px;">
+                        <!-- Adjusted margin for better spacing -->
+                        <div class="form-group row" style="margin-top: 20px; margin-bottom: 20px;">~
                             <div class="col-md-3">
-                                <label for="name">PF Number</label>
+                                <label for="email">Email</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="empnumber" />
+                               <input type="email" class="form-control" name="email"id="email" [(ngModel)]="UserName" required>
                             </div>
                         </div>
 
+                        <!-- Adjusted margin for better spacing -->
+                       
 
                         <div class="row">
                             <div class="col">
-                                <button type="submit" class="btn btn-primary small-btn" data-dismiss="modal"
-                                    (click)="bsModalRef.hide()" style="margin-top: 10px;">Assign</button>
+                                 <button type="submit" class="btn btn-primary small-btn" (click)="assignCase()"
+                                      data-dismiss="modal" style="margin-top: 20px;">Assign</button>
                             </div>
+
                             <div class="col">
                                 <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
-                                    (click)="bsModalRef.hide()"
-                                    style="margin-left: 100px;margin-top: 10px;">Close</button>
+                                    (click)="bsModalRef.hide()" style="margin-left: 100px;margin-top: 20px;">Close</button>
                             </div>
                         </div>
 
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
 
+    <div *ngIf="responseMessage" style="margin-top: 20px;">
+    <p>{{ responseMessage }}</p>
+    </div>
 </section>
