@@ -79,25 +79,29 @@
                             <table id="example" class="display expandable-table" style="width:100%">
                                 <thead>
                                     <tr>
-                                       
-                                        <th>CIF</th>
-                                        <th>Loan Type</th>
-                                        <th>Acc Name</th>
-                                        <th>Assigned To</th>
-                                        <th>Verified</th>
-                                        <th>Assigned </th>
+                                        <th>Case Number</th>
+                                        <th>Cif ID</th>
+                                        <th>Loan account</th>
+                                        <th>Account Name</th>
+                                        <th>loan Amount</th>
+                                        <th>Loan Tenure</th>
+                                        <th>Branch code</th>
+                                        <th>Loan Balance</th>
+                                        
 
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     <tr *ngFor="let item of data">
-                                        <td>{{ item.cifId }}</td>
-                                        <td>{{ item.loanAccount }}</td>
+                                        <td>{{ item.caseNumber}}</td>
+                                        <td>{{ item.cifId}}</td>
+                                        <td>{{ item.loanAccount}}</td>
                                         <td>{{ item.accountName }}</td>
-                                        <td>{{ item.assignedEmail }}</td>
-                                        <td>{{ item.verifiedFlag }}</td>
-                                        <td>{{ item.assigned }}</td>                                   
+                                        <td>{{ item.loanAmount}}</td>
+                                        <td>{{ item.loanTenure }}</td>
+                                        <td>{{ item.solId }}</td>
+                                        <td>{{ item.loanBalance}}</td>
                       </tr>
                                 </tbody>
                             </table>
@@ -155,20 +159,30 @@
                             <table id="example" class="display expandable-table" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>Case Number</th>
                                         <th>Loan Account</th>
                                         <th>CIF ID</th>
-                                        <th>Acc Name</th>
-                                        <th>Assigned To</th>
+                                        <th>Accout Name</th>
+                                        <th>Loan Amount</th>
+                                        <th>Loan Tenure</th>
+                                        <th>Branch ID</th>
+                                        <th>loan Balance</th>
+                                        <th>Syndicated</th>
                                         <th>Assigned </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of Assigneddata">
+                                        <td>{{ item.caseNumber }}</td>
                                         <td>{{ item.loanAccount }}</td>
                                         <td>{{ item.cifId }}</td>
                                         <td>{{ item.accountName }}</td>
+                                        <td>{{ item.loanAmount }}</td>
+                                        <td>{{ item.loanTenure }}</td>
+                                        <td>{{ item.solId }}</td>
+                                        <td>{{ item.loanBalance }}</td>
+                                        <td>{{ item.syndicatedFlag }}</td>
                                         <td>{{ item.assignedEmail }}</td>
-                                        <td>{{ item.assigned }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -217,26 +231,35 @@
                                     <tr>
 
                                         <th>Case Number</th>
-                                        <th>CIF ID</th>
                                         <th>Loan Account</th>
-                                        <th>Account Name</th>
-                                        <th>Loan Balance</th>
-                                        <th>Assigned</th>
+                                        <th>CIF ID</th>
+                                        <th>Accout Name</th>
+                                        <th>Loan Amount</th>
+                                        <th>Loan Tenure</th>
+                                        <th>Branch ID</th>
+                                        <th>loan Balance</th>
+                                        <th>Syndicated</th>
+                                        <th>Assigned </th>
                                         <th>Action</th>
+                                     
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
-                                    <tr *ngFor="let item of UnAssigneddata" >
+                                    <tr *ngFor="let item of UnAssigneddata"  (click)="onRowClick(row)">
                                         <td>{{ item.caseNumber }}</td>
-                                        <td>{{ item.cifId }}</td>
                                         <td>{{ item.loanAccount }}</td>
+                                        <td>{{ item.cifId }}</td>
                                         <td>{{ item.accountName }}</td>
+                                        <td>{{ item.loanAmount }}</td>
+                                        <td>{{ item.loanTenure }}</td>
+                                        <td>{{ item.solId }}</td>
                                         <td>{{ item.loanBalance }}</td>
+                                        <td>{{ item.syndicatedFlag }}</td>
                                         <td>{{ item.assigned }}</td>
                                         <td><button type="button" class="assign small-btn"
-                                                (click)="goToCaseDetails(item)"  >View Case</button></td>
+                                        (click)="goToCaseDetails(item)" >Assign</button></td>
                                     </tr>
                                 </tbody>
 
