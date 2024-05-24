@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { BsModalRef, } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
-import { CaseDetailsComponent } from '../case-details/case-details.component';
-import { AssignPopupComponent } from '../assign-popup/assign-popup.component';
+
 
 
 
@@ -68,7 +67,7 @@ export class AssignCaseComponent {
     this.AssignedUrl= this.sharedService.AssignedUrl;
 
     this.fetchData();
-    this.UnAssigned();
+    this.getUnAssigned();
     this.getAssigned();
 
 
@@ -114,7 +113,7 @@ export class AssignCaseComponent {
     });
   }
 
-   UnAssigned(): void {
+   getUnAssigned(): void {
     this.http.get<any>(this.UnAssignedUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.UnAssigneddata = response.result;
