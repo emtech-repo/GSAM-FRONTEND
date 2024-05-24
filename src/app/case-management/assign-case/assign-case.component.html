@@ -25,7 +25,10 @@
             </div>
         </div>
 
-        <div class="col-md-3 mb-3  stretch-card transparent" (click)="showUnassignedCases()">
+
+        <div class="col-md-3 mb-3  stretch-card transparent" 
+            (click)="showUnAssignedCases()">
+
             <div class="card card-light-blue">
 
                 <div class="card-body">
@@ -39,7 +42,10 @@
 
     </div>
 </div>
-<div class="row"  *ngIf="showAllCasesFlag">
+
+
+<div class="row" *ngIf="showUnAssignedCasesFlag">
+
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
