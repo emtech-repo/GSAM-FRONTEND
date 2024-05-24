@@ -16,8 +16,8 @@ import { saveAs } from 'file-saver';
   styleUrl: './case-status.component.css'
 })
 export class CaseStatusComponent {
-  showUnAssignedCasesFlag: boolean=true;
-  showAssignedCasesFlag: boolean = true;
+  showUnAssignedCasesFlag: boolean= false;
+  showAssignedCasesFlag: boolean = false;
   showTotalCasesFlag: boolean = true;
   searchOption: string = 'assignedTo';
   searchQuery: string = '';
@@ -83,13 +83,13 @@ export class CaseStatusComponent {
   // getCases(): void {
   //   this.sharedService.getCases().subscribe(
   //     (result: any[]) => {
-        
+
   //       this.casesData = result;
   //       this.calculateCaseCounts(); 
   //     },
   //     (error: HttpErrorResponse) => {
   //       console.error('Error fetching Status:', error);
-        
+
   //     }
   //   );
   // }
@@ -133,12 +133,12 @@ export class CaseStatusComponent {
     });
   }
   // calculateCaseCounts(): void {
-   
+
   //   this.totalCases = this.casesData.length;
   //   this.assignedCases = 0;
   //   this.unassignedCases = 0;
 
-   
+
   //   this.casesData.forEach(item => {
   //     if (item.assigned === 'Y') {
   //       this.assignedCases++;
@@ -235,12 +235,18 @@ export class CaseStatusComponent {
 
   showUnAssignedCases() {
     this.showUnAssignedCasesFlag = !this.showUnAssignedCasesFlag;
+    this.showTotalCasesFlag = false;
+    this.showAssignedCasesFlag = false;
   }
   showAssignedCases() {
     this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
+    this.showTotalCasesFlag = false;
+    this.showUnAssignedCasesFlag = false;
   }
   showTotalCases() {
     this.showTotalCasesFlag = !this.showUnAssignedCasesFlag;
+    this.showAssignedCasesFlag = false;
+    this.showUnAssignedCasesFlag = false;
   }
 
   calculateCaseCounts(): void {

@@ -2,52 +2,67 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 
+
 import { SharedService } from '../../shared.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-view-requests',
-  templateUrl: './view-requests.component.html',
-  styleUrl: './view-requests.component.css'
+  selector: 'app-total-cases',
+  templateUrl: './total-cases.component.html',
+  styleUrl: './total-cases.component.css'
 })
-export class ViewRequestsComponent {
+export class TotalCasesComponent implements OnInit {
+
+  showUnAssignedCasesFlag: boolean = false;
+  showAssignedCasesFlag: boolean = false;
+  showTotalCasesFlag: boolean = true;
   searchOption: string = 'assignedTo';
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
-  pageSize: number = 3;
+  pageSize: number = 5;
   totalItems: number = 0;
-  totalPages: number = 0;
   totalCases: number = 0;
-  activeCases: number = 0;
-  closedCases: number = 0;
+  assignedCases: number = 0;
+  unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
-  // casesData: any[] = [];
+
+  data: any[] = []; // Your data array
+  // AssignedData: any[] = []; // Your data array
+  // UnAssignedData: any[] = []; // Your data array
+
   cd: any;
   apiUrl: string = '';
-  data: any[] = [];
+  CasesUrl: string = '';
+  
 
-  constructor(private sharedService: SharedService, private http: HttpClient,) { }
+
+  constructor(private sharedService: SharedService, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.apiUrl = this.sharedService.ActivityUrl;
-    this.fetchData();
-
-  }
-
-  setSearchParams(param: string): void {
-    this.searchParams.param = param;
-    this.searchParams.value = ''; // Clear the value since we're setting the parameter now
-  }
-
-
+    const cardType = this.route.snapshot.queryParamMap.get('cardType');
+    if (cardType === 'total-cases') {
+      // Load total cases data
+    }
   
+
+
+    this.apiUrl=this.sharedService.CasesUrl;
+    this.fetchData();
+    
+    
+
+
+  }
   setSearchOption(option: string) {
     this.searchOption = option;
   }
   search(): void {
     console.log('Search method called'); // Debugging line
     this.currentPage = 1; // Reset current page for search
+
     this.data = this.data.filter(item => {
+
       switch (this.searchParams.param) {
         case 'cifId':
           return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
@@ -64,13 +79,13 @@ export class ViewRequestsComponent {
   }
 
 
+
   // getCases(): void {
   //   this.sharedService.getCases().subscribe(
   //     (result: any[]) => {
 
   //       this.casesData = result;
   //       this.calculateCaseCounts(); 
-
   //     },
   //     (error: HttpErrorResponse) => {
   //       console.error('Error fetching Status:', error);
@@ -83,6 +98,7 @@ export class ViewRequestsComponent {
       if (response && response.result && Array.isArray(response.result)) {
         this.data = response.result;
         // this.calculateCaseCounts();
+
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -90,28 +106,31 @@ export class ViewRequestsComponent {
       console.error('Error fetching data from API:', error);
     });
   }
-  // calculateCaseCounts(): void {
-  //   this.totalCases = this.data.length;
-  //   this.activeCases = this.data.filter(item => item.assigned === "N").length;
-  //   this.closedCases = this.data.filter(item => item.assigned === "Y").length;
-  // }
-
+ 
+  
+  
   // Method to handle page change event
   pageChanged(event: any): void {
     this.currentPage = event.page;
+
     this.fetchData();
+
   }
 
   // Method to handle search query change
   onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
+
     this.fetchData();
+
   }
 
   // Getter for filtered data based on search term
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
+
       return this.data.filter(item => {
+
         // Convert item properties to string and check if any property contains the search term
         for (let key in item) {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
@@ -121,21 +140,10 @@ export class ViewRequestsComponent {
         return false;
       });
     } else {
+
       return this.data;
+
     }
-  }
-  filterData(): void {
-    if (this.searchParams.value.trim() === '') {
-      // If search value is empty, show all data
-      this.data = [...this.data];
-    } else {
-      // Filter data based on selected parameter and value
-      this.data = this.data.filter(item => {
-        return item[this.searchParams.param] === this.searchParams.value;
-      });
-    }
-    this.totalItems = this.data.length;
-    this.totalPages = Math.ceil(this.totalItems / this.pageSize);
   }
 
 
@@ -154,5 +162,21 @@ export class ViewRequestsComponent {
     return dataArray;
   }
 
+  
+  // calculateCaseCounts(): void {
+  //   this.totalCases = this.data.length;
+  //   this.assignedCases = this.data.filter(item => item.assigned === "Y").length;
+  //   this.unassignedCases = this.data.filter(item => item.assigned === "N").length;
+  // }
+  
 
+  exit() {
+    this.showUnAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+  }
+  ex() {
+    this.showTotalCasesFlag = false; // Set the flag to false to hide the Total cases page
+  }
+  exitPage() {
+    this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+  }
 }

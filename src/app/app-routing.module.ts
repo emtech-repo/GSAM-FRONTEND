@@ -25,8 +25,10 @@ import { CreateCaseComponent } from './case-management/create-case/create-case.c
 
 import { ClaimTabComponent } from './billing-reconciliation/claim-tab/claim-tab.component';
 import { ApproveClaimComponent } from './billing-reconciliation/approve-claim/approve-claim.component';
+
 import { AssignPopupComponent } from './case-management/assign-popup/assign-popup.component';
 import { SearchCaseComponent } from './case-management/search-case/search-case.component';
+
 
 
 
@@ -77,7 +79,7 @@ export const routes: Routes = [
     component: CaseDecisionComponent,
   },
   {
-    path: 'case-details',
+    path: 'case-details/:loanAccount',
     component: CaseDetailsComponent
   },
     {
@@ -127,6 +129,9 @@ export const routes: Routes = [
       path: 'app-create-case',    
       component: CreateCaseComponent,
     },
+  { path: 'dashboard/:cardType',
+   component: HomeComponent },
+  
   
 
 

@@ -25,7 +25,10 @@
             </div>
         </div>
 
-        <div class="col-md-3 mb-3  stretch-card transparent" (click)="showUnassignedCases()">
+
+        <div class="col-md-3 mb-3  stretch-card transparent" 
+            (click)="showUnassignedCases()">
+
             <div class="card card-light-blue">
 
                 <div class="card-body">
@@ -39,7 +42,10 @@
 
     </div>
 </div>
-<div class="row"  *ngIf="showAllCasesFlag">
+
+
+<div class="row" *ngIf="showUnassignedCasesFlag">
+
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -259,10 +265,14 @@
                                         <td>{{ item.loanBalance }}</td>
                                         <td>{{ item.syndicatedFlag }}</td>
                                         <td>{{ item.assigned }}</td>
-                                        <td><button type="button" class="assign small-btn" (click)="goToCaseDetails(item.loanAccount)">View </button></td>
+
+                                        <td><button type="button" class="assign small-btn"
+
+                                                (click)="goToCaseDetails(item.loanAccount)"  >View Case</button></td>
+
+
                                     </tr>
                                 </tbody>
-
 
 
 

@@ -19,18 +19,18 @@
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputloanaccount" style="margin-bottom: -1px;">Loan Account
                                             </label>
-                                            <input type="text" class="form-control" id="CifID" [value]=" UnAssigneddata.loanAccount|| ''" readonly />
+                                            <input type="text" class="form-control" id="CifID" [value]=" caseDetails.loanAccount|| ''" readonly />
 
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputcasenumber">Case Number </label>
-                                            <input type="text" class="form-control" id="caseNumber" [value]=" UnAssigneddata.caseNumber|| ''" readonly />
+                                            <input type="text" class="form-control" id="caseNumber" [value]=" caseDetails.caseNumber|| ''" readonly />
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputloan"> Loan Amount</label>
-                                        <input type="text" class="form-control" id="loanAmount" [value]=" UnAssigneddata.loanAmount|| ''" readonly />
+                                        <input type="text" class="form-control" id="loanAmount" [value]=" caseDetails.loanAmount|| ''" readonly />
 
 
                                         </div>
@@ -45,19 +45,19 @@
                                     <div class="col-md-12 ps-9">
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputcifId">CIF ID</label>
-                                             <input type="text" class="form-control" id="cifId" [value]=" UnAssigneddata.cifId|| ''" readonly />
+                                             <input type="text" class="form-control" id="cifId" [value]=" caseDetails.cifId|| ''" readonly />
 
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inpubranchid">Branch ID</label>
-                                          <input type="text" class="form-control" id="solId" [value]=" UnAssigneddata.solId|| ''" readonly />
+                                          <input type="text" class="form-control" id="solId" [value]=" caseDetails.solId|| ''" readonly />
 
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputloanbalance">Loan Balance</label>
-                                            <input type="text" class="form-control" id="loanBalance" [value]=" UnAssigneddata.loanBalance|| ''" readonly />
+                                            <input type="text" class="form-control" id="loanBalance" [value]=" caseDetails.loanBalance|| ''" readonly />
                                         
                                         </div>
                                         
@@ -71,29 +71,28 @@
                                     <div class="col-md-12 ps-9">
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputaccname">Acc Name</label>
-                                           <input type="text" class="form-control" id="accountName" [value]=" UnAssigneddata.accountName|| ''" readonly />
+                                           <input type="text" class="form-control" id="accountName" [value]=" caseDetails.accountName|| ''" readonly />
 
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputloantenure">Loan Tenure</label>
-                                             <input type="text" class="form-control" id="loanTenure" [value]=" UnAssigneddata.loanTenure|| ''" readonly />
+                                             <input type="text" class="form-control" id="loanTenure" [value]=" caseDetails.loanTenure|| ''" readonly />
 
                                         </div>
-                                        <div class="input-group" style="border-radius: 5px;margin-top: -20px;">
-                                            <label for="inputsundicatedflag">Syndicated</label>
-                                            <select class="input--style-5" name="members" style="width: 100%;">
-                                                <option value="member1">Yes</option>
-                                                <option value="member2">No</option>
-                                            </select>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="inputloantenure">Case number </label>
+                                             <input type="text" class="form-control" id="loanTenure" [value]=" caseDetails.caseNumber ||''" readonly />
+
                                         </div>
+                                       
                                         
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <button type="button" class="assign small-btn" (click)="goToAssignPopup()">Assign
+                            <button type="button" class="assign small-btn" (click)="goToAssignPopup(caseDetails.caseNumber)">Assign
                                 Case</button>
                         </div>
                     </div>

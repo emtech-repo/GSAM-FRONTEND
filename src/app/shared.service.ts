@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -23,7 +23,9 @@ export class SharedService {
 
 
   readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
+  readonly Cases = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases?loanAccount=';
   readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
+   readonly AssignCaseUrl = 'http://192.168.2.23:5260/api/Case/AssignCase';
   readonly ActiveUrl ='http://192.168.2.23:5260/api/Case/ActiveCases';
   readonly ClosedUrl = 'http://192.168.2.23:5260/api/Case/ClosedCases';
 
@@ -31,17 +33,21 @@ export class SharedService {
 
   private readonly userDataUrl = 'assets/data/db.json';
   baseUrl: string = "http://localhost:3000/";
-  readonly APIUrl = 'https://192.168.89.189:7213';
+  readonly APIUrl = 'https://192.168.2.23:7213';
   readonly baseURL = 'assets/data/db.json'
   readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
   readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
 
   readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
-   readonly LoanAccountCaseUrl='http://192.168.2.23:9006/accounts';
+  readonly LoanAccountCaseUrl ='http://192.168.2.23:9006/accounts';
   // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
 
  readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
+  private storageKey = 'uploads';
+  private dataUrl = '/assets/data/data.json';
+  private documentsUrl = 'http://localhost:3000/uploads';
+  // private documentsUrl = '/assets/data/data.json';
 
 
 
@@ -79,7 +85,13 @@ export class SharedService {
   getUsersList(val: any) {
     return this.http.post<any>(this.APIUrl + '/users/get', val);
   }
+  
 
+  uploadDocument(formData: FormData) {
+    return this.http.post(this.documentsUrl, formData);
+  }
+  
+ 
 
   getCases(): Observable<any> {
     return this.http.get<any>(this.CasesUrl);
@@ -218,14 +230,57 @@ export class SharedService {
   }
 
 
-   getUnAssigned(): Observable<any[]> {
+   getUnAssigned(loanAccount: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.UnAssignedUrl}`)
       .pipe(
-        tap((data: any[]) => console.log('Fetched UnAssignCase:', data)),
-        map((data: any) => data['UnAssignCase']) 
+        tap((loanAccount: any[]) => console.log('Fetched AssignCase:', loanAccount )),
+        map((loanAccount: any) => loanAccount['AssignCase']) 
+
       );
   }
+  
+  // getCaseDetails(loanAccount: string): Observable<any> {
+  //   const caseDetailsUrl = `${this.UnAssignedUrl}/${loanAccount}`;
+  //   return this.http.get<any>(caseDetailsUrl);
+  // }
+  getCaseDetails(loanAccount: string): Observable<any> {
+    const caseDetailsUrl = `${this.Cases}/${loanAccount}`;
+    console.log('Fetching case details from URL:', caseDetailsUrl); // Log the URL being fetched
+    return this.http.get<any>(caseDetailsUrl);
+  }
+ 
 
+  // assignCase(caseNumber: string, email: string): Observable<any> {
+  //   const dataToSend = {
+  //     caseNumber: caseNumber,
+  //     UserName: email,
+      
+  //   };
+  //   return this.http.post<any>('AssignCaseUrl', dataToSend);
+  // }
+
+
+
+  assignCase(caseNumber: string, UserName: string): Observable<any> {
+    // Set the content type header
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    // Create an object with caseNumber and email properties
+    const dataToSend = { caseNumber: caseNumber, UserName: UserName };
+
+    // Make the HTTP POST request with the object as the request body
+    return this.http.post<any>(`${this.AssignCaseUrl}?UserName=${UserName}`, dataToSend, { headers: headers })
+      
+  }
+
+
+  // getUnAssigned(loanAccount: string): Observable<any> {
+  //   const url = `${this.UnAssignedUrl}${loanAccount}`;
+  //   return this.http.get<any>(url).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
+ 
 
   getAssigned(): Observable<any[]> {
     return this.http.get<any[]>(`${this.AssignedUrl}`)
