@@ -211,26 +211,26 @@ table td {
 
 .table-responsive {
   max-height: 400px;
-  /* Adjust the max-height as needed */
+
   overflow-y: auto;
 }
 
 #example {
   width: 100%;
-  /* Ensure table width doesn't exceed its container */
+ 
   font-size: 1em;
-  /* Use relative font size for responsiveness */
+
 }
 
 #example th,
 #example td {
   padding: 6px;
-  /* Adjust padding for better responsiveness */
+ 
   text-align: left;
 }
 .small-btn {
   font-size: 15px;
-  /* Adjust the font size as needed */
+
   padding: 5px 10px;
   height: 30px;
   border-radius: 5px;

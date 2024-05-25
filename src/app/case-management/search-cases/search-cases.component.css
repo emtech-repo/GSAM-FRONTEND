@@ -1,17 +1,14 @@
 label {
     font-weight: bold;
 }
-
 .form-control {
     width: 200px;
     height: 0px;
 }
-
 .search-container {
     margin-bottom: 20px;
 }
 
-/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -29,7 +26,7 @@ table td {
     text-align: center;
 }
 
-/* Pagination styles */
+
 .pagination {
     display: inline-block;
 }
@@ -75,13 +72,9 @@ table td {
     margin-bottom: 0px;
 }
 
-
-/* documentation.component.css */
-
-/* Style the table */
 table {
     width: 100%;
-    /* border-collapse: collapse; */
+   
 }
 
 /* Style the table header */

@@ -1,0 +1,21 @@
+table {
+    width: 120%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.small-btn {
+    font-size: 15px;
+    /* Adjust the font size as needed */
+    padding: 5px 10px;
+    border-radius: 5px;
+
+    height: 30px;
+
+}
