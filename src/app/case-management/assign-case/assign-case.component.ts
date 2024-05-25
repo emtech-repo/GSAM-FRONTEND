@@ -232,29 +232,27 @@ export class AssignCaseComponent {
   }
 
 
+showUnassignedCases() {
+        this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
+         this.showAllCasesFlag = false;
+         this.showAssignedCasesFlag = false;
 
-  showUnassignedCases() {
-    this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
-    this.showAllCasesFlag = false;
-    this.showAssignedCasesFlag = false;
+    }
+     showAllCases() {
+        this.showAllCasesFlag = !this.showAllCasesFlag ;
+           this.showAssignedCasesFlag = false;
+       this.showUnassignedCasesFlag = false;
 
-  }
-  showAllCases() {
-    this.showAllCasesFlag = !this.showAllCasesFlag;
-    this.showAssignedCasesFlag = false;
-    this.showUnassignedCasesFlag = false;
+    }
 
-  }
+   
 
+    showAssignedCases() {
+        this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
+           this.showAllCasesFlag = false;
+       this.showUnassignedCasesFlag = false;
 
-
-  showAssignedCases() {
-    this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
-    this.showAllCasesFlag = false;
-    this.showUnassignedCasesFlag = false;
-
-
-  }
+    }
 
   exit() {
     this.showUnassignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
@@ -264,8 +262,7 @@ export class AssignCaseComponent {
 
   }
   exitPage() {
-    this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
-  }
-
+    this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+}
 
 }

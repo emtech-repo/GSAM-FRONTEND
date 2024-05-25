@@ -448,20 +448,18 @@
                                     </div>
                     
                                     <!-- Guarantor Tab -->
-                                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'guarantor'}" id="pills-guarantor"
-                                        role="tabpanel" aria-labelledby="pills-guarantor-tab">
+                                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'guarantor'}" id="pills-guarantor" role="tabpanel"
+                                        aria-labelledby="pills-guarantor-tab">
                                         <div *ngIf="loanDetails">
                                             <div class="col-md-3">
                                                 <div class="form-group mb-2">
                                                     <label for="accountName">Account Name:</label>
-                                                    <input type="text" id="accountName" class="form-control"
-                                                        [value]="loanDetails?.accountName" readonly>
-                    
+                                                    <input type="text" id="accountName" class="form-control" [value]="loanDetails?.accountName" readonly>
+                                    
                                                 </div>
                                                 <div>
-                                                    <div  class="table-responsive">
-                                                    <table  id="example" class="display expandable-table">
-                                                        <thead >
+                                                    <table class="table mt-3 styled-table">
+                                                        <thead class="thead-dark">
                                                             <tr>
                                                                 <th>ID</th>
                                                                 <th>Gurantor Code</th>
@@ -472,7 +470,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr *ngFor="let schedule of loanDetails.loan.loanGuarantors
-                    ">
+                                                            ">
                                                                 <td>{{ schedule.id }}</td>
                                                                 <td>{{ schedule.guarantorCustomerCode}}</td>
                                                                 <td>{{ schedule.loanSeries }}</td>
@@ -481,40 +479,17 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    </div>
-
                                                     <div>
-                                                      
-                                                        <div>
-                                                            <button class="btn btn-sm btn-info" (click)="downloadPDF()">Download</button>
-                                                        </div>
+                                                        <button class="btn btn-sm btn-info" (click)="downloadPDF()">Download</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-                                        </div>
-                                        <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'collateral'}" id="pills-collateral"
-                                            role="tabpanel" aria-labelledby="pills-collateral-tab">
-                                            <div *ngIf="loanDetails">
-                                                <div class="col-md-3">
-                                                    <div class="form-group mb-2">
-                                                        <label for="accountName">Account Name:</label>
-                                                        <input type="text" id="accountName" class="form-control"
-                                                            [value]="loanDetails?.accountName" readonly>
-                                                    </div>
-                                                </div>
-                                                
+                                            <div>
+                                                <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;margin-left:90%;"
+                                                    data-dismiss="modal" (click)="exitPage()">Exit Page</button>
                                             </div>
-                                            
                                         </div>
-
-                                        <div>
-                                            <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;margin-left:90%;"
-                                                data-dismiss="modal" (click)="exitPage()">Exit Page</button>
-                                        </div>
-                                        
                                     </div>
-                    
                                    
                         
                                         <!-- Documents Tab -->
