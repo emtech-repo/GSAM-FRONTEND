@@ -19,3 +19,8 @@ table td {
     height: 30px;
 
 }
+.nav-link.active {
+    background-color:#973b3b;
+    color: white;
+
+}
