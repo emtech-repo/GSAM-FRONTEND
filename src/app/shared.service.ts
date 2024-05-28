@@ -17,30 +17,30 @@ export class SharedService {
 
 
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
-  readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
-  readonly ActivityUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases';
+  readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
+  readonly ActivityUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases';
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
 
-  readonly UnAssignedUrl = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases';
-  readonly Cases = 'http://192.168.2.23:5260/api/Case/GetUnAssignedCases?loanAccount=';
-  readonly AssignedUrl = 'http://192.168.2.23:5260/api/Case/GetAssignedCases';
-   readonly AssignCaseUrl = 'http://192.168.2.23:5260/api/Case/AssignCase';
-  readonly ActiveUrl ='http://192.168.2.23:5260/api/Case/ActiveCases';
-  readonly ClosedUrl = 'http://192.168.2.23:5260/api/Case/ClosedCases';
+  readonly UnAssignedUrl = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases';
+  readonly Cases = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases?loanAccount=';
+  readonly AssignedUrl = 'http://192.168.88.244:5260/api/Case/GetAssignedCases';
+   readonly AssignCaseUrl = 'http://192.168.88.244:5260/api/Case/AssignCase';
+  readonly ActiveUrl ='http://192.168.88.244:5260/api/Case/ActiveCases';
+  readonly ClosedUrl = 'http://192.168.88.244:5260/api/Case/ClosedCases';
 
 
 
   private readonly userDataUrl = 'assets/data/db.json';
   baseUrl: string = "http://localhost:3000/";
-  readonly APIUrl = 'https://192.168.2.23:7213';
+  readonly APIUrl = 'https://192.168.88.244:7213';
   readonly baseURL = 'assets/data/db.json'
-  readonly CasesUrl = 'http://192.168.2.23:5260/api/Case/GetAllCases'
-  readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
-  readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
+  readonly CasesUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases'
+  readonly LoanURL = 'http://192.168.88.244:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.88.244:9006/accounts?acid='
 
-  readonly CreateCaseUrl='http://192.168.2.23:5260/api/Case/CreateCase';
-  readonly LoanAccountCaseUrl ='http://192.168.2.23:9006/accounts';
+  readonly CreateCaseUrl='http://192.168.88.244:5260/api/Case/CreateCase';
+  readonly LoanAccountCaseUrl ='http://192.168.88.244:9006/accounts';
   // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
 
  readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
@@ -269,7 +269,7 @@ export class SharedService {
     const dataToSend = { caseNumber: caseNumber, UserName: UserName };
 
     // Make the HTTP POST request with the object as the request body
-    return this.http.post<any>(`${this.AssignCaseUrl}?UserName=${UserName}`, dataToSend, { headers: headers })
+    return this.http.post<any>(`${this.AssignCaseUrl}?UserName=${UserName}&caseNumber=${caseNumber}`, dataToSend, { headers: headers })
       
   }
 

@@ -77,6 +77,7 @@ export class CaseDetailsComponent implements OnInit {
 
   
   goToAssignPopup(caseNumber: string): void {
+    
     // Open assign popup and pass case details
     this.bsModalRef = this.modalService.show(AssignPopupComponent, {
       initialState: {
