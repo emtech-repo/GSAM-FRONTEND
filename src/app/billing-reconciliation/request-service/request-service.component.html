@@ -1,91 +1,60 @@
-<!-- <!DOCTYPE html>
-<html lang="en"> -->
+<div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col" style="text-align: center; color: maroon;">
+            <h4>REQUEST SERVICE</h4>
+        </div>
+    </div>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Request Service Form</title>
-    <!-- Include Bootstrap CSS for styling -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+        <!-- Dropdowns -->
+        <div class="form-group row">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <label for="service-name">Service Name</label>
+                <select id="service-name" formControlName="serviceName" class="form-control">
+                    <!-- Add options here -->
+                </select>
+            </div>
 
-<body>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <label for="region">Region</label>
+                <select id="region" formControlName="region" class="form-control">
+                    <!-- Add options here -->
+                </select>
+            </div>
 
-    <div class="container mt-5">
-        <div class="row mb-3">
-            <div class="col" style="text-align: center; color: maroon;">
-                <h4>REQUEST SERVICE</h4>
+            <div class="col-md-4">
+                <label for="service-provider">Service Provider</label>
+                <select id="service-provider" formControlName="serviceProvider" class="form-control">
+                    <!-- Add providers here -->
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="postal-address">Zip/Postal Address</label>
+                <input type="text" id="postal-address" formControlName="postalAddress" class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label for="telephone">Telephone</label>
+                <input type="tel" id="telephone" formControlName="telephone" class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" formControlName="email" class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label for="service-date">Service Date</label>
+                <input type="date" id="service-date" formControlName="serviceDate" class="form-control">
             </div>
         </div>
 
-        <form>
-            <!-- Dropdowns -->
-            <div class="form-group row">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <label for="service-name">Service Name</label>
-                    <select id="service-name" name="service-name" class="form-control">
-                        <option value="Lawyers">Auctioner</option>
-                        <option value="Drinking Water">Underwriting</option>
-                        <option value="Lawyers">Law Suite</option>
-                        <!-- Add more options here -->
-                    </select>
-                </div>
+        <div class="form-group">
+            <label for="claim-details">Enter Service Details</label>
+            <textarea id="claim-details" formControlName="claimDetails" class="form-control" rows="4"></textarea>
+        </div>
 
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <label for="region">Region</label>
-                    <select id="region" name="region" class="form-control">
-                        <option value="option1">Coast</option>
-                        <option value="option1">Nairobi</option>
-                        <option value="option1">Western </option>
-                        <option value="option1">Rift Valley</option>
-                        <option value="option2">Eastern</option>
-                        <option value="option1">Central</option>
-                        <option value="option1">North Eastern</option>
-                        <!-- Add more options here -->
-                    </select>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="service-provider">Service Provider</label>
-                    <select id="service-provider" name="service-provider" class="form-control">
-                        <option value="Sam & Advocates">Delight's Enterprises</option>
-                        <option value="Nairobi Water">Jenkins Investment</option>
-                        <option value="Nairobi Water">Valerian Auctions</option>
-                        <option value="Nairobi Water">Sam & Advocates</option>
-                        <!-- Add more providers here -->
-                    </select>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="Zip/Postal Address">Zip/Postal Address</label>
-                    <input type="text" id="postal-address" name="postal-address" class="form-control">
-                </div>
-
-                <div class="col-md-4">
-                    <label for="Telephone">Telephone</label>
-                    <input type="tel" id="telephone" name="telephone" class="form-control">
-                </div>
-
-                <div class="col-md-4">
-                    <label for="Email Address">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-control">
-                </div>
-
-                <div class="col-md-4">
-                    <label for="service-date">Service Date</label>
-                    <input type="date" id="service-date" name="service-date" class="form-control">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="claim-details">Enter Service Details</label>
-                <textarea id="claim-details" name="claim-details" class="form-control" rows="4"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-
-
-</body>
-
-<!-- </html> -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
