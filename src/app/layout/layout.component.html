@@ -135,8 +135,7 @@
                   Status</a></li>
               <li class="nav-item"*ngIf="isOfficer"> <a class="nav-link" [routerLink]="['case-management/app-cases-status']">Case
                       Status</a></li>
-              <li class="nav-item"> <a class="nav-link"
-                  [routerLink]="['documents/app-retrieve']">Documentation</a></li>
+             
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-meeting']">
                   Meeting</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-decision']">Case
@@ -154,26 +153,14 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced" aria-expanded="false"
-            aria-controls="ui-advanced">
-            <i class="icon-image menu-icon"></i>
+          <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
+            class="nav-link"[routerLink]="['documents/app-retrieve']">
+            <i  class="icon-image menu-icon"></i>
             <span class="menu-title">Documents</span>
-            <i class="menu-arrow"></i>
+        
           </a>
-          <div class="collapse" id="ui-advanced">
-            <ul class="nav flex-column sub-menu">
-
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-search-document']">Search</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-request']">Request</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-retrieve']">Retrieve</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-upload']">Upload</a></li>
-              
-              
-
-
-            </ul>
-          </div>
         </li>
+     
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
             class="nav-link" [routerLink]="['contracts/app-contract-inter']">

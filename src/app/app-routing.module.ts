@@ -15,10 +15,7 @@ import { DocumentationComponent } from './case-management/documentation/document
 import { LoanAccountLookUpComponent } from './case-management/loan-account-look-up/loan-account-look-up.component';
 import { CreateTwoComponent } from './case-management/create-two/create-two.component';
 import { AssignCaseComponent } from './case-management/assign-case/assign-case.component';
-import { SearchdocumentComponent } from './documents/searchdocument/searchdocument.component';
-import { RequestComponent } from './documents/request/request.component';
 import { RetrieveComponent } from './documents/retrieve/retrieve.component';
-import { UploadComponent } from './documents/upload/upload.component';
 
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { CreateCaseComponent } from './case-management/create-case/create-case.component';
@@ -104,22 +101,13 @@ export const routes: Routes = [
       component: AssignCaseComponent,
     },
 
-  {
-    path: 'searchdocument',
-    component: SearchdocumentComponent,
-  },
-  {
-    path: 'app-request',
-    component: RequestComponent,
-  },
+  
+ 
   {
     path: 'app-retrieve',
     component: RetrieveComponent,
   },
-  {
-    path: 'app-upload',
-    component: UploadComponent,
-  },
+ 
 
      {
       path: 'app-forgot-password',    
