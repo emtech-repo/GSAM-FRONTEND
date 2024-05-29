@@ -20,34 +20,37 @@ export class SharedService {
 
 
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
-  readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
-  readonly ActivityUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases';
-  private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
-
-
-  readonly UnAssignedUrl = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases';
-  readonly Cases = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases?loanAccount=';
-  readonly AssignedUrl = 'http://192.168.88.244:5260/api/Case/GetAssignedCases';
-  readonly AssignCaseUrl = 'http://192.168.88.244:5260/api/Case/AssignCase';
-  readonly ActiveUrl ='http://192.168.88.244:5260/api/Case/ActiveCases';
-  readonly ClosedUrl = 'http://192.168.88.244:5260/api/Case/ClosedCases';
   readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
+  readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
+  readonly ActivityUrl = 'http://192.168.2.6:5000/api/Case/GetAllCases';
+
+
+
+  readonly UnAssignedUrl = 'http://192.168.2.6:5000/api/Case/GetUnAssignedCases';
+  readonly Cases = 'http://192.168.2.6:5000/api/Case/GetUnAssignedCases?loanAccount=';
+  readonly AssignedUrl = 'http://192.168.2.6:5000/api/Case/GetAssignedCases';
+   readonly AssignCaseUrl = 'http://192.168.2.6:5000/api/Case/AssignCase';
+  readonly ActiveUrl ='http://192.168.2.6:5000/api/Case/ActiveCases';
+  readonly ClosedUrl = 'http://192.168.2.6:5000/api/Case/ClosedCases';
+
 
 
 
   private readonly userDataUrl = 'assets/data/db.json';
   baseUrl: string = "http://localhost:3000/";
-  readonly APIUrl = 'https://192.168.2.23:7213';
+  readonly APIUrl = 'https://192.168.2.6:5000';
   readonly baseURL = 'assets/data/db.json'
-  readonly CasesUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases'
-  readonly LoanURL = 'http://192.168.88.244:9006/accounts/la/all'
-  readonly DetailsURL = 'http://192.168.88.244:9006/accounts?acid='
 
-  readonly CreateCaseUrl ='http://192.168.88.244:5260/api/Case/CreateCase';
-  readonly LoanAccountCaseUrl ='http://192.168.88.244:9006/accounts';
+  readonly CasesUrl = 'http://192.168.2.6:5000/api/Case/GetAllCases'
+  readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
+
+  readonly CreateCaseUrl='http://192.168.2.6:5000/api/Case/CreateCase';
+  readonly LoanAccountCaseUrl ='http://192.168.2.23:9006/accounts';
+
   // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
 
- readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
+ readonly MeetingsUrl = 'http://192.168.2.6:5000/api/Meetings';
   private storageKey = 'uploads';
   private dataUrl = '/assets/data/data.json';
   private documentsUrl = 'http://localhost:3000/uploads';
@@ -186,11 +189,7 @@ export class SharedService {
   }
 
 
-  getJsonData(): Observable<any> {
-    return this.http.get<any>(this.JsonDataUrl);
-
-
-  }
+ 
   getLoan(): Observable<any[]> {
     return this.http.get<any[]>(`${this.LoanURL}`).pipe(
       tap(data => console.log('Loan data:', data))
