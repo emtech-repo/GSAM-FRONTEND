@@ -13,7 +13,7 @@ export class RecoveryFormComponent {
 
    loanAccount: string | null = null;
     decisionDetails: any;
-     Assigneddata: any = {};
+    Assigneddata: any = {};
 
    constructor(
     private toastr: ToastrService,
@@ -42,7 +42,7 @@ export class RecoveryFormComponent {
           const decisionDetail = result.find((caseItem: any) => caseItem.loanAccount === this.loanAccount);
           if (decisionDetail) {
             this.decisionDetails = decisionDetail;
-            console.log('Case details:', this.decisionDetails); // Console log the fetched case details
+            console.log('Decision details:', this.decisionDetails); // Console log the fetched case details
           } else {
             console.error('Case details not found for loan account:', this.loanAccount);
           }
@@ -51,7 +51,7 @@ export class RecoveryFormComponent {
         }
       },
       (error: any) => {
-        console.error('Failed to fetch case details:', error);
+        console.error('Failed to fetch decision details:', error);
       }
     );
   }

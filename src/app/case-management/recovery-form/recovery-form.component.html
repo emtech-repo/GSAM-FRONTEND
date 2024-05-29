@@ -8,33 +8,31 @@
                 <div class="col-md-6">
                     <!-- Forms for the first column -->
                     <div class="form-group" style="margin-top: -20px;">
-                        <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
-                        <input type="text" class="form-control" id="cifId" />
+                        <label for="inputcifid" style="margin-bottom: -1px;">Loan Account</label>
+                        <input type="text" class="form-control" id="accountName" [value]=" decisionDetails.loanAccount ||''" readonly />
+
                     </div>
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputEmail4" style="margin-bottom: -1px;">Case Number</label>
-                        <input type="text" class="form-control" id="caseNumber" />
-                    </div>
+                    <input type="text" class="form-control" id="caseNumber" [value]=" decisionDetails.caseNumber ||''" readonly />
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
-                        <input type="text" class="form-control" id="initialLoanAmount" />
-                    </div>
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.loanAmount ||''" readonly />
                     <!-- Add other form groups for the first column here -->
                 </div>
             
                 <div class="col-md-6">
                     <!-- Forms for the second column -->
                     <div class="form-group" style="margin-top: -20px;">
-                        <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
-                        <input type="text" class="form-control" id="branchName" />
-                    </div>
+                        <label for="inputEmail4" style="margin-bottom: -1px;">CIF ID</label>
+                    <input type="text" class="form-control" id="cifId" [value]=" decisionDetails.cifId ||''" readonly />
                     <div class="form-group" style="margin-top: -20px;">
-                        <label for="inputEmail4" style="margin-bottom: -1px;">Initial Instalments</label>
-                        <input type="text" class="form-control" id="initialInstalments" />
-                    </div>
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
+                    <input type="text" class="form-control" id="solId" [value]=" decisionDetails.solId ||''" readonly />
+                    
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
-                        <input type="text" class="form-control" id="accountName" />
+                    <input type="text" class="form-control" id="accountName" [value]=" decisionDetails.accountName ||''" readonly />
                     </div>
                     <!-- Add other form groups for the second column here -->
                 </div>
@@ -45,7 +43,7 @@
                     <!-- Forms for the first column of the second row -->
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputEmail4" style="margin-bottom: -1px;">Loan Tenure</label>
-                        <input type="text" class="form-control" id="loanTenure" />
+                    <input type="text" class="form-control" id="loanTenure" [value]=" decisionDetails.loanTenure ||''" readonly />
                     </div>
                     <!-- Add other form groups for the first column of the second row here -->
                 </div>
@@ -54,7 +52,7 @@
                     <!-- Forms for the second column of the second row -->
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputEmail4" style="margin-bottom: -1px;">Months in Default</label>
-                        <input type="text" class="form-control" id="monthsInDefault" />
+                    <input type="number" class="form-control" id="months"  />
                     </div>
                     <!-- Add other form groups for the second column of the second row here -->
                 </div>
