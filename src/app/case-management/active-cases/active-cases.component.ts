@@ -10,9 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ActiveCasesComponent {
 
-  showUnAssignedCasesFlag: boolean = false;
-  showAssignedCasesFlag: boolean = false;
-  showTotalCasesFlag: boolean = true;
+  showActiveCasesFlag: boolean = false;
+  // showAssignedCasesFlag: boolean = false;
+  // showTotalCasesFlag: boolean = true;
   searchOption: string = 'assignedTo';
   searchQuery: string = '';
   searchTerm: string = '';
@@ -167,13 +167,13 @@ export class ActiveCasesComponent {
   //   this.closedCases = this.data.filter(item => item.assigned === "N").length;
   // }
   ex() {
-    this.showTotalCasesFlag = false; // Set the flag to false to hide the Total cases page
+    this.showActiveCasesFlag = false; // Set the flag to false to hide the Total cases page
   }
-  exitPage() {
-    this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
-  }
+  // exitPage() {
+  //   this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+  // }
 
-  exit() {
-    this.showUnAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
-  }
+  // exit() {
+  //   this.showUnAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+  // }
 }
