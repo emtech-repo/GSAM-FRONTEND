@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchDocumentComponent } from './search-document.component';
+import { RestructureFormComponent } from './restructure-form.component';
 
-describe('SearchDocumentComponent', () => {
-  let component: SearchDocumentComponent;
-  let fixture: ComponentFixture<SearchDocumentComponent>;
+describe('RestructureFormComponent', () => {
+  let component: RestructureFormComponent;
+  let fixture: ComponentFixture<RestructureFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SearchDocumentComponent]
+      declarations: [RestructureFormComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SearchDocumentComponent);
+    fixture = TestBed.createComponent(RestructureFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

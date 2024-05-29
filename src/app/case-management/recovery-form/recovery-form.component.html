@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-13 grid-margin stretch-card">
+        <div class="card" style="margin-top:5px ;">
+            <div class="card-body">
+                <p class="card-title">Recovery Form</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Forms for the first column -->
+                    <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputcifid" style="margin-bottom: -1px;">Loan Account</label>
+                        <input type="text" class="form-control" id="accountName" [value]=" decisionDetails.loanAccount ||''" readonly />
+
+                    </div>
+                    <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Case Number</label>
+                    <input type="text" class="form-control" id="caseNumber" [value]=" decisionDetails.caseNumber ||''" readonly />
+                    <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.loanAmount ||''" readonly />
+                    <!-- Add other form groups for the first column here -->
+                </div>
+            
+                <div class="col-md-6">
+                    <!-- Forms for the second column -->
+                    <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">CIF ID</label>
+                    <input type="text" class="form-control" id="cifId" [value]=" decisionDetails.cifId ||''" readonly />
+                    <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
+                    <input type="text" class="form-control" id="solId" [value]=" decisionDetails.solId ||''" readonly />
+                    
+                    <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
+                    <input type="text" class="form-control" id="accountName" [value]=" decisionDetails.accountName ||''" readonly />
+                    </div>
+                    <!-- Add other form groups for the second column here -->
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Forms for the first column of the second row -->
+                    <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Loan Tenure</label>
+                    <input type="text" class="form-control" id="loanTenure" [value]=" decisionDetails.loanTenure ||''" readonly />
+                    </div>
+                    <!-- Add other form groups for the first column of the second row here -->
+                </div>
+            
+                <div class="col-md-6">
+                    <!-- Forms for the second column of the second row -->
+                    <div class="form-group" style="margin-top: -20px;">
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Months in Default</label>
+                    <input type="number" class="form-control" id="months"  />
+                    </div>
+                    <!-- Add other form groups for the second column of the second row here -->
+                </div>
+            </div>
+            
+            <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
+                <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                <div style="margin-top: 2px;">
+                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
+                        style="margin-left: 50px; margin-right: 10px;">Exit Page</button>
+                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
+                        (click)="bsModalRef.hide()"   style="margin-left: 50px;">Submit</button>
+                </div>
+            </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

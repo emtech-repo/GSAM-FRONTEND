@@ -13,10 +13,10 @@ import { DocumentationComponent } from './case-management/documentation/document
 import { LoanAccountLookUpComponent } from './case-management/loan-account-look-up/loan-account-look-up.component';
 import { CreateTwoComponent } from './case-management/create-two/create-two.component';
 import { AssignCaseComponent } from './case-management/assign-case/assign-case.component';
-import { SearchdocumentComponent } from './documents/searchdocument/searchdocument.component';
-import { RequestComponent } from './documents/request/request.component';
 import { RetrieveComponent } from './documents/retrieve/retrieve.component';
+
 import { UploadComponent } from './documents/upload/upload.component';
+
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { CreateCaseComponent } from './case-management/create-case/create-case.component';
 import { ClaimTabComponent } from './billing-reconciliation/claim-tab/claim-tab.component';
@@ -70,91 +70,80 @@ export const routes: Routes = [
   },
   {
     path: 'case-details/:loanAccount',
-    canActivate: [authenticationGuard],
-    component: CaseDetailsComponent,
+
+    component: CaseDetailsComponent
   },
-  {
-    path: 'App-analysis',
-    canActivate: [authenticationGuard],
-    component: AnalysisComponent,
-  },
-  {
-    path: 'app-loan-account-look-up',
-    canActivate: [authenticationGuard],
-    component: LoanAccountLookUpComponent,
-  },
-  {
-    path: 'app-create-two',
-    canActivate: [authenticationGuard],
-    component: CreateTwoComponent,
-  },
-  {
-    path: 'home',
-    canActivate: [authenticationGuard],
-    component: HomeComponent,
-  },
-  {
-    path: 'assign-case',
-    canActivate: [authenticationGuard],
-    component: AssignCaseComponent,
-  },
-  {
-    path: 'searchdocument',
-    canActivate: [authenticationGuard],
-    component: SearchdocumentComponent,
-  },
-  {
-    path: 'app-request',
-    component: RequestComponent,
-  },
+    {
+      path: 'App-analysis',
+      
+      component: AnalysisComponent,
+    },
+     {
+      path: 'app-loan-account-look-up',    
+      component: LoanAccountLookUpComponent,
+    },
+     {
+      path: 'app-create-two',    
+      component: CreateTwoComponent,
+    },
+     {
+      path: 'home',    
+      component: HomeComponent,
+    },
+     {
+      path: 'assign-case',    
+      component: AssignCaseComponent,
+    },
+
+  
+ 
+
   {
     path: 'app-retrieve',
     canActivate: [authenticationGuard],
     component: RetrieveComponent,
   },
-  {
-    path: 'app-upload',
-    canActivate: [authenticationGuard],
-    component: UploadComponent,
-  },
-  {
-    path: 'app-forgot-password',
-    component: ForgotPasswordComponent,
-  },
-  {
-    path: 'app-create-case',
-    canActivate: [authenticationGuard],
-    component: CreateCaseComponent,
-  },
-  {
-    path: 'dashboard/:cardType',
-    canActivate: [authenticationGuard],
-    component: HomeComponent
-  },
-  {
-    path: 'app-assign-case',
-    canActivate: [authenticationGuard],
-    component: AssignCaseComponent,
-  },
-  {
-    path: 'app-approve-claim',
-    canActivate: [authenticationGuard],
-    component: ApproveClaimComponent,
-  },
-  {
-    path: 'search-case',
-    canActivate: [authenticationGuard],
-    component: SearchCaseComponent,
-  },
-  {
-    path: 'app-admin-page',
-    canActivate: [authenticationGuard],
-    component: AdminPageComponent,
-  },
-  {
-    path: 'case-management',
-    loadChildren: () => import('../app/case-management/case-management.module').then(m => m.CaseManagementModule)
-  },
+
+ 
+
+     {
+      path: 'app-forgot-password',    
+      component: ForgotPasswordComponent,
+    },
+      {
+      path: 'app-create-case',    
+      component: CreateCaseComponent,
+    },
+  { path: 'dashboard/:cardType',
+   component: HomeComponent },
+  
+  
+
+
+     {
+      path: 'app-assign-case',    
+      component: AssignCaseComponent,
+    },
+
+    {
+      path: 'app-approve-claim',    
+      component: ApproveClaimComponent,
+    }, 
+     {
+      path: 'search-case',    
+      component: SearchCaseComponent,
+    }, 
+    
+
+
+
+
+
+    {
+      path: 'case-management',
+      loadChildren: () => import('../app/case-management/case-management.module').then(m => m.CaseManagementModule)
+   },
+
   {
     path: 'approval',
     loadChildren: () => import('../app/approval/approval.module').then(m => m.ApprovalModule)

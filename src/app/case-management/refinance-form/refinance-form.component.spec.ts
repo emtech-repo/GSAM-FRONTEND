@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequestComponent } from './request.component';
+import { RefinanceFormComponent } from './refinance-form.component';
 
-describe('RequestComponent', () => {
-  let component: RequestComponent;
-  let fixture: ComponentFixture<RequestComponent>;
+describe('RefinanceFormComponent', () => {
+  let component: RefinanceFormComponent;
+  let fixture: ComponentFixture<RefinanceFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RequestComponent]
+      declarations: [RefinanceFormComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RequestComponent);
+    fixture = TestBed.createComponent(RefinanceFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

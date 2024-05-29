@@ -1,8 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
-import { BsModalRef, } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { RecoveryFormComponent } from '../recovery-form/recovery-form.component';
+import { RefinanceFormComponent } from '../refinance-form/refinance-form.component';
+import { RestructureFormComponent } from '../restructure-form/restructure-form.component';
 
 
 
@@ -11,16 +15,19 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './decision-tab.component.html',
   styleUrl: './decision-tab.component.css'
 })
-export class DecisionTabComponent {
-    showRefinanceDetailsFlag: boolean = false;
-    showRestructureDetailsFlag: boolean = false;
-    showRecoveryDetailsFlag: boolean = false;
+export class DecisionTabComponent  {
+   
+  
  
   currentPage: number = 1;
   dataSource: any[] = [];
   dataSourceFiltered: any[] = [];
   Assigneddata: any[] = []; 
   AssignedUrl: string = '';
+   @Input() loanAccount:any = '';
+  
+  
+ 
     
 
   
@@ -29,21 +36,27 @@ export class DecisionTabComponent {
   selectedIndex: number = 0;
 
 
+
   selectTab(index: number) {
+    
     this.selectedIndex = index;
   }
   constructor(private router: Router, private sharedService: SharedService,
-    public bsModalRef: BsModalRef, private http: HttpClient) { }
+ public bsModalRef: BsModalRef, private http: HttpClient,private route: ActivatedRoute,private modalService: BsModalService,) { }
+
+ ngOnInit(): void {
+  // Fetch assigned data
+  this.AssignedUrl = this.sharedService.AssignedUrl;
+  this.getAssigned();
+
+}
+
 
  
- ngOnInit(): void {
 
-    
-    this.AssignedUrl= this.sharedService.AssignedUrl;
 
-    this.getAssigned();
-  }
-
+ 
+  
   getAssigned(): void {
     this.http.get<any>(this.AssignedUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
@@ -77,38 +90,25 @@ export class DecisionTabComponent {
     // Navigate to the "home" route
     this.router.navigate(['/home']);
   }
+  
+  goToRecoveryForm(loanAccount: any): void {
+     console.log('Navigating to case details with loan account:', loanAccount);
+    this.bsModalRef = this.modalService.show(RecoveryFormComponent, {   
+    });
+  }
+  goToRefinanceForm(loanAccount: any): void {
+     console.log('Navigating to case details with loan account:', loanAccount);
+    this.bsModalRef = this.modalService.show(RefinanceFormComponent, {   
+    });
+  }
+   goToRestructureForm(loanAccount: any): void {
+    console.log('Navigating to case details with loan account:', loanAccount);
+    
+    this.bsModalRef = this.modalService.show(RestructureFormComponent, { 
+     
+    });
+  }
 
-
-   showRefinanceDetails(selectedRow: any) {
-        this.showRefinanceDetailsFlag = !this.showRefinanceDetailsFlag;
-         this.showRestructureDetailsFlag = false;
-       this.showRecoveryDetailsFlag = false;
-
-    }
-
-     showRestructureDetails(selectedRow: any) {
-        this.showRestructureDetailsFlag = !this.showRestructureDetailsFlag;
-         this.showRefinanceDetailsFlag = false;
-       this.showRecoveryDetailsFlag = false;
-    } 
-
-     showRecoveryDetails(selectedRow: any) {
-        this.showRecoveryDetailsFlag = !this.showRecoveryDetailsFlag;
-         this.showRefinanceDetailsFlag = false;
-       this.showRestructureDetailsFlag = false;
-    } 
-
-        exitPage() {
-    this.showRefinanceDetailsFlag = false; // Set the flag to false to hide the assigned cases page
-}
-
-    exit() {
-    this.showRestructureDetailsFlag = false; // Set the flag to false to hide the assigned cases page
-}
-
-    exits() {
-    this.showRecoveryDetailsFlag = false; // Set the flag to false to hide the assigned cases page
-}
 
 
 

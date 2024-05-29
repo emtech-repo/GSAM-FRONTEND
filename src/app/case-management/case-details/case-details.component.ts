@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AssignPopupComponent } from '../assign-popup/assign-popup.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SharedService } from '../../shared.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-case-details',
@@ -16,7 +18,7 @@ export class CaseDetailsComponent implements OnInit {
   caseDetails: any;
   UnAssigneddata: any = {};
 
-  constructor(private route: ActivatedRoute, private sharedService: SharedService, private modalService: BsModalService) { }
+  constructor(private route: ActivatedRoute, private sharedService: SharedService, private modalService: BsModalService, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -75,6 +77,7 @@ export class CaseDetailsComponent implements OnInit {
 
   
   goToAssignPopup(caseNumber: string): void {
+    
     // Open assign popup and pass case details
     this.bsModalRef = this.modalService.show(AssignPopupComponent, {
       initialState: {
@@ -82,4 +85,10 @@ export class CaseDetailsComponent implements OnInit {
       }
     });
   }
+ goToAssignCase(): void {
+    
+    // Navigate to the "case-details" route and pass the selected row data as a parameter
+    this.router.navigate(['/app-create-case']);
+  }
+
 }
