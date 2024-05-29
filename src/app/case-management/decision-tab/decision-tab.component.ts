@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
 import { BsModalRef, } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -11,16 +12,20 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './decision-tab.component.html',
   styleUrl: './decision-tab.component.css'
 })
-export class DecisionTabComponent {
-    showRefinanceDetailsFlag: boolean = false;
-    showRestructureDetailsFlag: boolean = false;
-    showRecoveryDetailsFlag: boolean = false;
+export class DecisionTabComponent  {
+   
+  showRefinanceDetailsFlag: boolean = false;
+  showRestructureDetailsFlag: boolean = false;
+  showRecoveryDetailsFlag: boolean = false;
  
   currentPage: number = 1;
   dataSource: any[] = [];
   dataSourceFiltered: any[] = [];
   Assigneddata: any[] = []; 
   AssignedUrl: string = '';
+   loanAccount: string | null = null;
+  decisionDetails: any;
+ 
     
 
   
@@ -33,17 +38,47 @@ export class DecisionTabComponent {
     this.selectedIndex = index;
   }
   constructor(private router: Router, private sharedService: SharedService,
-    public bsModalRef: BsModalRef, private http: HttpClient) { }
+ public bsModalRef: BsModalRef, private http: HttpClient,private route: ActivatedRoute) { }
 
- 
  ngOnInit(): void {
-
-    
+    this.route.params.subscribe(params => {
+      this.loanAccount = params['loanAccount'];
+      console.log('Received loan account:', this.loanAccount); // Log the received loan account
+      if (this.loanAccount) {
+        this.fetchDecisionDetails();
+      }
+    });
     this.AssignedUrl= this.sharedService.AssignedUrl;
-
-    this.getAssigned();
+  this.getAssigned();
   }
 
+
+  fetchDecisionDetails(): void {
+    this.sharedService.getDecisionDetails(this.loanAccount!).subscribe(
+      (response: any) => {
+        if (response && response.result && Array.isArray(response.result)) {
+          const result = response.result;
+          // Find the case details object with matching loanAccount
+          const decisionDetail = result.find((caseItem: any) => caseItem.loanAccount === this.loanAccount);
+          if (decisionDetail) {
+            this.decisionDetails = decisionDetail;
+            console.log('Decision details:', this.decisionDetails); // Console log the fetched case details
+          } else {
+            console.error('Decision details not found for loan account:', this.loanAccount);
+          }
+        } else {
+          console.error('Invalid response format:', response);
+        }
+      },
+      (error: any) => {
+        console.error('Failed to fetch desision details:', error);
+      }
+    );
+  }
+
+
+ 
+  
   getAssigned(): void {
     this.http.get<any>(this.AssignedUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
@@ -79,26 +114,36 @@ export class DecisionTabComponent {
   }
 
 
-   showRefinanceDetails(selectedRow: any) {
+
+
+
+
+
+   showRefinanceDetails(loanAccount: any) {
+         console.log('Navigating to refinance details with loan account:', loanAccount);
+
         this.showRefinanceDetailsFlag = !this.showRefinanceDetailsFlag;
          this.showRestructureDetailsFlag = false;
        this.showRecoveryDetailsFlag = false;
 
     }
 
-     showRestructureDetails(selectedRow: any) {
+     showRestructureDetails(loanAccount: any) {
+       console.log('Navigating to restructure details with loan account:', loanAccount);
+
         this.showRestructureDetailsFlag = !this.showRestructureDetailsFlag;
          this.showRefinanceDetailsFlag = false;
        this.showRecoveryDetailsFlag = false;
     } 
 
-     showRecoveryDetails(selectedRow: any) {
-        this.showRecoveryDetailsFlag = !this.showRecoveryDetailsFlag;
-         this.showRefinanceDetailsFlag = false;
-       this.showRestructureDetailsFlag = false;
+     showRecoveryDetails(loanAccount: any) {
+      console.log('Navigating to case recovery details with loan account:', loanAccount);
+      this.showRecoveryDetailsFlag = !this.showRecoveryDetailsFlag;
+      this.showRefinanceDetailsFlag = false;
+      this.showRestructureDetailsFlag = false;
     } 
 
-        exitPage() {
+    exitPage() {
     this.showRefinanceDetailsFlag = false; // Set the flag to false to hide the assigned cases page
 }
 

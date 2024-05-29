@@ -24,6 +24,7 @@ export class SharedService {
 
   readonly UnAssignedUrl = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases';
   readonly Cases = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases?loanAccount=';
+   readonly Decision = 'http://192.168.88.244:5260/api/Case/GetAssignedCases?loanAccount=';
   readonly AssignedUrl = 'http://192.168.88.244:5260/api/Case/GetAssignedCases';
    readonly AssignCaseUrl = 'http://192.168.88.244:5260/api/Case/AssignCase';
   readonly ActiveUrl ='http://192.168.88.244:5260/api/Case/ActiveCases';
@@ -41,13 +42,11 @@ export class SharedService {
 
   readonly CreateCaseUrl='http://192.168.88.244:5260/api/Case/CreateCase';
   readonly LoanAccountCaseUrl ='http://192.168.88.244:9006/accounts';
-  // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
 
  readonly MeetingsUrl = 'http://192.168.2.62:5018/api/Meetings';
   private storageKey = 'uploads';
   private dataUrl = '/assets/data/data.json';
   private documentsUrl = 'http://localhost:3000/uploads';
-  // private documentsUrl = '/assets/data/data.json';
 
 
 
@@ -248,6 +247,13 @@ export class SharedService {
     console.log('Fetching case details from URL:', caseDetailsUrl); // Log the URL being fetched
     return this.http.get<any>(caseDetailsUrl);
   }
+
+   getDecisionDetails(loanAccount: string): Observable<any> {
+    const decisionDetailsUrl = `${this.Decision}/${loanAccount}`;
+    console.log('Fetching recovery details from URL:', decisionDetailsUrl); // Log the URL being fetched
+    return this.http.get<any>(decisionDetailsUrl);
+  }
+  
  
 
   // assignCase(caseNumber: string, email: string): Observable<any> {

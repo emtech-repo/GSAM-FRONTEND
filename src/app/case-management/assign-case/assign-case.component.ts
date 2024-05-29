@@ -58,11 +58,6 @@ export class AssignCaseComponent {
     this.router.navigate(['/case-details', loanAccount]);
   }
 
-
-
-
-
-
   searchOption: string = 'assignedTo';
 
   searchQuery: string = '';
@@ -232,7 +227,7 @@ export class AssignCaseComponent {
   }
 
 
-showUnassignedCases() {
+        showUnassignedCases() {
         this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
          this.showAllCasesFlag = false;
          this.showAssignedCasesFlag = false;
