@@ -15,7 +15,7 @@ import { CreateTwoComponent } from './case-management/create-two/create-two.comp
 import { AssignCaseComponent } from './case-management/assign-case/assign-case.component';
 import { RetrieveComponent } from './documents/retrieve/retrieve.component';
 
-import { UploadComponent } from './documents/upload/upload.component';
+
 
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { CreateCaseComponent } from './case-management/create-case/create-case.component';
