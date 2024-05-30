@@ -51,27 +51,22 @@ export const routes: Routes = [
   },
   {
     path: 'Dashboard',
-   
     component: HomeComponent,
   },
   {
     path: 'Cards',
-  
     component: CardsComponent,
   },
   {
     path: 'create-meeting',
-   
     component: CreateMeetingComponent,
   },
   {
     path: 'documentation',
-    
     component: DocumentationComponent,
   },
   {
     path: 'case-decision',
-    
     component: CaseDecisionComponent,
   },
   {
@@ -106,7 +101,6 @@ export const routes: Routes = [
 
   {
     path: 'app-retrieve',
-   
     component: RetrieveComponent,
   },
 
@@ -142,10 +136,6 @@ export const routes: Routes = [
      {
        path: 'recovery-form',     
       component: RecoveryFormComponent,
-    }, 
-    {
-       path: 'app-admin-page',     
-      component: AdminPageComponent,
     }, 
     
 
