@@ -23,7 +23,13 @@ import { ClaimTabComponent } from './billing-reconciliation/claim-tab/claim-tab.
 import { ApproveClaimComponent } from './billing-reconciliation/approve-claim/approve-claim.component';
 import { AssignPopupComponent } from './case-management/assign-popup/assign-popup.component';
 import { SearchCaseComponent } from './case-management/search-case/search-case.component';
-import { authenticationGuard } from './auth.guard'; // Import your authentication guard here
+
+import { RecoveryFormComponent } from './case-management/recovery-form/recovery-form.component';
+
+
+
+
+
 
 export const routes: Routes = [
   {
@@ -132,6 +138,10 @@ export const routes: Routes = [
      {
       path: 'search-case',    
       component: SearchCaseComponent,
+    }, 
+     {
+       path: 'recovery-form',     
+      component: RecoveryFormComponent,
     }, 
     
 

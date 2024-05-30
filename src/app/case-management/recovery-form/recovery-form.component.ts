@@ -1,48 +1,57 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recovery-form',
   templateUrl: './recovery-form.component.html',
-  styleUrl: './recovery-form.component.css'
+  styleUrls: ['./recovery-form.component.css']
 })
-export class RecoveryFormComponent {
+export class RecoveryFormComponent implements OnInit {
 
-   loanAccount: string | null = null;
-    decisionDetails: any;
-    Assigneddata: any = {};
 
-   constructor(
+  @Input() loanAccount: string | null = null; // Use Input decorator
+
+
+  decisionDetails = {
+    loanAccount: '',
+    caseNumber: '',
+    loanAmount: '',
+    cifId: '',
+    accountName: '',
+    solId: '',
+    loanBalance: ''
+  };
+
+  amountRecovered: number | null = null;
+  monthsInDefault: number | null = null;
+  comments: string = '';
+
+  constructor(
     private toastr: ToastrService,
     public bsModalRef: BsModalRef,
-    private sharedService: SharedService,
-    private route: ActivatedRoute
+    private sharedService: SharedService
+  ) {}
 
-  ) { }
-
- ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.loanAccount = params['loanAccount'];
-      console.log('Received loan account:', this.loanAccount); // Log the received loan account
-      if (this.loanAccount) {
-        this.fetchDecisionDetails();
-      }
-    });
+  ngOnInit(): void {
+    if (this.loanAccount) {
+      this.fetchDecisionDetails();
+    } else {
+      console.error('Loan account is not defined');
+    }
   }
 
   fetchDecisionDetails(): void {
-    this.sharedService.getCaseDetails(this.loanAccount!).subscribe(
+    this.sharedService.getDecisionDetails(this.loanAccount!).subscribe(
       (response: any) => {
         if (response && response.result && Array.isArray(response.result)) {
           const result = response.result;
-          // Find the case details object with matching loanAccount
           const decisionDetail = result.find((caseItem: any) => caseItem.loanAccount === this.loanAccount);
           if (decisionDetail) {
             this.decisionDetails = decisionDetail;
-            console.log('Decision details:', this.decisionDetails); // Console log the fetched case details
+
+
           } else {
             console.error('Case details not found for loan account:', this.loanAccount);
           }
@@ -56,13 +65,35 @@ export class RecoveryFormComponent {
     );
   }
 
+  submitRecovery(): void {
+    const recoveryData = {
+     AccountNumber: this.decisionDetails.loanAccount,
+      caseNumber: this.decisionDetails.caseNumber,
+      loanAmount: this.decisionDetails.loanAmount,
+      cifId: this.decisionDetails.cifId,
+      accountName: this.decisionDetails.accountName,
+     BranchId: this.decisionDetails.solId,
+      loanBalance: this.decisionDetails.loanBalance,
+      amountRecovered: this.amountRecovered,
+      monthsInDefault: this.monthsInDefault,
+      comments: this.comments
+    };
 
+    this.sharedService.submitRecovery(recoveryData).subscribe(
+      (response: any) => {
+        this.toastr.success(`Recovery submitted successfully with Case ID: ${response.result.caseNumber}`, 'Success');
+        this.closeModal();
+      },
+      (error: any) => {
+        console.error('Error submitting recovery:', error);
+        this.toastr.error('Failed to submit recovery. Please try again.', 'Error');
+      }
+    );
 
+    console.log('Recovery Data Submitted:', recoveryData);
+  }
 
   closeModal(): void {
     this.bsModalRef.hide();
   }
-
-
-
 }
