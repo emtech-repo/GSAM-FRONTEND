@@ -17,7 +17,9 @@ export class SharedService {
   updateRowData(row: any) {
     throw new Error('Method not implemented.');
   }
-   readonly PhotoUrl = 'https://localhost:5001/Photos/';
+
+
+  readonly PhotoUrl = 'https://localhost:5001/Photos/';
 
   
 
@@ -63,23 +65,6 @@ export class SharedService {
   private storageKey = 'uploads';
   private dataUrl = '/assets/data/data.json';
   private documentsUrl = 'http://localhost:3000/uploads';
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-  // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
-
-
 
 
 
