@@ -51,27 +51,27 @@ export const routes: Routes = [
   },
   {
     path: 'Dashboard',
-    canActivate: [authenticationGuard],
+   
     component: HomeComponent,
   },
   {
     path: 'Cards',
-    canActivate: [authenticationGuard],
+  
     component: CardsComponent,
   },
   {
     path: 'create-meeting',
-    canActivate: [authenticationGuard],
+   
     component: CreateMeetingComponent,
   },
   {
     path: 'documentation',
-    canActivate: [authenticationGuard],
+    
     component: DocumentationComponent,
   },
   {
     path: 'case-decision',
-    canActivate: [authenticationGuard],
+    
     component: CaseDecisionComponent,
   },
   {
@@ -106,7 +106,7 @@ export const routes: Routes = [
 
   {
     path: 'app-retrieve',
-    canActivate: [authenticationGuard],
+   
     component: RetrieveComponent,
   },
 
