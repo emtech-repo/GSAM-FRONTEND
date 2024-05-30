@@ -61,21 +61,23 @@
                         <label for="inputEmail4" style="margin-bottom: -1px;">Months in Default</label>
                         <input type="number" class="form-control" [(ngModel)]="monthsInDefault" />
                     </div>
-                    <!-- Add other form groups for the second column of the second row here -->
                 </div>
             </div>
-            
-            <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+            <div class="form-outline w-100" style="margin-top: -40px;">
                 <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
-                <textarea class="form-control" id="textAreaExample" rows="4" [(ngModel)]="comments"></textarea>
-
+                <textarea class="form-control" id="textAreaExample" [(ngModel)]="comments"></textarea>
                 <div style="margin-top: 2px;">
                     <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
                         style="margin-left: 50px; margin-right: 10px;">Exit Page</button>
-                    <button type="button" class="btn btn-primary small-btn"
-                        (click)="bsModalRef.hide()"   style="margin-left: 50px;"  (click)="submitRecovery()" >Submit</button>
+                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
+                        (click)="bsModalRef.hide()">Submit</button>
                 </div>
             </div>
+
+            <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+                <p>{{ responseMessage }}</p>
+            </div>
+
 
 
 

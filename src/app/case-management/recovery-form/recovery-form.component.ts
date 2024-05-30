@@ -25,6 +25,7 @@ export class RecoveryFormComponent implements OnInit {
   amountRecovered: number | null = null;
   monthsInDefault: number | null = null;
   comments: string = '';
+    responseMessage:  string = '';
 
   constructor(
     private toastr: ToastrService,
@@ -77,7 +78,7 @@ export class RecoveryFormComponent implements OnInit {
 
     this.sharedService.submitRecovery(recoveryData).subscribe(
       (response: any) => {
-        this.toastr.success(`Recovery submitted successfully with Case ID: ${response.result.caseNumber}`, 'Success');
+        this.toastr.success(`Recovery data submitted successfully with Case ID: ${response.result.caseNumber}`, 'Success');
         this.closeModal();
       },
       (error: any) => {
@@ -85,6 +86,7 @@ export class RecoveryFormComponent implements OnInit {
         this.toastr.error('Failed to submit recovery. Please try again.', 'Error');
       }
     );
+    
 
     console.log('Recovery Data Submitted:', recoveryData);
   }
