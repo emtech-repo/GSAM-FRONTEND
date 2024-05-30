@@ -1,21 +1,2 @@
 
 
-.search {
-    border-radius: 5px;
-    border: 2px solid grey;
-    color: black;
-    background-color: #800000;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: 1px;
-    height: 40px;
-
-}
-
-.search:hover {
-    background-color: #00124c;
-}

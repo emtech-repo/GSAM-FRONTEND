@@ -10,7 +10,9 @@ import { SharedService } from '../../shared.service';
 })
 export class RecoveryFormComponent implements OnInit {
 
+
   @Input() loanAccount: string | null = null; // Use Input decorator
+
 
   decisionDetails = {
     loanAccount: '',
@@ -48,6 +50,8 @@ export class RecoveryFormComponent implements OnInit {
           const decisionDetail = result.find((caseItem: any) => caseItem.loanAccount === this.loanAccount);
           if (decisionDetail) {
             this.decisionDetails = decisionDetail;
+
+
           } else {
             console.error('Case details not found for loan account:', this.loanAccount);
           }
@@ -56,7 +60,7 @@ export class RecoveryFormComponent implements OnInit {
         }
       },
       (error: any) => {
-        console.error('Failed to fetch case details:', error);
+        console.error('Failed to fetch decision details:', error);
       }
     );
   }
