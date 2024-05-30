@@ -58,7 +58,6 @@ export const routes: Routes = [
   },
     {
       path: 'Dashboard',
-      // canActivate: [authenticationGuard],
       component: HomeComponent,
     },
     {
@@ -187,7 +186,6 @@ export const routes: Routes = [
   // },
   {
     path: 'app-admin-page',
-    canActivate: [authenticationGuard],
     component: AdminPageComponent, 
   },
   
