@@ -25,6 +25,7 @@ import { ApproveClaimComponent } from './billing-reconciliation/approve-claim/ap
 
 import { AssignPopupComponent } from './case-management/assign-popup/assign-popup.component';
 import { SearchCaseComponent } from './case-management/search-case/search-case.component';
+import { RecoveryFormComponent } from './case-management/recovery-form/recovery-form.component';
 
 
 
@@ -135,6 +136,10 @@ export const routes: Routes = [
      {
       path: 'search-case',    
       component: SearchCaseComponent,
+    }, 
+     {
+       path: 'recovery-form/:loanAccount',     
+      component: RecoveryFormComponent,
     }, 
     
 

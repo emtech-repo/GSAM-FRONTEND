@@ -1,40 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recovery-form',
   templateUrl: './recovery-form.component.html',
-  styleUrl: './recovery-form.component.css'
+  styleUrls: ['./recovery-form.component.css']
 })
-export class RecoveryFormComponent {
+export class RecoveryFormComponent implements OnInit {
 
-   loanAccount: string | null = null;
-    decisionDetails: any;
-     Assigneddata: any = {};
+  @Input() loanAccount: string | null = null; // Use Input decorator
+  decisionDetails: any;
 
-   constructor(
+  constructor(
     private toastr: ToastrService,
     public bsModalRef: BsModalRef,
-    private sharedService: SharedService,
-    private route: ActivatedRoute
-
+    private sharedService: SharedService
   ) { }
 
- ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.loanAccount = params['loanAccount'];
+  ngOnInit(): void {
+    if (this.loanAccount) {
       console.log('Received loan account:', this.loanAccount); // Log the received loan account
-      if (this.loanAccount) {
-        this.fetchDecisionDetails();
-      }
-    });
+      this.fetchDecisionDetails();
+    } else {
+      console.error('Loan account is not defined');
+    }
   }
 
   fetchDecisionDetails(): void {
-    this.sharedService.getCaseDetails(this.loanAccount!).subscribe(
+    this.sharedService.getDecisionDetails(this.loanAccount!).subscribe(
       (response: any) => {
         if (response && response.result && Array.isArray(response.result)) {
           const result = response.result;
@@ -56,13 +51,7 @@ export class RecoveryFormComponent {
     );
   }
 
-
-
-
   closeModal(): void {
     this.bsModalRef.hide();
   }
-
-
-
 }
