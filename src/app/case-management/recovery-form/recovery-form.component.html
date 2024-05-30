@@ -9,15 +9,15 @@
                     <!-- Forms for the first column -->
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputcifid" style="margin-bottom: -1px;">Loan Account</label>
-                        <input type="text" class="form-control" id="cifId" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.loanAccount|| ''" readonly />
                     </div>
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputEmail4" style="margin-bottom: -1px;">Case Number</label>
-                        <input type="text" class="form-control" id="caseNumber" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.caseNumber  || ''" readonly />
                     </div>
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputloan" style="margin-bottom: -1px;">Loan Amount</label>
-                        <input type="text" class="form-control" id="initialLoanAmount" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.loanAmount  || ''" readonly />
                     </div>
                     <!-- Add other form groups for the first column here -->
                 </div>
@@ -26,15 +26,16 @@
                     <!-- Forms for the second column -->
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputEmail4" style="margin-bottom: -1px;">CIF ID</label>
-                        <input type="text" class="form-control" id="branchName" />
+                        <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.cifId  || ''" readonly />
+
                     </div>
                     <div class="form-group" style="margin-top: -20px;">
-                        <label for="inputEmail4" style="margin-bottom: -1px;">loan Balance</label>
-                        <input type="text" class="form-control" id="initialInstalments" />
+                        <label for="inputEmail4" style="margin-bottom: -1px;">Account Name</label>
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.accountName  || ''" readonly />
                     </div>
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputEmail4" style="margin-bottom: -1px;">Branch Id</label>
-                        <input type="text" class="form-control" id="accountName" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.solId  || ''" readonly />
                     </div>
                     <!-- Add other form groups for the second column here -->
                 </div>
@@ -44,13 +45,13 @@
                 <div class="col-md-6">
                    
                     <div class="form-group" style="margin-top: -20px;">
-                        <label for="inputEmail4" style="margin-bottom: -1px;">Account Name</label>
-                        <input type="text" class="form-control" id="loanTenure" />
+                        <label for="inputEmail4" style="margin-bottom: -1px;">loan Balance</label>
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.loanBalance  || ''" readonly />
                     </div>
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputEmail4" style="margin-bottom: -1px;">Amount Recovered</label>
-                        <input type="text" class="form-control" id="loanTenure" />
-                    </div>
+                        <input type="text" class="form-control" [(ngModel)]="amountRecovered" />
+                    </div>>
                    
                 </div>
             
@@ -58,7 +59,7 @@
                     <!-- Forms for the second column of the second row -->
                     <div class="form-group" style="margin-top: -20px;">
                         <label for="inputEmail4" style="margin-bottom: -1px;">Months in Default</label>
-                        <input type="text" class="form-control" id="monthsInDefault" />
+                        <input type="number" class="form-control" [(ngModel)]="monthsInDefault" />
                     </div>
                     <!-- Add other form groups for the second column of the second row here -->
                 </div>
@@ -66,12 +67,13 @@
             
             <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
                 <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
-                <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                <textarea class="form-control" id="textAreaExample" rows="4" [(ngModel)]="comments"></textarea>
+
                 <div style="margin-top: 2px;">
                     <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
                         style="margin-left: 50px; margin-right: 10px;">Exit Page</button>
-                    <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
-                        (click)="bsModalRef.hide()"   style="margin-left: 50px;">Submit</button>
+                    <button type="button" class="btn btn-primary small-btn"
+                        (click)="bsModalRef.hide()"   style="margin-left: 50px;"  (click)="submitRecovery()" >Submit</button>
                 </div>
             </div>
 

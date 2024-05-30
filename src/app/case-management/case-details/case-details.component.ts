@@ -57,18 +57,9 @@ export class CaseDetailsComponent implements OnInit {
 
     requestData = {
       caseNumber: this.UnAssigneddata?.caseNumber ?? '',
-      // CifId: this.UnAssigneddata?.CifId ?? '',
-      // accountName: this.UnAssigneddata?.accountName ?? '',
-      // loanAmount: this.UnAssigneddata?.loanAmount ?? '',
-      // loanTenure: this.UnAssigneddata?.loanTenure ?? '',
-      // solId: this.UnAssigneddata?.solId ?? '',
-      // loanBalance: this.UnAssigneddata?.loanBalance ?? '',
-      // loanAccount: this.UnAssigneddata?.loanAccount ?? '',
-      // syndicatedFlag: this.UnAssigneddata?.syndicatedFlag ?? '',
-      // verifiedFlag: this.UnAssigneddata?.verifiedFlag ?? '', 
-      // assigned: this.UnAssigneddata?.assigned ?? '', 
+      
       assignedEmail: this.UnAssigneddata?.assignedEmail ?? '', 
-      // statusActive: this.UnAssigneddata?.statusActive ?? ''
+     
 
 
 

@@ -12,15 +12,15 @@
                             <!-- Form groups for the first column -->
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
-                                <input type="text" class="form-control" id="cifId" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.cifId  || ''" readonly />
                             </div>
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputEmail4" style="margin-bottom: -1px;">Case Number</label>
-                                <input type="text" class="form-control" id="caseNumber" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.caseNumber  || ''" readonly />
                             </div>
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
-                                <input type="text" class="form-control" id="initialLoanAmount" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.loanAmount  || ''" readonly />
                             </div>
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputloantenure" style="margin-bottom: -1px;">New Loan Tenure</label>
@@ -37,11 +37,11 @@
                             <!-- Form groups for the second column -->
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputEmail4" style="margin-bottom: -1px;">Loan Account</label>
-                                <input type="text" class="form-control" id="loanAccount" />
+                                <input type="text" class="form-control" id="CifID" [value]=" decisionDetails.loanAccount|| ''" readonly />
                             </div>
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
-                                <input type="text" class="form-control" id="branchName" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.solId  || ''" readonly />
                             </div>
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputEmail4" style="margin-bottom: -1px;">Initial Instalments</label>
@@ -64,11 +64,11 @@
                             <!-- Form groups for the third column -->
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
-                                <input type="text" class="form-control" id="accountName" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.accountName  || ''" readonly />
                             </div>
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputEmail4" style="margin-bottom: -1px;">Loan Tenure</label>
-                                <input type="text" class="form-control" id="loanTenure" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.loanTenure  || ''" readonly />
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                             <!-- Form groups for the fourth column -->
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputloanbalance" style="margin-bottom: -1px;">Loan Balance</label>
-                                <input type="text" class="form-control" id="loanBalance" />
+                    <input type="text" class="form-control" id="loanAmount" [value]=" decisionDetails.loanBalance  || ''" readonly />
                             </div>
                         </div>
                     </div>

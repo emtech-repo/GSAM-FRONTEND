@@ -29,6 +29,8 @@ export class SharedService {
    readonly AssignCaseUrl = 'http://192.168.88.244:5260/api/Case/AssignCase';
   readonly ActiveUrl ='http://192.168.88.244:5260/api/Case/ActiveCases';
   readonly ClosedUrl = 'http://192.168.88.244:5260/api/Case/ClosedCases';
+  readonly recoveryUrl = 'http://192.168.89.93:5260/api/Recover/CaseRecover';
+
 
 
 
@@ -114,9 +116,21 @@ export class SharedService {
     return this.http.post<any>(this.CreateCaseUrl, loanDetailsJson, options);
   }
 
+  
 
+  // submitRecovery(loanDetails: any): Observable<any> {
+  //   const headers = new HttpHeaders().set('Content-Type', 'application/json');
+  //   const options = { headers: headers };
 
+  
+  //   const loanDetailsJson = JSON.stringify(loanDetails);
 
+  //  y
+  //   return this.http.post<any>(this.CreateCaseUrl, loanDetailsJson, options);
+  // }
+submitRecovery(inputdata: any) {
+    return this.http.post(this.recoveryUrl, inputdata)
+  }
 
 
   

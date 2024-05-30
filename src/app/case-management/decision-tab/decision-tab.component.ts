@@ -68,13 +68,16 @@ export class DecisionTabComponent {
     });
   }
 
-  goToRefinanceForm(loanAccount: any): void {
+   goToRefinanceForm(loanAccount: any): void {
     console.log('Navigating to case details with loan account:', loanAccount);
-    this.bsModalRef = this.modalService.show(RefinanceFormComponent);
+    this.bsModalRef = this.modalService.show(RefinanceFormComponent, { 
+      initialState: { loanAccount: loanAccount }  
+    });
   }
-
   goToRestructureForm(loanAccount: any): void {
     console.log('Navigating to case details with loan account:', loanAccount);
-    this.bsModalRef = this.modalService.show(RestructureFormComponent);
+    this.bsModalRef = this.modalService.show(RestructureFormComponent, { 
+      initialState: { loanAccount: loanAccount }  
+    });
   }
 }
