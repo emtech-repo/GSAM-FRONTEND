@@ -26,8 +26,8 @@ export class SharedService {
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
   readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
-  readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
-  readonly ActivityUrl = 'http://192.168.2.6:5000/api/Case/GetAllCases';
+  readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
+  readonly ActivityUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases';
 
 
 
@@ -48,20 +48,20 @@ export class SharedService {
   private readonly userDataUrl = 'assets/data/db.json';
   baseUrl: string = "http://localhost:3000/";
 
-  readonly APIUrl = 'https://192.168.2.6:5000';
+  readonly APIUrl = 'https://192.168.88.244:5260';
   readonly baseURL = 'assets/data/db.json'
 
-  readonly CasesUrl = 'http://192.168.2.6:5000/api/Case/GetAllCases'
-  readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
-  readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
+  readonly CasesUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases'
+  readonly LoanURL = 'http://192.168.88.244:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.88.244:9006/accounts?acid='
 
-  readonly CreateCaseUrl='http://192.168.2.6:5000/api/Case/CreateCase';
-  readonly LoanAccountCaseUrl ='http://192.168.2.23:9006/accounts';
+  readonly CreateCaseUrl='http://192.168.88.244:5260/api/Case/CreateCase';
+  readonly LoanAccountCaseUrl ='http://192.168.88.244:9006/accounts';
 
-  // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
+  // readonly CustomersUrl ='http://192.168.88.2442:5084/api/Refinance';
 
 
- readonly MeetingsUrl = 'http://192.168.2.6:5000/api/Meetings';
+ readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
   private storageKey = 'uploads';
   private dataUrl = '/assets/data/data.json';
   private documentsUrl = 'http://localhost:3000/uploads';
