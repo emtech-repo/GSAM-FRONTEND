@@ -137,6 +137,10 @@ export const routes: Routes = [
        path: 'recovery-form',     
       component: RecoveryFormComponent,
     }, 
+    {
+       path: 'app-admin-page',     
+      component: AdminPageComponent,
+    }, 
     
 
 
