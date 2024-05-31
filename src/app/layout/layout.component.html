@@ -17,6 +17,16 @@
           <h2 style="color: whitesmoke;">GSAM System</h2>
         </div>
       </div>
+      <!-- log in user of the system -->
+     <div class="container">
+        <div class="d-flex justify-content-center">
+          <p style="color: whitesmoke;">Welcome: {{ currentUser?.email }} ({{ currentUser?.roles?.join(', ') }})</p>
+        </div>
+      </div>
+
+      
+
+
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item dropdown">
           <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"

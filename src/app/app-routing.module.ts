@@ -32,11 +32,11 @@ import { RecoveryFormComponent } from './case-management/recovery-form/recovery-
 
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'Dashboard',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  //   redirectTo: 'Dashboard',
+  //   pathMatch: 'full'
+  // },
   {
     path: '',
     component: LoginComponent,

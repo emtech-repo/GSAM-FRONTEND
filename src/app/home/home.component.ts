@@ -139,7 +139,7 @@ export class HomeComponent implements OnInit {
       item.title.toLowerCase().includes(lowercaseQuery)
     );
 
-    console.log('Filtered Items:', this.filteredItems); // Debugging output
+    // console.log('Filtered Items:', this.filteredItems); // Debugging output
 
     this.showDropdown = true; // Show dropdown
   }

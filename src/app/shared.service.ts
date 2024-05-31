@@ -45,7 +45,7 @@ export class SharedService {
 
 
 
-  private readonly userDataUrl = 'assets/data/db.json';
+  private readonly userDataUrl = 'http://192.168.88.244:5260/api/Auth/Login';
   baseUrl: string = "http://localhost:3000/";
 
   readonly APIUrl = 'https://192.168.88.244:5260';
@@ -63,7 +63,7 @@ export class SharedService {
 
  readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
   private storageKey = 'uploads';
-  private dataUrl = '/assets/data/data.json';
+  
   private documentsUrl = 'http://localhost:3000/uploads';
 
 
@@ -80,18 +80,20 @@ export class SharedService {
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {
     // this.currentUser = localStorage.getItem('currentUser');
 
-    // this.currentUser = 21
+    
     const localStorage = document.defaultView?.localStorage;
 
-    if (localStorage && localStorage.getItem('currentUser')) {
-      this.currentUser = localStorage.getItem('currentUser');
-    }
-
-
-    if (this.currentUser) {
-      this.currentUser = JSON.parse(this.currentUser);
-      this.currentUserID = this.currentUser.UserID;
-      this.isAuthenticated = true;
+    if (localStorage) {
+      const storedUser = localStorage.getItem('currentUser');
+      if (storedUser) {
+        try {
+          this.currentUser = JSON.parse(storedUser);
+          this.currentUserID = this.currentUser?.UserID;
+          this.isAuthenticated = true;
+        } catch (error) {
+          console.error("Failed to parse 'currentUser' from localStorage:", error);
+        }
+      }
     }
 
   }
@@ -114,10 +116,7 @@ export class SharedService {
     return this.http.get<any>(this.CasesUrl);
 
   }
-  // createCase(loanDetails: any): Observable<any> {
-    
-  //   return this.http.post<any>(this.CreateCaseUrl, loanDetails);
-  // }
+  
 
 
 
@@ -134,51 +133,14 @@ export class SharedService {
 
   
 
-  // submitRecovery(loanDetails: any): Observable<any> {
-  //   const headers = new HttpHeaders().set('Content-Type', 'application/json');
-  //   const options = { headers: headers };
-
   
-  //   const loanDetailsJson = JSON.stringify(loanDetails);
-
-  //  y
-  //   return this.http.post<any>(this.CreateCaseUrl, loanDetailsJson, options);
-  // }
 submitRecovery(inputdata: any) {
     return this.http.post(this.recoveryUrl, inputdata)
   }
 
 
   
-  // addUser(val: any) {
-  //   return this.http.post<any>(this.APIUrl + '/users/insert', val);
-  // }
-
-  // updateUser(val: any) {
-  //   return this.http.post<any>(this.APIUrl + '/users/update', val);
-  // }
-
-  // setUserActive(val: any) {
-  //   return this.http.post<any>(this.APIUrl + '/users/Active', val);
-  // }
-
-  // setUserInactive(val: any) {
-  //   return this.http.post<any>(this.APIUrl + '/users/Inactive', val);
-  // }
-
-
-  // getLogin(val: any) {
-  //   return this.http.post(this.APIUrl + '/api/auth/login', val);
-  // }
-
-  // changePassword(val: any) {
-  //   return this.http.post<any>(this.APIUrl + '/user/changePassword', val);
-  // }
-
-  // getUserRoleList(): Observable<any[]> {
-  //   return this.http.get<any>(this.APIUrl + '/users/userRoles');
-  // }
-
+  
 
   getRecentStatus(searchQuery?: string): Observable<any[]> {
     let apiUrl = (this.LoanUrl);
@@ -385,8 +347,8 @@ submitRecovery(inputdata: any) {
   //  return this.http.post(this.userDataUrl + '/user/login', val);
   // }
 
-  getLogin(credentials: { email: string, password: string }) {
-    return this.http.post<any>(`${this.userDataUrl}/users/login`, credentials);
+   getLogin(credentials: { email: string, password: string }): Observable<any> {
+    return this.http.post<any>(`${this.userDataUrl}`, credentials);
   }
 
   getUserData(): Observable<any> {
@@ -479,8 +441,5 @@ submitRecovery(inputdata: any) {
     return this.http.post(`${this.ServiceUrl}/serviceData`, data);
   }
 
-  // this.yourService.updateData(updatedData).subscribe(() => {
-  //   this.refreshData(); // Method to fetch and update the data in your component
-  // });
-
+  
 }
