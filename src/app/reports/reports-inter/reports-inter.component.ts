@@ -1,103 +1,62 @@
-import { Component, OnInit  } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Component } from '@angular/core';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-reports-inter',
   templateUrl: './reports-inter.component.html',
-  styleUrl: './reports-inter.component.css'
+  styleUrls: ['./reports-inter.component.css']
 })
-export class ReportsInterComponent implements OnInit {
+export class ReportsInterComponent  {
+  selectedFunction: string = 'choose option';
+  selectedLoanAccount: string = '';
 
+  activeTab: string = 'viewContract';
+  searchParams: { param: string, value: string } = { param: '', value: '' }; 
 
-  searchQuery: string = ''; // Search query
-  showDropdown: boolean = false; // Flag to show/hide dropdown
-  items: any[] = [
-    {
-      title: "Loan Refinance Report",
-      path: "../../../case-management/app-create-case"
-    },
-     {
-      title: "Loan Restructure Report",
-      path: "../../../case-management/app-search-case"
-    },
-     {
-      title: " Loan Recovery Report",
-      path: "../../../case-management/app-case-status"
-    },
-     {
-      title: "Claim Reports",
-      path: "../../../case-management/app-documentation"
-    },
-     {
-      title: "Request Service Reports",
-      path: "../../../case-management/app-create-meeting"
-    },
-     {
-      title: "created cases reports",
-      path: "../../../case-management/app-case-tracking"
-    },
-    {
-      title: "Unnasigned cases reports",
-      path: "../../../case-management/app-case-decision"
-    },
-    
-     {
-      title: "assigned cases reports",
-      path: "../../../app-admin-page"
-    },
-    
-     {
-      title: "Active cases reports",
-      path: "../../../case-management/app-assign-case"
-    },
-     {
-      title: "",
-      path: "../../../billing-reconciliation/app-view-claims"
-    },
-    
-    
-
-   
-  ]; // Sidebar items
-  filteredItems: any[] = []; // Filtered items
-  isRising: boolean = false; // Property for card rising effect
-
-constructor(private router: Router) {}
-  
-  ngOnInit(): void {
-    this.filteredItems = this.items; // Initially, show all items
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
   }
 
-  // Method to filter items based on search query
-  // Method to filter items based on search query
-  filterItems(): void {
-    if (this.searchQuery.trim() === '') {
-      this.filteredItems = this.items; // If search query is empty, show all items
-      this.showDropdown = false; // Hide dropdown
-      return;
+  exportToPDF() {
+    const doc = new jsPDF();
+
+    const reportName = (document.getElementById('exampleFormControlInput1') as HTMLInputElement).value;
+    const cifId = (document.querySelector('input[for="inputcifid"]') as HTMLInputElement).value;
+    const caseNumber = (document.querySelector('input[for="inputEmail4"]') as HTMLInputElement).value;
+    const loanAccount = (document.getElementById('AccNumber') as HTMLInputElement).value;
+    const startDate = (document.querySelectorAll('input[type="date"]')[0] as HTMLInputElement).value;
+    const accName = (document.querySelector('input[for="inputEmail4"]') as HTMLInputElement).value;
+    const endDate = (document.querySelectorAll('input[type="date"]')[1] as HTMLInputElement).value;
+
+    doc.text(`Report Name: ${reportName}`, 10, 10);
+    doc.text(`CIF ID: ${cifId}`, 10, 20);
+    doc.text(`Case Number: ${caseNumber}`, 10, 30);
+    doc.text(`Loan Account: ${loanAccount}`, 10, 40);
+    doc.text(`Start Date: ${startDate}`, 10, 50);
+    doc.text(`Account Name: ${accName}`, 10, 60);
+    doc.text(`End Date: ${endDate}`, 10, 70);
+
+    doc.save('form-data.pdf');
+  }
+
+   applyFilter(event: any) {
+    
+  }
+   onFunctionChange(event: Event) {
+    if (event.target instanceof HTMLSelectElement) {
+      const target = event.target as HTMLSelectElement;
+      this.selectedFunction = target.value;
+      this.selectedLoanAccount = ''; // Reset the selected loan account when the function changes
+
+
+      if (this.selectedFunction === '5') {  // 5 corresponds to "INQUIRE"
+       
+       
+      } else if (this.selectedFunction === '2') { 
+         // 2 corresponds to "ADD"
+        // Example route for ADD functionality
+      }
+      // Add other conditions for different options if needed
     }
-
-    // Filter items based on search query
-    const lowercaseQuery = this.searchQuery.toLowerCase();
-    this.filteredItems = this.items.filter(item =>
-      item.title.toLowerCase().includes(lowercaseQuery)
-    );
-
-    console.log('Filtered Items:', this.filteredItems); // Debugging output
-
-    this.showDropdown = true; // Show dropdown
   }
-
-  // Method to handle card rising effect
-  riseCard(rising: boolean) {
-    this.isRising = rising;
-  }
-
-  // Method to navigate to the selected page
-  navigateToPage(item: any): void {
-    this.router.navigate([item.path]); // Redirect to the specified path
-  }
- 
-
 }

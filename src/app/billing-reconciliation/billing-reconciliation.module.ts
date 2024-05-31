@@ -9,7 +9,9 @@ import { ViewClaimsComponent } from './view-claims/view-claims.component';
 import { ClaimTabComponent } from './claim-tab/claim-tab.component';
 import { ApproveClaimComponent } from './approve-claim/approve-claim.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -27,7 +29,12 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     BillingReconciliationRoutingModule,
     PaginationModule.forRoot(), 
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    HttpClientModule
+
+
   ]
 })
 export class BillingReconciliationModule { }

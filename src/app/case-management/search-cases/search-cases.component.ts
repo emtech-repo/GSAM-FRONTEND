@@ -12,6 +12,8 @@ import  jsPDF from 'jspdf';
   styleUrls: ['./search-cases.component.css']
 })
 export class SearchCasesComponent implements OnInit {
+  
+
 
   loanAccount: any;
   loanItem: any;
@@ -189,6 +191,17 @@ export class SearchCasesComponent implements OnInit {
     exitPage() {
     this.showTabs = false; // Set the flag to false to hide the assigned cases page
 }
+ goToDouments() {
+    // Navigate to the "home" route
+    this.router.navigate(['/documents']);
+  }
+   activateTabAndNavigate(tabName: string): void {
+    this.activeTab = tabName; // Update the active tab state
+    if (tabName === 'documents') {
+      this.router.navigate(['/documents/app-retrieve']); // Navigate to the documents page
+    }
+  }
+
 
   
     
