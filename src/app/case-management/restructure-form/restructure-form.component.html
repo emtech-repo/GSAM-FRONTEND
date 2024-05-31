@@ -2,7 +2,7 @@
     <div class="col-md-13 grid-margin stretch-card">
         <div class="card" style="margin-top:5px ;">
             <div class="card-body">
-                <p class="card-title">Restructure Form</p>
+                <p class="card-title text-center" style="background-color: grey;color: white;">RestructureForm</p>
 
             <div class="row">
                 <div class="col-md-6">
@@ -24,7 +24,7 @@
                             </div>
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputloantenure" style="margin-bottom: -1px;">New Loan Tenure</label>
-                                <input type="number" class="form-control" id="newLoanTenure" />
+                                <input type="number" class="form-control" id="newLoanTenure"  [(ngModel)]=" NewLoanTenure"/>
                             </div>
                         </div>
                     </div>
@@ -45,11 +45,11 @@
                             </div>
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputEmail4" style="margin-bottom: -1px;">Initial Instalments</label>
-                                <input type="text" class="form-control" id="initialInstalments" />
+                                <input type="text" class="form-control" id="initialInstalments"   [(ngModel)]=" InitialInstalments"/>
                             </div>
                             <div class="form-group" style="margin-top: -20px;">
                                 <label for="inputinstalments" style="margin-bottom: -1px;">New Instalments</label>
-                                <input type="text" class="form-control" id="newInstalments" />
+                                <input type="text" class="form-control" id="newInstalments"   [(ngModel)]="  NewInstalments" />
                             </div>
                         </div>
                     </div>
@@ -90,12 +90,12 @@
             
             <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
                 <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
-                <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                <textarea class="form-control" id="textAreaExample" rows="4"   [(ngModel)]=" comments"></textarea>
                 <div style="margin-top: 2px;">
                     <button type="button" class="btn btn-primary small-btn" data-dismiss="modal" (click)="bsModalRef.hide()"
                         style="margin-left: 50px; margin-right: 10px;">Exit Page</button>
                     <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
-                        (click)="bsModalRef.hide()"  >Submit</button>
+                        (click)="submitRestructure()" >Submit</button>
                 </div>
             </div>
 

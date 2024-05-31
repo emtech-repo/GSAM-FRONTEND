@@ -30,6 +30,7 @@ export class SharedService {
   readonly ActiveUrl ='http://192.168.88.244:5260/api/Case/ActiveCases';
   readonly ClosedUrl = 'http://192.168.88.244:5260/api/Case/ClosedCases';
   readonly recoveryUrl = 'http://192.168.89.93:5260/api/Recover/CaseRecover';
+   readonly restructureUrl = 'http://192.168.88.244:5260/api/Restructure/CaseRestructure';
 
 
 
@@ -130,6 +131,10 @@ export class SharedService {
   // }
 submitRecovery(inputdata: any) {
     return this.http.post(this.recoveryUrl, inputdata)
+  }
+
+  submitRestructure(inputdata: any) {
+    return this.http.post(this.restructureUrl, inputdata)
   }
 
 

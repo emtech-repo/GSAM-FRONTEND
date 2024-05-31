@@ -11,8 +11,27 @@ import { SharedService } from '../../shared.service';
 })
 export class RestructureFormComponent  implements OnInit{
  @Input() loanAccount: string | null = null; // Use Input decorator
-  decisionDetails: any;
+ decisionDetails = {
+    loanAccount: '',
+    caseNumber: '',
+    loanAmount: '',
+    cifId: '',
+    accountName: '',
+    solId: '',
+    loanBalance: '',
+     loanTenure: '',
+  };
 
+ 
+  comments: string = '';
+  InitialInstalments: string = '';
+   NewInstalments: string = '';
+ NewLoanTenure: string = '';
+  responseMessage: string = '';
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  loading: boolean = false;
+  
   constructor(
     private toastr: ToastrService,
     public bsModalRef: BsModalRef,
@@ -47,6 +66,44 @@ export class RestructureFormComponent  implements OnInit{
       },
       (error: any) => {
         console.error('Failed to fetch case details:', error);
+      }
+    );
+  }
+
+   submitRestructure(): void {
+    const restructureData = {
+      LoanAccount: this.decisionDetails.loanAccount,
+      CaseNumber: this.decisionDetails.caseNumber,
+      LoanAmount: this.decisionDetails.loanAmount,
+      CifID: this.decisionDetails.cifId,
+      AccountName: this.decisionDetails.accountName,
+      SolId: this.decisionDetails.solId,
+      LoanBalance: this.decisionDetails.loanBalance,
+      LoanTenure: this.decisionDetails.loanTenure,
+
+      InitialInstalments: this.InitialInstalments,
+      NewInstalments: this.NewInstalments,
+      Comments: this.comments,
+      NewLoanTenure: this.NewLoanTenure
+
+
+    };
+
+    console.log('Restructure Data to be Submitted:', restructureData);
+    this.loading = true;
+
+    this.sharedService. submitRestructure(restructureData).subscribe(
+      (response: any) => {
+        console.log('Response received:', response);
+        this.loading = false;
+        this.successMessage = 'Restructure  data submitted successfully!';
+        this.toastr.success('Restructure data submitted successfully!', 'Success');
+      },
+      (error: any) => {
+        this.loading = false;
+        console.error('Error submitting resructure data:', error);
+        this.errorMessage = 'Failed to submit restructure data. Please try again.';
+        this.toastr.error('Failed to submit restructure data. Please try again.', 'Error');
       }
     );
   }

@@ -22,11 +22,13 @@ export class RecoveryFormComponent implements OnInit {
     loanBalance: ''
   };
 
-  LoanPaid : number | null = null;
+  LoanPaid: number | null = null;
   monthsInDefault: number | null = null;
   comments: string = '';
   responseMessage: string = '';
- submittedSuccessfully: any;
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  loading: boolean = false;
 
   constructor(
     private toastr: ToastrService,
@@ -45,19 +47,23 @@ export class RecoveryFormComponent implements OnInit {
   fetchDecisionDetails(): void {
     this.sharedService.getDecisionDetails(this.loanAccount!).subscribe(
       (response: any) => {
+        console.log('Response from getDecisionDetails:', response);
         if (response && response.result && Array.isArray(response.result)) {
           const result = response.result;
           const decisionDetail = result.find((caseItem: any) => caseItem.loanAccount === this.loanAccount);
           if (decisionDetail) {
             this.decisionDetails = decisionDetail;
           } else {
+            this.errorMessage = 'Case details not found for the provided loan account.';
             console.error('Case details not found for loan account:', this.loanAccount);
           }
         } else {
+          this.errorMessage = 'Invalid response format received.';
           console.error('Invalid response format:', response);
         }
       },
       (error: any) => {
+        this.errorMessage = 'Failed to fetch case details due to a network error.';
         console.error('Failed to fetch case details:', error);
       }
     );
@@ -71,25 +77,29 @@ export class RecoveryFormComponent implements OnInit {
       CifId: this.decisionDetails.cifId,
       AccountName: this.decisionDetails.accountName,
       SolId: this.decisionDetails.solId,
-      LoanBalance : this.decisionDetails.loanBalance,
-     LoanPaid: this.LoanPaid,
-     MonthsInDefault: this.monthsInDefault,
+      LoanBalance: this.decisionDetails.loanBalance,
+      LoanPaid: this.LoanPaid,
+      MonthsInDefault: this.monthsInDefault,
       Comments: this.comments
     };
 
+    console.log('Recovery Data to be Submitted:', recoveryData);
+    this.loading = true;
+
     this.sharedService.submitRecovery(recoveryData).subscribe(
       (response: any) => {
-        this.toastr.success(`Recovery data submitted successfully : ${response.result.caseNumber}`, 'Success');
-        this.closeModal();
+        console.log('Response received:', response);
+        this.loading = false;
+        this.successMessage = 'Recovery data submitted successfully!';
+        this.toastr.success('Recovery  datasubmitted successfully!', 'Success');
       },
       (error: any) => {
-        console.error('Error submitting recovery:', error);
-        this.toastr.error('Failed to submit recovery. Please try again.', 'Error');
+        this.loading = false;
+        console.error('Error submitting recovery data:', error);
+        this.errorMessage = 'Failed to submit recovery data. Please try again.';
+        this.toastr.error('Failed to submit recovery data. Please try again.', 'Error');
       }
     );
-     this.submittedSuccessfully = true;
-     
-    console.log('Recovery Data Submitted:', recoveryData);
   }
 
   closeModal(): void {
