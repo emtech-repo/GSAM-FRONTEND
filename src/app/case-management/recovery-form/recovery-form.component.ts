@@ -22,10 +22,11 @@ export class RecoveryFormComponent implements OnInit {
     loanBalance: ''
   };
 
-  amountRecovered: number | null = null;
+  LoanPaid : number | null = null;
   monthsInDefault: number | null = null;
   comments: string = '';
-    responseMessage:  string = '';
+  responseMessage: string = '';
+ submittedSuccessfully: any;
 
   constructor(
     private toastr: ToastrService,
@@ -64,21 +65,21 @@ export class RecoveryFormComponent implements OnInit {
 
   submitRecovery(): void {
     const recoveryData = {
-     AccountNumber: this.decisionDetails.loanAccount,
-      caseNumber: this.decisionDetails.caseNumber,
-      loanAmount: this.decisionDetails.loanAmount,
-      cifId: this.decisionDetails.cifId,
-      accountName: this.decisionDetails.accountName,
-     BranchId: this.decisionDetails.solId,
-      loanBalance: this.decisionDetails.loanBalance,
-      amountRecovered: this.amountRecovered,
-      monthsInDefault: this.monthsInDefault,
-      comments: this.comments
+      LoanAccount: this.decisionDetails.loanAccount,
+      CaseNumber: this.decisionDetails.caseNumber,
+      LoanAmount: this.decisionDetails.loanAmount,
+      CifId: this.decisionDetails.cifId,
+      AccountName: this.decisionDetails.accountName,
+      SolId: this.decisionDetails.solId,
+      LoanBalance : this.decisionDetails.loanBalance,
+     LoanPaid: this.LoanPaid,
+     MonthsInDefault: this.monthsInDefault,
+      Comments: this.comments
     };
 
     this.sharedService.submitRecovery(recoveryData).subscribe(
       (response: any) => {
-        this.toastr.success(`Recovery data submitted successfully with Case ID: ${response.result.caseNumber}`, 'Success');
+        this.toastr.success(`Recovery data submitted successfully : ${response.result.caseNumber}`, 'Success');
         this.closeModal();
       },
       (error: any) => {
@@ -86,8 +87,8 @@ export class RecoveryFormComponent implements OnInit {
         this.toastr.error('Failed to submit recovery. Please try again.', 'Error');
       }
     );
-    
-
+     this.submittedSuccessfully = true;
+     
     console.log('Recovery Data Submitted:', recoveryData);
   }
 

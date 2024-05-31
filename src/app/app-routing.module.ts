@@ -137,7 +137,7 @@ export const routes: Routes = [
       component: SearchCaseComponent,
     }, 
      {
-       path: 'recovery-form/:loanAccount',     
+       path: 'recovery-form',     
       component: RecoveryFormComponent,
     }, 
     
@@ -179,11 +179,7 @@ export const routes: Routes = [
   },
  
 
-  // {
-  //   path: 'app-admin-page',
-
-  //   component: AdminPageComponent,
-  // },
+ 
   {
     path: 'app-admin-page',
     component: AdminPageComponent, 
