@@ -17,36 +17,36 @@ export class SharedService {
 
 
   readonly PhotoUrl = 'https://localhost:5001/Photos/';
-  readonly LoanUrl = 'http://192.168.2.23:9006/accounts/la/all';
-  readonly ActivityUrl = 'http://192.168.2.6:5000/api/Case/GetAllCases';
+  readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
+  readonly ActivityUrl = 'http://192.168.88.244:5000/api/Case/GetAllCases';
 
 
 
-  readonly UnAssignedUrl = 'http://192.168.2.6:5000/api/Case/GetUnAssignedCases';
-  readonly Cases = 'http://192.168.2.6:5000/api/Case/GetUnAssignedCases?loanAccount=';
-  readonly AssignedUrl = 'http://192.168.2.6:5000/api/Case/GetAssignedCases';
-   readonly AssignCaseUrl = 'http://192.168.2.6:5000/api/Case/AssignCase';
-  readonly ActiveUrl ='http://192.168.2.6:5000/api/Case/ActiveCases';
-  readonly ClosedUrl = 'http://192.168.2.6:5000/api/Case/ClosedCases';
+  readonly UnAssignedUrl = 'http://192.168.88.244:5000/api/Case/GetUnAssignedCases';
+  readonly Cases = 'http://192.168.88.244:5000/api/Case/GetUnAssignedCases?loanAccount=';
+  readonly AssignedUrl = 'http://192.168.88.244:5000/api/Case/GetAssignedCases';
+  readonly AssignCaseUrl = 'http://192.168.88.244:5000/api/Case/AssignCase';
+  readonly ActiveUrl = 'http://192.168.88.244:5000/api/Case/ActiveCases';
+  readonly ClosedUrl = 'http://192.168.88.244:5000/api/Case/ClosedCases';
 
 
 
   private readonly userDataUrl = 'assets/data/db.json';
   baseUrl: string = "http://localhost:3000/";
-  readonly APIUrl = 'https://192.168.2.6:5000';
+  readonly APIUrl = 'https://192.168.88.244:5000';
   readonly baseURL = 'assets/data/db.json'
-  readonly CasesUrl = 'http://192.168.2.6:5000/api/Case/GetAllCases'
-  readonly LoanURL = 'http://192.168.2.23:9006/accounts/la/all'
-  readonly DetailsURL = 'http://192.168.2.23:9006/accounts?acid='
+  readonly CasesUrl = 'http://192.168.88.244:5000/api/Case/GetAllCases'
+  readonly LoanURL = 'http://192.168.88.244:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.88.244:9006/accounts?acid='
 
-  readonly CreateCaseUrl='http://192.168.2.6:5000/api/Case/CreateCase';
-  readonly LoanAccountCaseUrl ='http://192.168.2.23:9006/accounts';
-  // readonly CustomersUrl ='http://192.168.2.62:5084/api/Refinance';
+  readonly CreateCaseUrl = 'http://192.168.88.244:5000/api/Case/CreateCase';
+  readonly LoanAccountCaseUrl = 'http://192.168.88.244:9006/accounts';
+  // readonly CustomersUrl ='http://192.168.88.2442:5084/api/Refinance';
 
- readonly MeetingsUrl = 'http://192.168.2.6:5000/api/Meetings';
+  readonly MeetingsUrl = 'http://192.168.88.244:5000/api/Meetings';
   private storageKey = 'uploads';
   private dataUrl = '/assets/data/data.json';
-  private documentsUrl = 'http://localhost:3000/uploads';
+  private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
   // private documentsUrl = '/assets/data/data.json';
 
 
@@ -85,25 +85,26 @@ export class SharedService {
   getUsersList(val: any) {
     return this.http.post<any>(this.APIUrl + '/users/get', val);
   }
-  
 
-  uploadDocument(formData: FormData) {
-    return this.http.post(this.documentsUrl, formData);
+
+
+  uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('loanAccount', loanAccount);
+    formData.append('fileName', fileName);
+    formData.append('fileType', fileType);
+    formData.append('folder', folder);
+    formData.append('fileExtension', fileExtension);
+    formData.append('accountName', accountName);
+    
+   return this.http.post<any>(this.documentsUrl, formData);
   }
-  
- 
-
   getCases(): Observable<any> {
     return this.http.get<any>(this.CasesUrl);
 
   }
-  // createCase(loanDetails: any): Observable<any> {
-    
-  //   return this.http.post<any>(this.CreateCaseUrl, loanDetails);
-  // }
-
-
-
+ 
   createCase(loanDetails: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const options = { headers: headers };
@@ -120,7 +121,7 @@ export class SharedService {
 
 
 
-  
+
   // addUser(val: any) {
   //   return this.http.post<any>(this.APIUrl + '/users/insert', val);
   // }
@@ -176,21 +177,21 @@ export class SharedService {
 
 
 
-    
+
 
     return this.http.get<any[]>(apiUrl);
   }
 
 
- 
+
   getLoan(): Observable<any[]> {
     return this.http.get<any[]>(`${this.LoanURL}`).pipe(
       tap(data => console.log('Loan data:', data))
     );
   }
 
-  
-  
+
+
   getLoanDetails(accountId: string): Observable<any> {
     const url = `${this.DetailsURL}${accountId}`;
     return this.http.get<any>(url).pipe(
@@ -226,15 +227,15 @@ export class SharedService {
   }
 
 
-   getUnAssigned(loanAccount: string): Observable<any[]> {
+  getUnAssigned(loanAccount: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.UnAssignedUrl}`)
       .pipe(
-        tap((loanAccount: any[]) => console.log('Fetched AssignCase:', loanAccount )),
-        map((loanAccount: any) => loanAccount['AssignCase']) 
+        tap((loanAccount: any[]) => console.log('Fetched AssignCase:', loanAccount)),
+        map((loanAccount: any) => loanAccount['AssignCase'])
 
       );
   }
-  
+
   // getCaseDetails(loanAccount: string): Observable<any> {
   //   const caseDetailsUrl = `${this.UnAssignedUrl}/${loanAccount}`;
   //   return this.http.get<any>(caseDetailsUrl);
@@ -244,13 +245,13 @@ export class SharedService {
     console.log('Fetching case details from URL:', caseDetailsUrl); // Log the URL being fetched
     return this.http.get<any>(caseDetailsUrl);
   }
- 
+
 
   // assignCase(caseNumber: string, email: string): Observable<any> {
   //   const dataToSend = {
   //     caseNumber: caseNumber,
   //     UserName: email,
-      
+
   //   };
   //   return this.http.post<any>('AssignCaseUrl', dataToSend);
   // }
@@ -266,7 +267,7 @@ export class SharedService {
 
     // Make the HTTP POST request with the object as the request body
     return this.http.post<any>(`${this.AssignCaseUrl}?UserName=${UserName}`, dataToSend, { headers: headers })
-      
+
   }
 
 
@@ -276,14 +277,14 @@ export class SharedService {
   //     catchError(this.handleError)
   //   );
   // }
- 
+
 
   getAssigned(): Observable<any[]> {
     return this.http.get<any[]>(`${this.AssignedUrl}`)
 
       .pipe(
         tap((data: any[]) => console.log('Fetched UnAssigned:', data)),
-        map((data: any) => data['UnAssigned']) 
+        map((data: any) => data['UnAssigned'])
       );
   }
   getActive(): Observable<any[]> {
@@ -302,12 +303,12 @@ export class SharedService {
         map((data: any) => data['Closed'])
       );
   }
-  
 
 
 
 
-  
+
+
   // getCases(): Observable<any[]> {
   //   return this.http.get<any[]>(`${this.CasesUrl}`)
   //     .pipe(
@@ -317,7 +318,7 @@ export class SharedService {
   // }
 
 
-  getAccounts():Observable<any>{
+  getAccounts(): Observable<any> {
 
     let apiUrl = `${this.LoanAccountCaseUrl}/la/all`;
     return this.http.get<any>(apiUrl).pipe(map(
@@ -327,7 +328,7 @@ export class SharedService {
     ))
 
   }
- 
+
 
 
   getMeetings(): Observable<any[]> {
@@ -341,7 +342,7 @@ export class SharedService {
   //   return this.http.get<any>(this.JsonDataUrl);
 
   // }
- 
+
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.userDataUrl);
   }
