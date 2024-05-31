@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import  jsPDF from 'jspdf';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-search-cases',
@@ -12,12 +12,9 @@ import  jsPDF from 'jspdf';
   styleUrls: ['./search-cases.component.css']
 })
 export class SearchCasesComponent implements OnInit {
-  
-
-
   loanAccount: any;
   loanItem: any;
-  pagedCasesdata: any;
+  pagedCasesdata: any[] = [];
   searchOption: string = 'assignedTo';
   searchQuery: string = '';
   searchTerm: string = '';
@@ -29,12 +26,14 @@ export class SearchCasesComponent implements OnInit {
   pageSize: number = 5;
   totalItems: number = 0;
   selectedItem: any;
-  searchParams = { param: '', value: '' };
   data: any[] = [];
   cd: any;
+  Casesdata: any[] = [];
   apiUrl: string = '';
   activeTab: string = 'general';
   showTabs: boolean = false;
+  searchParams: any = { param: 'acid', value: '' };
+  totalPages: number | undefined;
 
   constructor(
     private router: Router,
@@ -56,7 +55,7 @@ export class SearchCasesComponent implements OnInit {
 
   onSearch(): void {
     this.currentPage = 1;
-    this.fetchData();
+    this.filterData();
   }
 
   fetchData(): void {
@@ -65,9 +64,7 @@ export class SearchCasesComponent implements OnInit {
         if (response && response.result && Array.isArray(response.result)) {
           this.data = response.result;
           this.totalItems = this.data.length;
-          const startIndex = (this.currentPage - 1) * this.pageSize;
-          const endIndex = startIndex + this.pageSize;
-          this.pagedCasesdata = this.data.slice(startIndex, endIndex);
+          this.filterData();
         } else {
           console.error('Invalid data received from API:', response);
         }
@@ -78,9 +75,20 @@ export class SearchCasesComponent implements OnInit {
     );
   }
 
-  search(): void {
-    this.currentPage = 1;
-    this.fetchData();
+  filterData(): void {
+    if (this.searchParams.value.trim() === '') {
+      // If search value is empty, show all data
+      this.pagedCasesdata = [...this.data];
+    } else {
+      // Filter data based on selected parameter and value
+      this.pagedCasesdata = this.data.filter(item => {
+        return item[this.searchParams.param] === this.searchParams.value;
+      });
+    }
+    this.totalItems = this.pagedCasesdata.length;
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedCasesdata = this.pagedCasesdata.slice(startIndex, endIndex);
   }
 
   getLoanDetails(acccountId: string): void {
@@ -116,6 +124,7 @@ export class SearchCasesComponent implements OnInit {
     pdf.text(pdfContent, 10, 10);
     pdf.save('schedule.pdf');
   }
+
   getTableData(): any[] {
     const tableRows = Array.from(document.querySelectorAll('table tbody tr'));
     const data: any[] = [];
@@ -128,7 +137,7 @@ export class SearchCasesComponent implements OnInit {
       data.push(rowData);
     });
     return data;
-  }  
+  }
 
   generatePDFContent(tableData: any[]): string {
     const doc = new jsPDF();
@@ -183,27 +192,32 @@ export class SearchCasesComponent implements OnInit {
     return doc.output('datauristring'); // Returns the PDF as a data URI
   }
 
-
-   setActiveTab(tab: string): void {
+  setActiveTab(tab: string): void {
     this.activeTab = tab;
-    
   }
-    exitPage() {
+
+  exitPage(): void {
     this.showTabs = false; // Set the flag to false to hide the assigned cases page
-}
- goToDouments() {
+  }
+
+  goToDocuments(): void {
     // Navigate to the "home" route
     this.router.navigate(['/documents']);
   }
-   activateTabAndNavigate(tabName: string): void {
+
+  activateTabAndNavigate(tabName: string): void {
     this.activeTab = tabName; // Update the active tab state
     if (tabName === 'documents') {
       this.router.navigate(['/documents/app-retrieve']); // Navigate to the documents page
     }
   }
 
-
-  
-    
-
+  downloadExcel(): void {
+    const tableData = this.getTableData();
+    // Implement logic to convert tableData to Excel format
+    // For example, you can use a library like ExcelJS
+    // const excelData = convertToExcelFormat(tableData);
+    // const blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    // FileSaver.saveAs(blob, 'schedule.xlsx');
+  }
 }

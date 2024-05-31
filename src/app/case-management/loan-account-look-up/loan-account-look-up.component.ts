@@ -30,6 +30,8 @@ export class LoanAccountLookUpComponent implements OnInit {
   totalItems: number = 0;
   selectedItem: any;
   modalService: any;
+  searchParams = { param: '', value: '' };
+
 
 
   constructor(
@@ -85,11 +87,12 @@ export class LoanAccountLookUpComponent implements OnInit {
     this.currentPage = event.page;
     this.fetchRecentActivity();
   }
-
-  onSearch(): void {
+   search(): void {
     this.currentPage = 1;
     this.fetchRecentActivity();
   }
+
+ 
 
   get filteredData() {
     if (this.searchTerm !== undefined && this.searchTerm !== null) {
