@@ -1,101 +1,91 @@
 <ul class="nav nav-tabs">
   <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)">
-    <a class="nav-link" [class.active]="selectedIndex === i">{{ tab.title }}</a>
+    <a class="nav-link" [ngClass]="{'active': selectedIndex === i}">{{ tab.title }}</a>
   </li>
 </ul>
 
-<!-- cONTENT FOR TABLES -->
-
-<div class="tab-content" style="background-color: #d3d3d3; border-radius: 20px;height: 80%;">
+<!-- Content for tabs -->
+<div class="tab-content" style="background-color: #d3d3d3; border-radius: 20px; height: 80%;">
   <ng-container *ngFor="let tab of tabs; let i = index">
     <div *ngIf="selectedIndex === i" class="tab-pane fade show active">
       <!-- Display tab content based on selectedIndex -->
       <ng-container *ngIf="i === 0">
-          <!-- Display content for "Refinance" tab -->
-          
-          <div class="container-xl h-100" style="width: 150%; margin-left: -9% ;">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-              <div class="col-xl-11">
-                <div class="card" style="border-radius: 15px">
-                  <div class="card-body">
-                    <div class="row align-items-center pt-4 pb-3">
-          
-                      <div class="main-body">
-                        <div>
-                          <label>Loan Account Details</label>
-                          <input type="text" class="form-control" (keyup)="applyFilter($event)"
-                            placeholder="Search by loan Account " #input>
-                        </div><div class="row">
-                          <div class="col-12">
-                            <div class="table-responsive">
-                              <table id="example" class="display expandable-table" style="width:100%">
-                                <thead>
-                                  <tr>
-                                    <th>loan Account</th>
-                                    <th>CIF ID</th>
-                                    <th>Account Name</th>
-                                    <th>Case Number</th>
-                                    <th>Loan Amount</th>
-                                    <th>Loan Balance</th>
-                                    <th>Branch Id</th>
-                                    <th>Loan Tenure</th>
-                                    <th>Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr *ngFor="let item of Assigneddata">
-                                    <td>{{ item.loanAccount }}</td>
-                                    <td>{{ item.cifId }}</td>
-                                    <td>{{ item.accountName }}</td>
-                                    <td>{{ item.caseNumber}}</td>
-                                    <td>{{ item.loanAmount }}</td>
-                                    <td>{{ item.loanBalance }}</td>
-                                    <td>{{ item.solId }}</td>
-                                    <td>{{ item.loanTenure }}</td>
-                                    <td><button class="btn btn-primary  btn-sm" (click)="goToRefinanceForm(item.loanAccount)">Proceed</button></td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
+        <!-- Display content for "Refinance" tab -->
+        <div class="container-xl h-100" style="width: 150%; margin-left: -9%;">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-11">
+              <div class="card" style="border-radius: 15px;">
+                <div class="card-body">
+                  <div class="row align-items-center pt-4 pb-3">
+                    <div class="main-body">
+                      <div>
+                        <label>Loan Account Details</label>
+                        <input type="text" class="form-control" (keyup)="applyFilter($event)"
+                          placeholder="Search by loan Account" #input>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="table-responsive">
+                            <table id="example" class="display expandable-table" style="width:100%">
+                              <thead>
+                                <tr>
+                                  <th>Loan Account</th>
+                                  <th>CIF ID</th>
+                                  <th>Account Name</th>
+                                  <th>Case Number</th>
+                                  <th>Loan Amount</th>
+                                  <th>Loan Balance</th>
+                                  <th>Branch Id</th>
+                                  <th>Loan Tenure</th>
+                                  <th>Action</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let item of Assigneddata">
+                                  <td>{{ item.loanAccount }}</td>
+                                  <td>{{ item.cifId }}</td>
+                                  <td>{{ item.accountName }}</td>
+                                  <td>{{ item.caseNumber }}</td>
+                                  <td>{{ item.loanAmount }}</td>
+                                  <td>{{ item.loanBalance }}</td>
+                                  <td>{{ item.solId }}</td>
+                                  <td>{{ item.loanTenure }}</td>
+                                  <td><button class="btn btn-primary btn-sm"
+                                      (click)="goToRefinanceForm(item.loanAccount)">Proceed</button></td>
+                                </tr>
+                              </tbody>
+                            </table>
                           </div>
                         </div>
-          
-                       
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-          
             </div>
-          
           </div>
-          
-        
+        </div>
       </ng-container>
       <ng-container *ngIf="i === 1">
-        <!-- Display content for "Recover" tab -->
-        
-        <div class="container-xl h-100" style="width: 150%; margin-left: -9% ;">
+        <!-- Display content for "Restructure" tab -->
+        <div class="container-xl h-100" style="width: 150%; margin-left: -9%;">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-11">
-              <div class="card" style="border-radius: 15px">
+              <div class="card" style="border-radius: 15px;">
                 <div class="card-body">
                   <div class="row align-items-center pt-4 pb-3">
-        
                     <div class="main-body">
                       <div>
-                        <label>Loan Accounts Details</label>
+                        <label>Loan Account Details</label>
                         <input type="text" class="form-control" (keyup)="applyFilter($event)"
-                          placeholder="Search by loan Account " #input>
+                          placeholder="Search by loan Account" #input>
                       </div>
-        
                       <div class="col-12">
                         <div class="table-responsive">
                           <table id="example" class="display expandable-table" style="width:100%">
                             <thead>
                               <tr>
-                                <th>loan Account</th>
+                                <th>Loan Account</th>
                                 <th>CIF ID</th>
                                 <th>Account Name</th>
                                 <th>Case Number</th>
@@ -111,12 +101,13 @@
                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
-                                <td>{{ item.caseNumber}}</td>
+                                <td>{{ item.caseNumber }}</td>
                                 <td>{{ item.loanAmount }}</td>
                                 <td>{{ item.loanBalance }}</td>
                                 <td>{{ item.solId }}</td>
                                 <td>{{ item.loanTenure }}</td>
-                                <td><button class="btn btn-primary  btn-sm" (click)="goToRestructureForm(item.loanAccount)">Proceed</button></td>
+                                <td><button class="btn btn-primary btn-sm"
+                                    (click)="goToRestructureForm(item.loanAccount)">Proceed</button></td>
                               </tr>
                             </tbody>
                           </table>
@@ -127,79 +118,64 @@
                 </div>
               </div>
             </div>
-        
           </div>
-        
         </div>
-        
-       
-    
       </ng-container>
       <ng-container *ngIf="i === 2">
-        <!-- Display content for "Recover" tab -->
-
-        <div class="container-xl h-100" style="width: 150%; margin-left: -9% ;">
+        <!-- Display content for "Recovery" tab -->
+        <div class="container-xl h-100" style="width: 150%; margin-left: -9%;">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-11">
-              <div class="card" style="border-radius: 15px">
+              <div class="card" style="border-radius: 15px;">
                 <div class="card-body">
                   <div class="row align-items-center pt-4 pb-3">
-                   
                     <div class="main-body">
                       <div>
                         <label>Loan Account Details</label>
-                        <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Search by loan Account "
-                          #input>
+                        <input type="text" class="form-control" (keyup)="applyFilter($event)"
+                          placeholder="Search by loan Account" #input>
                       </div>
-                    
-                    <div class="col-12">
-                      <div class="table-responsive">
-                        <table id="example" class="display expandable-table" style="width:100%">
-                          <thead>
-                            <tr>
-                              <th>loan Account</th>
-                              <th>CIF ID</th>
-                              <th>Account Name</th>
-                              <th>Case Number</th>
-                              <th>Loan Amount</th>
-                              <th>Loan Balance</th>
-                              <th>Branch Id</th>
-                              <th>Loan Tenure</th>
-                              <th>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let item of Assigneddata">
-                              <td>{{ item.loanAccount }}</td>
-                              <td>{{ item.cifId }}</td>
-                              <td>{{ item.accountName }}</td>
-                              <td>{{ item.caseNumber}}</td>
-                              <td>{{ item.loanAmount }}</td>
-                              <td>{{ item.loanBalance }}</td>
-                              <td>{{ item.solId }}</td>
-                              <td>{{ item.loanTenure }}</td>
-                              <td><button class="btn btn-primary  btn-sm" (click)="goToRecoveryForm(item.loanAccount)">Proceed</button></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    </div>
-                     </div>
-                     </div>
+                      <div class="col-12">
+                        <div class="table-responsive">
+                          <table id="example" class="display expandable-table" style="width:100%">
+                            <thead>
+                              <tr>
+                                <th>Loan Account</th>
+                                <th>CIF ID</th>
+                                <th>Account Name</th>
+                                <th>Case Number</th>
+                                <th>Loan Amount</th>
+                                <th>Loan Balance</th>
+                                <th>Branch Id</th>
+                                <th>Loan Tenure</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of Assigneddata">
+                                <td>{{ item.loanAccount }}</td>
+                                <td>{{ item.cifId }}</td>
+                                <td>{{ item.accountName }}</td>
+                                <td>{{ item.caseNumber }}</td>
+                                <td>{{ item.loanAmount }}</td>
+                                <td>{{ item.loanBalance }}</td>
+                                <td>{{ item.solId }}</td>
+                                <td>{{ item.loanTenure }}</td>
+                                <td><button class="btn btn-primary btn-sm"
+                                    (click)="goToRecoveryForm(item.loanAccount)">Proceed</button></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
-                    
-                    </div>
-                   
                   </div>
-     
-     
- 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </ng-container>
     </div>
-
-
   </ng-container>
-
 </div>

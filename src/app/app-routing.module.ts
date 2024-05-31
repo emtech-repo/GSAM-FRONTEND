@@ -49,6 +49,7 @@ export const routes: Routes = [
     path: 'Register',
     component: RegisterComponent,
   },
+
   {
     path: 'Dashboard',
     component: HomeComponent,
@@ -57,6 +58,7 @@ export const routes: Routes = [
     path: 'Cards',
     component: CardsComponent,
   },
+
   {
     path: 'create-meeting',
     component: CreateMeetingComponent,
@@ -172,6 +174,8 @@ export const routes: Routes = [
     path: 'billing-reconciliation',
     loadChildren: () => import('../app/billing-reconciliation/billing-reconciliation.module').then(m => m.BillingReconciliationModule)
   },
+
+
 ];
 
 @NgModule({
