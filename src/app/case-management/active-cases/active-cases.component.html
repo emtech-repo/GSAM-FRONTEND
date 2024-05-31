@@ -32,20 +32,27 @@
             <table id="example" class="display expandable-table" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Assigned To</th>
+                        <th>Case Number</th>
+                        <th>Account Name</th>
+                        <th>Loan account</th>
                         <th>CIF</th>
-                        <th>Loan Type</th>
-                        <th>Acc Name</th>
+                        <th>Branch Id</th>
+                        <th>Loan Balance</th>
                         <th>Status</th>
+                        <th>Assigned To</th>
+
 
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of activeData">
-                        <td>{{ item.cifId }}</td>
-                        <td>{{ item.loanAccount }}</td>
+                        <td>{{ item.caseNumber }}</td>
                         <td>{{ item.accountName }}</td>
-                        <td>{{ item.verifiedFlag }}</td>
+                        <td>{{ item.loanAccount }}</td>
+                        <td>{{ item.cifId }}</td>
+                        <td>{{ item.solId }}</td>
+                        <td>{{ item.loanBalance }}</td>
+                        <td>{{ item.status }}</td>
                         <td>{{ item.assignedEmail }}</td>
                     </tr>
                 </tbody>

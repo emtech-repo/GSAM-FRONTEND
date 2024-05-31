@@ -2,6 +2,7 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card" style="margin-top:5px;">
             <div class="card-body">
+
                 <p   class="card-title text-center"  style="background-color: grey;color: white;">Recovery Form</p>
                 <div class="row">
                     <div class="col-md-6">
@@ -22,6 +23,7 @@
                                 readonly />
                         </div>
                         <!-- Add other form groups for the first column here -->
+
                     </div>
                     <div class="col-md-6">
                         <!-- Forms for the second column -->
@@ -40,6 +42,7 @@
                         </div>
                         <!-- Add other form groups for the second column here -->
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -59,8 +62,10 @@
                             <label for="inputEmail4" style="margin-bottom: -1px;">Months in Default</label>
                             <input type="number" class="form-control" [(ngModel)]="monthsInDefault" />
                         </div>
+
                     </div>
                 </div>
+
                 <div class="form-outline w-100" style="margin-top: -20px;">
                     <label class="form-label" for="textAreaExample"
                         style="color: blue; margin-bottom: -1px;">Comments</label>
@@ -70,10 +75,14 @@
                             style="margin-left: 50px; margin-right: 10px;">Exit Page</button>
                         <button type="button" class="btn btn-primary small-btn"
                             (click)="submitRecovery()"  style="margin-left: 200px;">Submit</button>
+
+
                     </div>
                 </div>
+
                 <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
                     <p>{{ errorMessage }}</p>
+
                 </div>
                 <div class="alert alert-success mt-3" *ngIf="successMessage" style="margin-top: 20px;">
                     <p>{{ successMessage }}</p>

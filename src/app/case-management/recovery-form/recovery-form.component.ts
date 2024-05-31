@@ -11,7 +11,9 @@ import { Subscription } from 'rxjs';
 })
 export class RecoveryFormComponent implements OnInit, OnDestroy {
 
+
   @Input() loanAccount: string | null = null; // Use Input decorator
+
 
   decisionDetails = {
     loanAccount: '',
@@ -79,8 +81,10 @@ const loanBalance = Math.abs(parseFloat(this.decisionDetails.loanBalance));
           const decisionDetail = result.find((caseItem: any) => caseItem.loanAccount === this.loanAccount);
           if (decisionDetail) {
             this.decisionDetails = decisionDetail;
+
             // Calculate loan paid after fetching decision details
             this.calculateLoanPaid();
+
           } else {
             this.errorMessage = 'Case details not found for the provided loan account.';
             console.error('Case details not found for loan account:', this.loanAccount);
@@ -91,8 +95,10 @@ const loanBalance = Math.abs(parseFloat(this.decisionDetails.loanBalance));
         }
       },
       (error: any) => {
+
         this.errorMessage = 'Failed to fetch case details due to a network error.';
         console.error('Failed to fetch case details:', error);
+
       }
     );
   }
