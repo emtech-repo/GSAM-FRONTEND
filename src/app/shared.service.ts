@@ -11,6 +11,8 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
+  loanBalanceChanged: any;
+  loanAmountChanged: any;
   updateRowData(row: any) {
     throw new Error('Method not implemented.');
   }

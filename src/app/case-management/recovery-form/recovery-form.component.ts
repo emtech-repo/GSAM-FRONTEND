@@ -1,14 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recovery-form',
   templateUrl: './recovery-form.component.html',
   styleUrls: ['./recovery-form.component.css']
 })
-export class RecoveryFormComponent implements OnInit {
+export class RecoveryFormComponent implements OnInit, OnDestroy {
 
   @Input() loanAccount: string | null = null; // Use Input decorator
 
@@ -22,13 +23,16 @@ export class RecoveryFormComponent implements OnInit {
     loanBalance: ''
   };
 
-  LoanPaid: number | null = null;
+  LoanPaid: number = 0;
   monthsInDefault: number | null = null;
   comments: string = '';
   responseMessage: string = '';
   errorMessage: string | null = null;
   successMessage: string | null = null;
   loading: boolean = false;
+
+  private loanAmountSubscription: Subscription | undefined;
+  private loanBalanceSubscription: Subscription | undefined;
 
   constructor(
     private toastr: ToastrService,
@@ -42,7 +46,29 @@ export class RecoveryFormComponent implements OnInit {
     } else {
       console.error('Loan account is not defined');
     }
+
+    // Subscribe to loan amount changes
+    this.loanAmountSubscription = this.sharedService.loanAmountChanged.subscribe((amount: string) => {
+      this.calculateLoanPaid();
+    });
+
+    // Subscribe to loan balance changes
+    this.loanBalanceSubscription = this.sharedService.loanBalanceChanged.subscribe((balance: string) => {
+      this.calculateLoanPaid();
+    });
   }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from subscriptions to prevent memory leaks
+    this.loanAmountSubscription?.unsubscribe();
+    this.loanBalanceSubscription?.unsubscribe();
+  }
+
+  calculateLoanPaid(): void {
+    const loanAmount = parseFloat(this.decisionDetails.loanAmount);
+const loanBalance = Math.abs(parseFloat(this.decisionDetails.loanBalance));
+    this.LoanPaid = (loanAmount - loanBalance); // Take the absolute value
+}
 
   fetchDecisionDetails(): void {
     this.sharedService.getDecisionDetails(this.loanAccount!).subscribe(
@@ -53,6 +79,8 @@ export class RecoveryFormComponent implements OnInit {
           const decisionDetail = result.find((caseItem: any) => caseItem.loanAccount === this.loanAccount);
           if (decisionDetail) {
             this.decisionDetails = decisionDetail;
+            // Calculate loan paid after fetching decision details
+            this.calculateLoanPaid();
           } else {
             this.errorMessage = 'Case details not found for the provided loan account.';
             console.error('Case details not found for loan account:', this.loanAccount);
@@ -91,7 +119,7 @@ export class RecoveryFormComponent implements OnInit {
         console.log('Response received:', response);
         this.loading = false;
         this.successMessage = 'Recovery data submitted successfully!';
-        this.toastr.success('Recovery  datasubmitted successfully!', 'Success');
+        this.toastr.success('Recovery data submitted successfully!', 'Success');
       },
       (error: any) => {
         this.loading = false;
