@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { AuthenticationGuard } from './auth.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -51,54 +52,62 @@ export const routes: Routes = [
   },
   {
     path: 'Dashboard',
-   
     component: HomeComponent,
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'Cards',
-  
     component: CardsComponent,
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'create-meeting',
    
     component: CreateMeetingComponent,
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'documentation',
     
     component: DocumentationComponent,
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'case-decision',
     
     component: CaseDecisionComponent,
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'case-details/:loanAccount',
-
-    component: CaseDetailsComponent
+    component: CaseDetailsComponent,
+    canActivate: [AuthenticationGuard],
   },
     {
       path: 'App-analysis',
       
       component: AnalysisComponent,
+      canActivate: [AuthenticationGuard],
     },
      {
       path: 'app-loan-account-look-up',    
       component: LoanAccountLookUpComponent,
+       canActivate: [AuthenticationGuard],
     },
      {
       path: 'app-create-two',    
       component: CreateTwoComponent,
+       canActivate: [AuthenticationGuard],
     },
      {
       path: 'home',    
       component: HomeComponent,
+       canActivate: [AuthenticationGuard],
     },
      {
       path: 'assign-case',    
       component: AssignCaseComponent,
+       canActivate: [AuthenticationGuard],
     },
 
   
@@ -108,6 +117,7 @@ export const routes: Routes = [
     path: 'app-retrieve',
    
     component: RetrieveComponent,
+    canActivate: [AuthenticationGuard],
   },
 
  
@@ -115,13 +125,17 @@ export const routes: Routes = [
      {
       path: 'app-forgot-password',    
       component: ForgotPasswordComponent,
+       canActivate: [AuthenticationGuard],
     },
       {
       path: 'app-create-case',    
       component: CreateCaseComponent,
+        canActivate: [AuthenticationGuard],
     },
   { path: 'dashboard/:cardType',
-   component: HomeComponent },
+   component: HomeComponent ,
+    canActivate: [AuthenticationGuard],
+  },
   
   
 
@@ -129,19 +143,23 @@ export const routes: Routes = [
      {
       path: 'app-assign-case',    
       component: AssignCaseComponent,
+       canActivate: [AuthenticationGuard],
     },
 
     {
       path: 'app-approve-claim',    
       component: ApproveClaimComponent,
+      canActivate: [AuthenticationGuard],
     }, 
      {
       path: 'search-case',    
       component: SearchCaseComponent,
+       canActivate: [AuthenticationGuard],
     }, 
      {
        path: 'recovery-form',     
       component: RecoveryFormComponent,
+       canActivate: [AuthenticationGuard],
     }, 
     
 
@@ -151,28 +169,34 @@ export const routes: Routes = [
 
     {
       path: 'case-management',
-      loadChildren: () => import('../app/case-management/case-management.module').then(m => m.CaseManagementModule)
+      loadChildren: () => import('../app/case-management/case-management.module').then(m => m.CaseManagementModule),
+      canActivate: [AuthenticationGuard],
    },
 
   {
     path: 'approval',
-    loadChildren: () => import('../app/approval/approval.module').then(m => m.ApprovalModule)
+    loadChildren: () => import('../app/approval/approval.module').then(m => m.ApprovalModule),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'documents',
-    loadChildren: () => import('../app/documents/documents.module').then(m => m.DocumentsModule)
+    loadChildren: () => import('../app/documents/documents.module').then(m => m.DocumentsModule),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'contracts',
-    loadChildren: () => import('../app/contracts/contracts.module').then(m => m.ContractsModule)
+    loadChildren: () => import('../app/contracts/contracts.module').then(m => m.ContractsModule),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'reports',
-    loadChildren: () => import('../app/reports/reports.module').then(m => m.ReportsModule)
+    loadChildren: () => import('../app/reports/reports.module').then(m => m.ReportsModule),
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'billing-reconciliation',
-    loadChildren: () => import('../app/billing-reconciliation/billing-reconciliation.module').then(m => m.BillingReconciliationModule)
+    loadChildren: () => import('../app/billing-reconciliation/billing-reconciliation.module').then(m => m.BillingReconciliationModule),
+    canActivate: [AuthenticationGuard],
   },
 ];
 

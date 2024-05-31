@@ -294,7 +294,7 @@ export class LoginComponent implements OnInit {
           this.service.loader = false;
           if (res.statusCode == 200) {
             // Store token and role in local storage
-            localStorage.setItem('currentUser', JSON.stringify({ token: res.result.token, role: res.result.roles }));
+            localStorage.setItem('currentUser', JSON.stringify({ token: res.result.token, role: res.result.roles, email: res.result.email }));
             // Set authentication status
             this.service.isAuthenticated = true;
             // Redirect to dashboard

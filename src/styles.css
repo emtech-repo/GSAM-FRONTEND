@@ -27010,19 +27010,11 @@
   }
   
   /* Js-grid */
-  .jsgrid .jsgrid-button {
-    background-image: url(assets/images/sprites/jsgrid-icons.png);
-  }
   
-  .jsgrid .jsgrid-grid-header {
-    border: 1px solid #CED4DA;
-    border-top: 0;
-  }
   
-  .jsgrid .jsgrid-table th {
-    font-weight: initial;
-    font-weight: 600;
-  }
+  
+  
+  
   
   .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number] {
     padding: .56rem 0;
