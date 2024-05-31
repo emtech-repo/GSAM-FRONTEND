@@ -8,53 +8,82 @@
                         <button type="button" class="btn btn-primary  small-btn" data-bs-toggle="modal" data-bs-target="#fileUploadDialog">
                             + Add File
                         </button>
+                    </div>
                     
-                        <div class="modal fade" id="fileUploadDialog" tabindex="-1" aria-labelledby="fileUploadDialogLabel" aria-hidden="true">
-                            <div class="modal-dialog" style="height: auto;">
+                    <div class="modal fade" id="fileUploadDialog" tabindex="-1" aria-labelledby="fileUploadDialogLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="height: 100px;">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="modal-basic-title">
-                                            {{ selectedFolder ? 'Upload File to ' + selectedFolder : 'Upload File' }}
+                                    <div class="modal-header" >
+                                        <h4 class="modal-title" id="modal-basic-title" >
+                                            Upload File
                                         </h4>
                                         <button type="button" class="close" aria-label="Close" data-bs-dismiss="modal" aria-hidden="true">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
-                                    </div>
+                                    </div> 
+                                    
+                                   
                                     <div class="modal-body">
-                                        <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
-                                            <div class="mb-3">
-                                                <label for="folderSelect" class="form-label">Folder</label>
-                                                <select id="folderSelect" class="form-select" formControlName="folder">
+                                        <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="p-3 border rounded shadow-sm bg-light">
+                                            <div class="mb-2">
+                                                <label for="loanAccount" class="form-label">Loan Account</label>
+                                                <input formControlName="loanAccount" class="form-control" id="loanAccount" placeholder="Enter Loan Account">
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="selectedFolder">Select Folder:</label>
+                                                <select id="selectedFolder" formControlName="selectedFolder" class="form-select">
                                                     <option *ngFor="let folder of folders" [value]="folder">{{ folder }}</option>
                                                 </select>
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-2">
                                                 <label for="accountName" class="form-label">Account Name</label>
-                                                <input type="text" id="accountName" class="form-control" formControlName="accountName">
+                                                <input formControlName="accountName" class="form-control" id="accountName" placeholder="Account Name">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="accountNumber" class="form-label">Account Number</label>
-                                                <input type="number" id="accountNumber" class="form-control" formControlName="accountNumber">
+                                            <div class="mb-2">
+                                                <label for="fileName" class="form-label">File Name</label>
+                                                <input formControlName="fileName" class="form-control" id="fileName" placeholder="Enter File Name">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="fileInput" class="form-label">Choose File</label>
-                                              <input type="file" id="file" class="form-control" formControlName="file" />
-
+                                            <div class="mb-2">
+                                                <label for="fileType" class="form-label">File Type</label>
+                                                <input formControlName="fileType" class="form-control" id="fileType" placeholder="Enter File Type">
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="fileExtension" class="form-label">File Extension</label>
+                                                <input formControlName="fileExtension" class="form-control" id="fileExtension"
+                                                    placeholder="Enter File Extension">
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="fileUpload" class="form-label">Choose File</label>
+                                                <input type="file" class="form-control" id="fileUpload" (change)="onFileSelected($event)">
                                             </div>
                                             <div class="modal-footer d-flex justify-content-between">
-                                                <button type="submit" class="btn btn-success">
+                                                <button type="submit" class="btn btn-success" [disabled]="loading">
                                                     <i class="bi bi-upload"></i> Upload
                                                 </button>
                                                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                                             </div>
                                         </form>
+
+                                    
+                                        <div *ngIf="loading" class="loader mt-2">
+                                            <div class="spinner-border" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    
+                                        <div *ngIf="successMessage" class="alert alert-success mt-2" role="alert">
+                                            {{ successMessage }}
+                                        </div>
+                                    
+                                        <div *ngIf="errorMessage" class="alert alert-danger mt-2" role="alert">
+                                            {{ errorMessage }}
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
 
-
-                    </div>
                     <h5 class="my-3">DMS</h5>
                     <div class="fm-menu">
                         <div class="list-group list-group-flush">
@@ -63,7 +92,7 @@
                             <a href="javascript:;" class="list-group-item py-1"><i
                                     class="bx bx-devices me-2"></i><span>Folders</span></a>
                             <a href="javascript:;" class="list-group-item py-1"><i
-                                    class="bx bx-analyse me-2"></i><span>Recents Files</span></a>
+                                    class="bx bx-analyse me-2"></i><span>Recent Files</span></a>
                             <a href="javascript:;" class="list-group-item py-1"><i
                                     class="bx bx-plug me-2"></i><span>Starred</span></a>
                             
@@ -76,14 +105,22 @@
         <div class="col-12 col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <div class="fm-search">
-                        <div class="mb-0">
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text bg-transparent"><i class="fa fa-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Search the files">
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group mx-sm-3 mb-6 d-flex">
+                    <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
+                    <select class="form-control mr-2 "
+                        style="width: auto; height: auto;">
+                        <option value="acid">Acid</option>
+                        <option value="verified_flag">Verified Flag</option>
+                        <option value="sol_code">Sol Code</option>
+                        <option value="account_name">Account Name</option>
+                        <option value="id">CIF</option>
+                    </select>
+                    <input type="text"  placeholder="Enter search value"
+                        class="form-control mr-4" style="width: 300px; height: 20px; margin-right: 15px;" required>
+                    <button  class="btn btn-primary btn-sm" style="border-radius: 5px;">Search</button>
+                
+                
+                </div>
                     <div class="row mt-3">
                         <div class="card" style="padding: 10px;">
                             <h5 style="margin-bottom: 10px;">Document Folders</h5>

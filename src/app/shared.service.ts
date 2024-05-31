@@ -24,11 +24,13 @@ export class SharedService {
   }
 
 
+
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
   readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
   readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases';
+
 
 
 
@@ -43,6 +45,8 @@ export class SharedService {
   readonly recoveryUrl = 'http://192.168.89.93:5260/api/Recover/CaseRecover';
    readonly restructureUrl = 'http://192.168.88.244:5260/api/Restructure/CaseRestructure';
 
+
+  // private documentsUrl = '/assets/data/data.json'
 
 
 
@@ -67,7 +71,8 @@ export class SharedService {
  readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
 
   
-  private documentsUrl = 'http://localhost:3000/uploads';
+  private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
+
 
 
 
@@ -107,21 +112,25 @@ export class SharedService {
   getUsersList(val: any) {
     return this.http.post<any>(this.APIUrl + '/users/get', val);
   }
-  
 
-  uploadDocument(formData: FormData) {
-    return this.http.post(this.documentsUrl, formData);
+
+
+  uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('loanAccount', loanAccount);
+    formData.append('fileName', fileName);
+    formData.append('fileType', fileType);
+    formData.append('folder', folder);
+    formData.append('fileExtension', fileExtension);
+    formData.append('accountName', accountName);
+    
+   return this.http.post<any>(this.documentsUrl, formData);
   }
-  
- 
-
   getCases(): Observable<any> {
     return this.http.get<any>(this.CasesUrl);
 
   }
-  
-
-
 
   createCase(loanDetails: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -134,7 +143,7 @@ export class SharedService {
     return this.http.post<any>(this.CreateCaseUrl, loanDetailsJson, options);
   }
 
-  
+
 
   
 submitRecovery(inputdata: any) {
@@ -174,21 +183,21 @@ submitRecovery(inputdata: any) {
 
 
 
-    
+
 
     return this.http.get<any[]>(apiUrl);
   }
 
 
- 
+
   getLoan(): Observable<any[]> {
     return this.http.get<any[]>(`${this.LoanURL}`).pipe(
       tap(data => console.log('Loan data:', data))
     );
   }
 
-  
-  
+
+
   getLoanDetails(accountId: string): Observable<any> {
     const url = `${this.DetailsURL}${accountId}`;
     return this.http.get<any>(url).pipe(
@@ -224,15 +233,15 @@ submitRecovery(inputdata: any) {
   }
 
 
-   getUnAssigned(loanAccount: string): Observable<any[]> {
+  getUnAssigned(loanAccount: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.UnAssignedUrl}`)
       .pipe(
-        tap((loanAccount: any[]) => console.log('Fetched AssignCase:', loanAccount )),
-        map((loanAccount: any) => loanAccount['AssignCase']) 
+        tap((loanAccount: any[]) => console.log('Fetched AssignCase:', loanAccount)),
+        map((loanAccount: any) => loanAccount['AssignCase'])
 
       );
   }
-  
+
   // getCaseDetails(loanAccount: string): Observable<any> {
   //   const caseDetailsUrl = `${this.UnAssignedUrl}/${loanAccount}`;
   //   return this.http.get<any>(caseDetailsUrl);
@@ -243,6 +252,7 @@ submitRecovery(inputdata: any) {
     return this.http.get<any>(caseDetailsUrl);
   }
 
+
    getDecisionDetails(loanAccount: string): Observable<any> {
     const decisionDetailsUrl = `${this.Decision}/${loanAccount}`;
     console.log('Fetching recovery details from URL:', decisionDetailsUrl); // Log the URL being fetched
@@ -251,11 +261,12 @@ submitRecovery(inputdata: any) {
   
  
 
+
   // assignCase(caseNumber: string, email: string): Observable<any> {
   //   const dataToSend = {
   //     caseNumber: caseNumber,
   //     UserName: email,
-      
+
   //   };
   //   return this.http.post<any>('AssignCaseUrl', dataToSend);
   // }
@@ -270,8 +281,10 @@ submitRecovery(inputdata: any) {
     const dataToSend = { caseNumber: caseNumber, UserName: UserName };
 
     // Make the HTTP POST request with the object as the request body
+
     return this.http.post<any>(`${this.AssignCaseUrl}?UserName=${UserName}&caseNumber=${caseNumber}`, dataToSend, { headers: headers })
       
+
   }
 
 
@@ -281,14 +294,14 @@ submitRecovery(inputdata: any) {
   //     catchError(this.handleError)
   //   );
   // }
- 
+
 
   getAssigned(): Observable<any[]> {
     return this.http.get<any[]>(`${this.AssignedUrl}`)
 
       .pipe(
         tap((data: any[]) => console.log('Fetched UnAssigned:', data)),
-        map((data: any) => data['UnAssigned']) 
+        map((data: any) => data['UnAssigned'])
       );
   }
   getActive(): Observable<any[]> {
@@ -307,10 +320,10 @@ submitRecovery(inputdata: any) {
         map((data: any) => data['Closed'])
       );
   }
-  
 
 
-  getAccounts():Observable<any>{
+
+  getAccounts(): Observable<any> {
 
     let apiUrl = `${this.LoanAccountCaseUrl}/la/all`;
     return this.http.get<any>(apiUrl).pipe(map(
@@ -320,7 +333,7 @@ submitRecovery(inputdata: any) {
     ))
 
   }
- 
+
 
 
   getMeetings(): Observable<any[]> {
@@ -329,8 +342,7 @@ submitRecovery(inputdata: any) {
 
 
 
-  //////////////////////////////////////
- 
+
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.userDataUrl);
   }
