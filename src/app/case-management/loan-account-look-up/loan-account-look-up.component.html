@@ -2,22 +2,11 @@
     <div class="card-body">
         <p class="card-title">loan Accounts</p>
 
-        <div class="form-group mx-sm-3 mb-6 d-flex">
-            <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                style="width:120px; height: 30px;">ng
-                <option value="1" disabled>Search by</option>
-                <option value="acid">acid</option>
-                <option value="verified_flag">Verified Flag</option>
-                <option value="sol_code">Sol Code</option>
-                <option value="account_name">Account Name</option>
-                <option value="id">CIF</option>
-            </select>
-            <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
-                class="form-control mr-4" style="width: 200px; height: 31px; margin-right: 15px;" required>
-            <button (click)="search()" class="btn btn-primary btn-sm"
-                style="border-radius: 5px;height: 30px;margin-left: -10px;">Search</button>
-        
-        
+        <div class="row">
+            <div class="col-8 mb-3 ">
+                <input type="text" class="form-control" placeholder="filter..." [(ngModel)]="searchTerm"
+                    (ngModelChange)="onSearch()" style="height: 20px;width: 150%;">
+            </div>
         </div>
         <div class="row">
             <div class="col-12">
@@ -34,15 +23,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of filteredData" >
+                            <tr *ngFor="let item of filteredData">
                                 <td>{{ item.acid }}</td>
                                 <td>{{ item.account_name}}</td>
                                 <td>{{ item.sol_code}}</td>
                                 <td>{{ item.verified_flag}}</td>
 
-                                <td><button type="button" class="btn btn-primary   small-btn" style="border-radius:3px ;" (click)="goToCreateTwo(item.acid)"  data-dismiss="modal"
-                                    (click)="bsModalRef.hide()">Create</button></td>
-                                
+                                <td><button type="button" class="btn btn-primary   small-btn"
+                                        style="border-radius:3px ;" (click)="goToCreateTwo(item.acid)"
+                                        data-dismiss="modal" (click)="bsModalRef.hide()">Create</button></td>
+
 
                             </tr>
                         </tbody>
@@ -58,3 +48,4 @@
             </div>
         </div>
     </div>
+</div>
