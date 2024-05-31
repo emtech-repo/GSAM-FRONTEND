@@ -22,7 +22,7 @@ export class CardsComponent implements OnInit {
   activeCases: number = 0;
   closedCases: number = 0;
   selectedCaseType: string | null = null;
- 
+
 
   constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) { }
 
@@ -32,7 +32,7 @@ export class CardsComponent implements OnInit {
   }
 
   fetchData(): void {
-    
+
     this.http.get<any>(this.apiUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.data = response.result;
@@ -48,7 +48,8 @@ export class CardsComponent implements OnInit {
   calculateCaseCounts(): void {
     this.totalCases = this.data.length;
     this.assignedCases = this.data.filter(item => item.assigned === "Y").length;
-    this.activeCases = this.data.filter(item => item.assigned === "N").length;
+    this.activeCases = this.data.length;
+    // this.activeCases = this.data.filter(item => item.active === "Y").length;
     this.closedCases = this.data.filter(item => item.closed === "Y").length;
   }
 
@@ -66,6 +67,6 @@ export class CardsComponent implements OnInit {
     this.router.navigate(['case-management/app-closed-cases'])
   }
 
-  
+
 
 }

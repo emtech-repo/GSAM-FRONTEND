@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'app-create-claim',
-    component: CreateClaimComponent,
+    component:CreateClaimComponent,
   },
   {
     path: 'app-view-claims',
@@ -43,5 +43,6 @@ export const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
+ 
 })
 export class BillingReconciliationRoutingModule { }
