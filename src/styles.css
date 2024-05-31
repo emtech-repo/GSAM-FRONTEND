@@ -27010,19 +27010,11 @@
   }
   
   /* Js-grid */
-  .jsgrid .jsgrid-button {
-    background-image: url(assets/images/sprites/jsgrid-icons.png);
-  }
   
-  .jsgrid .jsgrid-grid-header {
-    border: 1px solid #CED4DA;
-    border-top: 0;
-  }
   
-  .jsgrid .jsgrid-table th {
-    font-weight: initial;
-    font-weight: 600;
-  }
+  
+  
+  
   
   .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number] {
     padding: .56rem 0;
@@ -28370,20 +28362,11 @@
   /*-------------------------------------------------------------------*/
   /* === Landing screens === */
   /* Auth */
-  .auth .login-half-bg {
-    background: url("assets/images/auth/login-bg.jpg");
-    background-size: cover;
-  }
+ 
   
-  .auth .register-half-bg {
-    background: url("assets/images/auth/register-bg.jpg");
-    background-size: cover;
-  }
   
-  .auth.lock-full-bg {
-    background: url("assets/images/auth/lockscreen-bg.jpg");
-    background-size: cover;
-  }
+  
+  
   
   .auth .lock-profile-img {
     width: 90px;
