@@ -2,16 +2,16 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-xl-11">
 
-            <div class="card" style="border-radius: 15px">
+            <div class="card" style="border-radius: 15px;margin-top: -100px;">
                 <div style="margin-top:-40px ;">
                     <h1 style="font-size: 25px;text-align: center;color:white;background-color:grey;">
                         Case Details</h1>
                 </div>
-                <div class="card-body">
+                <div class="card-body"  style="margin-top: -15px">
                     <div class="row align-items-center pt-4 pb-3">
 
 
-                        <div class="row">
+                        <div class="row" >
                             <div class="col-md-4">
                                 <!-- First Column -->
                                 <div class="row">
@@ -19,22 +19,25 @@
                                         <div class="form-group" style="margin-top: -20px;">
                                             <label for="inputloanaccount" style="margin-bottom: -1px;">Loan Account
                                             </label>
-                                            <input type="text" class="form-control" id="CifID" [value]=" caseDetails.loanAccount|| ''" readonly />
+                                            <input type="text" class="form-control" id="CifID"
+                                                [value]=" caseDetails.loanAccount|| ''" readonly />
 
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inputcasenumber">Case Number </label>
-                                            <input type="text" class="form-control" id="caseNumber" [value]=" caseDetails.caseNumber|| ''" readonly />
+                                            <label for="inputcasenumber" style="margin-bottom: -1px;">Case Number </label>
+                                            <input type="text" class="form-control" id="caseNumber"
+                                                [value]=" caseDetails.caseNumber|| ''" readonly />
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inputloan"> Loan Amount</label>
-                                        <input type="text" class="form-control" id="loanAmount" [value]=" caseDetails.loanAmount|| ''" readonly />
+                                            <label for="inputloan" style="margin-bottom: -1px;"> Loan Amount</label>
+                                            <input type="text" class="form-control" id="loanAmount"
+                                                [value]=" caseDetails.loanAmount|| ''" readonly />
 
 
                                         </div>
-                                        
+
 
                                     </div>
                                 </div>
@@ -44,23 +47,26 @@
                                 <div class="row">
                                     <div class="col-md-12 ps-9">
                                         <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inputcifId">CIF ID</label>
-                                             <input type="text" class="form-control" id="cifId" [value]=" caseDetails.cifId|| ''" readonly />
+                                            <label for="inputcifId" style="margin-bottom: -1px;">CIF ID</label>
+                                            <input type="text" class="form-control" id="cifId"
+                                                [value]=" caseDetails.cifId|| ''" readonly />
 
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inpubranchid">Branch ID</label>
-                                          <input type="text" class="form-control" id="solId" [value]=" caseDetails.solId|| ''" readonly />
+                                            <label for="inpubranchid" style="margin-bottom: -1px;">Branch ID</label>
+                                            <input type="text" class="form-control" id="solId"
+                                                [value]=" caseDetails.solId|| ''" readonly />
 
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inputloanbalance">Loan Balance</label>
-                                            <input type="text" class="form-control" id="loanBalance" [value]=" caseDetails.loanBalance|| ''" readonly />
-                                        
+                                            <label for="inputloanbalance" style="margin-bottom: -1px;">Loan Balance</label>
+                                            <input type="text" class="form-control" id="loanBalance"
+                                                [value]=" caseDetails.loanBalance|| ''" readonly />
+
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -70,31 +76,53 @@
                                 <div class="row">
                                     <div class="col-md-12 ps-9">
                                         <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inputaccname">Acc Name</label>
-                                           <input type="text" class="form-control" id="accountName" [value]=" caseDetails.accountName|| ''" readonly />
+                                            <label for="inputaccname" style="margin-bottom: -1px;">Acc Name</label>
+                                            <input type="text" class="form-control" id="accountName"
+                                                [value]=" caseDetails.accountName|| ''" readonly />
 
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inputloantenure">Loan Tenure</label>
-                                             <input type="text" class="form-control" id="loanTenure" [value]=" caseDetails.loanTenure|| ''" readonly />
+                                            <label for="inputloantenure" style="margin-bottom: -1px;">Loan Tenure</label>
+                                            <input type="text" class="form-control" id="loanTenure"
+                                                [value]=" caseDetails.loanTenure|| ''" readonly />
 
                                         </div>
                                         <div class="form-group" style="margin-top: -20px;">
-                                            <label for="inputloantenure">Case number </label>
-                                             <input type="text" class="form-control" id="loanTenure" [value]=" caseDetails.caseNumber ||''" readonly />
+                                            <label for="inputloantenure" style="margin-bottom: -1px;">Case number </label>
+                                            <input type="text" class="form-control" id="loanTenure"
+                                                [value]=" caseDetails.caseNumber ||''" readonly />
 
                                         </div>
-                                       
-                                        
+
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary small-btn" (click)="goToAssignCase()"
+                                    style="margin-top: 5px;border-radius:3px ; margin-left: 5px;">Exit Page</button>
+                            </div>
+
+                            <div class="col">
+                                <button type="button" class="btn btn-primary small-btn"
+                                    style="margin-left: 200px;margin-top: 5px; border-radius:3px ;"
+                                    (click)="goToAssignPopup(caseDetails.caseNumber)">Assign Case</button>
+                            </div>
+                        </div>
+
+
+
+                        <!-- <div style="display: inline-block;">
+                            <button type="button" style="margin-right: 10px;" class="assign small-btn" (click)="goToAssignCase()">Exit
+                                Page</button>
                             <button type="button" class="assign small-btn" (click)="goToAssignPopup(caseDetails.caseNumber)">Assign
                                 Case</button>
                         </div>
+                         -->
+
                     </div>
                 </div>
             </div>

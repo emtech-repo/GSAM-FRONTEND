@@ -9,9 +9,9 @@ import { SharedService } from '../../shared.service';
   styleUrls: ['./assign-popup.component.css']
 })
 export class AssignPopupComponent implements OnInit {
-  @Input() caseNumber: string | undefined;
+  @Input() caseNumber:string = '';
   UserName: string = '';
-  responseMessage: string | undefined;
+  responseMessage:  string = '';
 
   constructor(
     private toastr: ToastrService,
@@ -20,6 +20,7 @@ export class AssignPopupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('Received case number:', this.caseNumber);
     // You can use this.caseNumber here to display in the HTML
   }
 

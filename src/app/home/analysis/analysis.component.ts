@@ -31,6 +31,9 @@ export class AnalysisComponent  implements OnInit{
     credits: {
       enabled: false
     },
+    accessibility: {
+      enabled: false
+    },
     series: [
       {
         type: 'line',

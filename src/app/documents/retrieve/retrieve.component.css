@@ -143,3 +143,10 @@ table tbody tr td button {
     font-size: 0.75rem;
     /* Smaller font size for buttons */
 }
+.small-btn {
+    font-size: 15px;
+    padding: 5px 10px;
+    height: 30px;
+    border-radius: 3px;
+
+}

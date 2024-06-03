@@ -1,8 +1,11 @@
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SharedService } from '../../shared.service';
-import { Subscription } from 'rxjs';
+import { response } from 'express';
 
 @Component({
   selector: 'app-retrieve',
@@ -10,59 +13,91 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./retrieve.component.css']
 })
 export class RetrieveComponent implements OnInit, OnDestroy {
-  uploadForm!: FormGroup;
-  folders = ['Personal Documents', 'Litigation', 'Collaterals', 'Contracts'];
-  selectedFolder: string = '';
-  private fileCountsSubscription: Subscription | undefined;
+  uploadForm: FormGroup;
+  loading: boolean = false;
+  fileName: string = ''; // Add fileName property
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  
+  folders : string []=['Collateral','Personal Documents','Contracts','Litigation'];
+
 
   constructor(
-    private formBuilder: FormBuilder, // Inject FormBuilder here
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private sharedService: SharedService
-  ) { }
+    private http: HttpClient,
+    private sharedserv: SharedService
+  ) {
+    this.uploadForm = this.formBuilder.group({
+      loanAccount: ['', Validators.required],
+      fileName: ['', Validators.required],
+      fileType: ['', Validators.required],
+      fileExtension: ['', Validators.required],
+      file: [null, Validators.required],
+      folder: ['', Validators.required],
+      accountName: ['', Validators.required],
+      selectedFolder: [''] 
+    });
+
+    
+      
+    
+  }
 
   ngOnInit() {
-    // Initialize the form in ngOnInit
-    this.initUploadForm();
+    this.uploadForm.get('selectedFolder')?.valueChanges.subscribe(selectedFolder => {
+      this.uploadForm.patchValue({ folder: selectedFolder });
+    });
+  
   }
 
   ngOnDestroy() {
-    if (this.fileCountsSubscription) {
-      this.fileCountsSubscription.unsubscribe();
+  
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.uploadForm.patchValue({
+      file: file,
+      fileName: file.name,
+      fileType: file.type,
+      fileExtension: file.name.split('.').pop()
+    });
+  }
+  onSubmit() {
+    if (this.uploadForm.valid) {
+      this.loading = true;
+      this.successMessage = null;
+      this.errorMessage = null;
+
+      const formValues = this.uploadForm.value;
+      this.sharedserv.uploadDocument(
+        formValues.file,
+        formValues.loanAccount,
+        formValues.fileName,
+        formValues.fileType, 
+        formValues.folder,
+        formValues.fileExtension,
+        formValues.accountName,
+        
+      ).subscribe(
+        (response) => {
+          this.loading = false;
+          this.successMessage = response.message;
+        },
+        (error) => {
+          this.loading = false;
+          if (error.error && error.error.message) {
+            this.errorMessage = error.error.message; // Assuming error response has a 'message' property
+          } else {
+            this.errorMessage = "An error occurred while uploading the document."; // Default error message
+          }
+        }
+      );
+    } else {
+      console.error('Form is invalid');
     }
   }
 
-  initUploadForm(): void {
-    this.uploadForm = this.formBuilder.group({
-      file: [null, Validators.required],
-      folder: [this.selectedFolder, Validators.required],
-      accountName: ['', Validators.required],
-      accountNumber: ['', Validators.required]
-    });
-  }
 
-  openModal(content: any, folder: string): void {
-    this.selectedFolder = folder;
-    this.uploadForm.patchValue({ folder: folder });
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-  }
-
-  onSubmit() {
-    const formData = new FormData();
-    formData.append('folder', this.uploadForm.get('folder')!.value);
-    formData.append('accountName', this.uploadForm.get('accountName')!.value);
-    formData.append('accountNumber', this.uploadForm.get('accountNumber')!.value);
-    formData.append('file', this.uploadForm.get('file')!.value);
-
-    this.sharedService.uploadDocument(formData).subscribe(
-      response => {
-        console.log('File uploaded successfully:', response);
-        // Handle success, e.g., display a success message
-      },
-      error => {
-        console.error('Error uploading file:', error);
-        // Handle error, e.g., display an error message
-      }
-    );
-  }
 }
