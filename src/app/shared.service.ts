@@ -49,13 +49,7 @@ export class SharedService {
 
   // private documentsUrl = '/assets/data/data.json'
 
-  readonly UnAssignedUrl = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases';
-  readonly Cases = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases?loanAccount=';
-  readonly AssignedUrl = 'http://192.168.88.244:5260/api/Case/GetAssignedCases';
-  readonly AssignCaseUrl = 'http://192.168.88.244:5260/api/Case/AssignCase';
-  readonly ActiveUrl ='http://192.168.88.244:5260/api/Case/ActiveCases';
-  readonly ClosedUrl = 'http://192.168.88.244:5260/api/Case/ClosedCases';
-  readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/GetAllServiceProviders';
+  
   readonly RequestUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
 
 
@@ -63,8 +57,8 @@ export class SharedService {
   private registerUrl = 'http://192.168.88.244:5260/api/Auth/Register';
   readonly baseUrl = 'http://192.168.88.244:5260/api/Auth/Register';
 
-  private readonly userDataUrl = 'assets/data/db.json';
-  baseUrl: string = "http://localhost:3000/";
+  // private readonly userDataUrl = 'assets/data/db.json';
+  // baseUrl: string = "http://localhost:3000/";
 
   readonly APIUrl = 'https://192.168.88.244:5260';
   readonly baseURL = 'assets/data/db.json'
@@ -85,10 +79,10 @@ export class SharedService {
   
   private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
 
-  readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
+  // readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
   private storageKey = 'uploads';
   private dataUrl = '/assets/data/data.json';
-  private documentsUrl = 'http://localhost:3000/uploads';
+  // private documentsUrl = 'http://localhost:3000/uploads';
   // private documentsUrl = '/assets/data/data.json';
 
 
@@ -364,9 +358,9 @@ submitRecovery(inputdata: any) {
   }
 
 
-  registerUser(inputdata: any) {
-    return this.http.post(this.registerUrl, inputdata)
-  }
+  // registerUser(inputdata: any) {
+  //   return this.http.post(this.registerUrl, inputdata)
+  // }
 
   getUserData(): Observable<any> {
     return this.http.get<any>(this.userDataUrl);
@@ -379,28 +373,28 @@ submitRecovery(inputdata: any) {
 
 
 
-  addEmployee(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'user', data);
-  }
+  // addEmployee(data: any): Observable<any> {
+  //   return this.http.post(this.baseUrl + 'user', data);
+  // }
 
 
-  updateEmployee(id: number, updatedFields: any): Observable<any> {
-    // Include all fields in the update request
-    const allFields = { ...updatedFields }; // Copy the updatedFields object
-    allFields.id = id; // Add the employee ID
-    return this.http.put(this.baseUrl + `user/${id}`, allFields);
-  }
+  // updateEmployee(id: number, updatedFields: any): Observable<any> {
+  //   // Include all fields in the update request
+  //   const allFields = { ...updatedFields }; // Copy the updatedFields object
+  //   allFields.id = id; // Add the employee ID
+  //   return this.http.put(this.baseUrl + `user/${id}`, allFields);
+  // }
 
  
 
-  getEmployeeList(): Observable<any> {
-    return this.http.get(this.baseUrl + 'user');
-  }
+  // getEmployeeList(): Observable<any> {
+  //   return this.http.get(this.baseUrl + 'user');
+  // }
 
-  deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + `user/${id}`);
+  // deleteEmployee(id: number): Observable<any> {
+  //   return this.http.delete(this.baseUrl + `user/${id}`);
 
-  }
+  // }
 
   getServiceData(): Observable<any> {
     return this.http.get<any>(`${this.ServiceUrl}/serviceData`);
