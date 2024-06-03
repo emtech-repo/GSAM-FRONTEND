@@ -26,7 +26,7 @@
         </div>
 
 
-        <div class="col-md-3 mb-3  stretch-card transparent"  (click)="showUnassignedCases()">
+        <div class="col-md-3 mb-3  stretch-card transparent" (click)="showUnassignedCases()">
 
             <div class="card card-light-blue">
 
@@ -52,21 +52,21 @@
 
 
                 <!-- Search Form -->
-                <div class="form-group mx-sm-3 mb-6 d-flex">
-                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                        style="width: auto; height: 30px;">
-                        <option value="SearchBy">SearchBy</option>
-                        <option value="cifId">CIF</option>
-                        <option value="assignedEmail">Assigned Email</option>
-                        <option value="accountName">Account Name</option>
-                        <option value="loanAccount">Loan Account</option>
-                        <!-- <option value="id">ID</option> -->
-                    </select>
-                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
-                        placeholder="Enter search value" class="form-control mr-4" style="height: 30px;width: 100%; ">
-                    <button (click)="search()" class="btn btn-primary small-btn"
-                        style="border-radius: 3px;">Search</button>
-                </div>
+            <div class="form-group mx-sm-3 mb-6 d-flex">
+                <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                    style="width: 150px; height: 30px;">
+                    <option value="1" disabled>search by</option>
+                    <option value="loanAccount">Loan Account</option>
+                    <option value="accountName">Account Name</option>
+                    <option value="caseNumber">Case Number</option>
+                    <option value="cifId">CIF ID</option>
+                </select>
+                <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                    class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
+                <button (click)="search()" class="btn btn-primary btn-sm"
+                    style="border-radius: 5px; margin-left: -10px;">Search</button>
+
+            </div>
 
 
 
@@ -95,9 +95,9 @@
                                         <th>Recovered </th>
                                         <th>Restructured</th>
                                         <th>Refinanced</th>
-                                        
-                                        
-                                        
+
+
+
 
                                     </tr>
                                 </thead>
@@ -115,7 +115,7 @@
                                         <td>{{ item.recoveredFlag }}</td>
                                         <td>{{ item.restructuredFlag }}</td>
                                         <td>{{ item.refinancedFlag}}</td>
-                      </tr>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -127,9 +127,9 @@
                     </pagination>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
-                        (click)="bsModalRef.hide()" (click)=" ex()">Exit Page</button>
-                
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
+                        data-dismiss="modal" (click)="bsModalRef.hide()" (click)=" ex()">Exit Page</button>
+
                 </div>
             </div>
         </div>
@@ -144,19 +144,19 @@
 
                 <!-- Search Form -->
                 <div class="form-group mx-sm-3 mb-6 d-flex">
-                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                        style="width: auto; height: 30px;">
-                        <option value="SearchBy" disabled>SearchBy</option>
-                        <option value="cifId">CIF</option>
-                        <option value="assignedEmail">Assigned Email</option>
-                        <option value="accountName">Account Name</option>
+                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                        style="width: 150px; height: 30px;">
+                        <option value="1" disabled>search by</option>
                         <option value="loanAccount">Loan Account</option>
-                        <!-- <option value="id">ID</option> -->
+                        <option value="accountName">Account Name</option>
+                        <option value="caseNumber">Case Number</option>
+                        <option value="cifId">CIF ID</option>
+                        <option value="assignedEmail">assigned to</option>
                     </select>
-                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
-                        placeholder="Enter search value" class="form-control mr-4" style="height: 30px;width: 100%; ">
-                    <button (click)="search()" class="btn btn-primary small-btn"
-                        style="border-radius: 3px;">Search</button>
+                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                        class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
+                    <button (click)="onSearch()" class="btn btn-primary btn-sm"
+                        style="border-radius: 5px; margin-left: -10px;">Search</button>
                 </div>
 
 
@@ -229,8 +229,8 @@
                 <!-- SEEERCH BUTTON-->
                 <div class="row">
                     <div class="col-8 mb-3 ">
-                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm" (ngModelChange)="onSearch()"
-                            style="height: 20px;width: 150%;">
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm"
+                            (ngModelChange)="onSearch()" style="height: 20px;width: 150%;">
 
                     </div>
                 </div>
@@ -238,7 +238,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive table-striped">
-                            <table id="example" class="display expandable-table" >
+                            <table id="example" class="display expandable-table">
 
                                 <!-- Table headers and rows -->
                                 <thead>
@@ -255,13 +255,13 @@
                                         <th>Syndicated</th>
                                         <th>Assigned </th>
                                         <th>Action</th>
-                                     
+
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
-                                    <tr *ngFor="let item of UnAssigneddata"  >
+                                    <tr *ngFor="let item of UnAssigneddata">
                                         <td>{{ item.caseNumber }}</td>
                                         <td>{{ item.loanAccount }}</td>
                                         <td>{{ item.cifId }}</td>
@@ -274,8 +274,7 @@
                                         <td>{{ item.assigned }}</td>
 
                                         <td><button type="button" class="assign small-btn"
-
-                                                (click)="goToCaseDetails(item.loanAccount)" >View</button></td>
+                                                (click)="goToCaseDetails(item.loanAccount)">View</button></td>
 
 
                                     </tr>
@@ -302,9 +301,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
