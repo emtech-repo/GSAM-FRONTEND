@@ -73,7 +73,8 @@
                 </div>
               </div>
               <div class="preview-item-content">
-                <h6 class="preview-subject font-weight-normal" [routerLink]="['app-admin-page']">New user registration</h6>
+                <h6 class="preview-subject font-weight-normal" [routerLink]="['app-admin-page']">New user registration
+                </h6>
                 <p class="font-weight-light small-text mb-0 text-muted">
                   just now
               </div>
@@ -138,16 +139,23 @@
           <div class="collapse" id="ui-basic">
 
             <ul class="nav flex-column sub-menu">
-              
-             <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-search-cases']">Search Case</a></li>
-            <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-case']">Create
-                Case</a></li>
+
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-search-cases']">Search
+                  Case</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-case']">Create
+                  Case</a></li>
               <!-- <li class="nav-item"> <a class="nav-link"[routerLink]="['case-management/app-search-case']">Core Banking</a></li> -->
-              <li class="nav-item" *ngIf="isManager"> <a class="nav-link" [routerLink]="['case-management/app-case-status']">Case
+              <li class="nav-item" *ngIf="isManager"> <a class="nav-link"
+                  [routerLink]="['case-management/app-case-status']">Case
                   Status</a></li>
+              <li class="nav-item" *ngIf="isOfficer"> <a class="nav-link"
+                  [routerLink]="['case-management/app-cases-status']">Case
+                  Status</a></li>
+
               <li class="nav-item"*ngIf="isOfficer"> <a class="nav-link" [routerLink]="['case-management/app-cases-status']">Case
                       Status</a></li>
              
+
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-meeting']">
                   Meeting</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-decision']">Case
@@ -156,9 +164,9 @@
                   Tracking</a></li>
               <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
                   Case</a></li> -->
-                  <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
-                      Case</a></li>
-                      
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
+                  Case</a></li>
+
 
 
             </ul>
@@ -171,6 +179,21 @@
             <span class="menu-title">Documents</span>
         
           </a>
+
+          <div class="collapse" id="ui-advanced">
+            <ul class="nav flex-column sub-menu">
+
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-search-document']">Search</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-request']">Request</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-retrieve']">Retrieve</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-upload']">Upload</a></li>
+
+
+
+
+            </ul>
+          </div>
+
         </li>
      
         <li class="nav-item">
