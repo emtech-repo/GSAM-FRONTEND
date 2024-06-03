@@ -16,6 +16,7 @@ export class ViewRequestsComponent {
   currentPage: number = 1;
   pageSize: number = 3;
   totalItems: number = 0;
+  totalPages: number = 0;
   totalCases: number = 0;
   activeCases: number = 0;
   closedCases: number = 0;
@@ -32,6 +33,12 @@ export class ViewRequestsComponent {
     this.fetchData();
 
   }
+
+  setSearchParams(param: string): void {
+    this.searchParams.param = param;
+    this.searchParams.value = ''; // Clear the value since we're setting the parameter now
+  }
+
 
   
   setSearchOption(option: string) {
@@ -117,6 +124,19 @@ export class ViewRequestsComponent {
       return this.data;
     }
   }
+  filterData(): void {
+    if (this.searchParams.value.trim() === '') {
+      // If search value is empty, show all data
+      this.data = [...this.data];
+    } else {
+      // Filter data based on selected parameter and value
+      this.data = this.data.filter(item => {
+        return item[this.searchParams.param] === this.searchParams.value;
+      });
+    }
+    this.totalItems = this.data.length;
+    this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+  }
 
 
 
@@ -133,9 +153,6 @@ export class ViewRequestsComponent {
     });
     return dataArray;
   }
-
-
-
 
 
 }

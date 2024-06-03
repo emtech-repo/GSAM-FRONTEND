@@ -1,45 +1,103 @@
-import { Component, ViewChild, ElementRef, TemplateRef, Inject, PLATFORM_ID } from '@angular/core';
-import { Router } from '@angular/router';
-import { SharedService } from '../../shared.service'; // Import your SharedService
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl } from '@angular/forms';
+import { SharedService } from '../../shared.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-retrieve',
   templateUrl: './retrieve.component.html',
   styleUrls: ['./retrieve.component.css']
 })
-export class RetrieveComponent {
-  @ViewChild('searchDialog') searchDialog!: ElementRef;
-  searchForm: FormGroup; // Define searchForm FormGroup
+export class RetrieveComponent implements OnInit, OnDestroy {
+  uploadForm: FormGroup;
+  loading: boolean = false;
+  fileName: string = ''; // Add fileName property
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  
+  folders : string []=['Collateral','Personal Documents','Contracts','Litigation'];
 
-  constructor(private router: Router, private sharedService: SharedService, @Inject(PLATFORM_ID) private platformId: Object, private modalService: NgbModal) {
-    // Initialize searchForm FormGroup
-    this.searchForm = new FormGroup({
-      accNumber: new FormControl(''),
-      accName: new FormControl(''),
-      cifID: new FormControl(''),
-      startDate: new FormControl(''),
-      endDate: new FormControl('')
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal,
+    private http: HttpClient,
+    private sharedserv: SharedService
+  ) {
+    this.uploadForm = this.formBuilder.group({
+      loanAccount: ['', Validators.required],
+      fileName: ['', Validators.required],
+      fileType: ['', Validators.required],
+      fileExtension: ['', Validators.required],
+      file: [null, Validators.required],
+      folder: ['', Validators.required],
+      accountName: ['', Validators.required],
+      selectedFolder: [''] 
+    });
+
+    
+      
+    
+  }
+
+  ngOnInit() {
+    this.uploadForm.get('selectedFolder')?.valueChanges.subscribe(selectedFolder => {
+      this.uploadForm.patchValue({ folder: selectedFolder });
+    });
+  
+  }
+
+  ngOnDestroy() {
+  
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.uploadForm.patchValue({
+      file: file,
+      fileName: file.name,
+      fileType: file.type,
+      fileExtension: file.name.split('.').pop()
     });
   }
+  onSubmit() {
+    if (this.uploadForm.valid) {
+      this.loading = true;
+      this.successMessage = null;
+      this.errorMessage = null;
 
-  openModal(content: TemplateRef<any>) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-  }
-
-  onSubmit(event?: Event) {
-    // Your form submission logic here
-  }
-  uploadFile(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files && fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      // Example: Send the file to a backend endpoint
-      // // this.http.post('/api/upload', file).subscribe(
-      //   response => console.log(response),
-      //   error => console.error(error)
-      // );
+      const formValues = this.uploadForm.value;
+      this.sharedserv.uploadDocument(
+        formValues.file,
+        formValues.loanAccount,
+        formValues.fileName,
+        formValues.fileType, 
+        formValues.folder,
+        formValues.fileExtension,
+        formValues.accountName,
+        
+      ).subscribe(
+        (response) => {
+          this.loading = false;
+          this.successMessage = response.message;
+        },
+        (error) => {
+          this.loading = false;
+          if (error.error && error.error.message) {
+            this.errorMessage = error.error.message; // Assuming error response has a 'message' property
+          } else {
+            this.errorMessage = "An error occurred while uploading the document."; // Default error message
+          }
+        }
+      );
+    } else {
+      console.error('Form is invalid');
     }
   }
+
+
 }

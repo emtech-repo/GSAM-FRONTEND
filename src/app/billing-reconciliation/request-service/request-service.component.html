@@ -1,91 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col" style="text-align: center; color: maroon;">
+            <h4>REQUEST SERVICE</h4>
+        </div>
+    </div>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Request Service Form</title>
-    <!-- Include Bootstrap CSS for styling -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body>
-
-    <div class="container mt-5">
-        <div class="row mb-3">
-            <div class="col" style="text-align: center; color: maroon;">
-                <h4>REQUEST SERVICE</h4>
+    <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+        <!-- Search Field -->
+        <div class="form-group row mb-4">
+            <div class="form-group mx-sm-3 mb-6 d-flex">
+                <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
+                <select id="searchParam" formControlName="searchParam" class="form-control mr-2"
+                    style="width: auto; height: auto;">
+                    <option value="id">Provider Id</option>
+                    <option value="name">Service Provider Name</option>
+                </select>
+                <input type="text" id="searchValue" formControlName="searchValue" placeholder="Enter search value"
+                    class="form-control mr-4 dark-grey-background"
+                    style="width: 300px; height: 20px; margin-right: 15px;">
+                <button type="button" class="btn btn-primary btn-sm" style="border-radius: 5px;"
+                    (click)="search()">Search</button>
             </div>
         </div>
 
-        <form>
-            <!-- Dropdowns -->
-            <div class="form-group row">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <label for="service-name">Service Name</label>
-                    <select id="service-name" name="service-name" class="form-control">
-                        <option value="Lawyers">Auctioner</option>
-                        <option value="Drinking Water">Underwriting</option>
-                        <option value="Lawyers">Law Suite</option>
-                        <!-- Add more options here -->
-                    </select>
-                </div>
-
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <label for="region">Region</label>
-                    <select id="region" name="region" class="form-control">
-                        <option value="option1">Coast</option>
-                        <option value="option1">Nairobi</option>
-                        <option value="option1">Western </option>
-                        <option value="option1">Rift Valley</option>
-                        <option value="option2">Eastern</option>
-                        <option value="option1">Central</option>
-                        <option value="option1">North Eastern</option>
-                        <!-- Add more options here -->
-                    </select>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="service-provider">Service Provider</label>
-                    <select id="service-provider" name="service-provider" class="form-control">
-                        <option value="Sam & Advocates">Delight's Enterprises</option>
-                        <option value="Nairobi Water">Jenkins Investment</option>
-                        <option value="Nairobi Water">Valerian Auctions</option>
-                        <option value="Nairobi Water">Sam & Advocates</option>
-                        <!-- Add more providers here -->
-                    </select>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="Zip/Postal Address">Zip/Postal Address</label>
-                    <input type="text" id="postal-address" name="postal-address" class="form-control">
-                </div>
-
-                <div class="col-md-4">
-                    <label for="Telephone">Telephone</label>
-                    <input type="tel" id="telephone" name="telephone" class="form-control">
-                </div>
-
-                <div class="col-md-4">
-                    <label for="Email Address">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-control">
-                </div>
-
-                <div class="col-md-4">
-                    <label for="service-date">Service Date</label>
-                    <input type="date" id="service-date" name="service-date" class="form-control">
-                </div>
+        <!-- Dropdowns -->
+        <div class="form-group row">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <label for="service-name">Service Name</label>
+                <select id="service-name" formControlName="serviceName" class="form-control dark-grey-background">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.service.serviceName">{{
+                        provider.service.serviceName }}</option>
+                </select>
             </div>
 
-            <div class="form-group">
-                <label for="claim-details">Enter Service Details</label>
-                <textarea id="claim-details" name="claim-details" class="form-control" rows="4"></textarea>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <label for="region">Region</label>
+                <select id="region" formControlName="region" class="form-control dark-grey-background">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.region.regionName">{{
+                        provider.region.regionName }}</option>
+                </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-    
+            <div class="col-md-4">
+                <label for="service-provider">Service Provider</label>
+                <select id="service-provider" formControlName="serviceProvider"
+                    class="form-control dark-grey-background" (change)="onServiceProviderChange($event)">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.name">{{ provider.name
+                        }}
+                    </option>
+                </select>
+            </div>
 
-</body>
+            <div class="col-md-4">
+                <label for="postal-address">Zip/Postal Address</label>
+                <select id="postal-address" formControlName="postalAddress" class="form-control dark-grey-background">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.postal">{{
+                        provider.postal
+                        }}</option>
+                </select>
+            </div>
 
-</html>
+            <div class="col-md-4">
+                <label for="telephone">Telephone</label>
+                <select id="telephone" formControlName="telephone" class="form-control">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.phoneNumber">{{
+                        provider.phoneNumber }}</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="email">Email Address</label>
+                <select id="email" formControlName="email" class="form-control dark-grey-background">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.email">{{ provider.email
+                        }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="service-date">Service Date</label>
+                <input type="date" id="service-date" formControlName="serviceDate" class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label for="account">Account Number</label>
+                <select id="accountNumber" formControlName="accountNumber" class="form-control dark-grey-background ">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.accountNumber">{{
+                        provider.accountNumber }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="claim-details">Enter Service Details</label>
+            <textarea id="claim-details" formControlName="claimDetails" class="form-control" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

@@ -1,72 +1,85 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AssignPopupComponent } from '../assign-popup/assign-popup.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SharedService } from '../../shared.service';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import {  OnInit } from '@angular/core';
-
-
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-case-details',
   templateUrl: './case-details.component.html',
-  styleUrl: './case-details.component.css'
+  styleUrls: ['./case-details.component.css']
 })
-export class CaseDetailsComponent  implements OnInit  {
-   totalItems: number = 0;
-  selectedItem: any;
-  selectedRowData: any;
-  searchQuery: string = '';
-  searchTerm: string = '';
-  currentPage: number = 1;
-  pageSize: number = 10;
-   UnAssigneddata: any = {}; // Initialize as an empty object
+export class CaseDetailsComponent implements OnInit {
 
- 
+  bsModalRef: BsModalRef | undefined;
+  loanAccount: string | null = null;
+  caseDetails: any;
+  UnAssigneddata: any = {};
 
+  constructor(private route: ActivatedRoute, private sharedService: SharedService, private modalService: BsModalService, private router: Router) { }
 
-
-  constructor(private modalService: BsModalService,private sharedService: SharedService,private http: HttpClient,private route: ActivatedRoute) { }
- bsModalRef: BsModalRef | undefined;
-
-
-  goToAssignPopup() {
-    //  this.router.navigate(['/assign-popup']);
-    this.bsModalRef = this.modalService.show(AssignPopupComponent); // Open modal and get modal reference
-  }
- 
-
-
-  //  ngOnInit(): void {
-  //   // Retrieve the selected row data from the route parameter
-  //   this.route.params.subscribe(params => {
-  //     this.selectedRowData = JSON.parse(params['selectedRow']);
-  //   });
-  // }
   ngOnInit(): void {
-  // Assuming the selected row data is passed as a query parameter named 'selectedRow'
-  this.route.queryParams.subscribe(params => {
-    if (params['selectedRow']) {
-      this.UnAssigneddata = (decodeURIComponent(params['selectedRow']));
-    }
-  });
-}
-    //  requestData = {
-    //   CifId: this. UnAssigneddata?.CifId ?? '',
-    //   accountName: this. UnAssigneddata?.accountName ?? '',
-    //   loanAmoun: this. UnAssigneddata?. loanAmount ?? '',
-    //   loanTenure: this. UnAssigneddata?.loanTenure ?? '',
-    //   SolId: this. UnAssigneddata?.SolId ?? '',
-    //   LoanBalance: this. UnAssigneddata?. LoanBalance ?? '',
-    //   LoanAccount: this. UnAssigneddata?.loanAccount ?? '',
-    //   SyndicatedFlag: this. UnAssigneddata?.SyndicatedFlag ?? ''
-    // };
+    this.route.params.subscribe(params => {
+      this.loanAccount = params['loanAccount'];
+      console.log('Received loan account:', this.loanAccount); // Log the received loan account
+      if (this.loanAccount) {
+        this.fetchCaseDetails();
+      }
+    });
+  }
+
+  fetchCaseDetails(): void {
+    this.sharedService.getCaseDetails(this.loanAccount!).subscribe(
+      (response: any) => {
+        if (response && response.result && Array.isArray(response.result)) {
+          const result = response.result;
+          // Find the case details object with matching loanAccount
+          const caseDetail = result.find((caseItem: any) => caseItem.loanAccount === this.loanAccount);
+          if (caseDetail) {
+            this.caseDetails = caseDetail;
+            console.log('Case details:', this.caseDetails); // Console log the fetched case details
+          } else {
+            console.error('Case details not found for loan account:', this.loanAccount);
+          }
+        } else {
+          console.error('Invalid response format:', response);
+        }
+      },
+      (error: any) => {
+        console.error('Failed to fetch case details:', error);
+      }
+    );
+  }
+
+
+
+    requestData = {
+      caseNumber: this.UnAssigneddata?.caseNumber ?? '',
+      
+      assignedEmail: this.UnAssigneddata?.assignedEmail ?? '', 
+     
+
+
+
+  };
 
 
   
-
-  
+  goToAssignPopup(caseNumber: string): void {
+    
+    // Open assign popup and pass case details
+    this.bsModalRef = this.modalService.show(AssignPopupComponent, {
+      initialState: {
+        caseNumber: caseNumber
+      }
+    });
+  }
+ goToAssignCase(): void {
+    
+    // Navigate to the "case-details" route and pass the selected row data as a parameter
+    this.router.navigate(['/app-create-case']);
+  }
 
 }

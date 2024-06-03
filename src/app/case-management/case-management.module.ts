@@ -19,11 +19,16 @@ import { CreateCaseComponent } from './create-case/create-case.component';
 import { CreateTwoComponent } from './create-two/create-two.component';
 import { LoanAccountLookUpComponent } from './loan-account-look-up/loan-account-look-up.component';
 import { AssignPopupComponent } from './assign-popup/assign-popup.component';
-
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
 import { CasesStatusComponent } from './cases-status/cases-status.component';
 import { SearchCasesComponent } from './search-cases/search-cases.component';
+import { ActiveCasesComponent } from './active-cases/active-cases.component';
+import { ClosedCasesComponent } from './closed-cases/closed-cases.component';
+import { RecoveryFormComponent } from './recovery-form/recovery-form.component';
+import { RefinanceFormComponent } from './refinance-form/refinance-form.component';
+import { RestructureFormComponent } from './restructure-form/restructure-form.component';
+// import { TotalCasesComponent } from './total-cases/total-cases.component';
+
 
 
 
@@ -50,7 +55,15 @@ import { SearchCasesComponent } from './search-cases/search-cases.component';
     LoanAccountLookUpComponent,
     AssignPopupComponent,
     CasesStatusComponent,
+
     SearchCasesComponent,
+    ActiveCasesComponent,
+    ClosedCasesComponent,
+    RecoveryFormComponent,
+    RefinanceFormComponent,
+    RestructureFormComponent,
+    
+
    
 
     

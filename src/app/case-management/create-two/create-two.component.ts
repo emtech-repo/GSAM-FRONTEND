@@ -70,7 +70,7 @@ export class CreateTwoComponent implements OnInit {
       SyndicatedFlag: this.loanDetails?.SyndicatedFlag ?? ''
     };
 
-    console.log('Data to be sent:', requestData); // Log the data to be sent
+    console.log('Case to be cREATED:', requestData); // Log the data to be sent
 
     // Send the request data to the API
     this.sharedService.createCase(requestData)

@@ -17,6 +17,16 @@
           <h2 style="color: whitesmoke;">GSAM System</h2>
         </div>
       </div>
+      <!-- log in user of the system -->
+     <div class="container">
+        <div class="d-flex justify-content-center">
+          <p style="color: whitesmoke;">Welcome: {{ currentUser?.email }} ({{ currentUser?.role?.join(', ') }})</p>
+        </div>
+      </div>
+
+      
+
+
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item dropdown">
           <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
@@ -63,7 +73,8 @@
                 </div>
               </div>
               <div class="preview-item-content">
-                <h6 class="preview-subject font-weight-normal" [routerLink]="['app-admin-page']">New user registration</h6>
+                <h6 class="preview-subject font-weight-normal" [routerLink]="['app-admin-page']">New user registration
+                </h6>
                 <p class="font-weight-light small-text mb-0 text-muted">
                   just now
               </div>
@@ -118,25 +129,33 @@
         </li>
 
         <li class="nav-item">
+          
           <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="icon-layout menu-icon"></i>
             <span class="menu-title">Case Management</span>
             <i class="menu-arrow"></i>
           </a>
+
           <div class="collapse" id="ui-basic">
 
             <ul class="nav flex-column sub-menu">
+
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-search-cases']">Search
+                  Case</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-case']">Create
                   Case</a></li>
-             <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-search-cases']">Search Case</a></li>
-
               <!-- <li class="nav-item"> <a class="nav-link"[routerLink]="['case-management/app-search-case']">Core Banking</a></li> -->
-              <li class="nav-item" *ngIf="isManager"> <a class="nav-link" [routerLink]="['case-management/app-case-status']">Case
+              <li class="nav-item" *ngIf="isManager"> <a class="nav-link"
+                  [routerLink]="['case-management/app-case-status']">Case
                   Status</a></li>
+              <li class="nav-item" *ngIf="isOfficer"> <a class="nav-link"
+                  [routerLink]="['case-management/app-cases-status']">Case
+                  Status</a></li>
+
               <li class="nav-item"*ngIf="isOfficer"> <a class="nav-link" [routerLink]="['case-management/app-cases-status']">Case
                       Status</a></li>
-              <li class="nav-item"> <a class="nav-link"
-                  [routerLink]="['documents/app-retrieve']">Documentation</a></li>
+             
+
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-meeting']">
                   Meeting</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-decision']">Case
@@ -145,21 +164,22 @@
                   Tracking</a></li>
               <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
                   Case</a></li> -->
-                  <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
-                      Case</a></li>
-                      
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
+                  Case</a></li>
+
 
 
             </ul>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced" aria-expanded="false"
-            aria-controls="ui-advanced">
-            <i class="icon-image menu-icon"></i>
+          <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
+            class="nav-link"[routerLink]="['documents/app-retrieve']">
+            <i  class="icon-image menu-icon"></i>
             <span class="menu-title">Documents</span>
-            <i class="menu-arrow"></i>
+        
           </a>
+
           <div class="collapse" id="ui-advanced">
             <ul class="nav flex-column sub-menu">
 
@@ -167,13 +187,15 @@
               <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-request']">Request</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-retrieve']">Retrieve</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-upload']">Upload</a></li>
-              
-              
+
+
 
 
             </ul>
           </div>
+
         </li>
+     
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
             class="nav-link" [routerLink]="['contracts/app-contract-inter']">

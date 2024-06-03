@@ -21,6 +21,7 @@ export class CasesStatusComponent {
   currentPage: number = 1;
   pageSize: number = 5;
   totalItems: number = 0;
+  totalPages: number = 0;
   totalCases: number = 0;
   activeCases: number = 0;
   closedCases: number = 0;
@@ -42,8 +43,8 @@ export class CasesStatusComponent {
     this.ActiveUrl = this.sharedService.ActiveUrl
     this.ClosedUrl = this.sharedService.ClosedUrl
     this.fetchData();
-    this.getActive();
-    this.getClosed();
+    this.Active();
+    this.Closed();
 
   }
   setSearchOption(option: string) {
@@ -95,7 +96,7 @@ export class CasesStatusComponent {
       console.error('Error fetching data from API:', error);
     });
   }
-  getActive(): void {
+  Active(): void {
     this.http.get<any>(this.ActiveUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.ActiveData = response.result;
@@ -107,7 +108,7 @@ export class CasesStatusComponent {
       console.error('Error fetching data from API:', error);
     });
   }
-  getClosed(): void {
+  Closed(): void {
     this.http.get<any>(this.ClosedUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.ClosedData = response.result;
@@ -121,12 +122,19 @@ export class CasesStatusComponent {
   }
   showClosedCases() {
     this.showClosedCasesFlag = !this.showClosedCasesFlag;
+    this.showActiveCasesFlag = false;
+    this.showTotalCasesFlag = false;
   }
   showActiveCases() {
     this.showActiveCasesFlag = !this.showActiveCasesFlag;
+    this.showClosedCasesFlag = false;
+    this.showTotalCasesFlag = false;
+
   }
   showTotalCases() {
     this.showTotalCasesFlag = !this.showTotalCasesFlag;
+    this.showActiveCasesFlag = false;
+    this.showClosedCasesFlag = false;
   }
 
   calculateCaseCounts(): void {
@@ -222,7 +230,24 @@ export class CasesStatusComponent {
   exitPage() {
     this.showClosedCasesFlag = false; // Set the flag to false to hide the assigned cases page
   }
- 
+  filterData(): void {
+    if (this.searchParams.value.trim() === '') {
+      // If search value is empty, show all data
+      this.data = [...this.data];
+      this.ClosedData = [...this.ClosedData];
+      this.ActiveData = [...this.ActiveData];
+    } else {
+      // Filter data based on selected parameter and value
+      this.data = this.data.filter(item => {
+        return item[this.searchParams.param] === this.searchParams.value;
+      });
+    }
+    this.totalItems = this.data.length;
+    this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+  }
+  
+  
+
 
 }
 

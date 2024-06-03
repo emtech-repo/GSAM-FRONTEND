@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+// import { CaseTypeSelectorService } from '../case-type-selector.service';
 
 
 
@@ -10,6 +11,18 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+
+  totalCases = 0;
+  openCases = 0;
+  closedCases = 0;
+  assignedCases = 0;
+  selectedCaseType: string | null = null;
+  detailData: any = null;
+ 
+  
+
+  
+
  searchQuery: string = ''; // Search query
   showDropdown: boolean = false; // Flag to show/hide dropdown
   items: any[] = [
@@ -93,25 +106,23 @@ export class HomeComponent implements OnInit {
       path: "../../../documents/app-upload"
     },
     
-    
-    
-    
-    
-    
-    
-    
-    
-
-   
   ]; // Sidebar items
   filteredItems: any[] = []; // Filtered items
   isRising: boolean = false; // Property for card rising effect
 
-constructor(private router: Router) {}
+  constructor(private router: Router) {}
   
   ngOnInit(): void {
     this.filteredItems = this.items; // Initially, show all items
+    // this.caseTypeSelectorService.currentSelectedCaseType.subscribe(selectedCaseType => {
+    //   this.selectedCaseType = selectedCaseType;
+    // });
+    
   }
+
+  // selectCardType(cardType: string): void {
+  //   this.caseTypeSelectorService.changeSelectedCaseType(cardType);
+  // }
 
   // Method to filter items based on search query
   // Method to filter items based on search query
@@ -128,7 +139,7 @@ constructor(private router: Router) {}
       item.title.toLowerCase().includes(lowercaseQuery)
     );
 
-    console.log('Filtered Items:', this.filteredItems); // Debugging output
+    // console.log('Filtered Items:', this.filteredItems); // Debugging output
 
     this.showDropdown = true; // Show dropdown
   }

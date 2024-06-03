@@ -3,60 +3,54 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-group mx-sm-3 mb-6 d-flex">
-                    <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
-                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                        style="width: auto; height: auto;">
-                        <option value="acid">Acid</option>
+                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                        style="width: 150px; height: 30px;">
+                        <option value="1" >search by</option>
+                        <option value="acid">Loan Account</option>
                         <option value="verified_flag">Verified Flag</option>
                         <option value="sol_code">Sol Code</option>
                         <option value="account_name">Account Name</option>
                         <option value="id">CIF</option>
                     </select>
-                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
-                        placeholder="Enter search value" class="form-control mr-4"
-                        style="width: 300px; height: 20px; margin-right: 15px;" required>
-                    <button (click)="search()" class="btn btn-primary btn-sm"
-                        style="border-radius: 5px;">Search</button>
-
-
+                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                        class="form-control mr-4" style="width: 600px; height: 31px; margin-right: 15px;" required>
+                    <button (click)="onSearch()" class="btn btn-primary btn-sm"
+                        style="border-radius: 5px;margin-left: -10px;">Search</button>
                 </div>
-
-                <table class="table mt-3">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Loan account</th>
-                            <th>caseNumber</th>
-                            <th>CID ID</th>
-                            <th>Account Name</th>
-                            <th>loan Amount</th>
-                            <th>Loan Tenure</th>
-                            <th>Branch code</th>
-                            <th>Loan Balance</th>
-                            <th>syndicated</th>
-                            <th>Assigned</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let loanItem of CasesData">
-                            <td>{{ loanItem.acid }}</td>
-                            <td>{{ loanItem.caseNumber}}</td>
-                            <td>{{ loanItem.cifId}}</td>
-                            <td>{{ loanItem.accountName }}</td>
-                            <td>{{ loanItem.loanAmount}}</td>
-                            <td>{{ loanItem.loanTenure }}</td>
-                            <td>{{ loanItem.solId }}</td>
-                            <td>{{ loanItem.loanBalance}}</td>
-                            <td>{{ loanItem.syndicatedFlag}}</td>
-                            <td>{{ loanItem.assigned}}</td>
-                            <td>
-                                <button class="btn btn-sm btn-info"
-                                    (click)="showTabs = true; getLoanDetails(loanItem.acid)">View Details</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                <div class="table-responsive">
+                    <table id="example" class="display expandable-table" style="width:100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Case Number</th>
+                                <th>Cif ID</th>
+                                <th>Loan account</th>
+                                <th>Account Name</th>
+                                <th>loan Amount</th>
+                                <th>Loan Tenure</th>
+                                <th>Branch code</th>
+                                <th>Loan Balance</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pagedCasesdata">
+                                <td>{{ item.caseNumber }}</td>
+                                <td>{{ item.cifId }}</td>
+                                <td>{{ item.loanAccount }}</td>
+                                <td>{{ item.accountName }}</td>
+                                <td>{{ item.loanAmount }}</td>
+                                <td>{{ item.loanTenure }}</td>
+                                <td>{{ item.solId }}</td>
+                                <td>{{ item.loanBalance }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info"
+                                        (click)="showTabs = true; getLoanDetails(item.loanAccount)">View
+                                        Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
@@ -68,10 +62,11 @@
         </div>
     </div>
 
+
     <div *ngIf="showTabs" class="container-fluid">
         <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
+            <div id="tabCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
 
                     <div>
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -102,20 +97,25 @@
                                     data-bs-toggle="pill" data-bs-target="#pills-guarantor" type="button" role="tab"
                                     aria-controls="pills-guarantor" aria-selected="false">Guarantor</button>
                             </li>
+                            <!-- <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-documents-tab" (click)="setActiveTab('documents')"
+                                        data-bs-toggle="pill" data-bs-target="#pills-documents" type="button" role="tab" aria-controls="pills-documents"
+                                        aria-selected="false">Documents</button>
+                                </li> -->
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-documents-tab" (click)="setActiveTab('documents')"
-                                    data-bs-toggle="pill" data-bs-target="#pills-documents" type="button" role="tab"
+                                <button class="nav-link" id="pills-documents-tab"
+                                    (click)="activateTabAndNavigate('documents')" role="tab"
                                     aria-controls="pills-documents" aria-selected="false">Documents</button>
                             </li>
                         </ul>
 
 
-                        <div class="card">
-                            <div class="col-md-12 grid-margin stretch-card">
+                        <div class="container" style="padding: 0;">
+                            <div class="col-md-12 grid-margin stretch-card" style="margin: 0;">
                                 <div class="container-fluid">
 
                                     <!-- General Details Tab -->
-                                    <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'general'}"
+                                    <div class="carousel-item" [ngClass]="{'show active': activeTab === 'general'}"
                                         id="pills-generaldetails" role="tabpanel" aria-labelledby="pills-general-tab">
                                         <div *ngIf="loanDetails">
                                             <div class="row gx-2">
@@ -219,6 +219,11 @@
                                                             [value]="loanDetails?.glSubhead" readonly>
                                                     </div>
                                                 </div>
+                                                <div>
+                                                    <button type="button" class="btn btn-primary small-btn"
+                                                        style="border-radius:3px;margin-left:85%;" data-dismiss="modal"
+                                                        (click)="exitPage()">Exit Page</button>
+                                                </div>
 
                                             </div>
                                         </div>
@@ -243,12 +248,12 @@
                                                     </div>
                                                 </div>
                                                 <!-- <div class="col-md-3">
-                                                                    <div class="form-group mb-2">
-                                                                        <label for="collateralsTotal">Collateral Total:</label>
-                                                                        <input type="text" id="collateralsTotal" class="form-control"
-                                                                            [value]="loanDetails.loan.collateralsTotal" readonly>
-                                                                    </div>
-                                                                </div> -->
+                                                                        <div class="form-group mb-2">
+                                                                            <label for="collateralsTotal">Collateral Total:</label>
+                                                                            <input type="text" id="collateralsTotal" class="form-control"
+                                                                                [value]="loanDetails.loan.collateralsTotal" readonly>
+                                                                        </div>
+                                                                    </div> -->
                                                 <div class="col-md-3">
                                                     <div class="form-group mb-2">
                                                         <label for="interestCalculationMethod">Interest Type:</label>
@@ -367,6 +372,11 @@
                                                             [value]="loanDetails.loan.disbursmentVerifiedBy" readonly>
                                                     </div>
                                                 </div>
+                                                <div>
+                                                    <button type="button" class="btn btn-primary small-btn"
+                                                        style="border-radius:3px;margin-left:85%;" data-dismiss="modal"
+                                                        (click)="exitPage()">Exit Page</button>
+                                                </div>
                                                 <!-- More fields here as per original content -->
                                             </div>
                                         </div>
@@ -384,18 +394,18 @@
                                                         <div class="container">
                                                             <label for="loanSchedules">Loan Repayment Schedule:</label>
                                                             <div style="display: flex; align-items: center;">
-                                                                <img src="../assets/images/equity-bank.png" class="me-2"
-                                                                    alt="logo"
-                                                                    style="margin-right: 10px;width: 50px; height: auto;" />
+                                                                <!-- <img src="../assets/images/equity-bank.png" class="me-2" alt="logo"
+                                                                        style="margin-right: 10px;width: 50px; height: auto;" /> -->
                                                                 <div>
                                                                     <p>Account Name: {{loanDetails?.accountName}}</p>
                                                                     <p>Account Number: {{loanDetails?.acid}}</p>
                                                                     <p>Date: {{getCurrentDate()}}</p>
                                                                 </div>
                                                             </div>
-                                                            <div>
-                                                                <table class="table mt-3 styled-table">
-                                                                    <thead class="thead-dark">
+                                                            <div class="table-responsive">
+                                                                <table id="example" class="display expandable-table"
+                                                                    style="width:100%">
+                                                                    <thead>
                                                                         <tr>
                                                                             <th>ID</th>
                                                                             <th>Start Date</th>
@@ -420,6 +430,13 @@
                                                                     <button class="btn btn-sm btn-info"
                                                                         (click)="downloadPDF()">Download</button>
                                                                 </div>
+
+                                                            </div>
+                                                            <div>
+                                                                <button type="button" class="btn btn-primary small-btn"
+                                                                    style="border-radius:3px;margin-left:85%;"
+                                                                    data-dismiss="modal" (click)="exitPage()">Exit
+                                                                    Page</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -439,32 +456,38 @@
                                                         [value]="loanDetails?.accountName" readonly>
 
                                                 </div>
+
+                                                <table class="table-responsive">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Gurantor Code</th>
+                                                            <th>Account Name</th>
+                                                            <th>Gurantor Type</th>
+                                                            <th>Amount Guaranteed</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let schedule of loanDetails.loan.loanGuarantors">
+                                                            <td>{{ schedule.id }}</td>
+                                                            <td>{{ schedule.guarantorCustomerCode}}</td>
+                                                            <td>{{ schedule.loanSeries }}</td>
+                                                            <td>{{ schedule.guarantorType }}</td>
+                                                            <td>{{ schedule.guaranteeAmount}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                                 <div>
-                                                    <table class="table mt-3 styled-table">
-                                                        <thead class="thead-dark">
-                                                            <tr>
-                                                                <th>ID</th>
-                                                                <th>Gurantor Code</th>
-                                                                <th>Account Name</th>
-                                                                <th>Gurantor Type</th>
-                                                                <th>Amount Guaranteed</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr *ngFor="let schedule of loanDetails.loan.loanGuarantors
-                    ">
-                                                                <td>{{ schedule.id }}</td>
-                                                                <td>{{ schedule.guarantorCustomerCode}}</td>
-                                                                <td>{{ schedule.loanSeries }}</td>
-                                                                <td>{{ schedule.guarantorType }}</td>
-                                                                <td>{{ schedule.guaranteeAmount}}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div>
-                                                        <button class="btn btn-sm btn-info"
-                                                            (click)="downloadPDF()">Download</button>
-                                                    </div>
+                                                    <button class="btn btn-sm btn-info"
+                                                        (click)="downloadPDF()">Download</button>
+                                                </div>
+
+
+                                                <div>
+                                                    <button type="button" class="btn btn-primary small-btn"
+                                                        style="border-radius:3px;margin-left:350%;" data-dismiss="modal"
+                                                        (click)="exitPage()">Exit Page</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -478,17 +501,28 @@
                                                     <input type="text" id="accountName" class="form-control"
                                                         [value]="loanDetails?.accountName" readonly>
                                                 </div>
+                                                <div>
+                                                    <button type="button" class="btn btn-primary small-btn"
+                                                        style="border-radius:3px;margin-left:290%;" data-dismiss="modal"
+                                                        (click)="exitPage()">Exit Page</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Documents Tab -->
+                                    <!-- <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'documents'}" id="pills-documents"
+                                            role="tabpanel" aria-labelledby="pills-documents-tab">
+                                            <div *ngIf="loanDetails">
+                                                <button class="btn btn-link" [routerLink]="['/documents/app-retrieve']">Go to
+                                                    Documentation</button>
+                                            </div>
+                                        </div> -->
                                     <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'documents'}"
                                         id="pills-documents" role="tabpanel" aria-labelledby="pills-documents-tab">
                                         <div *ngIf="loanDetails">
                                             <button class="btn btn-link" [routerLink]="['/documents/app-retrieve']">Go
-                                                to
-                                                Documentation</button>
+                                                to Documentation</button>
                                         </div>
                                     </div>
 
@@ -510,4 +544,3 @@
 
 
 </div>
-
