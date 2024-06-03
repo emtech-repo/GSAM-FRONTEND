@@ -22,6 +22,7 @@ export class AssignCaseComponent {
   recentActivityData: any[] = [];
   modalService: any;
   row: any;
+  pagedCasesdata: any;
 
   constructor(private router: Router, private sharedService: SharedService, private toastr: ToastrService,
     public bsModalRef: BsModalRef, private http: HttpClient) { }
@@ -98,26 +99,9 @@ export class AssignCaseComponent {
   setSearchOption(option: string) {
     this.searchOption = option;
   }
-  search(): void {
-    console.log('Search method called'); // Debugging line
-    this.currentPage = 1; // Reset current page for search
+  
 
-    this.data = this.data.filter(item => {
 
-      switch (this.searchParams.param) {
-        case 'cifId':
-          return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'assignedEmail':
-          return item.assignedEmail.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'accountName':
-          return item.accountName.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'loanAccount':
-          return item.loanAccount.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        default:
-          return false;
-      }
-    });
-  }
 
 
 
@@ -177,32 +161,58 @@ export class AssignCaseComponent {
 
   // Method to handle search query change
   onSearch(): void {
+ 
   this.currentPage = 1; // Reset current page when performing a new search
   this.UnAssigneddata = this.UnAssigneddata.filter(item => item.loanAccount.toLowerCase().includes(this.searchTerm.toLowerCase()));
 }
 
-  // Getter for filtered data based on search term
-  get filteredData() {
-    if (this.searchTerm !== undefined && this.searchTerm !== null) {
+search(): void {
+    console.log('Search method called');
+    this.currentPage = 1; // Reset current page for search
 
-      return this.data.filter(item => {
-
-        // Convert item properties to string and check if any property contains the search term
-        for (let key in item) {
-          if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
-            return true;
-          }
-        }
-        return false;
-      });
-    } else {
-
-      return this.data;
-
+    // Determine the search parameter based on the selected option
+    let searchParamKey: string;
+    switch (this.searchParams.param) {
+        case 'loanAccount':
+            searchParamKey = 'loanAccount';
+            break;
+        case 'accountName':
+            searchParamKey = 'accountName';
+            break;
+        case 'caseNumber':
+            searchParamKey = 'caseNumber';
+            break;
+        case 'cifId':
+            searchParamKey = 'cifId';
+            break;
+        default:
+            console.error('Invalid search parameter');
+            return; // Exit function if an invalid search parameter is selected
     }
+
+    // Filter the data based on the selected search parameter and value
+    this.pagedCasesdata = this.data.filter(item => {
+        return item[searchParamKey].toLowerCase().includes(this.searchParams.value.toLowerCase());
+    });
+}
+
+
+
+   filterData(): void {
+    if (this.searchParams.value.trim() === '') {
+      // If search value is empty, show all data
+      this.pagedCasesdata = [...this.data];
+    } else {
+      // Filter data based on selected parameter and value
+      this.pagedCasesdata = this.data.filter(item => {
+        return item[this.searchParams.param]?.toString().toLowerCase().includes(this.searchParams.value.toLowerCase());
+      });
+    }
+    this.totalItems = this.pagedCasesdata.length;
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedCasesdata = this.pagedCasesdata.slice(startIndex, endIndex);
   }
-
-
 
   getDataArray(): any[][] {
     const dataArray: any[][] = [];

@@ -53,12 +53,12 @@ export class SearchCasesComponent implements OnInit {
     this.fetchData();
   }
 
-  onSearch(): void {
+    onSearch(): void {
     this.currentPage = 1;
     this.filterData();
   }
 
-  fetchData(): void {
+    fetchData(): void {
     this.http.get<any>(this.apiUrl).subscribe(
       response => {
         if (response && response.result && Array.isArray(response.result)) {
@@ -75,14 +75,14 @@ export class SearchCasesComponent implements OnInit {
     );
   }
 
-  filterData(): void {
+ filterData(): void {
     if (this.searchParams.value.trim() === '') {
       // If search value is empty, show all data
       this.pagedCasesdata = [...this.data];
     } else {
       // Filter data based on selected parameter and value
       this.pagedCasesdata = this.data.filter(item => {
-        return item[this.searchParams.param] === this.searchParams.value;
+        return item[this.searchParams.param]?.toString().toLowerCase().includes(this.searchParams.value.toLowerCase());
       });
     }
     this.totalItems = this.pagedCasesdata.length;
@@ -103,6 +103,7 @@ export class SearchCasesComponent implements OnInit {
       }
     );
   }
+
 
   getCurrentDate(): string {
     const currentDate: Date = new Date();

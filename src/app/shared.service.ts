@@ -44,6 +44,7 @@ export class SharedService {
   readonly ClosedUrl = 'http://192.168.88.244:5260/api/Case/ClosedCases';
   readonly recoveryUrl = 'http://192.168.89.93:5260/api/Recover/CaseRecover';
    readonly restructureUrl = 'http://192.168.88.244:5260/api/Restructure/CaseRestructure';
+   readonly refinanceUrl = 'http://192.168.88.244:5260/api/Refinance/Refinance';
 
 
   // private documentsUrl = '/assets/data/data.json'
@@ -153,6 +154,10 @@ submitRecovery(inputdata: any) {
   submitRestructure(inputdata: any) {
     return this.http.post(this.restructureUrl, inputdata)
   }
+   submitRefinance(inputdata: any) {
+    return this.http.post(this.refinanceUrl, inputdata)
+  }
+
 
 
   
