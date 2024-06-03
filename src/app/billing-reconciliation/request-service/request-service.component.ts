@@ -26,7 +26,7 @@ export class RequestServiceComponent implements OnInit {
       telephone: [''],
       email: [''],
       serviceDate: [''],
-      claimDetails: [''],
+      serviceId: [''],
       accountNumber: ['']
     });
     console.log('Initial form value:', this.serviceForm.value); // Debugging line
@@ -112,20 +112,19 @@ export class RequestServiceComponent implements OnInit {
   onSubmit(): void {
     console.log('Form submitted:', this.serviceForm.value);
     if (this.serviceForm.valid) {
-
-      // Create a new object with only the required fields
       const submitData = {
-        serviceId: this.serviceForm.value.Id,
-        ServiceProviderId: this.serviceForm.value.id,
-        RegionId: this.serviceForm.value.region,
-        ProviderName: this.serviceForm.value.serviceProvider,
-        ProviderEmail: this.serviceForm.value.email,
-        providerPostal: this.serviceForm.value.postalAddress,
-        ProviderPhoneNumber: this.serviceForm.value.telephone,
-        providerAccountNumber: this.serviceForm.value.accountNumber,
-        serviceDate: this.serviceForm.value.serviceDate,
+        serviceId: this.serviceForm.get('serviceName')?.value,
+        ServiceProviderId: this.serviceForm.get('serviceProvider')?.value,
+        RegionId: this.serviceForm.get('region')?.value,
+        ProviderEmail: this.serviceForm.get('email')?.value,
+        ProviderPostal: this.serviceForm.get('postalAddress')?.value,
+        ProviderPhoneNumber: this.serviceForm.get('telephone')?.value,
+        ProviderAccountNumber: this.serviceForm.get('accountNumber')?.value,
+        ServiceDate: this.serviceForm.get('serviceDate')?.value,
+        Comments: this.serviceForm.get('Comments')?.value,
       };
-      this.sharedService.submitData(this.serviceForm.value).subscribe(
+
+      this.sharedService.submitData(submitData).subscribe(
         (response: any) => {
           console.log('Data submitted successfully!', response);
           if (response.statusCode === 200 && response.requestId) {
@@ -142,6 +141,7 @@ export class RequestServiceComponent implements OnInit {
       );
     }
   }
+
 
 
  
