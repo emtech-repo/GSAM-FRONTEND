@@ -28,7 +28,7 @@ export class LayoutComponent implements OnInit {
       try {
         this.currentUser = JSON.parse(currentUserString);
         console.log('Current user:', this.currentUser); // Debugging statement
-        console.log('Logged in user:', this.currentUser.email, this.currentUser.role); // Print email and roles
+        // console.log('Logged in user:', this.currentUser.email, this.currentUser.role); // Print email and roles
 
       } catch (error) {
         console.error('Error parsing currentUser from local storage:', error);
