@@ -26,7 +26,7 @@ export class LoanAccountLookUpComponent implements OnInit {
   SearchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 7;
   totalItems: number = 0;
   selectedItem: any;
   modalService: any;

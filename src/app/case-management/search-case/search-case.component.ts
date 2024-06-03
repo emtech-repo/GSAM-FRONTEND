@@ -234,6 +234,7 @@ export class SearchCaseComponent implements OnInit {
     this.getLoan();
     
   }
+  
   getLoanDetails(acccountId: string): void {
     this.sharedService.getLoanDetails(acccountId).subscribe(
       (response: any) => {

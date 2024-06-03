@@ -17,7 +17,7 @@ export class DecisionTabComponent {
   currentPage: number = 1;
   dataSource: any[] = [];
   dataSourceFiltered: any[] = [];
-  Assigneddata: any[] = []; 
+  Assigneddata: any[] = [];
   AssignedUrl: string = '';
   @Input() loanAccount: any = '';
 
@@ -40,6 +40,8 @@ export class DecisionTabComponent {
     this.http.get<any>(this.AssignedUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.Assigneddata = response.result;
+        this.dataSource = this.Assigneddata;
+        this.dataSourceFiltered = this.dataSource; // Initialize filtered data
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -53,7 +55,7 @@ export class DecisionTabComponent {
     if (filterValue.trim() === '') {
       this.dataSourceFiltered = this.dataSource;
     } else {
-      this.dataSourceFiltered = this.dataSource.filter(item => item.id.toString().includes(filterValue));
+      this.dataSourceFiltered = this.dataSource.filter(item => item.loanAccount.toLowerCase().includes(filterValue));
     }
   }
 
@@ -62,20 +64,18 @@ export class DecisionTabComponent {
   }
 
   goToRecoveryForm(loanAccount: any): void {
-    console.log('Navigating to case details with loan account:', loanAccount);
     this.bsModalRef = this.modalService.show(RecoveryFormComponent, { 
       initialState: { loanAccount: loanAccount }  
     });
   }
 
-   goToRefinanceForm(loanAccount: any): void {
-    console.log('Navigating to case details with loan account:', loanAccount);
+  goToRefinanceForm(loanAccount: any): void {
     this.bsModalRef = this.modalService.show(RefinanceFormComponent, { 
       initialState: { loanAccount: loanAccount }  
     });
   }
+
   goToRestructureForm(loanAccount: any): void {
-    console.log('Navigating to case details with loan account:', loanAccount);
     this.bsModalRef = this.modalService.show(RestructureFormComponent, { 
       initialState: { loanAccount: loanAccount }  
     });

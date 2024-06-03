@@ -177,11 +177,9 @@ export class AssignCaseComponent {
 
   // Method to handle search query change
   onSearch(): void {
-    this.currentPage = 1; // Reset current page when performing a new search
-
-    this.fetchData();
-
-  }
+  this.currentPage = 1; // Reset current page when performing a new search
+  this.UnAssigneddata = this.UnAssigneddata.filter(item => item.loanAccount.toLowerCase().includes(this.searchTerm.toLowerCase()));
+}
 
   // Getter for filtered data based on search term
   get filteredData() {

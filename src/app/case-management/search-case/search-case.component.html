@@ -3,10 +3,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-group mx-sm-3 mb-6 d-flex">
-                    <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
                     <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                        style="width: auto; height: auto;">
-                        <option value="acid">Acid</option>
+                        style="width: 150px; height: 30px;">
+                        <option value="1">search by</option>
+                        <option value="acid">Loan Account</option>
                         <option value="verified_flag">Verified Flag</option>
                         <option value="sol_code">Sol Code</option>
                         <option value="account_name">Account Name</option>
@@ -14,9 +14,9 @@
                     </select>
                     <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
                         placeholder="Enter search value" class="form-control mr-4"
-                        style="width: 300px; height: 20px; margin-right: 15px;" required>
+                        style="width: 600px; height: 31px; margin-right: 15px;" required>
                     <button (click)="search()" class="btn btn-primary btn-sm"
-                        style="border-radius: 5px;">Search</button>
+                        style="border-radius: 5px;margin-left: -10px;">Search</button>
 
 
                 </div>
