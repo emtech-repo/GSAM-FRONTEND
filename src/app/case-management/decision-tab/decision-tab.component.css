@@ -94,14 +94,11 @@ table td {
 }
 .nav-tabs .nav-link.active {
     background-color: #007bff;
-    /* Active tab background color */
     color: white;
-    /* Active tab text color */
+    
 }
 
 .nav-tabs .nav-link {
     background-color: #f8f9fa;
-    /* Inactive tab background color */
     color: #007bff;
-    /* Inactive tab text color */
 }
