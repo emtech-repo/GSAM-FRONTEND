@@ -19,11 +19,11 @@ export class AnalysisComponent implements OnInit {
       text: 'Analysis Chart'
     },
     xAxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May','June', 'July', 'August', 'Sept', 'Oct','Nov', 'Dec'] // Customize X-axis categories
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec']
     },
     yAxis: {
       title: {
-        text: 'Amount (USD)' // Customize Y-axis title
+        text: 'Amount (USD)'
       }
     },
     credits: {
@@ -67,11 +67,10 @@ export class AnalysisComponent implements OnInit {
       type: 'pie',
       name: 'Distribution',
       data: [
-        ['Active Case', 2],
-        ['Assigned', 30],
-        ['Closed', 45]
+        ['Assigned', 0],
+        ['Unassigned', 0]
       ],
-      colors: ['maroon', 'blue', '#00cfd5']
+      colors: ['#00cfd5', 'blue']
     }]
   };
 
@@ -104,7 +103,7 @@ export class AnalysisComponent implements OnInit {
     const endIndex = startIndex + this.pageSize;
 
     this.sharedService.getRecentActivity(this.searchQuery)
-      .subscribe((response: any) => { // Specify the type of the response
+      .subscribe((response: any) => {
         if (response && response.statusCode === 200) {
           const result = response.result as any[];
           if (Array.isArray(result)) {
@@ -126,6 +125,7 @@ export class AnalysisComponent implements OnInit {
       if (response && response.result && Array.isArray(response.result)) {
         this.data = response.result;
         this.calculateCaseCounts();
+        this.updatePieChart();
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -139,6 +139,19 @@ export class AnalysisComponent implements OnInit {
     this.assignedCases = this.data.filter(item => item.assigned === 'Y').length;
     this.activeCases = this.data.filter(item => item.assigned === 'N').length;
     this.closedCases = this.data.filter(item => item.closed === 'Y').length;
+  }
+
+  updatePieChart(): void {
+    this.pieChartOptions.series = [{
+      type: 'pie',
+      name: 'Distribution',
+      data: [
+        ['Assigned', this.assignedCases],
+        ['Unassigned', this.activeCases]
+      ],
+      colors: ['#00cfd5', 'blue']
+    }];
+    Highcharts.chart('container-pie', this.pieChartOptions);
   }
 
   pageChanged(event: any): void {
