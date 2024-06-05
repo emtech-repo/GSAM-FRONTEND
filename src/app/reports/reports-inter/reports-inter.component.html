@@ -1,66 +1,175 @@
-<div class="row">
-    <div class="col-md-12 grid-margin">
-        <div class="row">
-            <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                <form class="form-inline" style="margin-top: 0;">
-                    <div class="form-group mx-sm-3 mb-6 d-flex">
-                        <div class="search-bar" style="border-radius: 20px; width: 700px;">
-                            <input type="text" placeholder="Search report name" [(ngModel)]="searchQuery"
-                                (input)="filterItems()" name="searchQuery"
-                                style="height: 30px;width: 100%;border-radius: 5px;color: maroon; ">
-                            <ul *ngIf="showDropdown && filteredItems.length > 0">
-                                <li *ngFor="let item of filteredItems" (click)="navigateToPage(item)">{{ item.title }}
-                                </li>
-                            </ul>
+<div class="container mt-5">
+    <div class="card custom-card">
+        <div class="card-header custom-card-header">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active custom-nav-link" id="pills-generaldetails-tab"
+                        (click)="setActiveTab('general')" data-bs-toggle="pill" data-bs-target="#pills-generaldetails"
+                        type="button" role="tab" aria-controls="pills-generaldetails" aria-selected="true">View
+                        Reports</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link custom-nav-link" id="pills-loan-details-tab" (click)="setActiveTab('loan')"
+                        data-bs-toggle="pill" data-bs-target="#pills-loan-details" type="button" role="tab"
+                        aria-controls="pills-loan-details" aria-selected="false">Create New </button>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-generaldetails" role="tabpanel"
+                    aria-labelledby="pills-generaldetails-tab">
+                    <!-- Content for View reports Tab -->
+                    <div class="card" style="margin-top: -40px;">
+                        <div class="card-body">
+                            <div>
+
+                                <input type="text" class="form-control" (keyup)="applyFilter($event)"
+                                    placeholder="Search by  report name" style="height: 30px;" #input>
+                            </div>
+
+
+                            <div class="col-12">
+                                <div class="table-responsive table-striped">
+                                    <table id="example" class="display expandable-table bordered-table"
+                                        style="width:100%">
+                                        <!-- Table headers and rows -->
+                                        <thead>
+                                            <tr>
+                                                <th>Report Name</th>
+                                                <th>Createdion Date</th>
+                                                <th>Created by</th>
+                                                <th>Distress</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Active cases Report</td>
+                                                <td>2</td>
+                                                <td>3</td>
+                                                <td>4</td>
+                                                <td>5</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Restructure reports</td>
+                                                <td>2</td>
+                                                <td>3</td>
+                                                <td>4</td>
+                                                <td>5</td>
+                                            </tr>
+                                            <tr>
+                                                <td>UnAssigned Cases Report</td>
+                                                <td>2</td>
+                                                <td>3</td>
+                                                <td>4</td>
+                                                <td>5</td>
+                                            </tr>
+
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left: 30%;">
+                            <!-- <div class="pagination-container">
+                            <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                                (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                            </pagination>
+                        </div> -->
+
                         </div>
                     </div>
-                </form>
+
+                </div>
+
+                <div class="tab-pane fade" id="pills-loan-details" role="tabpanel"
+                    aria-labelledby="pills-loan-details-tab">
+                    <!-- Content for Update Contracts Tab -->
+                    <div class="upload-container" style="margin-top: -40px;">
+                        <div class="d-grid">
+
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="exampleFormControlInput1"
+                                    placeholder="input report name"
+                                    style="height: 30px; text-align: center; padding: 0; line-height: 30px; box-sizing: border-box;">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-13 grid-margin stretch-card">
+                                    <div class="card" style="margin-top:5px;">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-md-12 ps-9">
+                                                            <div class="form-group" style="margin-top: -20px;">
+                                                                <label for="inputcifid" style="margin-bottom: -1px;">CIF
+                                                                    ID</label>
+                                                                <input type="text" class="form-control"
+                                                                    for="inputcifid">
+                                                            </div>
+                                                            <div class="form-group" style="margin-top: -20px;">
+                                                                <label for="inputEmail4"
+                                                                    style="margin-bottom: -1px;">Case
+                                                                    Number</label>
+                                                                <input type="text" class="form-control"
+                                                                    for="inputEmail4">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-md-12 ps-9">
+                                                            <div class="form-group" style="margin-top: -20px;">
+                                                                <label for="inputEmail4"
+                                                                    style="margin-bottom: -1px;">Loan
+                                                                    Account</label>
+                                                                <input type="text" class="form-control" id="AccNumber">
+                                                            </div>
+                                                            <div class="form-group" style="margin-top: -20px;">
+                                                                <label for="inputEmail4"
+                                                                    style="margin-bottom: -1px;">Start Date</label>
+                                                                <input type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-md-12 ps-9">
+                                                            <div class="form-group" style="margin-top: -20px;">
+                                                                <label for="inputEmail4"
+                                                                    style="margin-bottom: -1px;">Acc Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    for="inputEmail4">
+                                                            </div>
+                                                            <div class="form-group" style="margin-top: -20px;">
+                                                                <label for="inputloan" style="margin-bottom: -1px;">End
+                                                                    Date</label>
+                                                                <input type="date" class="form-control">
+                                                            </div>
+                                                            <button (click)="exportToPDF()"
+                                                                class="btn btn-primary small-btn"
+                                                                style="margin-left: 100px;">Export to
+                                                                PDF</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
-    </div>
-</div>
-
-<div class="container mt-3">
-    <!-- Form -->
-    <div class="card p-3 mt-3">
-        <form>
-            <!-- Branch ID -->
-            <div class="form-group row">
-                <label for="branchId" class="col-sm-2 col-form-label">Branch ID</label>
-                <div class="col-sm-10">
-                    <input type="text" id="branchId" class="form-control">
-                </div>
-            </div>
-
-            <!-- Scheme Code -->
-            <div class="form-group row">
-                <label for="schemeCode" class="col-sm-2 col-form-label">Scheme Code</label>
-                <div class="col-sm-10">
-                    <input type="text" id="schemeCode" class="form-control">
-                </div>
-            </div>
-
-            <!-- Date Range -->
-            <div class="form-group row">
-                <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
-                <div class="col-sm-4">
-                    <input type="date" id="startDate" class="form-control">
-                </div>
-                <label for="endDate" class="col-sm-2 col-form-label">End Date</label>
-                <div class="col-sm-4">
-                    <input type="date" id="endDate" class="form-control">
-                </div>
-            </div>
-
-            <!-- Buttons -->
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <button type="button" class="btn btn-secondary">Cancel</button>
-                </div>
-                <div class="col-sm-6 text-right">
-                    <button type="button" class="btn btn-primary">Generate</button>
-                </div>
-            </div>
-        </form>
     </div>
 </div>
