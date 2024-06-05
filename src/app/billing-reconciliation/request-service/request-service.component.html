@@ -1,10 +1,19 @@
+<div class="row d-flex justify-content-center align-items-center h-100">
+<div class="col-xl-10">
+    <div class="card" style="border-radius: 15px; width: 100%">
+        <div class="card-body">
+            <div class="row align-items-center pt-4 pb-3">
+
+
+
+
+
 <div class="container mt-5">
     <div class="row mb-3">
-        <div class="col" style="text-align: center; color: maroon;">
+        <div class="col" style="text-align: center; color: maroon; margin-top: -10px">
             <h4>REQUEST SERVICE</h4>
         </div>
     </div>
-
     <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
         <!-- Search Field -->
         <div class="form-group row mb-4">
@@ -26,10 +35,31 @@
         <!-- Dropdowns -->
         <div class="form-group row">
             <div class="col-md-4 mb-3 mb-md-0">
+                <label for="service-id">Service Id</label>
+                <select id="service-id" formControlName="serviceId" class="form-control dark-grey-background">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.service.id">{{
+                        provider.service.id }}</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <label for="service-provider-id">Service Provider Id</label>
+                <select id="service-provider-id" formControlName="serviceProviderId" class="form-control dark-grey-background">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.id">{{
+                        provider.id }}</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
                 <label for="service-name">Service Name</label>
                 <select id="service-name" formControlName="serviceName" class="form-control dark-grey-background">
                     <option *ngFor="let provider of filteredServiceProviders" [value]="provider.service.serviceName">{{
                         provider.service.serviceName }}</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <label for="region">Region Id</label>
+                <select id="region" formControlName="regionId" class="form-control dark-grey-background">
+                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.region.id">{{
+                        provider.region.id }}</option>
                 </select>
             </div>
 
@@ -78,24 +108,36 @@
             </div>
 
             <div class="col-md-4">
-                <label for="service-date">Service Date</label>
-                <input type="date" id="service-date" formControlName="serviceDate" class="form-control">
-            </div>
-
-            <div class="col-md-4">
                 <label for="account">Account Number</label>
                 <select id="accountNumber" formControlName="accountNumber" class="form-control dark-grey-background ">
                     <option *ngFor="let provider of filteredServiceProviders" [value]="provider.accountNumber">{{
                         provider.accountNumber }}</option>
                 </select>
             </div>
+            <div class="col-md-4">
+                <label for="service-date">Service Date</label>
+                <input type="date" id="service-date" formControlName="serviceDate" class="form-control">
+            </div>
         </div>
 
         <div class="form-group">
             <label for="claim-details">Enter Service Details</label>
-            <textarea id="claim-details" formControlName="claimDetails" class="form-control" rows="4"></textarea>
+            <textarea id="claim-details" formControlName="Comments" class="form-control" rows="4"></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
+        
+        <!-- Success Message -->
+        <div *ngIf="SubmittedSuccessfully" class="alert alert-success mt-3">
+            Service request submitted successfully! Your request ID is: {{ requestId }}
+        </div>
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+        </div>
+
     </form>
+</div>
+</div>
+</div>
 </div>

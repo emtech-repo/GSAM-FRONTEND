@@ -13,6 +13,7 @@ export class RequestServiceComponent implements OnInit {
   filteredServiceProviders: any[] = [];
   requestId: string | null = null;  // To store the generated request ID
   SubmittedSuccessfully: boolean = false;
+  errorMessage: string | null = null;
 
 
   constructor(private fb: FormBuilder, private sharedService: SharedService) {
@@ -21,13 +22,17 @@ export class RequestServiceComponent implements OnInit {
       searchValue: [''],
       serviceName: [''],
       region: [''],
-      serviceProvider: [''],
+      service: [''],
+      serviceProvider: [0],
+      serviceProviderId: [0],
       postalAddress: [''],
       telephone: [''],
       email: [''],
       serviceDate: [''],
-      serviceId: [''],
-      accountNumber: ['']
+      serviceId: [0],
+      regionId: [0],
+      accountNumber: [''],
+      Comments: [''],
     });
     console.log('Initial form value:', this.serviceForm.value); // Debugging line
   }
@@ -74,13 +79,17 @@ export class RequestServiceComponent implements OnInit {
       const selectedProvider = this.filteredServiceProviders[0];
       console.log('Selected provider:', selectedProvider); // Debugging line
       this.serviceForm.patchValue({
+        serviceId: selectedProvider.service.id,
+        serviceProviderId: selectedProvider.id,
         serviceName: selectedProvider.service.serviceName,
+        regionId: selectedProvider.region.id,
         region: selectedProvider.region.regionName,
         serviceProvider: selectedProvider.name,
         postalAddress: selectedProvider.postal,
         telephone: selectedProvider.phoneNumber,
         email: selectedProvider.email,
-        accountNumber: selectedProvider.accountNumber
+        accountNumber: selectedProvider.accountNumber,
+        Comments: selectedProvider.Comments
       });
       console.log('Form after patching value:', this.serviceForm.value); // Debugging line
     } else {
@@ -110,12 +119,15 @@ export class RequestServiceComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.SubmittedSuccessfully = false;
+    this.errorMessage = null;
+
     console.log('Form submitted:', this.serviceForm.value);
     if (this.serviceForm.valid) {
       const submitData = {
-        serviceId: this.serviceForm.get('serviceName')?.value,
-        ServiceProviderId: this.serviceForm.get('serviceProvider')?.value,
-        RegionId: this.serviceForm.get('region')?.value,
+        ServiceId: this.serviceForm.get('ServiceId')?.value,
+        ServiceProviderId: this.serviceForm.get('serviceProviderId')?.value,
+        RegionId: this.serviceForm.get('regionId')?.value,
         ProviderEmail: this.serviceForm.get('email')?.value,
         ProviderPostal: this.serviceForm.get('postalAddress')?.value,
         ProviderPhoneNumber: this.serviceForm.get('telephone')?.value,
@@ -129,14 +141,16 @@ export class RequestServiceComponent implements OnInit {
           console.log('Data submitted successfully!', response);
           if (response.statusCode === 200 && response.requestId) {
             this.requestId = response.requestId;  // Assuming requestId is returned in the response
+            this.SubmittedSuccessfully = true;
             console.log('Generated request ID:', this.requestId);
             alert(`Service request submitted successfully! Your request ID is: ${this.requestId}`);
-          } else {
-            console.error('Failed to submit service request:', response.message);
+          } 
+          else {
+            this.errorMessage = response.message || 'Failed to submit service request.';
           }
         },
         error => {
-          console.error('Error submitting data:', error);
+          this.errorMessage = 'Error submitting data: ' + error.message;
         }
       );
     }
@@ -144,7 +158,7 @@ export class RequestServiceComponent implements OnInit {
 
 
 
- 
+
 
 
   // // Create a new object with only the required fields
