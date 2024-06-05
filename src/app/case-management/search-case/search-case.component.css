@@ -169,7 +169,7 @@ tr:hover {
   color: #999;
   /* Adjust placeholder color if desired */
   /* You can adjust other properties here as needed */
-
+}
 
 .pagination li.disabled a {
   color: #aaa;
@@ -263,7 +263,6 @@ tr:hover {
   padding: 20px;
   margin-top: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-=======
   /* Display tab content when active */
 }
 
