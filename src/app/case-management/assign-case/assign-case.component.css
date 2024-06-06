@@ -9,7 +9,6 @@
     margin-left: 10px;
     height: 40px;
     font-size: 0.875em;
-    /* Use relative font size for responsiveness */
 }
 
 .assign:hover {
@@ -17,7 +16,7 @@
 }
 
 table {
-    width: 120%;
+    width: 100%;
     border-collapse: collapse;
 }
 
@@ -28,38 +27,30 @@ table td {
     text-align: left;
 }
 
-#example {
-    width: 100%;
-    /* Ensure table width doesn't exceed its container */
-    font-size: 1em;
-    /* Use relative font size for responsiveness */
-}
-
 #example th,
 #example td {
     padding: 6px;
-    /* Adjust padding for better responsiveness */
-    text-align: left;
 }
 
-/* CSS for Even Rows */
 #example tr:nth-child(even) {
     background-color: #c0c0c0;
-    /* Grey background for even rows */
 }
 
-/* CSS for Odd Rows */
 #example tr:nth-child(odd) {
     background-color: #ffffff;
-    /* White background for odd rows */
 }
 
 .table-responsive {
     max-height: 400px;
-    /* Adjust the max-height as needed */
     overflow-y: auto;
     margin-bottom: 50px;
-    /* Add margin to the bottom of the table */
+}
+
+.small-btn {
+    font-size: 15px;
+    padding: 5px 10px;
+    height: 30px;
+    border-radius: 5px;
 }
 
 .pagination-container {
@@ -69,14 +60,6 @@ table td {
     margin-bottom: 10px;
 }
 
-.small-btn {
-    font-size: 15px;
-    /* Adjust the font size as needed */
-    padding: 5px 10px;
-    height: 30px;
-    border-radius: 5px;
-}
-
 .export-buttons-container {
     margin-bottom: 10px;
     text-align: right;
@@ -84,5 +67,4 @@ table td {
 
 .export-buttons-container button {
     margin-right: 10px;
-    /* Adjust the value to increase or decrease space */
 }

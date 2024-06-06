@@ -2,7 +2,12 @@
     <div class="col-md-13 grid-margin stretch-card">
         <div class="card" style="margin-top:5px ;">
             <div class="card-body">
-                <p class="card-title text-center" style="background-color: grey;color: white;">Refinance Form</p>
+                <div class="d-flex justify-content-between align-items-center mb-7 pb-2 pb-md-0 mb-md-5 modal-header"
+                    style="margin-top: 1px;">
+                    <h3 style="font-size: 25px; color:black; margin-top: -30px; margin-left: 70px;">
+                        Refinance Form
+                    </h3>
+                </div>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -104,6 +109,7 @@
                     <label class="form-label" for="textAreaExample"
                         style="color: blue; margin-bottom: -1px;">Comments</label>
                     <textarea class="form-control" id="textAreaExample" rows="4" [(ngModel)]=" Comments"></textarea>
+                    
                     <div style="margin-top: 2px;">
                         <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
                             (click)="bsModalRef.hide()" style="margin-left: 50px; margin-right: 10px;">Exit
