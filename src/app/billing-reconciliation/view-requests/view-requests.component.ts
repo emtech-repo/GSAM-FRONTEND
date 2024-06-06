@@ -29,7 +29,7 @@ export class ViewRequestsComponent {
   constructor(private sharedService: SharedService, private http: HttpClient,) { }
 
   ngOnInit(): void {
-    this.apiUrl = this.sharedService.ActivityUrl;
+    this.apiUrl = this.sharedService.SubmissionsUrl;
     this.fetchData();
 
   }

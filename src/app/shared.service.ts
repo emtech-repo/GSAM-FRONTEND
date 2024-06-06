@@ -31,6 +31,8 @@ export class SharedService {
   readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/GetAllServiceProviders';
   readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases';
+  readonly SubmissionsUrl ='http://192.168.88.244:5260/api/ServiceRequest/GetAllRequests';
+  readonly ApprovalRequestsUrl = 'http://192.168.88.244:5260/api/ServiceRequest/ApproveRequest';
 
 
 
@@ -55,13 +57,17 @@ export class SharedService {
 
   private readonly userDataUrl = 'http://192.168.88.244:5260/api/Auth/Login';
   private registerUrl = 'http://192.168.88.244:5260/api/Auth/Register';
-  readonly baseUrl = 'http://192.168.88.244:5260/api/Auth/Register';
+  readonly baseUrl = 'http://192.168.88.244:5260/api/Auth/AllUsers';
 
   // private readonly userDataUrl = 'assets/data/db.json';
   // baseUrl: string = "http://localhost:3000/";
 
   readonly APIUrl = 'https://192.168.88.244:5260';
   readonly baseURL = 'assets/data/db.json'
+  readonly roleURL = 'http://192.168.88.244:5260/api/Role/GetRoles'
+  readonly AssignroleURL = 'http://192.168.88.244:5260/api/Role/AddUserRoles'
+  readonly ActivateURL = 'http://192.168.88.244:5260/api/Auth/ActivateUser'
+  readonly DeactivateURL = 'http://192.168.88.244:5260/api/Auth/DeactivateUser'
 
   readonly CasesUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.88.244:9006/accounts/la/all'
@@ -78,6 +84,7 @@ export class SharedService {
 
   
   private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
+  private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
 
   // readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
   private storageKey = 'uploads';
@@ -140,9 +147,16 @@ export class SharedService {
    return this.http.post<any>(this.documentsUrl, formData);
   }
   getCases(): Observable<any> {
-    return this.http.get<any>(this.CasesUrl);
+     return this.http.get<any>(this.CasesUrl);
+    
+  }
+  getAllDocuments(): Observable<any> {
+    return this.http.get<any>(this.AllDocumentUrl);
 
   }
+
+  
+ 
 
   createCase(loanDetails: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -362,9 +376,7 @@ submitRecovery(inputdata: any) {
   }
 
 
-  // registerUser(inputdata: any) {
-  //   return this.http.post(this.registerUrl, inputdata)
-  // }
+  
 
   getUserData(): Observable<any> {
     return this.http.get<any>(this.userDataUrl);
@@ -377,28 +389,17 @@ submitRecovery(inputdata: any) {
 
 
 
-  // addEmployee(data: any): Observable<any> {
-  //   return this.http.post(this.baseUrl + 'user', data);
-  // }
-
-
-  // updateEmployee(id: number, updatedFields: any): Observable<any> {
-  //   // Include all fields in the update request
-  //   const allFields = { ...updatedFields }; // Copy the updatedFields object
-  //   allFields.id = id; // Add the employee ID
-  //   return this.http.put(this.baseUrl + `user/${id}`, allFields);
-  // }
+  
 
  
 
-  // getEmployeeList(): Observable<any> {
-  //   return this.http.get(this.baseUrl + 'user');
-  // }
 
-  // deleteEmployee(id: number): Observable<any> {
-  //   return this.http.delete(this.baseUrl + `user/${id}`);
+  getEmployeeList(): Observable<any> {
+    return this.http.get(this.baseUrl);
+  }
 
-  // }
+
+ 
 
   getServiceData(): Observable<any> {
     return this.http.get<any>(`${this.ServiceUrl}/serviceData`);
@@ -407,40 +408,65 @@ submitRecovery(inputdata: any) {
   submitServiceDatas(data: any): Observable<any> {
     return this.http.post(`${this.ServiceUrl}/serviceData`, data);
   }
+//admin page
+  getroles(): Observable<any> {
+    return this.http.get(this.roleURL);
+  }
+
+  assignRole(email: string, role: string): Observable<any> {
+    const data = { UserEmail: email, role: role };
+    return this.http.post(this.AssignroleURL, data);
+  }
+
+  activateUser(email: string): Observable<any> {
+    const data = { Email: email};
+    return this.http.post(this.ActivateURL, data);
+  }
+  deactivateUser(email: string): Observable<any> {
+    const data = { Email: email };
+    return this.http.post(this.DeactivateURL, data);
+  }
+
+
+  
+
+//end of admin page
+  
+
 
   isAdmin(): boolean {
-    // Example logic to check if user is an admin
-    // You can modify this based on how you store user roles in your system
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       const parsedUser = JSON.parse(currentUser);
-      // Assuming user role is stored in 'role' property
-      return parsedUser.role === 'admin';
+      // Check if the role array contains 'Admin'
+      return parsedUser.role.includes('Admin');
     }
     return false;
   }
+
   isManager(): boolean {
-    // Example logic to check if user is an admin
-    // You can modify this based on how you store user roles in your system
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       const parsedUser = JSON.parse(currentUser);
-      // Assuming user role is stored in 'role' property
-      return parsedUser.role === 'manager';
+      
+      return parsedUser.role.includes('Manager');
     }
     return false;
   }
+
+
   isOfficer(): boolean {
-    // Example logic to check if user is an admin
-    // You can modify this based on how you store user roles in your system
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       const parsedUser = JSON.parse(currentUser);
-      // Assuming user role is stored in 'role' property
-      return parsedUser.role === 'officer';
+
+      return parsedUser.role.includes('Officer');
     }
     return false;
   }
+
+
+ 
 
 
 
@@ -471,9 +497,7 @@ submitRecovery(inputdata: any) {
 
   // }
 
-  getEmployeeList(): Observable<any> {
-    return this.http.get(this.baseUrl + 'user');
-  }
+  
 
   deleteEmployee(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + `user/${id}`);
@@ -486,6 +510,14 @@ submitRecovery(inputdata: any) {
 
   submitData(data: any): Observable<any> {
     return this.http.post<any>(`${this.RequestUrl}`, data);
+  }
+
+  getSubmissions(): Observable<any> {
+    return this.http.get<any>(this.SubmissionsUrl);
+  }
+
+  getApprovalRequests(): Observable<any> {
+    return this.http.get<any>(this.ApprovalRequestsUrl);
   }
 
   // this.yourService.updateData(updatedData).subscribe(() => {
