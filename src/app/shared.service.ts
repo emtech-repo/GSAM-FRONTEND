@@ -27,8 +27,8 @@ export class SharedService {
 
 
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
-
-  readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
+  readonly RequestUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
+  readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/GetAllServiceProviders';
   readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases';
 
@@ -51,7 +51,6 @@ export class SharedService {
   // private documentsUrl = '/assets/data/data.json'
 
   
-  readonly RequestUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
 
 
   private readonly userDataUrl = 'http://192.168.88.244:5260/api/Auth/Login';
