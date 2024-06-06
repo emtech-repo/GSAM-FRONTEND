@@ -510,9 +510,9 @@ submitRecovery(inputdata: any) {
 
   // }
 
-  getEmployeeList(): Observable<any> {
-    return this.http.get(this.baseUrl + 'user');
-  }
+  // getEmployeeList(): Observable<any> {
+  //   return this.http.get(this.baseUrl + 'user');
+  // }
 
   deleteEmployee(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + `user/${id}`);
