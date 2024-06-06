@@ -3,10 +3,10 @@ import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
 import { BsModalRef, } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { HttpErrorResponse } from '@angular/common/http';
-import * as jspdf from 'jspdf';
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
+import { HttpClient } from '@angular/common/http';
+
+
+
 
 
 
@@ -16,15 +16,49 @@ import { saveAs } from 'file-saver';
   styleUrl: './assign-case.component.css'
 })
 export class AssignCaseComponent {
-    showUnassignedCasesFlag: boolean = false;
-    showAssignedCasesFlag: boolean = false;
-    recentActivityData: any[] = [];
+  showUnassignedCasesFlag: boolean = false;
+  showAssignedCasesFlag: boolean = false;
+  showAllCasesFlag: boolean = true;
+  recentActivityData: any[] = [];
   modalService: any;
+  row: any;
+
+  constructor(private router: Router, private sharedService: SharedService, private toastr: ToastrService,
+    public bsModalRef: BsModalRef, private http: HttpClient) { }
 
 
+  // goToCaseDetails(selectedRow: any): void {
+  //   // Log the selected row data
+  //   console.log('Selected row:', selectedRow);
+
+  //   // Navigate to the "case-details" route and pass the selected row data as a parameter
+  //   this.router.navigate(['/case-details', selectedRow]);
+  // }
 
 
-searchOption: string = 'assignedTo';
+  // goToCaseDetails(loanAccount: string) {
+  //   // Call the API to fetch details using the specific 'loanAccount' as parameter
+  //   this.sharedService.getUnAssigned(loanAccount).subscribe(
+  //     (details: any) => {
+  //       // Once details are fetched successfully, navigate to the "case-details" route
+  //       console.log('Selected: LOAN ACCOUNT', loanAccount);
+
+  //       this.router.navigate(['/case-details'], { state: { loanAccount, details } });
+  //     },
+  //     (error: any) => {
+  //       // Handle error if details fetching fails
+  //       console.error('Failed to fetch CASES:', error);
+  //       // Navigate to the "case-details" route without details
+  //       this.router.navigate(['/case-details'], { state: { loanAccount } });
+  //     }
+  //   );
+  // }
+  goToCaseDetails(loanAccount: any): void {
+    console.log('Navigating to case details with loan account:', loanAccount);
+    this.router.navigate(['/case-details', loanAccount]);
+  }
+
+  searchOption: string = 'assignedTo';
 
   searchQuery: string = '';
   searchTerm: string = '';
@@ -35,41 +69,41 @@ searchOption: string = 'assignedTo';
   assignedCases: number = 0;
   unassignedCases: number = 0;
   searchParams = { param: '', value: '' }
-  UnAssignedData: any[] = []; // Your data array
 
-  AssignedData: any[] = []; // Your data array
-  casesData: any[] = []; // Your data array
+
+  data: any[] = []; // Your data array
+  UnAssigneddata: any[] = [];
+  Assigneddata: any[] = [];
   cd: any;
+  apiUrl: string = '';
+  AssignedUrl: string = '';
+  UnAssignedUrl: string = '';
 
 
-  constructor(private router: Router,private sharedService: SharedService,private toastr: ToastrService,
-    public bsModalRef: BsModalRef) { }
+  ngOnInit(): void {
 
-    ngOnInit(): void {
-    this.getCases();
+
+    this.apiUrl = this.sharedService.ActivityUrl;
+    this.UnAssignedUrl = this.sharedService.UnAssignedUrl;
+    this.AssignedUrl = this.sharedService.AssignedUrl;
+
+    this.fetchData();
+    this.UnAssigned();
     this.getAssigned();
-    this.getUnAssigned();
+
 
   }
 
- 
-  
-  
 
- 
-
-
-
-
-  
- 
   setSearchOption(option: string) {
     this.searchOption = option;
   }
   search(): void {
     console.log('Search method called'); // Debugging line
     this.currentPage = 1; // Reset current page for search
-    this.casesData = this.casesData.filter(item => {
+
+    this.data = this.data.filter(item => {
+
       switch (this.searchParams.param) {
         case 'cifId':
           return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
@@ -86,105 +120,89 @@ searchOption: string = 'assignedTo';
   }
 
 
- 
 
-
-  getCases(): void {
-    this.sharedService.getCases().subscribe(
-      (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.casesData = result;
-        this.calculateCaseCounts(); // Calculate case counts after receiving data
-
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
-      }
-    );
-  }
-
-
-  getUnAssigned(): void {
-    this.sharedService.getUnAssigned().subscribe(
-      (result: any[]) => {
-        console.log('Unassigned cases:', result); // Add this line
-        this.UnAssignedData = result;
+  fetchData(): void {
+    this.http.get<any>(this.apiUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.data = response.result;
         this.calculateCaseCounts();
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching unassigned cases:', error);
-      }
-    );
-  }
 
-
-getAssigned(): void {
-    this.sharedService.getAssigned().subscribe(
-      (result: any[]) => {
-        // Assign the 'result' array to your component property
-        this.AssignedData = result;
-        this.calculateCaseCounts(); // Calculate case counts after receiving data
-
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error fetching Status:', error);
-        // Handle errors here, if necessary
-      }
-    );
-  }
-
-   goToCaseDetails() {
-    // Navigate to the "case-details" route
-    this.router.navigate(['/case-details']);
-  }
-
-
-
-  
-  calculateCaseCounts(): void {
-    // Reset counts
-    this.totalCases = this.casesData.length;
-    this.assignedCases = 0;
-    this.unassignedCases = 0;
-
-    // Count assigned and unassigned cases
-    this.casesData.forEach(item => {
-      if (item.assigned === 'Y') {
-        this.assignedCases++;
       } else {
-        this.unassignedCases++;
+        console.error('Invalid data received from API:', response);
       }
+    }, error => {
+      console.error('Error fetching data from API:', error);
     });
   }
 
- 
-  
 
+  UnAssigned(): void {
 
-  exportToExcel(): void {
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.getDataArray());
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const data: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(data, 'table.xlsx');
+    this.http.get<any>(this.UnAssignedUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.UnAssigneddata = response.result;
+        this.calculateCaseCounts();
+
+      } else {
+        console.error('Invalid data received from API:', response);
+      }
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
   }
 
-  exportToPDF(): void {
-    const doc = new jspdf.default();
-    const headers = ['Quote#', 'Product', 'Business type', 'Policy holder', 'Premium', 'Status', 'Updated at'];
-    const tableData = this.filteredData.map(item => [
-      item.userId,
-      item.id,
-      item.title,
-      item.completed,
-      // Add other properties here based on your table structure
-    ]);
+  getAssigned(): void {
+    this.http.get<any>(this.AssignedUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.Assigneddata = response.result;
+        this.calculateCaseCounts();
 
-   ;
-    doc.save('table.pdf');
+      } else {
+        console.error('Invalid data received from API:', response);
+      }
+    }, error => {
+      console.error('Error fetching data from API:', error);
+    });
   }
+
+
+
+  // Method to handle page change event
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+
+    this.fetchData();
+
+  }
+
+  // Method to handle search query change
+  onSearch(): void {
+  this.currentPage = 1; // Reset current page when performing a new search
+  this.UnAssigneddata = this.UnAssigneddata.filter(item => item.loanAccount.toLowerCase().includes(this.searchTerm.toLowerCase()));
+}
+
+  // Getter for filtered data based on search term
+  get filteredData() {
+    if (this.searchTerm !== undefined && this.searchTerm !== null) {
+
+      return this.data.filter(item => {
+
+        // Convert item properties to string and check if any property contains the search term
+        for (let key in item) {
+          if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
+            return true;
+          }
+        }
+        return false;
+      });
+    } else {
+
+      return this.data;
+
+    }
+  }
+
+
 
   getDataArray(): any[][] {
     const dataArray: any[][] = [];
@@ -199,84 +217,45 @@ getAssigned(): void {
     });
     return dataArray;
   }
- 
-    closeModal() {
-    this.bsModalRef.hide();
-  }
-    
 
-
- 
-  
-
-
- 
-
-  fetchRecentActivity(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-
-    this.sharedService.getRecentActivity(this.searchQuery)
-      .subscribe((response: any) => { // Specify the type of the response
-        if (response && response.statusCode === 200) {
-          const result = response.result as any[];
-          if (Array.isArray(result)) {
-            this.recentActivityData = result.slice(startIndex, endIndex);
-            this.totalItems = result.length;
-          } else {
-            console.error('Error: Data result is not an array.');
-          }
-        } else {
-          console.error('Error: Unexpected status code:', response && response.statusCode);
-        }
-      }, error => {
-        console.error('Error fetching recent activity:', error);
-      });
+  calculateCaseCounts(): void {
+    this.totalCases = this.data.length;
+    this.assignedCases = this.data.filter(item => item.assigned === "Y").length;
+    this.unassignedCases = this.data.filter(item => item.assigned === "N").length;
   }
 
 
-  pageChanged(event: any): void {
-    this.currentPage = event.page;
-    this.fetchRecentActivity();
-  }
-
-  onSearch(): void {
-    this.currentPage = 1;
-    this.fetchRecentActivity();
-  }
-
-  get filteredData() {
-    if (this.searchTerm !== undefined && this.searchTerm !== null) {
-      return this.recentActivityData.filter(item => {
-        for (let key in item) {
-          if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
-            return true;
-          }
-        }
-        return false;
-      });
-    } else {
-      return this.recentActivityData;
-    }
-  }
-
-   showUnassignedCases() {
+        showUnassignedCases() {
         this.showUnassignedCasesFlag = !this.showUnassignedCasesFlag;
+         this.showAllCasesFlag = false;
+         this.showAssignedCasesFlag = false;
+
+    }
+     showAllCases() {
+        this.showAllCasesFlag = !this.showAllCasesFlag ;
+           this.showAssignedCasesFlag = false;
+       this.showUnassignedCasesFlag = false;
+
     }
 
    
 
     showAssignedCases() {
         this.showAssignedCasesFlag = !this.showAssignedCasesFlag;
-    } 
-        exitPage() {
+           this.showAllCasesFlag = false;
+       this.showUnassignedCasesFlag = false;
+
+    }
+
+  exit() {
+    this.showUnassignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
+  }
+  ex() {
+    this.showAllCasesFlag = false; // Set the flag to false to hide the assigned cases page
+
+  }
+  exitPage() {
     this.showAssignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
 }
-
-    exit() {
-    this.showUnassignedCasesFlag = false; // Set the flag to false to hide the assigned cases page
-}
-
-
 
 }

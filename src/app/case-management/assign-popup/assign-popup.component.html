@@ -7,43 +7,41 @@
                         style="background-color: #800000c7; font-size: 25px; color: white; text-align: center; margin-top: 1px;">
                         Assign Case Form
                     </h3>
-                    <form>
-                        <div class="form-group row" style="margin-top: -30px;margin-bottom: 10px;">
-                            <div class="col-md-3">
-                                <label for="name"> Email</label>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="email" />
-                            </div>
+                    <form > 
+                        <!-- Adjusted margin for better spacing -->
+                        <div class="mb-3" style="margin-top: -20px;">
+                            <label for="disabledTextInput" class="form-label"  style="margin-bottom: 1px;" >Case Number</label>
+                            <input type="text" id="disabledTextInput" class="form-control blue-text" value="{{ caseNumber }}" disabled>
                         </div>
+                        <div class="mb-3" style="margin-top: -10px;">
+                            <label for="email" class="form-label" style="margin-bottom: 1px;" >Email</label>
+                            <input   type="email" class="form-control" name="email" id="email" [(ngModel)]="UserName" required> 
+                         </div>
+                      
 
-                        <div class="form-group row" style="margin-bottom: 10px;">
-                            <div class="col-md-3">
-                                <label for="name">PF Number</label>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="empnumber" />
-                            </div>
-                        </div>
-
+                       
 
                         <div class="row">
                             <div class="col">
-                                <button type="submit" class="btn btn-primary small-btn" data-dismiss="modal"
-                                    (click)="bsModalRef.hide()" style="margin-top: 10px;">Assign</button>
+                                <button type="submit" class="btn btn-primary small-btn" (click)="assignCase()"
+                                    data-dismiss="modal" style="margin-top: 20px;">Assign</button>
                             </div>
+
                             <div class="col">
                                 <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
                                     (click)="bsModalRef.hide()"
-                                    style="margin-left: 100px;margin-top: 10px;">Close</button>
+                                    style="margin-left: 100px;margin-top: 20px;">Close</button>
                             </div>
                         </div>
 
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
+    <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+        <p >{{ responseMessage }}</p>
+    </div>
 
+   
 </section>

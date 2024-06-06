@@ -1,26 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-
+import { SharedService } from '../../shared.service';
 
 @Component({
   selector: 'app-assign-popup',
   templateUrl: './assign-popup.component.html',
-  styleUrl: './assign-popup.component.css'
+  styleUrls: ['./assign-popup.component.css']
 })
-export class AssignPopupComponent {
+export class AssignPopupComponent implements OnInit {
+  @Input() caseNumber:string = '';
+  UserName: string = '';
+  responseMessage:  string = '';
 
-
-
-  
   constructor(
-     private toastr: ToastrService,
-    public bsModalRef: BsModalRef 
+    private toastr: ToastrService,
+    public bsModalRef: BsModalRef,
+    private sharedService: SharedService
   ) { }
 
-  
-   closeModal() {
-    this.bsModalRef.hide();
+  ngOnInit(): void {
+    console.log('Received case number:', this.caseNumber);
+    // You can use this.caseNumber here to display in the HTML
   }
 
+  assignCase(): void {
+    console.log('Data to send to assign case:', { caseNumber: this.caseNumber, UserName: this.UserName });
+    // Send data to API using SharedService
+    this.sharedService.assignCase(this.caseNumber!, this.UserName).subscribe(
+      (response) => {
+        // Handle successful response
+        console.log('API response:', response);
+        this.responseMessage = response.message; // Assuming the response has a message field
+        // Show success message or perform other actions
+        this.toastr.success('Data sent successfully', 'Success');
+      },
+      (error) => {
+        // Handle error
+        console.error('Failed to send data to API:', error);
+        this.responseMessage = 'Failed to assign case'; // Set a default error message
+        // Show error message or perform other actions
+        this.toastr.error('Failed to send data to API', 'Error');
+        // Close modal after a delay
+        setTimeout(() => {
+          this.bsModalRef.hide();
+        }, 30000000); // Adjust delay as needed
+      }
+    );
+  }
+
+  closeModal(): void {
+    this.bsModalRef.hide();
+  }
 }
