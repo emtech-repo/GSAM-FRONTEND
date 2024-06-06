@@ -78,6 +78,7 @@ export class SharedService {
 
   
   private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
+  private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
 
   // readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
   private storageKey = 'uploads';
@@ -140,9 +141,16 @@ export class SharedService {
    return this.http.post<any>(this.documentsUrl, formData);
   }
   getCases(): Observable<any> {
-    return this.http.get<any>(this.CasesUrl);
+     return this.http.get<any>(this.CasesUrl);
+    
+  }
+  getAllDocuments(): Observable<any> {
+    return this.http.get<any>(this.AllDocumentUrl);
 
   }
+
+  
+ 
 
   createCase(loanDetails: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
