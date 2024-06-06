@@ -16,6 +16,7 @@ export class CreateTwoComponent implements OnInit {
   CreatedSuccessfully: boolean = false;
   details: any;
   caseId: number | undefined;
+  message : string = '';
   errorMessage: string = '';
 
 
@@ -70,19 +71,17 @@ export class CreateTwoComponent implements OnInit {
       SyndicatedFlag: this.loanDetails?.SyndicatedFlag ?? ''
     };
 
-    console.log('Case to be cREATED:', requestData); // Log the data to be sent
+    // console.log('Case to be cREATED:', requestData); // Log the data to be sent
 
     // Send the request data to the API
     this.sharedService.createCase(requestData)
       .subscribe(response => {
         console.log('Case created successfully:', response);
         this.CreatedSuccessfully = true;
+        this.message= response.message;
         this.caseId = response.result.caseNumber; // Assuming response.result.caseNumber is the correct path
         this.toastr.success(`Case created successfully Case ID: ${response.result.caseNumber}`, 'Success');
-        // Automatically hide the alert after a few seconds
-        setTimeout(() => {
-          this.CreatedSuccessfully = false;
-        }, 5000); // Adjust the timeout duration as needed
+        
       }, error => {
         console.error('Error creating case:', error);
         // Check if the error status is 400 and extract the message from the error response

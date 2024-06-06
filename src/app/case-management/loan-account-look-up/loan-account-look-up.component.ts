@@ -63,7 +63,7 @@ export class LoanAccountLookUpComponent implements OnInit {
   ngOnInit(): void {
     this.fetchRecentActivity();
 
-    console.log(this.filteredData, "filterd data")
+    // console.log(this.filteredData, "filterd data")
   }
 
   fetchRecentActivity(): void {
@@ -75,7 +75,7 @@ export class LoanAccountLookUpComponent implements OnInit {
       const endIndex = startIndex + this.pageSize;
       this.recentActivityData = data.entity.slice(startIndex, endIndex);
 
-      console.log(this.recentActivityData, "loan data");
+      // console.log(this.recentActivityData, "loan data");
     });
   }
 
