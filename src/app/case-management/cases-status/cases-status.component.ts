@@ -32,8 +32,8 @@ export class CasesStatusComponent {
   ActiveUrl: string = '';
   ClosedUrl: string = '';
   data: any[] = [];
-  Closeddata: any[] = [];
-  Activedata: any[] = [];
+  ClosedData: any[] = [];
+  ActiveData: any[] = [];
   
 
   constructor(private sharedService: SharedService, private http: HttpClient,) { }
@@ -43,8 +43,8 @@ export class CasesStatusComponent {
     this.ActiveUrl = this.sharedService.ActiveUrl
     this.ClosedUrl = this.sharedService.ClosedUrl
     this.fetchData();
-    this.getActive();
-    this.getClosed();
+    this.Active();
+    this.Closed();
 
   }
   setSearchOption(option: string) {
@@ -96,10 +96,10 @@ export class CasesStatusComponent {
       console.error('Error fetching data from API:', error);
     });
   }
-  getActive(): void {
+  Active(): void {
     this.http.get<any>(this.ActiveUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
-        this.Activedata = response.result;
+        this.ActiveData = response.result;
         this.calculateCaseCounts();
       } else {
         console.error('Invalid data received from API:', response);
@@ -108,10 +108,10 @@ export class CasesStatusComponent {
       console.error('Error fetching data from API:', error);
     });
   }
-  getClosed(): void {
+  Closed(): void {
     this.http.get<any>(this.ClosedUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
-        this.Closeddata = response.result;
+        this.ClosedData = response.result;
         this.calculateCaseCounts();
       } else {
         console.error('Invalid data received from API:', response);
@@ -127,6 +127,9 @@ export class CasesStatusComponent {
   }
   showActiveCases() {
     this.showActiveCasesFlag = !this.showActiveCasesFlag;
+    this.showClosedCasesFlag = false;
+    this.showTotalCasesFlag = false;
+
   }
   showTotalCases() {
     this.showTotalCasesFlag = !this.showTotalCasesFlag;
@@ -231,8 +234,8 @@ export class CasesStatusComponent {
     if (this.searchParams.value.trim() === '') {
       // If search value is empty, show all data
       this.data = [...this.data];
-      this.Closeddata = [...this.Closeddata];
-      this.Activedata = [...this.Activedata];
+      this.ClosedData = [...this.ClosedData];
+      this.ActiveData = [...this.ActiveData];
     } else {
       // Filter data based on selected parameter and value
       this.data = this.data.filter(item => {

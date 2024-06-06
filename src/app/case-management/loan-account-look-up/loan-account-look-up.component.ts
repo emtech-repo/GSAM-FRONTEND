@@ -98,6 +98,7 @@ export class LoanAccountLookUpComponent implements OnInit {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
             return true;
           }
+          
         }
         return false;
       });

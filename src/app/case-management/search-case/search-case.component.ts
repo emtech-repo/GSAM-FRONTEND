@@ -62,11 +62,7 @@ export class SearchCaseComponent implements OnInit {
   // 
   downloadExcel(): void {
     const tableData = this.getTableData();
-    // Implement logic to convert tableData to Excel format
-    // For example, you can use a library like ExcelJS
-    // const excelData = convertToExcelFormat(tableData);
-    // const blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    // FileSaver.saveAs(blob, 'schedule.xlsx');
+    
   }
   downloadPDF(): void {
     const tableData = this.getTableData();
@@ -79,14 +75,7 @@ export class SearchCaseComponent implements OnInit {
   }
 
 
-  // downloadPDF(): void {
-  //   const tableData = this.getTableData();
-  //   // const pdfContent = this.generatePDFContent(tableData, imgData);
-  //   const pdfContent = this.generatePDFContent(tableData, imgData);
-  //   const pdf = new jsPDF();
-  //   pdf.text(pdfContent, 10, 10);
-  //   pdf.save('schedule.pdf');
-  // }
+ 
 
   getTableData(): any[] {
     const tableRows = Array.from(document.querySelectorAll('table tbody tr'));
