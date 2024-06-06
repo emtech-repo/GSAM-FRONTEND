@@ -11,22 +11,22 @@
 <div class="container mt-5">
     <div class="row mb-3">
         <div class="col" style="text-align: center; color: maroon; margin-top: -10px">
-            <h4>REQUEST SERVICE</h4>
+            <h4 style="margin-top: -50px;">REQUEST SERVICE</h4>
         </div>
     </div>
     <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
         <!-- Search Field -->
         <div class="form-group row mb-4">
             <div class="form-group mx-sm-3 mb-6 d-flex">
-                <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
                 <select id="searchParam" formControlName="searchParam" class="form-control mr-2"
                     style="width: auto; height: auto;">
+                    <option value="1">search by</option>
                     <option value="id">Provider Id</option>
                     <option value="name">Service Provider Name</option>
                 </select>
                 <input type="text" id="searchValue" formControlName="searchValue" placeholder="Enter search value"
                     class="form-control mr-4 dark-grey-background"
-                    style="width: 300px; height: 20px; margin-right: 15px;">
+                    style="width: 300px; height: 32px; margin-right: 15px;">
                 <button type="button" class="btn btn-primary btn-sm" style="border-radius: 5px;"
                     (click)="search()">Search</button>
             </div>
