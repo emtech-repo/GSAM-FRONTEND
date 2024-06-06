@@ -53,10 +53,14 @@ export class SharedService {
 
   private readonly userDataUrl = 'http://192.168.88.244:5260/api/Auth/Login';
   private registerUrl = 'http://192.168.88.244:5260/api/Auth/Register';
-  readonly baseUrl = 'http://192.168.88.244:5260/api/Auth/Register';
+  readonly baseUrl = 'http://192.168.88.244:5260/api/Auth/AllUsers';
 
   readonly APIUrl = 'https://192.168.88.244:5260';
   readonly baseURL = 'assets/data/db.json'
+  readonly roleURL = 'http://192.168.88.244:5260/api/Role/GetRoles'
+  readonly AssignroleURL = 'http://192.168.88.244:5260/api/Role/AddUserRoles'
+  readonly ActivateURL = 'http://192.168.88.244:5260/api/Auth/ActivateUser'
+  readonly DeactivateURL = 'http://192.168.88.244:5260/api/Auth/DeactivateUser'
 
   readonly CasesUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.88.244:9006/accounts/la/all'
@@ -383,7 +387,7 @@ submitRecovery(inputdata: any) {
  
 
   getEmployeeList(): Observable<any> {
-    return this.http.get(this.baseUrl + 'user');
+    return this.http.get(this.baseUrl);
   }
 
   deleteEmployee(id: number): Observable<any> {
@@ -398,7 +402,29 @@ submitRecovery(inputdata: any) {
   submitServiceDatas(data: any): Observable<any> {
     return this.http.post(`${this.ServiceUrl}/serviceData`, data);
   }
+//admin page
+  getroles(): Observable<any> {
+    return this.http.get(this.roleURL);
+  }
 
+  assignRole(email: string, role: string): Observable<any> {
+    const data = { UserEmail: email, role: role };
+    return this.http.post(this.AssignroleURL, data);
+  }
+
+  activateUser(email: string): Observable<any> {
+    const data = { Email: email};
+    return this.http.post(this.ActivateURL, data);
+  }
+  deactivateUser(email: string): Observable<any> {
+    const data = { Email: email };
+    return this.http.post(this.DeactivateURL, data);
+  }
+
+
+  
+
+//end of admin page
   
 
 

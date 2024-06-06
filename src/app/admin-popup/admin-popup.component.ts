@@ -1,12 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { SharedService } from '../shared.service';
-import { ToastrService } from 'ngx-toastr';
-
-
-declare function showSuccessToast(msg: any): any;
-declare function showDangerToast(msg: any): any;
 
 @Component({
   selector: 'app-admin-popup',
@@ -15,64 +9,55 @@ declare function showDangerToast(msg: any): any;
 })
 export class AdminPopupComponent implements OnInit {
   empForm: FormGroup;
-  roleList: string[] = ['officer', 'manager'];
 
   @Input() data: any;
   @Input() onClose!: () => void;
 
   constructor(
-    private empService: SharedService,
     private modalRef: BsModalRef,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService // Inject ToastrService
+    private formBuilder: FormBuilder
   ) {
     this.empForm = this.formBuilder.group({
-      id: [{ value: '', disabled: true }],
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      gender: ['', Validators.required],
-      role: ['', Validators.required],
-      creationDate: ['', Validators.required],
-    
-      isActive: [false, Validators.requiredTrue]
+      pfNumber: new FormControl({ value: '', disabled: true }),
+      fullName: new FormControl({ value: '', disabled: true }),
+      email: new FormControl({ value: '', disabled: true }),
+      role: new FormControl({ value: '', disabled: true }),
+      registeredTime: new FormControl({ value: '', disabled: true }),
     });
   }
 
   ngOnInit(): void {
     if (this.data) {
-      this.empForm.patchValue(this.data);
-    }
-  }
-
-  onSubmit() {
-    if (this.empForm.valid) {
-      if (this.data) {
-        const updatedFields = { ...this.empForm.value };
-
-        if (Object.keys(updatedFields).length === 0) {
-          showDangerToast('Employee details updated!');
-          return;
-        }
-
-        this.empService.updateEmployee(this.data.id, updatedFields).subscribe({
-          next: (val: any) => {
-            showSuccessToast('Employee details updated!');
-            console.log('Updated fields:', updatedFields);
-            this.modalRef.hide();
-            this.onClose();
-          },
-          error: (err: any) => {
-            console.error(err);
-            showDangerToast('Error while updating the employee!');
-          },
-        });
-      }
+      this.empForm.patchValue({
+        pfNumber: this.data.pfNumber,
+        fullName: this.data.fullName,
+        email: this.data.email,
+        role: this.data.role,
+        registeredTime: this.data.registeredTime,
+      });
     }
   }
 
   onCancel() {
     this.modalRef.hide();
     this.onClose();
+  }
+
+  get pfNumberControl() {
+    return this.empForm.get('pfNumber') as FormControl;
+  }
+
+  get fullNameControl() {
+    return this.empForm.get('fullName') as FormControl;
+  }
+
+  get emailControl() {
+    return this.empForm.get('email') as FormControl;
+  }
+  get roleControl() {
+    return this.empForm.get('role') as FormControl;
+  }
+  get registeredTimeControl() {
+    return this.empForm.get('registeredTime') as FormControl;
   }
 }

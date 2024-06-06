@@ -308,7 +308,7 @@ export class LoginComponent implements OnInit {
         }, (error) => {
           this.service.loader = false;
           // Show error message
-          showDangerToast('Error: Unable to Login');
+          showDangerToast('Error: Unable to Login check Connection');
         });
     } else {
       this.formData.markAllAsTouched();
