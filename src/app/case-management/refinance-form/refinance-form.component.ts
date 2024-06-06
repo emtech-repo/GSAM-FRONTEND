@@ -6,11 +6,30 @@ import { SharedService } from '../../shared.service';
 @Component({
   selector: 'app-refinance-form',
   templateUrl: './refinance-form.component.html',
-  styleUrl: './refinance-form.component.css'
+  styleUrls: ['./refinance-form.component.css']
 })
-export class RefinanceFormComponent  implements OnInit{
+export class RefinanceFormComponent implements OnInit {
   @Input() loanAccount: string | null = null; // Use Input decorator
-  decisionDetails: any;
+  decisionDetails = {
+    loanAccount: '',
+    caseNumber: '',
+    loanAmount: '',
+    cifId: '',
+    accountName: '',
+    solId: '',
+    loanBalance: '',
+    loanTenure: '',
+  };
+
+   Comments: string = '';
+ InitialInstalments: string = '';
+  NewInstalments: string = '';
+  RefinanceAmount: string = '';
+  NewLoanTenure: number = 0; // Change to number for calculation
+  responseMessage: string = '';
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  loading: boolean = false;
 
   constructor(
     private toastr: ToastrService,
@@ -37,6 +56,7 @@ export class RefinanceFormComponent  implements OnInit{
           if (decisionDetail) {
             this.decisionDetails = decisionDetail;
             console.log('Case details:', this.decisionDetails); // Console log the fetched case details
+            this.calculateInitialInstalments(); // Calculate initial installments on load
           } else {
             console.error('Case details not found for loan account:', this.loanAccount);
           }
@@ -50,9 +70,68 @@ export class RefinanceFormComponent  implements OnInit{
     );
   }
 
-  closeModal(): void {
-    this.bsModalRef.hide();
+  calculateInitialInstalments(): void {
+    const loanAmount = parseFloat(this.decisionDetails.loanAmount);
+    const loanTenure = parseInt(this.decisionDetails.loanTenure, 10);
+    if (!isNaN(loanAmount) && !isNaN(loanTenure) && loanTenure > 0) {
+      this.InitialInstalments = (loanAmount / loanTenure).toFixed(2);
+    } else {
+      this.InitialInstalments = '0';
+    }
   }
 
 
+  calculateNewInstalments(): void {
+  const refinanceAmount = parseFloat(this.RefinanceAmount);
+  const loanBalance = Math.abs(parseFloat(this.decisionDetails.loanBalance));
+  const newLoanTenure = this.NewLoanTenure;
+
+  if (!isNaN(refinanceAmount) && !isNaN(loanBalance) && !isNaN(newLoanTenure) && newLoanTenure > 0) {
+    const totalAmount = refinanceAmount + loanBalance;
+    this.NewInstalments = (totalAmount / newLoanTenure).toFixed(2);
+  } else {
+    this.NewInstalments = '0';
+  }
+}
+
+
+  submitRefinance(): void {
+    const refinanceData = {
+    LoanAccount: this.decisionDetails.loanAccount,
+    CaseNumber: this.decisionDetails.caseNumber,
+    LoanAmount: this.decisionDetails.loanAmount,
+    cifID: this.decisionDetails.cifId,
+    AccountName: this.decisionDetails.accountName,
+     SolId: this.decisionDetails.solId,
+      LoanBalance: this.decisionDetails.loanBalance,
+      LoanTenure: this.decisionDetails.loanTenure,
+      InitialInstalments: this.InitialInstalments,
+      NewInstalments: this.NewInstalments,
+      Comments: this.Comments,
+      NewLoanTenure: this.NewLoanTenure,
+      RefinanceAmount: this.RefinanceAmount
+    };
+
+    console.log('Refinance Data to be Submitted:', refinanceData);
+    this.loading = true;
+
+    this.sharedService.submitRefinance(refinanceData).subscribe(
+      (response: any) => {
+        console.log('Response received:', response);
+        this.loading = false;
+        this.successMessage = 'Refinance data submitted successfully!';
+        this.toastr.success('Refinance data submitted successfully!', 'Success');
+      },
+      (error: any) => {
+        this.loading = false;
+        console.error('Error submitting refinance data:', error);
+        this.errorMessage = 'Failed to submit refinance data. Please try again.';
+        this.toastr.error('Failed to submit refinance data. Please try again.', 'Error');
+      }
+    );
+  }
+
+  closeModal(): void {
+    this.bsModalRef.hide();
+  }
 }
