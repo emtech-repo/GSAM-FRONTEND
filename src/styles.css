@@ -8991,12 +8991,16 @@
   }
   
   button,
-  [type="button"],
-  [type="reset"],
-  [type="submit"] {
-    -webkit-appearance: button;
-  }
-  
+ [type="button"],
+ [type="reset"],
+ [type="submit"] {
+   -webkit-appearance: button;
+   /* For WebKit-based browsers */
+   -moz-appearance: button;
+   /* For Firefox */
+   appearance: button;
+   /* Standard property */
+ }
   button:not(:disabled),
   [type="button"]:not(:disabled),
   [type="reset"]:not(:disabled),
@@ -9053,10 +9057,15 @@
     height: auto;
   }
   
-  [type="search"] {
-    outline-offset: -2px;
-    -webkit-appearance: textfield;
-  }
+    [type="search"] {
+      outline-offset: -2px;
+      -webkit-appearance: textfield;
+      /* For WebKit-based browsers */
+      -moz-appearance: textfield;
+      /* For Firefox */
+      appearance: textfield;
+      /* Standard property */
+    }
   
   /* rtl:raw:
   [type="tel"],
@@ -10907,20 +10916,27 @@
     float: left;
     margin-left: -1.5em;
   }
-  
-  .form-check-input {
-    width: 1em;
-    height: 1em;
-    margin-top: 0.25em;
-    vertical-align: top;
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    appearance: none;
-    color-adjust: exact;
-  }
+    .form-check-input {
+      width: 1em;
+      height: 1em;
+      margin-top: 0.25em;
+      vertical-align: top;
+      background-color: #fff;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      -webkit-appearance: none;
+      /* For WebKit-based browsers */
+      -moz-appearance: none;
+      /* For Firefox */
+      appearance: none;
+      /* Standard property */
+      -webkit-print-color-adjust: exact;
+      /* For WebKit-based browsers */
+      print-color-adjust: exact;
+      /* Standard property */
+    }
   
   .form-check-input[type="checkbox"] {
     border-radius: 0.25em;
@@ -26515,23 +26531,22 @@
     z-index: 1;
   }
   
-  .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day.active:before,
-  .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.day.active:before {
-    content: "";
-    width: 28px;
-    height: 28px;
-    background: #57B657;
-    border-radius: 4px;
-    display: block;
-    margin: auto;
-    vertical-align: middle;
-    position: absolute;
-    top: 6px;
-    z-index: -1;
-    left: 0;
-    right: 0;
-  }
-  
+    .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day.active:before,
+    .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.day.active:before {
+      content: "";
+      width: 28px;
+      height: 28px;
+      background: #57B657;
+      border-radius: 4px;
+      display: block;
+      margin: auto;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      z-index: -1;
+    }
   .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day.today,
   .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.day.today {
     color: #fff;
@@ -26540,25 +26555,25 @@
     z-index: 1;
   }
   
-  .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day.today:before,
-  .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.day.today:before {
-    content: "";
-    width: 28px;
-    height: 28px;
-    background: #973b3b;
-    border-radius: 4px;
-    box-shadow: 3px 3px 6px 0 rgba(147, 127, 201, 0.43);
-    -webkit-box-shadow: 3px 3px 6px 0 rgba(147, 127, 201, 0.43);
-    -moz-box-shadow: 3px 3px 6px 0 rgba(147, 127, 201, 0.43);
-    display: block;
-    margin: auto;
-    vertical-align: middle;
-    position: absolute;
-    top: 6px;
-    z-index: -1;
-    left: 0;
-    right: 0;
-  }
+    .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day.today:before,
+    .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.day.today:before {
+      content: "";
+      width: 28px;
+      height: 28px;
+      background: #973b3b;
+      border-radius: 4px;
+      box-shadow: 3px 3px 6px 0 rgba(147, 127, 201, 0.43);
+      -webkit-box-shadow: 3px 3px 6px 0 rgba(147, 127, 201, 0.43);
+      -moz-box-shadow: 3px 3px 6px 0 rgba(147, 127, 201, 0.43);
+      display: block;
+      margin: auto;
+      position: absolute;
+      top: 6px;
+      left: 0;
+      right: 0;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+    }
   
   .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.old.day,
   .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.old.day {
@@ -26572,23 +26587,23 @@
     position: relative;
   }
   
-  .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.range-start::before, .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.range-end::before,
-  .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.range-start::before,
-  .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.range-end::before {
-    content: "";
-    width: 28px;
-    height: 28px;
-    background: rgba(87, 182, 87, 0.2);
-    border-radius: 4px;
-    display: block;
-    margin: auto;
-    vertical-align: middle;
-    position: absolute;
-    top: 6px;
-    z-index: -1;
-    left: 0;
-    right: 0;
-  }
+.datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.range-start::before,
+.datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.range-end::before,
+.datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.range-start::before,
+.datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.range-end::before {
+  content: "";
+  width: 28px;
+  height: 28px;
+  background: rgba(87, 182, 87, 0.2);
+  border-radius: 4px;
+  display: block;
+  margin: auto;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+}
   
   .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.range,
   .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.range {
@@ -26596,22 +26611,19 @@
     background: transparent;
   }
   
-  .datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.range::before,
-  .datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.range::before {
-    content: "";
-    width: 28px;
-    height: 28px;
-    background: #eee;
-    border-radius: 4px;
-    display: block;
-    margin: auto;
-    vertical-align: middle;
-    position: absolute;
-    top: 6px;
-    z-index: -1;
-    left: 0;
-    right: 0;
-  }
+.datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.range::before,
+.datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.range::before {
+  content: "";
+  width: 28px;
+  height: 28px;
+  background: #eee;
+  border-radius: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
   
   .datepicker.datepicker-inline {
     width: 100%;
@@ -27993,16 +28005,24 @@
     outline: 2px solid #57B657;
   }
   
-  .wysi-editor .editor-container-tag {
-    padding: 5px 10px;
-    position: absolute;
-    color: white;
-    background: rgba(0, 0, 0, 0.8);
-    width: 100px;
-    margin-left: -50px;
-    -webkit-transition: 0.1s left, 0.1s top;
-  }
-  
+    .wysi-editor .editor-container-tag {
+      padding: 5px 10px;
+      position: absolute;
+      color: white;
+      background: rgba(0, 0, 0, 0.8);
+      width: 100px;
+      margin-left: -50px;
+      transition: 0.1s left, 0.1s top;
+      /* Standard property */
+      -webkit-transition: 0.1s left, 0.1s top;
+      /* Vendor-prefixed property for WebKit browsers */
+      -moz-transition: 0.1s left, 0.1s top;
+      /* Vendor-prefixed property for Mozilla browsers */
+      -ms-transition: 0.1s left, 0.1s top;
+      /* Vendor-prefixed property for Internet Explorer */
+      -o-transition: 0.1s left, 0.1s top;
+      /* Vendor-prefixed property for Opera */
+    }
   .wysi-editor .wrap {
     max-width: 700px;
     margin: 40px;
