@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <!-- Forms for the first column -->
-                        <div class="form-group" style="margin-top: -20px;">
+                        <div class="form-group" style="margin-top: -48px;">
                             <label for="inputcifid" style="margin-bottom: -1px;">Loan Account</label>
                             <input type="text" class="form-control" [value]="decisionDetails.loanAccount || ''"
                                 readonly />
@@ -32,7 +32,7 @@
                     </div>
                     <div class="col-md-6">
                         <!-- Forms for the second column -->
-                        <div class="form-group" style="margin-top: -20px;">
+                        <div class="form-group" style="margin-top: -48px;">
                             <label for="inputEmail4" style="margin-bottom: -1px;">CIF ID</label>
                             <input type="text" class="form-control" [value]="decisionDetails.cifId || ''" readonly />
                         </div>
@@ -76,11 +76,11 @@
                         style="color: blue; margin-bottom: -1px;">Comments</label>
                     <textarea class="form-control" id="textAreaExample" [(ngModel)]="comments"></textarea>
                    
-                    <div style="margin-top: 2px;">
+                    <div   class="d-flex justify-content-end"style="margin-top: 10px;">
                         <button type="button" class="btn btn-primary small-btn" (click)="closeModal()"
-                            style="margin-left: 50px; margin-right: 10px;">Exit Page</button>
+                          >Exit Page</button>
                         <button type="button" class="btn btn-primary small-btn"
-                            (click)="submitRecovery()"  style="margin-left: 200px;">Submit</button>
+                            (click)="submitRecovery()"   style="margin-left: 10px;">Submit</button>
 
 
                     </div>
