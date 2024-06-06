@@ -1,143 +1,118 @@
 <div class="row d-flex justify-content-center align-items-center h-100">
-<div class="col-xl-10">
-    <div class="card" style="border-radius: 15px; width: 100%">
-        <div class="card-body">
-            <div class="row align-items-center pt-4 pb-3">
+    <div class="col-xl-10">
+        <div class="card" style="border-radius: 15px; height: 40%; width: 120%; margin-left: -9%;">
+            <div class="card-body">
+                <div class="row align-items-center pt-4 pb-3">
 
 
 
 
 
-<div class="container mt-5">
-    <div class="row mb-3">
-        <div class="col" style="text-align: center; color: maroon; margin-top: -10px">
-            <h4>REQUEST SERVICE</h4>
-        </div>
-    </div>
-    <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
-        <!-- Search Field -->
-        <div class="form-group row mb-4">
-            <div class="form-group mx-sm-3 mb-6 d-flex">
-                <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
-                <select id="searchParam" formControlName="searchParam" class="form-control mr-2"
-                    style="width: auto; height: auto;">
-                    <option value="id">Provider Id</option>
-                    <option value="name">Service Provider Name</option>
-                </select>
-                <input type="text" id="searchValue" formControlName="searchValue" placeholder="Enter search value"
-                    class="form-control mr-4 dark-grey-background"
-                    style="width: 300px; height: 20px; margin-right: 15px;">
-                <button type="button" class="btn btn-primary btn-sm" style="border-radius: 5px;"
-                    (click)="search()">Search</button>
+                    <div class="container mt-5">
+                        <div class="row mb-3">
+                            <div class="col" style="text-align: center; color: maroon; margin-top: -10px">
+                                <h2>REQUEST SERVICE</h2>
+                            </div>
+                        </div>
+                        <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+                            <!-- Search Field -->
+                            <div class="form-group row mb-4">
+                                <div class="form-group mx-sm-3 mb-6 d-flex">
+                                    <!-- <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search
+                                        by:</label> -->
+                                    <select id="searchParam" formControlName="searchParam" class="form-control mr-2"
+                                        style="width: auto; height: auto; background-color: maroon; color: white;">
+                                        <option value="searchBy" disabled selected style="color: white;">Search By
+                                        </option>
+                                        <option value="1">Provider Id</option>
+                                        <option value="2">Service Provider Name</option>
+                                    </select>
+                                    <input type="text" id="searchValue" formControlName="searchValue"
+                                        placeholder="Enter search value" class="form-control mr-4 dark-grey-background"
+                                        style="width: 300px; height: 30px; margin-right: 15px;">
+                                    <button type="button" class="btn btn-primary btn-sm" style="border-radius: 5px;"
+                                        (click)="search()">Search</button>
+                                </div>
+                            </div>
+
+                            <!-- Dropdowns -->
+                            <div class="form-group row">
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <label for="service-id">Service Id</label>
+                                    <input id="service-id" formControlName="serviceId"
+                                        class="form-control dark-grey-background" type="text">
+                                </div>
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <label for="service-provider-id">Service Provider Id</label>
+                                    <input id="service-provider-id" formControlName="serviceProviderId"
+                                        class="form-control dark-grey-background" type="text">
+                                </div>
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <label for="service-name">Service Name</label>
+                                    <input id="service-name" formControlName="serviceName"
+                                        class="form-control dark-grey-background" type="text">
+                                </div>
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <label for="region-id">Region Id</label>
+                                    <input id="region-id" formControlName="regionId"
+                                        class="form-control dark-grey-background" type="text">
+                                </div>
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <label for="region">Region</label>
+                                    <input id="region" formControlName="region"
+                                        class="form-control dark-grey-background" type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="service-provider">Service Provider</label>
+                                    <input id="service-provider" formControlName="serviceProvider"
+                                        class="form-control dark-grey-background" type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="postal-address">Zip/Postal Address</label>
+                                    <input id="postal-address" formControlName="postalAddress"
+                                        class="form-control dark-grey-background" type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="telephone">Telephone</label>
+                                    <input id="telephone" formControlName="telephone" class="form-control" type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="email">Email Address</label>
+                                    <input id="email" formControlName="email" class="form-control dark-grey-background"
+                                        type="email">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="account">Account Number</label>
+                                    <input id="accountNumber" formControlName="accountNumber"
+                                        class="form-control dark-grey-background" type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="service-date">Service Date</label>
+                                    <input type="date" id="service-date" formControlName="serviceDate"
+                                        class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="claim-details">Enter Service Details</label>
+                                <textarea id="claim-details" formControlName="Comments" class="form-control"
+                                    rows="4"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                            <!-- Success Message -->
+                            <div *ngIf="SubmittedSuccessfully" class="alert alert-success mt-3">
+                                Service request submitted successfully! Your request ID is: {{ requestId }}
+                            </div>
+                            <!-- Error Message -->
+                            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                                {{ errorMessage }}
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Dropdowns -->
-        <div class="form-group row">
-            <div class="col-md-4 mb-3 mb-md-0">
-                <label for="service-id">Service Id</label>
-                <select id="service-id" formControlName="serviceId" class="form-control dark-grey-background">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.service.id">{{
-                        provider.service.id }}</option>
-                </select>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-                <label for="service-provider-id">Service Provider Id</label>
-                <select id="service-provider-id" formControlName="serviceProviderId" class="form-control dark-grey-background">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.id">{{
-                        provider.id }}</option>
-                </select>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-                <label for="service-name">Service Name</label>
-                <select id="service-name" formControlName="serviceName" class="form-control dark-grey-background">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.service.serviceName">{{
-                        provider.service.serviceName }}</option>
-                </select>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-                <label for="region">Region Id</label>
-                <select id="region" formControlName="regionId" class="form-control dark-grey-background">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.region.id">{{
-                        provider.region.id }}</option>
-                </select>
-            </div>
-
-            <div class="col-md-4 mb-3 mb-md-0">
-                <label for="region">Region</label>
-                <select id="region" formControlName="region" class="form-control dark-grey-background">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.region.regionName">{{
-                        provider.region.regionName }}</option>
-                </select>
-            </div>
-
-            <div class="col-md-4">
-                <label for="service-provider">Service Provider</label>
-                <select id="service-provider" formControlName="serviceProvider"
-                    class="form-control dark-grey-background" (change)="onServiceProviderChange($event)">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.name">{{ provider.name
-                        }}
-                    </option>
-                </select>
-            </div>
-
-            <div class="col-md-4">
-                <label for="postal-address">Zip/Postal Address</label>
-                <select id="postal-address" formControlName="postalAddress" class="form-control dark-grey-background">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.postal">{{
-                        provider.postal
-                        }}</option>
-                </select>
-            </div>
-
-            <div class="col-md-4">
-                <label for="telephone">Telephone</label>
-                <select id="telephone" formControlName="telephone" class="form-control">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.phoneNumber">{{
-                        provider.phoneNumber }}</option>
-                </select>
-            </div>
-
-            <div class="col-md-4">
-                <label for="email">Email Address</label>
-                <select id="email" formControlName="email" class="form-control dark-grey-background">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.email">{{ provider.email
-                        }}
-                    </option>
-                </select>
-            </div>
-
-            <div class="col-md-4">
-                <label for="account">Account Number</label>
-                <select id="accountNumber" formControlName="accountNumber" class="form-control dark-grey-background ">
-                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.accountNumber">{{
-                        provider.accountNumber }}</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="service-date">Service Date</label>
-                <input type="date" id="service-date" formControlName="serviceDate" class="form-control">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="claim-details">Enter Service Details</label>
-            <textarea id="claim-details" formControlName="Comments" class="form-control" rows="4"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-        
-        <!-- Success Message -->
-        <div *ngIf="SubmittedSuccessfully" class="alert alert-success mt-3">
-            Service request submitted successfully! Your request ID is: {{ requestId }}
-        </div>
-        <!-- Error Message -->
-        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-            {{ errorMessage }}
-        </div>
-
-    </form>
-</div>
-</div>
-</div>
-</div>
