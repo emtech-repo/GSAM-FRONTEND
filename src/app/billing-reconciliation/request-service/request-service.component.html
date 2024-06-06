@@ -39,6 +39,7 @@
                 <select id="service-id" formControlName="serviceId" class="form-control dark-grey-background">
                     <option *ngFor="let provider of filteredServiceProviders" [value]="provider.service.id">{{
                         provider.service.id }}</option>
+                        
                 </select>
             </div>
             <div class="col-md-4 mb-3 mb-md-0">

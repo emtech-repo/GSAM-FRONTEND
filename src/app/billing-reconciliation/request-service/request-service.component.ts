@@ -14,6 +14,7 @@ export class RequestServiceComponent implements OnInit {
   requestId: string | null = null;  // To store the generated request ID
   SubmittedSuccessfully: boolean = false;
   errorMessage: string | null = null;
+provider: any;
 
 
   constructor(private fb: FormBuilder, private sharedService: SharedService) {
