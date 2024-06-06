@@ -31,6 +31,8 @@ export class SharedService {
   readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/GetAllServiceProviders';
   readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases';
+  readonly SubmissionsUrl ='http://192.168.88.244:5260/api/ServiceRequest/GetAllRequests';
+  readonly ApprovalRequestsUrl = 'http://192.168.88.244:5260/api/ServiceRequest/ApproveRequest';
 
 
 
@@ -525,6 +527,14 @@ submitRecovery(inputdata: any) {
 
   submitData(data: any): Observable<any> {
     return this.http.post<any>(`${this.RequestUrl}`, data);
+  }
+
+  getSubmissions(): Observable<any> {
+    return this.http.get<any>(this.SubmissionsUrl);
+  }
+
+  getApprovalRequests(): Observable<any> {
+    return this.http.get<any>(this.ApprovalRequestsUrl);
   }
 
   // this.yourService.updateData(updatedData).subscribe(() => {
