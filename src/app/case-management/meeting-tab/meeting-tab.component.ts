@@ -1,20 +1,27 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup,} from '@angular/forms';
+
 import { NgForm } from '@angular/forms';
 import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
+import { IDropdownSettings, } from 'ng-multiselect-dropdown';
+
+
 
 @Component({
   selector: 'app-meeting-tab',
   templateUrl: './meeting-tab.component.html',
   styleUrls: ['./meeting-tab.component.css']
 })
-export class MeetingTabComponent {
+export class MeetingTabComponent implements OnInit {
   Meetings: any[] = [];
   MeetingsUrl: any;
   FetchedMeetings: any[] = [];
+  form!: FormGroup
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
+  
 
   // Properties for form fields
   searchQuery: string = '';
@@ -22,18 +29,52 @@ export class MeetingTabComponent {
   caseDetails: string = '';
   meetingDate: string = '';
   meetingTime: string = '';
-  selectedMembers: string[] = []; // Initialize as an empty array
+  selectedMembers: string[] = []; // Initialize as an empty array  
+  dropdownList:any = [];
+  dropdownSettings: IDropdownSettings = {}; 
 
-  // Example members list
-  
-  members = ['member1', 'member2', 'member3'];
+
+
+  constructor(private router: Router, private sharedService: SharedService, private formbuilder:FormBuilder) {
+    // Constructor code...
+  }
+
+  ngOnInit() {
+    this.getMeetings();
+    this.form=this.formbuilder.group({
+      toppings:[[]]
+    })
+    this.dropdownList = [
+      { item_id: 1, item_text: 'Item1' },
+      { item_id: 2, item_text: 'Item2' },
+      { item_id: 3, item_text: 'Item3' },
+      { item_id: 4, item_text: 'Item4' },
+      { item_id: 5, item_text: 'Item5' }
+    ];
+    this.dropdownSettings = {
+      idField: 'item_id',
+      textField: 'item_text',
+      unSelectAllText: "UnSelect All Items From List",
+      noDataAvailablePlaceholderText: "There is no item availabale to show",
+      allowSearchFilter: true
+    };
+    
+  }
+  onItemSelect(item: any) {
+    console.log('onItemSelect', item);
+  }
+  onItemDeSelect(item: any) {
+    console.log('onItemDeSelect', item);
+  }
+  onSelectAll(items: any) {
+    console.log('onSelectAll', items);
+  }
+  onUnSelectAll() {
+    console.log('onUnSelectAll fires');
+  }
 
   selectTab(index: number) {
     this.selectedIndex = index;
-  }
-
-  constructor(private router: Router, private sharedService: SharedService) {
-    // Constructor code...
   }
 
   clearForm() {
@@ -54,9 +95,7 @@ export class MeetingTabComponent {
     console.log('Form submitted with selected members:', this.selectedMembers);
   }
 
-  ngOnInit() {
-    this.getMeetings();
-  }
+  
 
   getMeetings(): void {
     this.sharedService.getMeetings()
@@ -69,7 +108,7 @@ export class MeetingTabComponent {
             console.log('No meetings found or invalid response.');
           }
         },
-        error => {
+        (        error: { error: any; }) => {
           console.error('Error fetching meetings:', error);
           // Log the error response if available
           if (error.error) {
@@ -77,5 +116,35 @@ export class MeetingTabComponent {
           }
         }
       );
+  }
+  searchTerm: string = '';
+  selectedOption: string = '';
+
+  options = [
+    { label: 'Search by..', value: '' },
+    { label: 'Meeting ID', value: 'meetingId' },
+    { label: 'Meeting Details', value: 'meetingDetails' },
+    { label: 'Status', value: 'status' }
+  ];
+
+  performSearch() {
+    console.log(`Searching for ${this.selectedOption}: ${this.searchTerm}`);
+    if (this.selectedOption === "meetingId"
+    ) {
+      const result = this.Meetings.filter(item => item.meetingId.trim().toLowerCase() === this.searchTerm.trim().toLowerCase());
+      console.log(result ); // Should log 'string'
+      this.Meetings = result
+    }
+    {
+      const result = this.Meetings.filter(item => item.status.trim().toLowerCase() === this.searchTerm.trim().toLowerCase());
+      console.log(result); // Should log 'string'
+      this.Meetings = result
+    }
+    {
+      const result = this.Meetings.filter(item => item.venue.trim().toLowerCase() === this.searchTerm.trim().toLowerCase());
+      console.log(result); // Should log 'string'
+      this.Meetings = result
+    }
+
   }
 }

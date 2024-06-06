@@ -1,41 +1,193 @@
 <div class="col-md-12 grid-margin transparent">
     <div class="row">
-        <div class="col-md-3 mb-3 stretch-card transparent">
+        <div class="col-md-3 mb-3 stretch-card transparent" (click)="showAllCases()">
             <div class="card card-tale">
                 <div class="card-body">
                     <p class="mb-4">Total Cases</p>
-                    <!-- <p class="fs-30 mb-2">355</p> -->
+
                     <p class="fs-30 mb-2">{{ totalCases }}</p>
+
+
 
                 </div>
             </div>
         </div>
-
-        <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;" (click)="showAssignedCases()">
-            <div class="card card-dark-blue">
-
+        <div class="col-md-3 mb-3 stretch-card transparent" (click)="showAssignedCases()">
+            <div class="card card-tale" >
                 <div class="card-body">
                     <p class="mb-4">Assigned Cases</p>
                     <p class="fs-30 mb-2">{{ assignedCases }}</p>
-                    <!-- <p class="fs-30 mb-2">200</p> -->
+
+
+
+
                 </div>
             </div>
         </div>
 
 
-        <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;"
-            (click)="showUnassignedCases()">
+        <div class="col-md-3 mb-3  stretch-card transparent" (click)="showUnassignedCases()">
+
             <div class="card card-light-blue">
 
                 <div class="card-body">
                     <p class="mb-4">unassigned Cases</p>
                     <p class="fs-30 mb-2">{{ unassignedCases }}</p>
-                    <!-- <p class="fs-30 mb-2">155</p> -->
+
+
                 </div>
             </div>
         </div>
 
     </div>
+</div>
+
+
+<div class="row" *ngIf="showAllCasesFlag">
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <p class="card-title">Total Cases</p>
+
+            <!-- Search Form -->
+            <div class="form-group mx-sm-3 mb-6 d-flex">
+                <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                    style="width: 150px; height: 30px;">
+                    <option value="1" disabled>search by</option>
+                    <option value="loanAccount">Loan Account</option>
+                    <option value="accountName">Account Name</option>
+                    <option value="caseNumber">Case Number</option>
+                    <option value="cifId">CIF ID</option>
+                </select>
+                <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                    class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
+                <button (click)="search()" class="btn btn-primary btn-sm"
+                    style="border-radius: 5px; margin-left: -10px;">Search</button>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="example" class="display expandable-table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Case Number</th>
+                                    <th>Cif ID</th>
+                                    <th>Loan account</th>
+                                    <th>Account Name</th>
+                                    <th>Loan Amount</th>
+                                    <th>Loan Tenure</th>
+                                    <th>Branch code</th>
+                                    <th>Loan Balance</th>
+                                    <th>Recovered</th>
+                                    <th>Restructured</th>
+                                    <th>Refinanced</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of pagedCasesdata">
+                                    <td>{{ item.caseNumber }}</td>
+                                    <td>{{ item.cifId }}</td>
+                                    <td>{{ item.loanAccount }}</td>
+                                    <td>{{ item.accountName }}</td>
+                                    <td>{{ item.loanAmount }}</td>
+                                    <td>{{ item.loanTenure }}</td>
+                                    <td>{{ item.solId }}</td>
+                                    <td>{{ item.loanBalance }}</td>
+                                    <td>{{ item.recoveredFlag }}</td>
+                                    <td>{{ item.restructuredFlag }}</td>
+                                    <td>{{ item.refinancedFlag }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-container">
+                <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                    (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                </pagination>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;" data-dismiss="modal"
+                    (click)="bsModalRef.hide()" (click)="ex()">Exit Page</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="row" *ngIf="showAssignedCasesFlag">
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <p class="card-title">Assigned Cases</p>
+            <!-- Search Form -->
+            <div class="form-group mx-sm-3 mb-6 d-flex">
+                <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                    style="width: 150px; height: 30px;">
+                    <option value="1" disabled>search by</option>
+                    <option value="loanAccount">Loan Account</option>
+                    <option value="accountName">Account Name</option>
+                    <option value="caseNumber">Case Number</option>
+                    <option value="cifId">CIF ID</option>
+                    <option value="assignedEmail">assigned to</option>
+                </select>
+                <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                    class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
+                <button (click)="onSearch()" class="btn btn-primary btn-sm"
+                    style="border-radius: 5px; margin-left: -10px;">Search</button>
+            </div>
+            <!-- Table -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="example" class="display expandable-table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Case Number</th>
+                                    <th>Loan Account</th>
+                                    <th>CIF ID</th>
+                                    <th>Account Name</th>
+                                    <th>Loan Amount</th>
+                                    <th>Loan Tenure</th>
+                                    <th>Branch ID</th>
+                                    <th>Loan Balance</th>
+                                    <th>Syndicated</th>
+                                    <th>Assigned to</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of Assigneddata">
+                                    <td>{{ item.caseNumber }}</td>
+                                    <td>{{ item.loanAccount }}</td>
+                                    <td>{{ item.cifId }}</td>
+                                    <td>{{ item.accountName }}</td>
+                                    <td>{{ item.loanAmount }}</td>
+                                    <td>{{ item.loanTenure }}</td>
+                                    <td>{{ item.solId }}</td>
+                                    <td>{{ item.loanBalance }}</td>
+                                    <td>{{ item.syndicatedFlag }}</td>
+                                    <td>{{ item.assignedEmail }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-container" style="margin-left: 57%;">
+                <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                    (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+                </pagination>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;" data-dismiss="modal"
+                    (click)="bsModalRef.hide()" (click)="exitPage()">Exit Page</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 
 <div class="row" *ngIf="showUnassignedCasesFlag">
@@ -49,41 +201,55 @@
                 <div class="row">
                     <div class="col-8 mb-3 ">
                         <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm"
-                            (ngModelChange)="onSearch()" style="height: 20px;width: 150%;">
+                            (ngModelChange)="onSearches()" style="height: 20px;width: 150%;">
+
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive table-striped">
-                            <table id="example" class="display expandable-table" style="width:100%">
+                            <table id="example" class="display expandable-table">
 
                                 <!-- Table headers and rows -->
                                 <thead>
                                     <tr>
 
                                         <th>Case Number</th>
+                                        <th>Loan Account</th>
                                         <th>CIF ID</th>
-                                        <th>Loan A/C</th>
-                                        <th>A/C Name</th>
-                                        <th>Assigned</th>
+                                        <th>Accout Name</th>
+                                        <th>Loan Amount</th>
+                                        <th>Loan Tenure</th>
+                                        <th>Branch ID</th>
+                                        <th>loan Balance</th>
+                                        <th>Syndicated</th>
+                                        <th>Assigned </th>
                                         <th>Action</th>
+
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
-                                    <tr *ngFor="let item of filteredData">
+                                    <tr *ngFor="let item of UnAssigneddata">
                                         <td>{{ item.caseNumber }}</td>
-                                        <td>{{ item.cifId }}</td>
                                         <td>{{ item.loanAccount }}</td>
+                                        <td>{{ item.cifId }}</td>
                                         <td>{{ item.accountName }}</td>
+                                        <td>{{ item.loanAmount }}</td>
+                                        <td>{{ item.loanTenure }}</td>
+                                        <td>{{ item.solId }}</td>
+                                        <td>{{ item.loanBalance }}</td>
+                                        <td>{{ item.syndicatedFlag }}</td>
                                         <td>{{ item.assigned }}</td>
+
                                         <td><button type="button" class="assign small-btn"
-                                                (click)="goToCaseDetails()">View Case</button></td>
+                                                (click)="goToCaseDetails(item.loanAccount)">View</button></td>
+
+
                                     </tr>
                                 </tbody>
-
 
 
 
@@ -103,89 +269,6 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-</div>
-
-<div class="row" *ngIf="showAssignedCasesFlag">
-
-
-
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-title">Assigned cases</p>
-
-                    <div class="form-group mx-sm-3 mb-6 d-flex">
-                        <!-- <label for="searchParam" style="width: 100px; margin-right:20px; color:black;">Search by:</label> -->
-                        <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
-                            style="width: auto; height: 30px;">
-                            <option value="SearchBy" disabled>SearchBy</option>
-                            <option value="cifId">CIF</option>
-                            <option value="assignedEmail">Assigned Email</option>
-                            <option value="accountName">Account Name</option>
-                            <option value="loanAccount">Loan Account</option>
-                            <!-- <option value="id">ID</option> -->
-                        </select>
-                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
-                            placeholder="Enter search value" class="form-control mr-4"
-                            style="height: 30px;width: 100%; ">
-                        <button (click)="search()" class="btn btn-primary small-btn"
-                            style="border-radius: 3px;">Search</button>
-                    </div>
-
-
-
-
-                    <!-- Export Buttons Container -->
-                    <div class="export-buttons-container">
-
-                        <button class="btn btn-primary mr-4 small-btn" (click)="exportToPDF()">Export PDF</button>
-                        <button class="btn btn-primary small-btn" (click)="exportToExcel()">Export Excel</button>
-
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table id="example" class="display expandable-table" style="width:100%">
-                                    <thead>
-                                        <tr>
-
-                                            <th>Loan Account</th>
-                                            <th>CIF ID</th>
-                                            <th>Acc Name</th>
-                                            <th>Assigned To</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let item of casesData">
-                                            <td>{{ item.loanAccount }}</td>
-                                            <td>{{ item.cifId }}</td>
-                                            <td>{{ item.accountName }}</td>
-                                            <td>{{ item.assignedEmail }}</td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pagination-container" style="margin-left: 57%;">
-                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
-                            (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
-                        </pagination>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
-                            data-dismiss="modal" (click)="bsModalRef.hide()" (click)="exitPage()">Exit Page</button>
-                    </div>
-
-                </div>
-            </div>
         </div>
     </div>
 </div>

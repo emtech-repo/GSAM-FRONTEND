@@ -1,16 +1,14 @@
 .modal-body {
-    padding: 10px; 
-}
-.modal-dialog {
-    margin: 0; /* Remove any default margin */
-    padding: 0; /* Remove any default padding */
+    padding: 10px;
 }
 
+.modal-dialog,
 .modal-content {
-    margin: 0; /* Remove any default margin */
-    padding: 0; /* Remove any default padding */
-} 
-
+    margin: 0;
+    /* Remove any default margin */
+    padding: 0;
+    /* Remove any default padding */
+}
 
 .label-column label,
 .input-column input,
@@ -19,76 +17,52 @@
     line-height: 1;
 }
 
-/* Reduce width of placeholders and adjust for alignment */
 .form-control {
-    width: 100%;
+    width: 50%;
+    /* Reduce width of input fields */
     height: 30px;
     padding: 5px 10px;
+    margin-left: auto;
+    /* Align input fields to the center */
 }
 
-/* Align form items horizontally in two columns */
+/* Align form items horizontally */
 .form-group {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 10px;
 }
 
-/* Define the width for the label and input columns */
-.label-column,
-.input-column {
-    flex: 1;
-}
-
-/* Adjust the margin between label and input */
-.label-column {
+.form-group label {
+    width: 30%;
     margin-right: 10px;
+    text-align: right;
 }
 
-/* Optional: Additional styling for form elements */
 .light-blue-background {
-    background-color: #e0f2f1;
+    background-color: #8EC5FC;
+     background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
     padding: 20px;
+    border-radius: 5px;
 }
 
 .btn {
-    margin-right: 10px;
+    margin-top: 10px;
+    display: block;
+    width: 50%;
+    text-align: center;
+    
 }
 
-.custom-green {
-    background-color: #28a745;
-    /* Green color */
-    border-color: #28a745;
-    /* Green border color */
+/* Optional: Additional styling for modal and button */
+.modal-content {
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-.custom-red {
-    background-color: #dc3545;
-    /* Red color */
-    border-color: #dc3545;
-    /* Red border color */
-}
-
-.custom-green:hover,
-.custom-green:focus,
-.custom-green:active {
-    background-color: #218838;
-    /* Darker green on hover, focus, and active */
-    border-color: #1e7e34;
-    /* Darker green border color on hover, focus, and active */
-}
-
-.custom-red:hover,
-.custom-red:focus,
-.custom-red:active {
-    background-color: #c82333;
-    /* Darker red on hover, focus, and active */
-    border-color: #bd2130;
-    /* Darker red border color on hover, focus, and active */
-}
-.alert-top {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999; /* Adjust z-index if necessary */
+.modal-dialog {
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
 }

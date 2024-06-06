@@ -23,11 +23,10 @@ export class LoanAccountLookUpComponent implements OnInit {
   loandata: any;
   recentActivityData: any[] = [];
   pagedLoanData: any;
-
   SearchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 7;
   totalItems: number = 0;
   selectedItem: any;
   modalService: any;
@@ -99,6 +98,7 @@ export class LoanAccountLookUpComponent implements OnInit {
           if (item.hasOwnProperty(key) && item[key].toString().includes(this.searchTerm.toString())) {
             return true;
           }
+          
         }
         return false;
       });
@@ -108,7 +108,9 @@ export class LoanAccountLookUpComponent implements OnInit {
   }
 
 
+
   closeModal() {
+
     this.bsModalRef.hide();
   }
 

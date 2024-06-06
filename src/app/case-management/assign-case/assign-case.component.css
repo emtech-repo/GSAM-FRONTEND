@@ -2,12 +2,14 @@
     background-color: #800000;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 3px 6px;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-left: 10px;
     height: 40px;
+    font-size: 0.875em;
+    /* Use relative font size for responsiveness */
 }
 
 .assign:hover {
@@ -26,12 +28,6 @@ table td {
     text-align: left;
 }
 
-.table-responsive {
-    max-height: 400px;
-    /* Adjust the max-height as needed */
-    overflow-y: auto;
-}
-
 #example {
     width: 100%;
     /* Ensure table width doesn't exceed its container */
@@ -46,23 +42,22 @@ table td {
     text-align: left;
 }
 
-.assign {
-    font-size: 0.875em;
-    /* Use relative font size for responsiveness */
-    padding: 3px 6px;
-    /* Adjust padding for better responsiveness */
+/* CSS for Even Rows */
+#example tr:nth-child(even) {
+    background-color: #c0c0c0;
+    /* Grey background for even rows */
 }
 
-/* Adjust other styles as needed */
-.small-btn {
-    font-size: 15px;
-    /* Adjust the font size as needed */
-    padding: 5px 10px;
-
-    height: 30px;
-
+/* CSS for Odd Rows */
+#example tr:nth-child(odd) {
+    background-color: #ffffff;
+    /* White background for odd rows */
 }
+
 .table-responsive {
+    max-height: 400px;
+    /* Adjust the max-height as needed */
+    overflow-y: auto;
     margin-bottom: 50px;
     /* Add margin to the bottom of the table */
 }
@@ -80,7 +75,11 @@ table td {
     padding: 5px 10px;
     height: 30px;
     border-radius: 5px;
+}
 
+.export-buttons-container {
+    margin-bottom: 10px;
+    text-align: right;
 }
 
 .export-buttons-container button {

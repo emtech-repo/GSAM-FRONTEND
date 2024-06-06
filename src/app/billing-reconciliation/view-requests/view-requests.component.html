@@ -1,1 +1,52 @@
-<p>view-requests works!</p>
+<div>
+    <h2>Requests</h2>
+</div>
+<div class="form-group mx-sm-3 mb-6 d-flex">
+    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 " style="width: auto; height: 30px;">
+        <option value="SearchBy" disabled>SearchBy</option>
+        <option value="cifId">CIF</option>
+        <option value="accountName">Account Name</option>
+        <option value="loanAccount">Loan Account</option>
+        <!-- <option value="id">ID</option> -->
+    </select>
+<input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+    class="form-control mr-4" style="height: 30px;width: 100%; ">
+    <button (click)="search()" class="btn btn-primary small-btn" style="border-radius: 3px;">Search</button>
+</div>
+
+<div class="row">
+<div class="col-12">
+    <div class="table-responsive">
+        <table id="example" class="display expandable-table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Request Id</th>
+                    <th>Full Name</th>
+                    <th>Service Description</th>
+                    <th>Status</th>
+                    <th>Comments</th>
+                    <th>Update Request</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <td>{{ item.caseNumber }}</td>
+                    <td>{{ item.cifId }}</td>
+                    <td>{{ item.loanAccount }}</td>
+                    <td>{{ item.accountName }}</td>
+                    <td>{{ item.loanBalance }}</td>
+                    <td>{{ item.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="pagination-container">
+    <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+        (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
+    </pagination>
+</div>
+
+
+
