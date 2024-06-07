@@ -25,9 +25,10 @@ export class SharedService {
 
 
 
-  private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
 
-  readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
+  private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+  readonly RequestUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
+  readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/GetAllServiceProviders';
   readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases';
 
@@ -44,16 +45,20 @@ export class SharedService {
   readonly ClosedUrl = 'http://192.168.88.244:5260/api/Case/ClosedCases';
   readonly recoveryUrl = 'http://192.168.89.93:5260/api/Recover/CaseRecover';
    readonly restructureUrl = 'http://192.168.88.244:5260/api/Restructure/CaseRestructure';
+   readonly refinanceUrl = 'http://192.168.88.244:5260/api/Refinance/Refinance';
 
 
   // private documentsUrl = '/assets/data/data.json'
 
-
+  
 
 
   private readonly userDataUrl = 'http://192.168.88.244:5260/api/Auth/Login';
   private registerUrl = 'http://192.168.88.244:5260/api/Auth/Register';
   readonly baseUrl = 'http://192.168.88.244:5260/api/Auth/Register';
+
+  // private readonly userDataUrl = 'assets/data/db.json';
+  // baseUrl: string = "http://localhost:3000/";
 
   readonly APIUrl = 'https://192.168.88.244:5260';
   readonly baseURL = 'assets/data/db.json'
@@ -61,6 +66,7 @@ export class SharedService {
   readonly CasesUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.88.244:9006/accounts/la/all'
   readonly DetailsURL = 'http://192.168.88.244:9006/accounts?acid='
+
 
   readonly CreateCaseUrl='http://192.168.88.244:5260/api/Case/CreateCase';
   readonly LoanAccountCaseUrl ='http://192.168.88.244:9006/accounts';
@@ -73,6 +79,12 @@ export class SharedService {
   
   private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
   private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
+
+  // readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
+  private storageKey = 'uploads';
+  private dataUrl = '/assets/data/data.json';
+  // private documentsUrl = 'http://localhost:3000/uploads';
+  // private documentsUrl = '/assets/data/data.json';
 
 
 
@@ -161,6 +173,10 @@ submitRecovery(inputdata: any) {
   submitRestructure(inputdata: any) {
     return this.http.post(this.restructureUrl, inputdata)
   }
+   submitRefinance(inputdata: any) {
+    return this.http.post(this.refinanceUrl, inputdata)
+  }
+
 
 
   
@@ -312,23 +328,16 @@ submitRecovery(inputdata: any) {
         map((data: any) => data['UnAssigned'])
       );
   }
-  getActive(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.ActiveUrl}`)
-
-      .pipe(
-        tap((data: any[]) => console.log('Fetched Active:', data)),
-        map((data: any) => data['Active'])
-      );
+  
+  Active(): Observable<any[]> {
+    return this.http.get<any[]>(this.ActiveUrl);
   }
-  getClosed(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.ClosedUrl}`)
-
-      .pipe(
-        tap((data: any[]) => console.log('Fetched Closed:', data)),
-        map((data: any) => data['Closed'])
-      );
+  
+  Closed(): Observable<any[]> {
+    return this.http.get<any[]>(this.ClosedUrl);
   }
 
+ 
 
 
   getAccounts(): Observable<any> {
@@ -361,9 +370,9 @@ submitRecovery(inputdata: any) {
   }
 
 
-  registerUser(inputdata: any) {
-    return this.http.post(this.registerUrl, inputdata)
-  }
+  // registerUser(inputdata: any) {
+  //   return this.http.post(this.registerUrl, inputdata)
+  // }
 
   getUserData(): Observable<any> {
     return this.http.get<any>(this.userDataUrl);
@@ -376,28 +385,28 @@ submitRecovery(inputdata: any) {
 
 
 
-  addEmployee(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'user', data);
-  }
+  // addEmployee(data: any): Observable<any> {
+  //   return this.http.post(this.baseUrl + 'user', data);
+  // }
 
 
-  updateEmployee(id: number, updatedFields: any): Observable<any> {
-    // Include all fields in the update request
-    const allFields = { ...updatedFields }; // Copy the updatedFields object
-    allFields.id = id; // Add the employee ID
-    return this.http.put(this.baseUrl + `user/${id}`, allFields);
-  }
+  // updateEmployee(id: number, updatedFields: any): Observable<any> {
+  //   // Include all fields in the update request
+  //   const allFields = { ...updatedFields }; // Copy the updatedFields object
+  //   allFields.id = id; // Add the employee ID
+  //   return this.http.put(this.baseUrl + `user/${id}`, allFields);
+  // }
 
  
 
-  getEmployeeList(): Observable<any> {
-    return this.http.get(this.baseUrl + 'user');
-  }
+  // getEmployeeList(): Observable<any> {
+  //   return this.http.get(this.baseUrl + 'user');
+  // }
 
-  deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + `user/${id}`);
+  // deleteEmployee(id: number): Observable<any> {
+  //   return this.http.delete(this.baseUrl + `user/${id}`);
 
-  }
+  // }
 
   getServiceData(): Observable<any> {
     return this.http.get<any>(`${this.ServiceUrl}/serviceData`);
@@ -442,6 +451,54 @@ submitRecovery(inputdata: any) {
   }
 
 
+
+
+
+  registerUser(inputdata: any) {
+    return this.http.post(this.baseUrl + 'user', inputdata)
+  }
+
+  addEmployee(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'user', data);
+  }
+
+
+  updateEmployee(id: number, updatedFields: any): Observable<any> {
+    // Include all fields in the update request
+    const allFields = { ...updatedFields }; // Copy the updatedFields object
+    allFields.id = id; // Add the employee ID
+    return this.http.put(this.baseUrl + `user/${id}`, allFields);
+  }
+
+  // updateEmployee(id: number, updatedFields: any): Observable<any> {
+  //   return this.http.put(this.baseUrl + `user/${id}`, updatedFields);
+
+  // }
+  // updateEmployee(id: number, data: any): Observable<any> {
+  //   return this.http.put(this.baseUrl + `user/${id}`, data);
+
+  // }
+
+  getEmployeeList(): Observable<any> {
+    return this.http.get(this.baseUrl + 'user');
+  }
+
+  deleteEmployee(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + `user/${id}`);
+
+  }
+
+  getServiceProviders(): Observable<any> {
+    return this.http.get<any>(this.ServiceUrl);
+  }
+
+  submitData(data: any): Observable<any> {
+    return this.http.post<any>(`${this.RequestUrl}`, data);
+  }
+
+  // this.yourService.updateData(updatedData).subscribe(() => {
+  //   this.refreshData(); // Method to fetch and update the data in your component
+  // });
 
 
 }

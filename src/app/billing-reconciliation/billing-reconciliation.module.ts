@@ -11,7 +11,7 @@ import { ApproveClaimComponent } from './approve-claim/approve-claim.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -31,7 +31,7 @@ import { BrowserModule } from '@angular/platform-browser';
     PaginationModule.forRoot(), 
     FormsModule,
     ReactiveFormsModule,
-    BrowserModule,
+    // BrowserModule,
     HttpClientModule
 
 
