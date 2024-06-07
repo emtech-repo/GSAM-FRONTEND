@@ -113,7 +113,7 @@ export const routes: Routes = [
  
 
   {
-    path: 'app-retrieve',
+    path: 'app-retrieve:acid',
     component: RetrieveComponent,
     canActivate: [AuthenticationGuard],
   },

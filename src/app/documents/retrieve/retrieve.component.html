@@ -2,9 +2,8 @@
     <div class="row">
         <div class="col-12 col-lg-2 ">
             <div class="card small-card">
-                <div class="card-body">
-
-                    <div class="modal fade" id="fileUploadDialog" tabindex="-1" aria-labelledby="fileUploadDialogLabel"
+                <div class="card-body">               
+                     <div class="modal fade" id="fileUploadDialog" tabindex="-1" aria-labelledby="fileUploadDialogLabel"
                         aria-hidden="true">
                         <div class="modal-dialog" style="height: 100px;">
                             <div class="modal-content">
@@ -16,17 +15,17 @@
                                     </button>
                                 </div>
 
-                                <div class="modal-body">
+                                <div class="modal-body" style="color: forestgreen;">
                                     <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()"
                                         class="p-3 border rounded shadow-sm bg-light">
                                         <div class="mb-2">
                                             <label for="loanAccount" class="form-label">Loan Account</label>
                                             <input formControlName="loanAccount" class="form-control" id="loanAccount"
-                                                placeholder="Loan Account">
+                                                placeholder="Loan Account" readonly>
                                         </div>
                                         <div class="mb-2">
                                             <label for="accountName" class="form-label">Account Name</label>
-                                            <input formControlName="accountName" class="form-control" id="accountName" placeholder="Account Name">
+                                            <input formControlName="accountName" class="form-control" id="accountName" placeholder="Account Name" readonly>
                                         </div>
 
                                         <div class="mb-2">
@@ -75,6 +74,14 @@
                             </div>
                         </div>
                     </div>
+                    <div #viewDocumentModal class="modal fade" id="viewDocumentModal" tabindex="-1" aria-labelledby="viewDocumentModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <!-- View document modal content -->
+                            </div>
+                        </div>
+                    </div>
                         <div class="d-grid">
                             <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal" data-bs-target="#fileUploadDialog">
                                 + Add File
@@ -107,7 +114,7 @@
         <div class="col-12 col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                    <!-- <div class="form-group mx-sm-3 mb-6 d-flex">
                         <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
                         <select [(ngModel)]="searchParam" class="form-control mr-2" style="width: auto; height: auto;">
                             <option value="acid">Account Number</option>
@@ -117,11 +124,25 @@
                         </select>
                         <input [(ngModel)]="searchValue" type="text" placeholder="Enter search value" class="form-control mr-4"
                             style="width: 300px; height: 20px; margin-right: 15px;" required>
-                        <!-- <button (click)="search()" class="btn btn-primary btn-sm" style="border-radius: 5px;">Search</button> -->
+                       
                         <button (click)="search()" class="btn btn-primary btn-sm" style="border-radius: 5px;"
                             [disabled]="!searchValue">Search</button>
 
+                    </div> -->
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
+                        <select [(ngModel)]="searchParam" class="form-control mr-2" style="width: auto; height: auto;">
+                            <option value="acid">Account Number</option>
+                            <option value="verified_flag">Document Id</option>
+                            <option value="account_name">Account Name</option>
+                            <option value="id">CIF</option>
+                        </select>
+                        <input [(ngModel)]="searchValue" type="text" [placeholder]="'Enter ' + (searchParam | titlecase)"
+                            class="form-control mr-4" style="width: 300px; height: 20px; margin-right: 15px;" required>
+                        <button (click)="search()" class="btn btn-primary btn-sm" style="border-radius: 5px;"
+                            [disabled]="!searchValue">Search</button>
                     </div>
+
                     
                     <div *ngIf="searchCommitted">
                         <div *ngIf="filteredLoanData && filteredLoanData.length > 0">
@@ -158,7 +179,7 @@
                             </table>
                         </div>
                         <div *ngIf="filteredLoanData.length === 0">
-                            <p>No loans available.</p>
+                            <!-- <p style="color: green;">Error Fetching</p> -->
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -211,7 +232,69 @@
                                             <td>{{ file.folder }}</td>
                                             
                                             <td>
-                                                <button class="btn btn-info btn-sm" style="font-size: 10px;" (click)="viewDocument(file)">View</button>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                    (click)="viewDocument(file)">View</button>
+                                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header" style="height: 2px;">
+                                                                    <h5 class="modal-title">Document Details</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div *ngIf="selectedDocument">
+                                                                        <p>Account Name: {{ selectedDocument.accountName }}</p>
+                                                                        <p>Loan Account: {{ selectedDocument.loanAccount }}</p>
+                                                                        <h5>File Name: {{ selectedDocument.fileName }}</h5>
+                                                                        <iframe [src]="selectedDocument.documentUrl" width="100%" height="600px" style="border: 2px solid #ccc;"
+                                                                        (error)="handleError()"></iframe>
+                                                                        <div *ngIf="showError" style="color: red;">Error loading document. Please try again later.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header" style="height: 100px;">
+                                                                <div >
+                                                                    <p>Account Name: {{ selectedDocument.accountName }}</p>
+                                                                    <p >Loan Account: {{ selectedDocument.loanAccount }}</p>                                                    
+                                                                    <h5>File Name:{{ selectedDocument.fileName }}</h5>
+                                                                    
+                                                                    <div *ngIf="selectedDocument.fileType === 'pdf'">
+                                                                        <embed [src]="selectedDocument.fileUrl" type="application/pdf" width="100%" height="600px" />
+                                                                    </div>
+                                                                    <div *ngIf="selectedDocument.fileType === 'image'">
+                                                                        <img [src]="selectedDocument.fileUrl" alt="Document Image" style="width: 100%;" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+
+                                                    
+
+
+
+
+                                                <!-- <button class="btn btn-info btn-sm" style="font-size: 10px;" (click)="viewDocument(file)">View</button> -->
                                                 <button class="btn btn-success btn-sm ms-2" style="font-size: 10px;"
                                                     (click)="downloadDocument(file)">Download</button>
                                             </td>
@@ -224,5 +307,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>   
+ 
 </div>
