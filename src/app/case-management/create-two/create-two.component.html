@@ -94,13 +94,13 @@
                                 </div>
                                 <!-- <p *ngIf="caseId">Case ID: {{ caseId }}</p> -->
                                 <div class="alert alert-success mt-3" *ngIf="CreatedSuccessfully">
-                                    Created Successfully: Case No: {{ caseId }}
+                                    {{ message }}
                                 </div>
 
                                 <!-- Alert for errors -->
-                                <div class="alert alert-danger mt-3" *ngIf="CreatedSuccessfully || errorMessage">
+                                <!-- <div class="alert alert-danger mt-3" *ngIf="CreatedSuccessfully || errorMessage">
                                     {{ errorMessage }}
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>

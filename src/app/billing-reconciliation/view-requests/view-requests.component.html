@@ -4,9 +4,9 @@
 <div class="form-group mx-sm-3 mb-6 d-flex">
     <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 " style="width: auto; height: 30px;">
         <option value="SearchBy" disabled>SearchBy</option>
-        <option value="cifId">CIF</option>
-        <option value="accountName">Account Name</option>
-        <option value="loanAccount">Loan Account</option>
+        <option value="cifId">Request Id</option>
+        <option value="accountName">Service Name</option>
+        <option value="loanAccount">Service Date</option>
         <!-- <option value="id">ID</option> -->
     </select>
 <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
@@ -21,22 +21,26 @@
             <thead>
                 <tr>
                     <th>Request Id</th>
-                    <th>Full Name</th>
-                    <th>Service Description</th>
-                    <th>Status</th>
-                    <th>Comments</th>
-                    <th>Update Request</th>
+                    <th>Service Name</th>
+                    <th>Service Provider Name</th>
+                    <th>Provider Phone Number</th>
+                    <th>Provider Email</th>
+                    <th>Service Date</th>
+                    <th>status</th>
+                    <th>comments</th>
 
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of data">
-                    <td>{{ item.caseNumber }}</td>
-                    <td>{{ item.cifId }}</td>
-                    <td>{{ item.loanAccount }}</td>
-                    <td>{{ item.accountName }}</td>
-                    <td>{{ item.loanBalance }}</td>
+                    <td>{{ item.requestId }}</td>
+                    <td>{{ item.serviceName }}</td>
+                    <td>{{ item.serviceProviderName }}</td>
+                    <td>{{ item.providerPhoneNumber }}</td>
+                    <td>{{ item.providerEmail }}</td>
+                    <td>{{ item.serviceDate }}</td>
                     <td>{{ item.status }}</td>
+                    <td>{{ item.comments }}</td>
                 </tr>
             </tbody>
         </table>
