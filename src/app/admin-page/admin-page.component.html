@@ -2,7 +2,8 @@
   <div class="card-header">
     <h3 class="card-title">Roles Management</h3>
     <div class="card-actions">
-      <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#activateUserModal">Activate User</button>
+      <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#activateUserModal">Activate
+        User</button>
       <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createRoleModal">Create Role</button>
       <button class="btn btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#viewRolesModal">View Roles</button>
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#assignRoleModal">Assign Role</button>
@@ -12,8 +13,8 @@
     <div>
       <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Search by PF eg. 10923" #input>
     </div>
-    <div class="table-container">
-      <table class="table table-striped">
+    <div class="table-responsive">
+      <table id="example" class="display expandable-table" style="width:100%">
         <thead style="background-color: #a31017; color: cornsilk">
           <tr>
             <th>P.F/ID</th>
@@ -34,7 +35,8 @@
               {{ row.role === ""? "Unassigned" : row.role }}
             </td>
             <td>
-              <button class="btn btn-primary btn-sm" *ngIf="row.role!== 'admin'" (click)="openEditForm(row)">User details</button>
+              <button class="btn btn-primary btn-sm" *ngIf="row.role!== 'admin'" (click)="openEditForm(row)">User
+                details</button>
             </td>
           </tr>
         </tbody>
@@ -47,7 +49,8 @@
 
 <!-- Activate User Modal -->
 <!-- Activate User Modal -->
-<div class="modal fade" id="activateUserModal" tabindex="-1" aria-labelledby="activateUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="activateUserModal" tabindex="-1" aria-labelledby="activateUserModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -61,7 +64,8 @@
           <ng-template #userContent>
             <div class="mb-3">
               <label for="selectUser" class="form-label">Select User</label>
-              <select id="selectUser" class="form-select" [(ngModel)]="selectedUser"   name="selectedUser" (change)="updateSelectedUserData()">
+              <select id="selectUser" class="form-select" [(ngModel)]="selectedUser" name="selectedUser"
+                (change)="updateSelectedUserData()">
                 <option *ngFor="let user of dataSource" [value]="user.email">{{ user.email }}</option>
               </select>
             </div>
@@ -69,12 +73,14 @@
 
           <div class="mb-3">
             <label for="pfNumber" class="form-label">PF</label>
-            <input type="text" class="form-control" id="pfNumber" [(ngModel)]="selectedUserPf" name="selectedUserPf" readonly>
+            <input type="text" class="form-control" id="pfNumber" [(ngModel)]="selectedUserPf" name="selectedUserPf"
+              readonly>
 
           </div>
           <div class="mb-3">
             <label for="fullName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="fullName" [(ngModel)]="selectedUserName" name="selectedUserName" readonly>
+            <input type="text" class="form-control" id="fullName" [(ngModel)]="selectedUserName" name="selectedUserName"
+              readonly>
 
           </div>
         </form>
@@ -92,7 +98,7 @@
 
 <!-- Create Role Modal -->
 <div class="modal fade" id="createRoleModal" tabindex="-1" aria-labelledby="createRoleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" >
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="createRoleModalLabel">Create Role</h5>
@@ -119,7 +125,7 @@
       </div>
 
 
-      
+
       <div class="modal-body">
         <div *ngIf="!roles; else rolesContent" class="text-center">Loading roles...</div>
         <ng-template #rolesContent>
@@ -129,7 +135,7 @@
         </ng-template>
       </div>
 
-      
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>

@@ -18,13 +18,13 @@
         </div>
       </div>
       <!-- log in user of the system -->
-     <div class="container">
+      <div class="container">
         <div class="d-flex justify-content-center">
           <p style="color: whitesmoke;">Welcome: {{ currentUser?.email }} ({{ currentUser?.role?.join(', ') }})</p>
         </div>
       </div>
 
-      
+
 
 
       <ul class="navbar-nav navbar-nav-right">
@@ -129,7 +129,7 @@
         </li>
 
         <li class="nav-item">
-          
+
           <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="icon-layout menu-icon"></i>
             <span class="menu-title">Case Management</span>
@@ -139,11 +139,12 @@
           <div class="collapse" id="ui-basic">
 
             <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-case']">Create
+                  Case</a></li>
 
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-search-cases']">Search
                   Case</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-case']">Create
-                  Case</a></li>
+
               <!-- <li class="nav-item"> <a class="nav-link"[routerLink]="['case-management/app-search-case']">Core Banking</a></li> -->
               <li class="nav-item" *ngIf="isManager"> <a class="nav-link"
                   [routerLink]="['case-management/app-case-status']">Case
@@ -154,8 +155,8 @@
 
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-cases-status']">Case
 
-                      Status</a></li>
-             
+                  Status</a></li>
+
 
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-meeting']">
                   Meeting</a></li>
@@ -175,10 +176,10 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
-            class="nav-link"[routerLink]="['documents/app-retrieve']">
-            <i  class="icon-image menu-icon"></i>
+            class="nav-link" [routerLink]="['documents/app-retrieve']">
+            <i class="icon-image menu-icon"></i>
             <span class="menu-title">Documents</span>
-        
+
           </a>
 
           <div class="collapse" id="ui-advanced">
@@ -196,7 +197,7 @@
           </div>
 
         </li>
-     
+
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
             class="nav-link" [routerLink]="['contracts/app-contract-inter']">

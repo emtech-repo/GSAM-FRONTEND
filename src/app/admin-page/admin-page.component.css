@@ -1,15 +1,21 @@
-
-
-
-
-
 .modal-content {
   background-color: #dbe8e9;
 
 }
+
 .table-container {
   width: 100%;
-  overflow-x: auto; 
+  overflow-x: auto;
 }
 
+table {
+  width: 120%;
+  border-collapse: collapse;
+}
 
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}

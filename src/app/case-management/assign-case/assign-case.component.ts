@@ -31,7 +31,7 @@ export class AssignCaseComponent {
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 7;
   totalItems: number = 0;
   totalCases: number = 0;
   assignedCases: number = 0;
@@ -101,11 +101,16 @@ export class AssignCaseComponent {
     });
   }
 
-  pageChanged(event: any): void {
+ pageChanged(event: any): void {
     this.currentPage = event.page;
     this.updatePagedData();
   }
 
+  updatePagedData(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedCasesdata = this.data.slice(startIndex, endIndex);
+  }
   onSearches(): void {
     this.currentPage = 1; // Reset current page when performing a new search
     this.UnAssigneddata = this.UnAssigneddata.filter(item => item.loanAccount.toLowerCase().includes(this.searchTerm.toLowerCase()));
@@ -171,11 +176,6 @@ export class AssignCaseComponent {
     this.updatePagedData();
   }
 
-  updatePagedData(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.pagedCasesdata = this.pagedCasesdata.slice(startIndex, endIndex);
-  }
 
   getDataArray(): any[][] {
     const dataArray: any[][] = [];

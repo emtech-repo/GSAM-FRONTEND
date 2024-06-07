@@ -17,6 +17,12 @@ label {
     white-space: nowrap;
 }
 
+
+table {
+    width: 100%;
+    /* border-collapse: collapse; */
+}
+
 /* Style the table header */
 th {
     padding: 8px;
@@ -25,11 +31,52 @@ th {
     background-color: #800000;
     color: white;
 }
+
+/* Style the table data cells */
 td {
     padding: 5px;
     border-bottom: 1px solid #ddd;
 }
 
+/* Alternate row background color */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect on rows */
+tr:hover {
+    background-color: #ddd;
+
+}
+
+.search-container {
+    margin-bottom: 50px;
+}
+
+
+
+
+.input-group {
+    margin-bottom: 20px;
+    /* Add some bottom margin for spacing */
+}
+
+/* Adjust the width of the select element */
+.form-select {
+    width: 200px;
+}
+
+/* Input Group Styles */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.form-select {
+    width: 200px;
+}
+
+
+/* Tab Styles */
 
 .tab-content-container {
     width: 100%;

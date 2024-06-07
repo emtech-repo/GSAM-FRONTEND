@@ -1,0 +1,23 @@
+table {
+    width: 120%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Targeting table cells (td) */
+.display.expandable-table td {
+    border: 1px solid white;
+    /* Adjust color and thickness as needed */
+}
+
+/* Targeting table row headers (th) */
+.display.expandable-table th {
+    border: 1px solid white;
+    /* Adjust color and thickness as needed */
+}
