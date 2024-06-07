@@ -174,135 +174,142 @@
 
             <ng-container *ngIf="i === 3">
                 <!-- Display content for "Claims Approval" tab -->
-                <div class="container mt-3">
-                    <!-- Claim details -->
-                    <h5>Request Details:</h5>
-                    <!-- Replace this with actual claim details -->
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="https://www.example.com">Request ID :10106</a>
+                <!-- Import Bootstrap CSS in your index.html -->
+                <!DOCTYPE html>
+                <html lang="en">
+                
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Angular App</title>
+                    <base href="/">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+                </head>
+                
+                <body>
+                    <!-- <app-root></app-root> -->
+                </body>
+                
+                </html>
+                
+                <!-- Your component HTML -->
+                <div class="container-xl h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-xl-11">
+                            <div class="card" style="border-radius: 15px;">
+                                <div class="card-body" style="margin-top: -25px;">
+                                    <div class="row align-items-center pt-4 pb-3">
+                                        <div class="main-body">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Request id</th>
+                                                                <th>serviceName</th>
+                                                                <th>serviceProviderName</th>
+                                                                <th>providerAccountNumber</th>
+                                                                <th>providerPhoneNumber</th>
+                                                                <th>serviceDate</th>
+                                                                <th>status</th>
+                                                                <th>Approve</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr *ngFor="let item of data | paginate: { itemsPerPage: 4, currentPage: page }">
+                                                                <td>{{ item.requestId }}</td>
+                                                                <td>{{ item.serviceName }}</td>
+                                                                <td>{{ item.serviceProviderName }}</td>
+                                                                <td>{{ item.providerAccountNumber }}</td>
+                                                                <td>{{ item.providerPhoneNumber }}</td>
+                                                                <td>{{ item.serviceDate }}</td>
+                                                                <td>{{ item.status }}</td>
+                                                                <td>
+                                                                    <button class="btn btn-primary btn-sm"
+                                                                        (click)="openModal(item)">Proceed</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <pagination-controls (pageChange)="page = $event"></pagination-controls>
 
-                            </h5>
-                            <p class="card-text">Requester user name: John kamau</p>
-                            <p class="card-text">Amount: $1000</p>
-                            <p class="card-text">Item: furniture</p>
-                            <p class="card-text">Date: 2024-04-10</p>
-                        </div>
-                    </div>
-                    <!DOCTYPE html>
-                    <html lang="en">
-                    
-                    <head>
-                        <meta charset="UTF-8">
-                        <title>Request Service Form</title>
-                        <!-- Include Bootstrap CSS for styling -->
-                        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-                    </head>
-                    
-                    <body>
-                    
-                        <div class="container mt-5">
-                            <div class="row mb-3">
-                                <div class="col" style="text-align: center; color: maroon;">
-                                    <h4> SERVICE REQUEST APPROVAL </h4>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                    
-                            <form>
-                                <!-- Dropdowns -->
-                                <div class="form-group row">
-                                    <div class="col-md-4 mb-3 mb-md-0">
-                                        <label for="service-name">Service Name</label>
-                                        <select id="service-name" name="service-name" class="form-control">
-                                            <option value="Lawyers">Auctioner</option>
-                                            <option value="Drinking Water">Underwriting</option>
-                                            <option value="Lawyers">Law Suite</option>
-                                            <!-- Add more options here -->
-                                        </select>
-                                    </div>
-                    
-                                    <div class="col-md-4 mb-3 mb-md-0">
-                                        <label for="region">Region</label>
-                                        <select id="region" name="region" class="form-control">
-                                            <option value="option1">Coast</option>
-                                            <option value="option1">Nairobi</option>
-                                            <option value="option1">Western </option>
-                                            <option value="option1">Rift Valley</option>
-                                            <option value="option2">Eastern</option>
-                                            <option value="option1">Central</option>
-                                            <option value="option1">North Eastern</option>
-                                            <!-- Add more options here -->
-                                        </select>
-                                    </div>
-                    
-                                    <div class="col-md-4">
-                                        <label for="service-provider">Service Provider</label>
-                                        <select id="service-provider" name="service-provider" class="form-control">
-                                            <option value="Sam & Advocates">Delight's Enterprises</option>
-                                            <option value="Nairobi Water">Jenkins Investment</option>
-                                            <option value="Nairobi Water">Valerian Auctions</option>
-                                            <option value="Nairobi Water">Sam & Advocates</option>
-                                            <!-- Add more providers here -->
-                                        </select>
-                                    </div>
-                    
-                                    <div class="col-md-4">
-                                        <label for="Zip/Postal Address">Zip/Postal Address</label>
-                                        <input type="text" id="postal-address" name="postal-address" class="form-control">
-                                    </div>
-                    
-                                    <div class="col-md-4">
-                                        <label for="Telephone">Telephone</label>
-                                        <input type="tel" id="telephone" name="telephone" class="form-control">
-                                    </div>
-                    
-                                    <div class="col-md-4">
-                                        <label for="Email Address">Email Address</label>
-                                        <input type="email" id="email" name="email" class="form-control">
-                                    </div>
-                    
-                                    <div class="col-md-4">
-                                        <label for="service-date">Service Date</label>
-                                        <input type="date" id="service-date" name="service-date" class="form-control">
-                                    </div>
-                                </div>
-                    
-                                <div class="form-group">
-                                    <label for="claim-details">Enter Service Details</label>
-                                    <textarea id="claim-details" name="claim-details" class="form-control" rows="4"></textarea>
-                                </div>
-                    
-                            </form>
                         </div>
-                    
-                    
-                    </body>
-                    
-                    </html>
-                    
-
-                    <!-- Comments -->
-                    <div class="form-group mt-3">
-                        <label for="comments">Comments:</label>
-                        <textarea class="form-control" id="comments" rows="3"></textarea>
                     </div>
-
-                    <!-- Buttons -->
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-success" (click)="approveClaim()"
-                            style="margin-top: 10px;">Approve</button>
-                        <button type="button" class="btn btn-danger" (click)="rejectClaim()"
-                            style="margin-top: 10px;">Reject</button>
-
-                    </div>
-
-                    <!-- Submitted Successfully Alert -->
-                    <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
-                        Request {{ action }}ed Successfully!
-                    </div>
-
                 </div>
+                
+                <!-- Modal structure -->
+                <div *ngIf="selectedItem" class="modal fade show d-block" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <!-- <div class="modal-header">
+                                <h5 class="modal-title">Request Details</h5>
+                                <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div> -->
+                            <div class="modal-body" style="max-height: 300px; overflow-y: auto;">
+                                <form>
+                                    <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="requestId">Request ID</label>
+                                        <input type="text" class="form-control" id="requestId" [value]="selectedItem.requestId"
+                                            readonly>
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="serviceName">Service Name</label>
+                                        <input type="text" class="form-control" id="serviceName" [value]="selectedItem.serviceName"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="serviceProviderName">Service Provider Name</label>
+                                        <input type="text" class="form-control" id="serviceProviderName"
+                                            [value]="selectedItem.serviceProviderName" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="providerAccountNumber">Provider Account Number</label>
+                                        <input type="text" class="form-control" id="providerAccountNumber"
+                                            [value]="selectedItem.providerAccountNumber" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="providerPhoneNumber">Provider Phone Number</label>
+                                        <input type="text" class="form-control" id="providerPhoneNumber"
+                                            [value]="selectedItem.providerPhoneNumber" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="serviceDate">Service Date</label>
+                                        <input type="text" class="form-control" id="serviceDate" [value]="selectedItem.serviceDate"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <input type="text" class="form-control" id="status" [value]="selectedItem.status" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="approval-comments">Comments</label>
+                                        <textarea class="form-control" id="comments" rows="3" [(ngModel)]="comment"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" (click)="approveService()">Approve</button>
+                                        <!-- Button to reject the request -->
+                                        <button type="button" class="btn btn-danger" (click)="rejectService()">Reject</button>
+                                        <!-- Button to close the modal -->
+                                        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
             </ng-container>
 
             <ng-container *ngIf="i === 4">

@@ -67,6 +67,8 @@ export const routes: Routes = [
     component: CreateMeetingComponent,
     canActivate: [AuthenticationGuard],
   },
+
+  
   {
     path: 'documentation',
     component: DocumentationComponent,

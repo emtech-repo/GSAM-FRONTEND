@@ -7,12 +7,16 @@ import { ApprovalInterfaceComponent } from './approval-interface/approval-interf
 import { TabsComponent } from './tabs/tabs.component';
 import { FormsModule } from '@angular/forms';
 import { NbCardModule } from '@nebular/theme';
+import { RequestsComponent } from './requests/requests.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 
 @NgModule({
   declarations: [
     ApprovalInterfaceComponent,
-     TabsComponent 
+     TabsComponent,
+     RequestsComponent 
 
      
   ],
@@ -20,7 +24,8 @@ import { NbCardModule } from '@nebular/theme';
     CommonModule,
      ApprovalRoutingModule,
     FormsModule,
-    NbCardModule
+    NbCardModule,
+    NgxPaginationModule
     
     
 

@@ -19,3 +19,8 @@
     color: #e60c0c;
     /* Tab text color on hover */
 }
+
+.table th {
+    background-color: #800000;
+    color: white;
+}
