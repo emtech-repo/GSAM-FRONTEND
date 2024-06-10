@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApprovalInterfaceComponent } from './approval-interface/approval-interface.component';
+import { RequestsComponent } from './requests/requests.component';
 
 const routes: Routes = [
 
   {
     path: 'app-approval-interface',
     component: ApprovalInterfaceComponent,
+  },
+
+  {
+    path: 'app-requests',
+    component: RequestsComponent,
   },
  
 ];

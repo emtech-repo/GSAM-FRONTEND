@@ -3,5 +3,61 @@
     color: maroon;
 }
 
+.form-control {
+    width: 100%;
+    height: 30px;
+    padding: 5px 10px;
+}
+
+.custom-card {
+    border-radius: 15px;
+    height: 40%;
+    width: 120%;
+    margin-left: -9%;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+.no-margin-top {
+    margin-top: 0 !important;
+}
+
+.text-maroon {
+    color: maroon;
+}
+
+.header-margin {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.search-select {
+    width: auto;
+    height: auto;
+    background-color: maroon;
+    color: white;
+}
+
+.search-input {
+    width: 300px;
+    height: 30px;
+    margin-right: 15px;
+}
+
+.search-button {
+    border-radius: 5px;
+}
+
+.label-no-margin {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.input-no-padding-top {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 
 

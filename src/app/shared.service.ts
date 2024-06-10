@@ -15,25 +15,15 @@ export class SharedService {
   loanBalanceChanged: any;
   loanAmountChanged: any;
 
-  submitServiceData(value: any) {
-    throw new Error('Method not implemented.');
-  }
-
-  updateRowData(row: any) {
-    throw new Error('Method not implemented.');
-  }
+ 
 
 
-
-
-  private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   readonly RequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/BookService';
   readonly ServiceUrl = 'http://192.168.88.94:5260/api/ServiceRequest/GetAllServiceProviders';
   readonly LoanUrl = 'http://192.168.88.94:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.88.94:5260/api/Case/GetAllCases';
-
-
-
+  readonly SubmissionsUrl ='http://192.168.88.94:5260/api/ServiceRequest/GetAllRequests';
+  readonly ApprovalRequestsUrl = 'http://192.168.88.94:5260/api/ServiceRequest/ApproveRequest';
 
 
   readonly UnAssignedUrl = 'http://192.168.88.94:5260/api/Case/GetUnAssignedCases';
@@ -508,6 +498,14 @@ submitRecovery(inputdata: any) {
 
   submitData(data: any): Observable<any> {
     return this.http.post<any>(`${this.RequestUrl}`, data);
+  }
+
+  getSubmissions(): Observable<any> {
+    return this.http.get<any>(this.SubmissionsUrl);
+  }
+
+  getApprovalRequests(): Observable<any> {
+    return this.http.get<any>(this.ApprovalRequestsUrl);
   }
 
   // this.yourService.updateData(updatedData).subscribe(() => {

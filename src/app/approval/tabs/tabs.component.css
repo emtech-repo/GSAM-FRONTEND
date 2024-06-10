@@ -19,3 +19,38 @@
     color: #e60c0c;
     /* Tab text color on hover */
 }
+
+.modal-content {
+    background-color: #dbe8e9;
+
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 120%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.small-btn {
+    font-size: 15px;
+    padding: 5px 10px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.form-control {
+    width: 100%;
+    height: 30px;
+    padding: 5px 10px;
+}
