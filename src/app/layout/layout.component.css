@@ -1,0 +1,25 @@
+.county-indicator {
+    position: relative;
+    display: inline-block;
+}
+
+.count {
+    position: absolute;
+    top: -20px;
+    /* Move the count higher */
+    right: -10px;
+    /* Adjust position to the right */
+    color: white;
+    padding: 2px 5px;
+    /* Adjust padding for better fit */
+    font-size: 16px;
+    /* Adjust font size */
+    line-height: 1;
+    text-align: center;
+    min-width: 20px;
+    height: 40px;
+    /* Fixed height for the circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

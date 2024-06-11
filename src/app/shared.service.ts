@@ -15,13 +15,14 @@ export class SharedService {
   loanBalanceChanged: any;
   loanAmountChanged: any;
 
-  submitServiceData(value: any) {
-    throw new Error('Method not implemented.');
-  }
 
-  updateRowData(row: any) {
-    throw new Error('Method not implemented.');
-  }
+//   submitServiceData(value: any) {
+//     throw new Error('Method not implemented.');
+//   }
+
+//   updateRowData(row: any) {
+//     throw new Error('Method not implemented.');
+//   }
 
 
 
@@ -376,9 +377,7 @@ submitRecovery(inputdata: any) {
   }
 
 
-  // registerUser(inputdata: any) {
-  //   return this.http.post(this.registerUrl, inputdata)
-  // }
+  
 
   getUserData(): Observable<any> {
     return this.http.get<any>(this.userDataUrl);
@@ -391,17 +390,7 @@ submitRecovery(inputdata: any) {
 
 
 
-  // addEmployee(data: any): Observable<any> {
-  //   return this.http.post(this.baseUrl + 'user', data);
-  // }
-
-
-  // updateEmployee(id: number, updatedFields: any): Observable<any> {
-  //   // Include all fields in the update request
-  //   const allFields = { ...updatedFields }; // Copy the updatedFields object
-  //   allFields.id = id; // Add the employee ID
-  //   return this.http.put(this.baseUrl + `user/${id}`, allFields);
-  // }
+  
 
  
 
@@ -411,10 +400,7 @@ submitRecovery(inputdata: any) {
   }
 
 
-  // deleteEmployee(id: number): Observable<any> {
-  //   return this.http.delete(this.baseUrl + `user/${id}`);
-
-  // }
+ 
 
   getServiceData(): Observable<any> {
     return this.http.get<any>(`${this.ServiceUrl}/serviceData`);
@@ -512,9 +498,7 @@ submitRecovery(inputdata: any) {
 
   // }
 
-  // getEmployeeList(): Observable<any> {
-  //   return this.http.get(this.baseUrl + 'user');
-  // }
+  
 
   deleteEmployee(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + `user/${id}`);

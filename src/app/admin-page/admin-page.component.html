@@ -21,7 +21,7 @@
             <th>Email</th>
             <th>Status</th>
             <th>Role</th>
-            <th>Action</th>
+            <th>More info</th>
           </tr>
         </thead>
         <tbody>
@@ -34,12 +34,20 @@
               {{ row.role === ""? "Unassigned" : row.role }}
             </td>
             <td>
-              <button class="btn btn-primary btn-sm" *ngIf="row.role!== 'admin'" (click)="openEditForm(row)">User details</button>
+              <span class="more-info" (click)="openEditForm(row)">...</span>
+
+              <!-- <button class="btn btn-primary btn-sm"  (click)="openEditForm(row)">more info</button> -->
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <div class="row" style="margin-left: 57%;">
+          <div class="col-12">
+            <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+              (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true"></pagination>
+          </div>
+        </div>
   </div>
 </div>
 
@@ -60,7 +68,7 @@
           <div *ngIf="!dataSource; else userContent" class="text-center">Loading users...</div>
           <ng-template #userContent>
             <div class="mb-3">
-              <label for="selectUser" class="form-label">Select User</label>
+              <label for="selectUser" class="form-label" >Select User</label>
               <select id="selectUser" class="form-select" [(ngModel)]="selectedUser"   name="selectedUser" (change)="updateSelectedUserData()">
                 <option *ngFor="let user of dataSource" [value]="user.email">{{ user.email }}</option>
               </select>
@@ -81,8 +89,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" (click)="activateUser()">Activate</button>
-        <button type="button" class="btn btn-danger" (click)="deactivateUser()">Deactivate</button>
+        <button type="button" class="btn btn-primary" (click)="activateUser()">Activate</button>
+        <button type="button" class="btn btn-primary" (click)="deactivateUser()">Deactivate</button>
       </div>
     </div>
   </div>
