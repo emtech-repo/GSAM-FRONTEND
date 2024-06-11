@@ -56,16 +56,33 @@ table td {
 }
 
 .btn-success {
-    background-color: #28a745 !important;
-    color: white !important;
+    background-color: #28a745;
+    color: white ;
 }
 
 .btn-danger {
-    background-color: #dc3545 !important;
-    color: white !important;
+    background-color: #dc3545;
+    color: white ;
 }
 
 .btn-primary {
-    background-color: #007bff !important;
-    color: white !important;
+    background-color: #007bff ;
+    color: white ;
+}
+
+.custom-button {
+    background-color: #800000;
+    color: white ;
+}
+
+/* styles.css or the relevant CSS file */
+.fixed-width-badge {
+    display: inline-block;
+    /* Ensures the width is applied correctly */
+    width: 80px;
+    /* Adjust this value based on your requirements */
+    text-align: center;
+    /* Centers the text inside the badge */
+    white-space: nowrap;
+    /* Prevents the text from wrapping */
 }

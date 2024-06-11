@@ -60,4 +60,13 @@
     padding-bottom: 0;
 }
 
+.btn-primary {
+    background-color:#800000;
+    color: white;
+    width: 150px;
+    text-align: center;
+    
+}
+
+
 

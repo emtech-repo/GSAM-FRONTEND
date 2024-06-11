@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 
+
 @NgModule({
   declarations: [
     RequestServiceComponent,
@@ -32,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     // BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    PaginationModule
 
 
   ]

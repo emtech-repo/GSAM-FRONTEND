@@ -57,7 +57,7 @@ export class TabsComponent implements OnInit {
   selectTab(index: number) {
     this.selectedIndex = index;
   }
-  
+
   openSubmitModal(item: any) {
     // Ensure item contains expected properties
     if (!item) {
@@ -95,14 +95,14 @@ export class TabsComponent implements OnInit {
       const modal = bootstrap.Modal.getInstance(modalElement);
       modal.hide();
     }
-    
+
   }
 
   approveSubmitService() {
     // this.showModalMessage('Request Approved', 'alert-success');
     this.postSubmitData('approve');
     // this.closeSubmitModal();
-  } 
+  }
   rejectSubmitService() {
     // this.showModalMessage('Request Rejected', 'alert-danger');
     this.postRejectData('reject');
@@ -117,7 +117,7 @@ export class TabsComponent implements OnInit {
       modalMessage.className = `alert ${alertClass}`;
       modalMessage.style.display = 'block';
     }
-    }
+  }
 
   postRejectData(action: string) {
     const data = {
@@ -135,11 +135,11 @@ export class TabsComponent implements OnInit {
       response => {
         console.log('Data posted successfully:', response);
         if (action === 'reject') {
-          this.message= response.message
+          this.message = response.message
           this.toastr.success(response.message);
           this.showModalMessage(response.message, 'alert-danger');
-        } 
-         else {
+        }
+        else {
           this.message = response.message
           this.toastr.success(response.message);
         }
@@ -194,7 +194,7 @@ export class TabsComponent implements OnInit {
     );
   }
 
-  
+
 
 
 
@@ -246,7 +246,7 @@ export class TabsComponent implements OnInit {
     this.SubmissionsUrl = this.sharedService.SubmissionsUrl;
     this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
     this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
-    
+
     this.fetchService();
     this.fetchData();
   }
@@ -254,7 +254,7 @@ export class TabsComponent implements OnInit {
   sortSubmitData(): void {
     this.SubmitData.sort((a, b) => new Date(b.serviceDate).getTime() - new Date(a.serviceDate).getTime());
   }
- 
+
   pageChanged(event: any): void {
     this.currentPage = event.page;
     this.filterData(); // Update displayed data when page changes

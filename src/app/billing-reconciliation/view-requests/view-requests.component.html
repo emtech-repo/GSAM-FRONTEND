@@ -1,3 +1,5 @@
+<div class="tab-content">
+<ng-container>
 <div>
     <h2>Requests</h2>
 </div>
@@ -50,6 +52,9 @@
     <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
         (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
     </pagination>
+</div>
+
+
 </div>
 
 
