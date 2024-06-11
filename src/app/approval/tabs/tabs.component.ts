@@ -5,6 +5,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import jsPDF from 'jspdf';
+// import bootstrap from 'bootstrap';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-tabs',
@@ -28,9 +31,14 @@ export class TabsComponent implements OnInit {
   Casesdata: any[] = [];
   apiUrl: string = '';
   SubmissionsUrl: string = '';
+  ApprovalRequestsUrl: string = '';
+  RejectRequestsUrl: string = '';
   selectedRowData: any;
   @Input() loanAccount: any = '';
   SubmitData: any[] = [];
+  message: string = '';
+  response: any;
+  // SubmitModalData: any = {};
 
 
 
@@ -49,6 +57,145 @@ export class TabsComponent implements OnInit {
   selectTab(index: number) {
     this.selectedIndex = index;
   }
+  
+  openSubmitModal(item: any) {
+    // Ensure item contains expected properties
+    if (!item) {
+      console.error('Invalid item:', item);
+      return;
+    }
+    // Populate modal fields
+    const requestId = document.getElementById('requestId') as HTMLInputElement;
+    const serviceName = document.getElementById('serviceName') as HTMLInputElement;
+    const serviceProviderName = document.getElementById('serviceProviderName') as HTMLInputElement;
+    const providerAccountNumber = document.getElementById('providerAccountNumber') as HTMLInputElement;
+    const providerPhoneNumber = document.getElementById('providerPhoneNumber') as HTMLInputElement;
+    const status = document.getElementById('status') as HTMLInputElement;
+
+    if (requestId && serviceName && serviceProviderName && providerAccountNumber && providerPhoneNumber && status) {
+      requestId.value = item.requestId || '';
+      serviceName.value = item.serviceName || '';
+      serviceProviderName.value = item.serviceProviderName || '';
+      providerAccountNumber.value = item.providerAccountNumber || '';
+      providerPhoneNumber.value = item.providerPhoneNumber || '';
+      status.value = item.status || '';
+    }
+
+    const modalElement = document.getElementById('approveserviceModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+
+  closeSubmitModal() {
+    const modalElement = document.getElementById('approveserviceModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      modal.hide();
+    }
+    
+  }
+
+  approveSubmitService() {
+    // this.showModalMessage('Request Approved', 'alert-success');
+    this.postSubmitData('approve');
+    // this.closeSubmitModal();
+  } 
+  rejectSubmitService() {
+    // this.showModalMessage('Request Rejected', 'alert-danger');
+    this.postRejectData('reject');
+    // this.closeSubmitModal();
+  }
+
+
+  showModalMessage(message: string, alertClass: string) {
+    const modalMessage = document.getElementById('modalMessage');
+    if (modalMessage) {
+      modalMessage.innerText = message;
+      modalMessage.className = `alert ${alertClass}`;
+      modalMessage.style.display = 'block';
+    }
+    }
+
+  postRejectData(action: string) {
+    const data = {
+      RequestId: (document.getElementById('requestId') as HTMLInputElement).value,
+      ServiceName: (document.getElementById('serviceName') as HTMLInputElement).value,
+      ServiceProviderName: (document.getElementById('serviceProviderName') as HTMLInputElement).value,
+      ProviderAccountNumber: (document.getElementById('providerAccountNumber') as HTMLInputElement).value,
+      PageTransitionEventroviderPhoneNumber: (document.getElementById('providerPhoneNumber') as HTMLInputElement).value,
+      Status: (document.getElementById('status') as HTMLInputElement).value,
+      ApproverComments: (document.getElementById('comments') as HTMLInputElement).value,
+      action: action
+    };
+
+    this.http.post<any>(this.RejectRequestsUrl, data).subscribe(
+      response => {
+        console.log('Data posted successfully:', response);
+        if (action === 'reject') {
+          this.message= response.message
+          this.toastr.success(response.message);
+          this.showModalMessage(response.message, 'alert-danger');
+        } 
+         else {
+          this.message = response.message
+          this.toastr.success(response.message);
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error posting data:', error);
+        if (error.status === 404) {
+          this.toastr.error('API endpoint not found. Please check the URL.');
+        } else {
+          this.toastr.error('An error occurred while processing your request');
+        }
+      }
+    );
+  }
+
+  postSubmitData(action: string) {
+    const data = {
+      RequestId: (document.getElementById('requestId') as HTMLInputElement).value,
+      ServiceName: (document.getElementById('serviceName') as HTMLInputElement).value,
+      ServiceProviderName: (document.getElementById('serviceProviderName') as HTMLInputElement).value,
+      ProviderAccountNumber: (document.getElementById('providerAccountNumber') as HTMLInputElement).value,
+      PageTransitionEventroviderPhoneNumber: (document.getElementById('providerPhoneNumber') as HTMLInputElement).value,
+      Status: (document.getElementById('status') as HTMLInputElement).value,
+      ApproverComments: (document.getElementById('comments') as HTMLInputElement).value,
+      action: action
+    };
+
+    this.http.post<any>(this.ApprovalRequestsUrl, data).subscribe(
+      response => {
+        console.log('Data posted successfully:', response);
+        if (action === 'approve') {
+          this.message = response.message
+          this.toastr.success(response.message);
+          this.showModalMessage(response.message, 'alert-success');
+
+        } else if (action === 'reject') {
+          this.message = response.message
+          this.toastr.success(response.message);
+        } else {
+          this.message = response.message
+          this.toastr.success(response.message);
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error posting data:', error);
+        if (error.status === 404) {
+          this.toastr.error('API endpoint not found. Please check the URL.');
+        } else {
+          this.toastr.error('An error occurred while processing your request');
+        }
+      }
+    );
+  }
+
+  
+
 
 
 
@@ -97,10 +244,17 @@ export class TabsComponent implements OnInit {
   ngOnInit(): void {
     this.apiUrl = this.sharedService.ActivityUrl;
     this.SubmissionsUrl = this.sharedService.SubmissionsUrl;
+    this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
+    this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
+    
     this.fetchService();
     this.fetchData();
   }
 
+  sortSubmitData(): void {
+    this.SubmitData.sort((a, b) => new Date(b.serviceDate).getTime() - new Date(a.serviceDate).getTime());
+  }
+ 
   pageChanged(event: any): void {
     this.currentPage = event.page;
     this.filterData(); // Update displayed data when page changes
@@ -112,16 +266,19 @@ export class TabsComponent implements OnInit {
   }
 
   fetchService(): void {
-    this.http.get<any>(this.SubmissionsUrl).subscribe(response => {
-      if (response && response.result && Array.isArray(response.result)) {
-        this.SubmitData = response.result;
-        // this.calculateCaseCounts();
-      } else {
-        console.error('Invalid data received from API:', response);
+    this.http.get<any>(this.SubmissionsUrl).subscribe(
+      response => {
+        if (response && response.result && Array.isArray(response.result)) {
+          this.SubmitData = response.result;
+          this.sortSubmitData();
+        } else {
+          console.error('Invalid data received from API:', response);
+        }
+      },
+      error => {
+        console.error('Error fetching data from API:', error);
       }
-    }, error => {
-      console.error('Error fetching data from API:', error);
-    });
+    );
   }
 
 

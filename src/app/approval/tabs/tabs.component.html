@@ -340,13 +340,13 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>Request id</th>
-                                            <th>serviceName</th>
-                                            <th>serviceProviderName</th>
-                                            <th>providerAccountNumber</th>
-                                            <th>providerPhoneNumber</th>
-                                            <th>serviceDate</th>
-                                            <th>status</th>
-                                            <th>Approve</th>
+                                            <th>Service Name</th>
+                                            <th>Provider Name</th>
+                                            <th>Account Number</th>
+                                            <th>Phone Number</th>
+                                            <th>Service Date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
 
                                     </thead>
@@ -358,11 +358,19 @@
                                             <td>{{ item.providerAccountNumber }}</td>
                                             <td>{{ item.providerPhoneNumber }}</td>
                                             <td>{{ item.serviceDate }}</td>
-                                            <td>{{ item.status }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary small-btn"
-                                                    data-bs-toggle="modal" data-bs-target="#approveserviceModal">
-                                                    Approve
+                                            <button class="btn btn-primary small-btn" [ngClass]="{
+                                                                  'btn-success': item.status === 'Approved',
+                                                                  'btn-danger': item.status === 'Rejected',
+                                                                  'btn-primary': item.status === 'Pending'
+                                                                }">
+                                                {{ item.status }}
+                                            </button>
+                                            </td>
+                                            <td>
+                                                
+                                                <button type="button" class="btn btn-primary small-btn" (click)="openSubmitModal(item)">
+                                                    Verify
                                                 </button>
 
                                             </td>
@@ -386,114 +394,89 @@
 
                     </div>
                 </div>
-                <!-- services modal-->
-                <div class="modal fade" id="approveserviceModal" tabindex="-1"
-                    aria-labelledby="approveserviceModalLabel" aria-hidden="true">
+                <!-- services modal -->
+                <div class="modal fade" id="approveserviceModal" tabindex="-1" aria-labelledby="approveserviceModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="approveserviceModalLabel">Service Approval Request Form</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <h5 class="modal-title" id="approveserviceModalLabel">Service Request Approval Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <!-- First Column -->
+                                        <!-- First Column  -->
                                         <div class="row">
                                             <div class="col-md-12 ps-9">
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloanaccount" style="margin-bottom: -1px;">Loan
-                                                        Account
-                                                    </label>
-                                                    <input type="text" class="form-control" id="CifID" readonly />
-
-
+                                                    <label for="requestId" style="margin-bottom: -1px;">Request Id</label>
+                                                    <input type="text" class="form-control" id="requestId" readonly />
                                                 </div>
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputcasenumber" style="margin-bottom: -1px;">Case
-                                                        Number </label>
-                                                    <input type="text" class="form-control" id="caseNumber" readonly />
-
+                                                    <label for="serviceName" style="margin-bottom: -1px;">Service Name</label>
+                                                    <input type="text" class="form-control" id="serviceName" readonly />
                                                 </div>
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloan" style="margin-bottom: -1px;"> Loan
-                                                        Amount</label>
-                                                    <input type="text" class="form-control" id="loanAmount" readonly />
-
-
-                                                </div>
-
-
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <!-- Second Column -->
+                                        <!-- Second Column  -->
                                         <div class="row">
                                             <div class="col-md-12 ps-9">
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputcifId" style="margin-bottom: -1px;">CIF ID</label>
-                                                    <input type="text" class="form-control" id="cifId" readonly />
-
-
+                                                    <label for="providerAccountNumber" style="margin-bottom: -1px;">Account
+                                                        Number</label>
+                                                    <input type="text" class="form-control" id="providerAccountNumber" readonly />
                                                 </div>
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inpubranchid" style="margin-bottom: -1px;">Branch
-                                                        ID</label>
-                                                    <input type="text" class="form-control" id="solId" y />
-
-
+                                                    <label for="providerPhoneNumber" style="margin-bottom: -1px;">Phone Number</label>
+                                                    <input type="text" class="form-control" id="providerPhoneNumber" readonly />
                                                 </div>
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloanbalance" style="margin-bottom: -1px;">Loan
-                                                        Balance</label>
-                                                    <input type="text" class="form-control" id="loanBalance" readonly />
-
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <!-- Third Column -->
                                         <div class="row">
                                             <div class="col-md-12 ps-9">
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputaccname" style="margin-bottom: -1px;">Acc
-                                                        Name</label>
-                                                    <input type="text" class="form-control" id="accountName" readonly />
-
-
+                                                    <label for="status" style="margin-bottom: -1px;">Status</label>
+                                                    <input type="text" class="form-control" id="status" readonly />
                                                 </div>
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloantenure" style="margin-bottom: -1px;">Loan
-                                                        Tenure</label>
-                                                    <input type="text" class="form-control" id="loanTenure" readonly />
-
+                                                    <label for="serviceProviderName" style="margin-bottom: -1px;">Provider Name</label>
+                                                    <input type="text" class="form-control" id="serviceProviderName" readonly />
                                                 </div>
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloantenure" style="margin-bottom: -1px;">Case
-                                                        number </label>
-                                                    <input type="text" class="form-control" id="loanTenure" readonly />
-
-                                                </div>
-
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="comments" style="margin-bottom: -1px;">Comments</label>
+                                            <textarea class="form-control" id="comments" rows="4"
+                                                placeholder="Enter your comments here"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="modalMessage" class="alert" style="display: none;" >
+                                    {{ message }}
+                                    
+                                </div> <!-- Add this line -->
+
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary small-btn"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary small-btn">Approve service</button>
+                                <button type="button" class="btn btn-primary small-btn"(click)="closeSubmitModal()">Close</button>
+                                <button type="button" class="btn btn-danger" (click)="rejectSubmitService()">Reject Sevice</button>
+                                <button type="button" class="btn btn-success" (click)="approveSubmitService()">Approve service</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
 
             </ng-container>
