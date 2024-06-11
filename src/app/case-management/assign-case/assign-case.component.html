@@ -83,6 +83,7 @@
                                         <th>Recovered</th>
                                         <th>Restructured</th>
                                         <th>Refinanced</th>
+                                        <th>Verified</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,6 +99,7 @@
                                         <td>{{ item.recoveredFlag }}</td>
                                         <td>{{ item.restructuredFlag }}</td>
                                         <td>{{ item.refinancedFlag }}</td>
+                                        <td>{{ item.verifiedFlag }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -159,7 +161,10 @@
                                         <th>Branch ID</th>
                                         <th>Loan Balance</th>
                                         <th>Syndicated</th>
+                                        <th>Verified</th>
                                         <th>Assigned to</th>
+                                      
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -173,6 +178,7 @@
                                         <td>{{ item.solId }}</td>
                                         <td>{{ item.loanBalance }}</td>
                                         <td>{{ item.syndicatedFlag }}</td>
+                                        <td>{{ item.verifiedFlag }}</td>
                                         <td>{{ item.assignedEmail }}</td>
                                     </tr>
                                 </tbody>
@@ -231,7 +237,7 @@
                                         <th>Branch ID</th>
                                         <th>loan Balance</th>
                                         <th>Syndicated</th>
-                                        <th>Assigned </th>
+                                        <th>Verified </th>
                                         <th>Action</th>
 
                                     </tr>
@@ -249,10 +255,10 @@
                                         <td>{{ item.solId }}</td>
                                         <td>{{ item.loanBalance }}</td>
                                         <td>{{ item.syndicatedFlag }}</td>
-                                        <td>{{ item.assigned }}</td>
+                                        <td>{{ item.verifiedFlag }}</td>
 
                                         <td><button type="button" class="assign small-btn"
-                                                (click)="goToCaseDetails(item.loanAccount)">View</button></td>
+                                                (click)="goToCaseDetails(item.loanAccount)">Proceed</button></td>
 
 
                                     </tr>

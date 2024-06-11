@@ -124,7 +124,7 @@ const loanBalance = Math.abs(parseFloat(this.decisionDetails.loanBalance));
       (response: any) => {
         console.log('Response received:', response);
         this.loading = false;
-        this.successMessage = 'Recovery data submitted successfully!';
+        this.responseMessage = 'Recovery data submitted successfully!';
         this.toastr.success('Recovery data submitted successfully!', 'Success');
       },
       (error: any) => {

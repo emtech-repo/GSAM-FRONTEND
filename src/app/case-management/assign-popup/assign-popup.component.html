@@ -8,7 +8,6 @@
                         <h3 style="font-size: 25px; color:black; text-align: center; margin-top: -5px;">
                             Assign Case  Form
                         </h3>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <form>
@@ -23,21 +22,19 @@
                             <input type="email" class="form-control" name="email" id="email" [(ngModel)]="UserName"
                                 required>
                         </div>
+<div class="row">
+    <div class="modal-footer">
+        <div class="d-flex justify-content-end" style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary small-btn me-2"(click)="onCancel()">
+                Close
+            </button>
+            <button type="button" class="btn btn-primary small-btn" (click)="assignCase()">
+                Assign Case
+            </button>
+        </div>
+    </div>
+</div>
 
-                        <div class="row">
-                            <div class="modal-footer">
-                                <div class="d-flex justify-content-end" style="margin-top: 20px;">
-                                    <button type="button" class="btn btn-primary small-btn me-2"
-                                        data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="submit" class="btn btn-primary small-btn" (click)="assignCase()"
-                                        data-bs-dismiss="modal">
-                                        Assign Case
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>

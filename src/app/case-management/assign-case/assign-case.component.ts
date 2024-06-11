@@ -31,7 +31,7 @@ export class AssignCaseComponent {
   searchQuery: string = '';
   searchTerm: string = '';
   currentPage: number = 1;
-  pageSize: number = 7;
+  pageSize: number = 5;
   totalItems: number = 0;
   totalCases: number = 0;
   assignedCases: number = 0;
