@@ -54,43 +54,102 @@
             </ng-container>
 
 
-            <ng-container *ngIf="i === 1">
-                <!-- Display content for "Document Approval" tab -->
-                <div class="container mt-3">
-                    <!-- Document details -->
-                    <h5>Document Details:</h5>
-                    <!-- Replace this with actual document details -->
-                    <p><a href="#">Document Name: DocumentXYZ</a></p> <!-- Make Document Name a clickable link -->
-                    <p>Submitted By: John Doe</p>
-                    <p>Submission Date: 2024-04-15</p>
+    <ng-container *ngIf="i === 1">
+            <!-- Display content for "Document Approval" tab -->
+    <div class="container mt-3">
+        <button type="button" class="btn btn-primary mb-3" (click)="fetchDocuments()">Fetch Documents</button>
+        <button type="button" class="btn btn-primary mb-3" (click)="goBack()">Back</button>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="example" class="display expandable-table table table-striped" style="width:100%">
+                        <thead class="table-sm">
+                            <tr>
+                                <th class="p-1 text-nowrap">File Name</th>
+                                <th class="p-1 text-nowrap">Account</th>
+                                <th class="p-1 text-nowrap">Submission Date</th>
+                                <th class="p-1 text-nowrap">Status</th>
+                                <th class="p-1 text-nowrap">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let document of documents">
+    
+                                <td><a href="#" (click)="viewDocument(document)">{{ document.fileName }}</a></td>
+                                <td>{{ document.loanAccount }}</td>
+                                <td>{{ document.createdOn}}</td>
+                                <td>
+                                    <ng-container *ngIf="document.verifiedFlag === 'Y'; else pendingFlag">
+                                        <button type="button" class="btn btn-success btn-sm">Approved</button>
+                                    </ng-container>
+                                    <ng-template #pendingFlag>
+                                        <button type="button" class="btn btn-warning btn-sm">Pending</button>
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <!-- Button to open Approval Confirmation Modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#approvalModal">Approve</button>
+                                
+                                    <!-- Modal for Approval Confirmation -->
+                                    <div class="modal fade" id="approvalModal" tabindex="-1" aria-labelledby="approvalModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="approvalModalLabel">Document Approval</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form (submit)="approveDocument(document)">
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="loanAccount" class="form-label">Loan Account:</label>
+                                                            <input type="text" class="form-control" id="loanAccount" name="loanAccount"
+                                                                [(ngModel)]="document.loanAccount">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="accountName" class="form-label">Account Name:</label>
+                                                            <input type="text" class="form-control" id="accountName" name="accountName" [(ngModel)]="document.accountName">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="fileName" class="form-label">File Name:</label>
+                                                            <input type="text" class="form-control" id="fileName" name="fileName" [(ngModel)]="document.fileName">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="createdOn" class="form-label">Submission Date:</label>
+                                                            <input type="text" class="form-control" id="createdOn" name="createdOn"
+                                                                [(ngModel)]="document.createdOn">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="fileType" class="form-label">File Type:</label>
+                                                            <input type="text" class="form-control" id="fileType" name="fileType" [(ngModel)]="document.fileType">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="comment" class="form-label">Comment:</label>
+                                                            <textarea class="form-control" id="comment" name="comment" [(ngModel)]="approvalComments" rows="3"></textarea>
+                                                        </div>
+                                                    </div>
 
-                    <!-- View Submission button -->
-                    <button type="button" class="btn btn-primary btn-sm btn-block my-3">
-                        <span>View Submission</span>
-                    </button>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Reject</button>
+                                                        <button type="submit" class="btn btn-primary">Approve</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                    <!-- Comments -->
-                    <div class="form-group mt-3">
-                        <label for="comments">Comments:</label>
-                        <textarea class="form-control" id="comments" rows="3"></textarea>
-                    </div>
-
-                    <!-- Buttons -->
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-success" (click)="approveDocument()"
-                            style="margin-top: 10px;">Approve</button>
-                        <button type="button" class="btn btn-danger" (click)="rejectDocument()"
-                            style="margin-top: 10px;">Reject</button>
-
-                    </div>
-
-
-                    <div class="alert alert-success mt-3" *ngIf="submittedSuccessfully">
-                        Submitted Successfully!
-                    </div>
-
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </ng-container>
+            </div>
+        </div>
+    </div>
+
+
+        </ng-container>
+
 
 
             <ng-container *ngIf="i === 2">

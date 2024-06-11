@@ -22,9 +22,11 @@ export class RetrieveComponent implements OnInit, OnDestroy {
  
   private destroy$ = new Subject<void>();
   uploadForm: FormGroup;
-  documentUrl: SafeResourceUrl | undefined;
+  // documentUrl: SafeResourceUrl | undefined;
   loading: boolean = false;
   fileName: string = '';
+  documentUrl: string | null = null; // Store document URL
+  documentFileName: string | null = null; // Store document file name
   successMessage: string | null = null;
   errorMessage: string | null = null;
   folders: string[] = ['Collateral', 'Personal Documents', 'Contracts', 'Litigation'];
@@ -122,15 +124,15 @@ export class RetrieveComponent implements OnInit, OnDestroy {
     const routeSearchParam = this.route.snapshot.paramMap.get('searchParam');
     const routeSearchValue = this.route.snapshot.paramMap.get('searchValue');
 
-    console.log('Route Search Param:', routeSearchParam);
-    console.log('Route Search Value:', routeSearchValue);
+    // console.log('Route Search Param:', routeSearchParam);
+    // console.log('Route Search Value:', routeSearchValue);
 
     // Determine the effective search parameters
     const effectiveSearchParam = routeSearchParam || this.searchParam;
     const effectiveSearchValue = routeSearchValue || this.searchValue;
 
-    console.log('Effective Search Param:', effectiveSearchParam);
-    console.log('Effective Search Value:', effectiveSearchValue);
+    // console.log('Effective Search Param:', effectiveSearchParam);
+    // console.log('Effective Search Value:', effectiveSearchValue);
 
     if (effectiveSearchValue) {
       this.filteredLoanData = this.LoanData.filter(loan => {
@@ -138,7 +140,7 @@ export class RetrieveComponent implements OnInit, OnDestroy {
           const searchField = loan[effectiveSearchParam];
           if (searchField != null) {
             const fieldString = searchField.toString().toLowerCase();
-            console.log('Field String:', fieldString);
+            // console.log('Field String:', fieldString);
             return fieldString.includes(effectiveSearchValue.toLowerCase());
           }
           return false;
@@ -196,6 +198,7 @@ export class RetrieveComponent implements OnInit, OnDestroy {
       fileExtension: file.name.split('.').pop()
     });
   }
+ 
   onSubmit() {
     if (this.uploadForm.valid) {
       this.loading = true;
@@ -203,6 +206,8 @@ export class RetrieveComponent implements OnInit, OnDestroy {
       this.errorMessage = null;
 
       const formValues = this.uploadForm.value;
+      formValues.VerifiedFlag = 'N';
+
       this.sharedserv.uploadDocument(
         formValues.file,
         formValues.loanAccount,
@@ -218,11 +223,16 @@ export class RetrieveComponent implements OnInit, OnDestroy {
           this.fetchDocuments(); // Refresh documents list after successful upload
           this.uploadForm.reset();
           console.log('Upload Document Response:', response);
+          if (response.documentUrl) {
+            this.documentUrl = response.documentUrl;
+            this.documentFileName = formValues.fileName || 'downloaded_file';
+            console.log('Uploaded Document URL:', this.documentUrl);
+            console.log('Uploaded Document File Name:', this.documentFileName);
+          } else {
+            console.error('Upload response did not contain a document URL');
+          }
 
-          // Assuming the response contains the URL of the uploaded document
-          const documentUrl = response.documentUrl;
-          console.log('Uploaded Document URL:', documentUrl);
-          this.displayDocument(documentUrl);
+          
         },
         (error) => {
           this.loading = false;
@@ -240,54 +250,8 @@ export class RetrieveComponent implements OnInit, OnDestroy {
     }
   }
 
-  displayDocument(url: string) {
-    
-    const safeUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    this.documentUrl = safeUrl;
-    console.log('Sanitized Document URL:', this.documentUrl);
-  }
 
-  // onSubmit() {
-  //   if (this.uploadForm.valid) {
-  //     this.loading = true;
-  //     this.successMessage = null;
-  //     this.errorMessage = null;
-    
 
-  //     const formValues = this.uploadForm.value;
-  //     this.sharedserv.uploadDocument(
-  //       formValues.file,
-  //       formValues.loanAccount,
-  //       formValues.fileName,
-  //       formValues.fileType,
-  //       formValues.folder,
-  //       formValues.fileExtension,
-  //       formValues.accountName
-        
-  //     ).subscribe(
-  //       (response) => {
-  //         this.loading = false;
-  //         this.successMessage = response.message;
-  //         this.fetchDocuments(); // Refresh documents list after successful upload
-  //         uploadDate: new Date()
-  //         this.uploadForm.reset();
-        
-  //       },
-  //       (error) => {
-  //         this.loading = false;
-  //         if (error.error && error.error.message) {
-  //           this.errorMessage = error.error.message;
-  //         } else if (error.message) {
-  //           this.errorMessage = error.message;
-  //         } else {
-  //           this.errorMessage = "An error occurred while uploading the document.";
-  //         }
-  //       }
-  //     );
-  //   } else {
-  //     console.error('Form is invalid');
-  //   }
-  // }
 
   updateCounts(documents: any[]) {
     // Reset the counts
@@ -310,32 +274,40 @@ export class RetrieveComponent implements OnInit, OnDestroy {
     this.totalRecentFilesCount = this.recentFiles.length;
   }
   
-  downloadDocument(file: any) {
-    fetch(file.documentsUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Network response was not ok ${response.statusText}`);
-        }
-        // Get the MIME type from the response headers
-        const contentType = response.headers.get('content-type');
-        // Create a Blob with the detected MIME type
-        return response.blob().then(blob => ({ blob, contentType }));
-      })
-      .then(({ blob, contentType }) => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        // Set the downloaded file's name
-        a.download = file.fileName || 'downloaded_file'; // Fallback name if file.fileName is not available
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      })
-      .catch(error => {
-        console.error('Error downloading file:', error);
-      });
-  } 
+  
+
+  
+  downloadDocument() {
+    if (this.documentUrl && this.documentFileName) {
+      fetch(this.documentUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+          }
+          const contentType = response.headers.get('content-type');
+          return response.blob().then(blob => ({ blob, contentType }));
+        })
+        .then(({ blob, contentType }) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = this.documentFileName || 'default_filename.ext';
+
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        })
+        .catch(error => {
+          console.error('Error downloading file:', error);
+        });
+    } else {
+      console.error('No document available for download');
+    }
+  }
+
+
+
   viewDocument(file: any): void {
     console.log('Selected Document:', file); 
     this.selectedDocument = file;// Check if file is correctly passed

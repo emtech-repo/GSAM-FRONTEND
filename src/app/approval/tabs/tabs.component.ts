@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,OnInit } from '@angular/core';
+import { SharedService } from '../../shared.service';
+import { ActivatedRoute,Router } from '@angular/router'; // If needed
+
 
 @Component({
   selector: 'app-tabs',
@@ -6,24 +9,87 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./tabs.component.css']
 })
 export class TabsComponent {
+[x: string]: any;
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
   submittedSuccessfully: any;
   comments: string = '';
   action: string = ''; // Declare the action property
+  document: any;
+  documents: any[] = []; 
+  approvalComments!: string;
+
+  constructor(private sharedService: SharedService, private route: ActivatedRoute, private router: Router) { }
+
+  ngOnInit(): void {
+    
+    this.route.params.subscribe(params => {
+      
+      const documentId = params['id'];
+      
+    });
+  }
+  goBack() {
+    this.router.navigate(['/retrieve']); // Assuming 'retrieve' is the route path for your retrieve component
+  }
 
   selectTab(index: number) {
     this.selectedIndex = index;
   }
+  viewSubmission(document: any) {
+    // Implement logic to view the submission details
+  }
+  viewDocument(document: any) {
+    // Implement logic to view the submission details
+  }
+  approveDocument(document: any) {
+    if (!document || !this.approvalComments) {
+      // Handle the case where either document or approvalComments is missing
+      console.error('Document or approval comments missing');
+      return;
+    }
 
-  approveDocument() {
-    console.log('Document approved');
-    // Your logic for document approval goes here
+    this.sharedService.approveDocument(document.documentUrl, this.approvalComments)
+      .subscribe(
+        (response) => {
+          console.log('Document approved successfully:', response);
+          // Optionally, you can update the UI or perform any other action after approval
+        },
+        (error) => {
+          console.error('Error approving document:', error);
+        }
+      );
   }
 
-  rejectDocument() {
-    console.log('Document rejected');
-    // Your logic for document rejection goes here
+  // fetchPendingDocuments(): void {
+  //   this.sharedService.getPendingDocuments().subscribe(
+  //     (response) => {
+  //       this.documents = response.result.filter((document: any) => document.verifiedFlag === 'N');
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching pending documents:', error);
+  //     }
+  //   );
+  // }
+  fetchDocuments(): void {
+    this.sharedService.getPendingDocuments().subscribe(
+      (response) => {
+        console.log('Documents fetched successfully:', response);
+        this.documents = response.result.filter((document: any) => document.verifiedFlag === 'N');
+      },
+      (error) => {
+        console.error('Error fetching documents:', error);
+      }
+    );
+  }
+
+
+
+  rejectDocument(document: any) {
+    // Implement logic to reject the document
+    console.log('Document rejected:', document);
+    console.log('Rejection comments:', this.approvalComments);
+    // Call your service method to reject the document and handle the response accordingly
   }
 
   // CLAIMS

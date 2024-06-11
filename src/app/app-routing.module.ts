@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { AuthenticationGuard } from './auth.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -72,11 +72,16 @@ export const routes: Routes = [
     component: DocumentationComponent,
     canActivate: [AuthenticationGuard],
   },
+  
   {
     path: 'case-decision',
     component: CaseDecisionComponent,
     canActivate: [AuthenticationGuard],
   },
+   { path:'retrieve',
+    component:RetrieveComponent
+  },
+  
   {
     path: 'case-details/:loanAccount',
     component: CaseDetailsComponent,

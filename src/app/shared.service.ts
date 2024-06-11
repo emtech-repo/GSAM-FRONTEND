@@ -27,25 +27,25 @@ export class SharedService {
 
 
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
-  readonly RequestUrl = 'http://192.168.88.244:5260/api/ServiceRequest/BookService';
-  readonly ServiceUrl = 'http://192.168.88.244:5260/api/ServiceRequest/GetAllServiceProviders';
-  readonly LoanUrl = 'http://192.168.88.244:9006/accounts/la/all';
-  readonly ActivityUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases';
+  readonly RequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/BookService';
+  readonly ServiceUrl = 'http://192.168.88.94:5260/api/ServiceRequest/GetAllServiceProviders';
+  readonly LoanUrl = 'http://192.168.88.94:9006/accounts/la/all';
+  readonly ActivityUrl = 'http://192.168.88.94:5260/api/Case/GetAllCases';
 
 
 
 
 
-  readonly UnAssignedUrl = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases';
-  readonly Cases = 'http://192.168.88.244:5260/api/Case/GetUnAssignedCases?loanAccount=';
-   readonly Decision = 'http://192.168.88.244:5260/api/Case/GetAssignedCases?loanAccount=';
-  readonly AssignedUrl = 'http://192.168.88.244:5260/api/Case/GetAssignedCases';
-   readonly AssignCaseUrl = 'http://192.168.88.244:5260/api/Case/AssignCase';
-  readonly ActiveUrl ='http://192.168.88.244:5260/api/Case/ActiveCases';
-  readonly ClosedUrl = 'http://192.168.88.244:5260/api/Case/ClosedCases';
+  readonly UnAssignedUrl = 'http://192.168.88.94:5260/api/Case/GetUnAssignedCases';
+  readonly Cases = 'http://192.168.88.94:5260/api/Case/GetUnAssignedCases?loanAccount=';
+   readonly Decision = 'http://192.168.88.94:5260/api/Case/GetAssignedCases?loanAccount=';
+  readonly AssignedUrl = 'http://192.168.88.94:5260/api/Case/GetAssignedCases';
+   readonly AssignCaseUrl = 'http://192.168.88.94:5260/api/Case/AssignCase';
+  readonly ActiveUrl ='http://192.168.88.94:5260/api/Case/ActiveCases';
+  readonly ClosedUrl = 'http://192.168.88.94:5260/api/Case/ClosedCases';
   readonly recoveryUrl = 'http://192.168.89.93:5260/api/Recover/CaseRecover';
-   readonly restructureUrl = 'http://192.168.88.244:5260/api/Restructure/CaseRestructure';
-   readonly refinanceUrl = 'http://192.168.88.244:5260/api/Refinance/Refinance';
+   readonly restructureUrl = 'http://192.168.88.94:5260/api/Restructure/CaseRestructure';
+   readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
 
 
   // private documentsUrl = '/assets/data/data.json'
@@ -53,36 +53,38 @@ export class SharedService {
   
 
 
-  private readonly userDataUrl = 'http://192.168.88.244:5260/api/Auth/Login';
-  private registerUrl = 'http://192.168.88.244:5260/api/Auth/Register';
-  readonly baseUrl = 'http://192.168.88.244:5260/api/Auth/Register';
+  private readonly userDataUrl = 'http://192.168.88.94:5260/api/Auth/Login';
+  private registerUrl = 'http://192.168.88.94:5260/api/Auth/Register';
+  readonly baseUrl = 'http://192.168.88.94:5260/api/Auth/Register';
 
   // private readonly userDataUrl = 'assets/data/db.json';
   // baseUrl: string = "http://localhost:3000/";
 
-  readonly APIUrl = 'https://192.168.88.244:5260';
+  readonly APIUrl = 'https://192.168.88.94:5260';
   readonly baseURL = 'assets/data/db.json'
 
-  readonly CasesUrl = 'http://192.168.88.244:5260/api/Case/GetAllCases'
-  readonly LoanURL = 'http://192.168.88.244:9006/accounts/la/all'
-  readonly DetailsURL = 'http://192.168.88.244:9006/accounts?acid='
+  readonly CasesUrl = 'http://192.168.88.94:5260/api/Case/GetAllCases'
+  readonly LoanURL = 'http://192.168.88.94:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.88.94:9006/accounts?acid='
 
 
-  readonly CreateCaseUrl='http://192.168.88.244:5260/api/Case/CreateCase';
-  readonly LoanAccountCaseUrl ='http://192.168.88.244:9006/accounts';
+  readonly CreateCaseUrl='http://192.168.88.94:5260/api/Case/CreateCase';
+  readonly LoanAccountCaseUrl ='http://192.168.88.94:9006/accounts';
 
-  // readonly CustomersUrl ='http://192.168.88.2442:5084/api/Refinance';
+  // readonly CustomersUrl ='http://192.168.88.942:5084/api/Refinance';
 
 
- readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
+ readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
 
   
-  private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
-  private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
+  private documentsUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/DocumentUpload';
+  private AllDocumentUrl = "http://192.168.88.33:5260/api/DocumentMgnt/GetAllDocuments";
+  private documentApprovalUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/ApproveUploadedDocument';
+  private pendingdocumentsUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/GetUnApprovedDocuments';
 
-  // readonly MeetingsUrl = 'http://192.168.88.244:5260/api/Meetings';
-  private storageKey = 'uploads';
-  private dataUrl = '/assets/data/data.json';
+  // readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
+  // private storageKey = 'uploads';
+  // private dataUrl = '/assets/data/data.json';
   // private documentsUrl = 'http://localhost:3000/uploads';
   // private documentsUrl = '/assets/data/data.json';
 
@@ -140,12 +142,23 @@ export class SharedService {
     
    return this.http.post<any>(this.documentsUrl, formData);
   }
+  approveDocument(documentUrl: string, comments: string): Observable<any> {
+    const requestBody = {
+      documentUrl: documentUrl,
+      comments: comments
+    };
+    return this.http.post<any>(this.documentApprovalUrl, requestBody);
+  }
   getCases(): Observable<any> {
      return this.http.get<any>(this.CasesUrl);
     
   }
   getAllDocuments(): Observable<any> {
     return this.http.get<any>(this.AllDocumentUrl);
+
+  }
+  getPendingDocuments(): Observable<any> {
+    return this.http.get<any>(this.pendingdocumentsUrl);
 
   }
 
