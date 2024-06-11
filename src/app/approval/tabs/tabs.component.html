@@ -359,18 +359,18 @@
                                             <td>{{ item.providerPhoneNumber }}</td>
                                             <td>{{ item.serviceDate }}</td>
                                             <td>
-                                                <button class="btn" [ngClass]="{
-                                                                    'btn-success': item.status === 'approved',
-                                                                    'btn-danger': item.status === 'rejected',
-                                                                    'btn-primary': item.status === 'pending'
-                                                                  }">
-                                                    {{ item.status }}
-                                                </button>
+                                            <button class="btn btn-primary small-btn" [ngClass]="{
+                                                                  'btn-success': item.status === 'Approved',
+                                                                  'btn-danger': item.status === 'Rejected',
+                                                                  'btn-primary': item.status === 'Pending'
+                                                                }">
+                                                {{ item.status }}
+                                            </button>
                                             </td>
                                             <td>
                                                 
                                                 <button type="button" class="btn btn-primary small-btn" (click)="openSubmitModal(item)">
-                                                    Approve
+                                                    Verify
                                                 </button>
 
                                             </td>

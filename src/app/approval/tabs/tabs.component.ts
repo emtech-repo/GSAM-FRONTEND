@@ -59,42 +59,33 @@ export class TabsComponent implements OnInit {
   }
   
   openSubmitModal(item: any) {
-    console.log('Item received in openSubmitModal:', item); // Log the item to ensure it has the expected properties
-
-    // Get the modal form elements
-    
+    // Ensure item contains expected properties
+    if (!item) {
+      console.error('Invalid item:', item);
+      return;
+    }
+    // Populate modal fields
     const requestId = document.getElementById('requestId') as HTMLInputElement;
     const serviceName = document.getElementById('serviceName') as HTMLInputElement;
     const serviceProviderName = document.getElementById('serviceProviderName') as HTMLInputElement;
     const providerAccountNumber = document.getElementById('providerAccountNumber') as HTMLInputElement;
     const providerPhoneNumber = document.getElementById('providerPhoneNumber') as HTMLInputElement;
-    console.log(requestId); // Logs the element with ID 'myElement'
-    
     const status = document.getElementById('status') as HTMLInputElement;
-    // const loanBalance = document.getElementById('loanBalance') as HTMLInputElement;
 
-    // Populate the form fields with the item data
-   
-    requestId.value = item.requestId;
-    serviceName.value = item.serviceName;
-    serviceProviderName.value = item.serviceProviderName;
-    providerAccountNumber.value = item.providerAccountNumber;
-    providerPhoneNumber.value = item.providerPhoneNumber;
-    // serviceDate.value = item.serviceDate;
-    status.value = item.status;
-    // loanBalance.value = item.loanBalance;
-    
-    // Get the modal element
+    if (requestId && serviceName && serviceProviderName && providerAccountNumber && providerPhoneNumber && status) {
+      requestId.value = item.requestId || '';
+      serviceName.value = item.serviceName || '';
+      serviceProviderName.value = item.serviceProviderName || '';
+      providerAccountNumber.value = item.providerAccountNumber || '';
+      providerPhoneNumber.value = item.providerPhoneNumber || '';
+      status.value = item.status || '';
+    }
+
     const modalElement = document.getElementById('approveserviceModal');
-
-    // Check if the modal element exists
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
       modal.show();
-    } else {
-      console.error('Modal element not found');
     }
-
   }
 
 
@@ -255,11 +246,15 @@ export class TabsComponent implements OnInit {
     this.SubmissionsUrl = this.sharedService.SubmissionsUrl;
     this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
     this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
-
+    
     this.fetchService();
     this.fetchData();
   }
 
+  sortSubmitData(): void {
+    this.SubmitData.sort((a, b) => new Date(b.serviceDate).getTime() - new Date(a.serviceDate).getTime());
+  }
+ 
   pageChanged(event: any): void {
     this.currentPage = event.page;
     this.filterData(); // Update displayed data when page changes
@@ -271,16 +266,19 @@ export class TabsComponent implements OnInit {
   }
 
   fetchService(): void {
-    this.http.get<any>(this.SubmissionsUrl).subscribe(response => {
-      if (response && response.result && Array.isArray(response.result)) {
-        this.SubmitData = response.result;
-        // this.calculateCaseCounts();
-      } else {
-        console.error('Invalid data received from API:', response);
+    this.http.get<any>(this.SubmissionsUrl).subscribe(
+      response => {
+        if (response && response.result && Array.isArray(response.result)) {
+          this.SubmitData = response.result;
+          this.sortSubmitData();
+        } else {
+          console.error('Invalid data received from API:', response);
+        }
+      },
+      error => {
+        console.error('Error fetching data from API:', error);
       }
-    }, error => {
-      console.error('Error fetching data from API:', error);
-    });
+    );
   }
 
 
