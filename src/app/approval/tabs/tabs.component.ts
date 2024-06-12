@@ -1,7 +1,8 @@
 
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute,Router } from '@angular/router'; // If needed
+
 import { SharedService } from '../../shared.service';
-import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -27,9 +28,7 @@ export class TabsComponent  implements OnInit {
   };
    RefinancedData = {caseNumber: '',
     
-  };
-
-  
+  }; 
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
@@ -47,13 +46,14 @@ export class TabsComponent  implements OnInit {
   selectedItem: any;
   data: any[] = [];
   Casesdata: any[] = [];
-
-   unapprovedcaseUrl: string = '';
+  unapprovedcaseUrl: string = '';
    SubmissionsUrl: string = '';
    selectedRowData: any; 
   @Input() loanAccount: any = '';
    SubmitData: any[] = [];
-    responseMessage: string = '';
+  responseMessage: string = '';
+  document: any;
+  documents: any[] = []; 
   
     
   errorMessage: string | null = null;
@@ -73,14 +73,123 @@ export class TabsComponent  implements OnInit {
  ApprovalRequestsUrl: string = '';
   RejectRequestsUrl: string = ''
   message: any;
+   actionType: string |null=null;
 
   
 
 
 
-    constructor(private router: Router, private sharedService: SharedService,private toastr: ToastrService,public bsModalRef: BsModalRef,
+    constructor(private router: Router, private sharedService: SharedService,private toastr: ToastrService,public bsModalRef: BsModalRef, private route: ActivatedRoute,
     private http: HttpClient
   ) {}
+
+   ngOnInit(): void {
+    this.unapprovedcaseUrl = this.sharedService.unapprovedcaseUrl;
+    this.SubmissionsUrl = this.sharedService.SubmissionsUrl;
+     this.recoveredCasesUrl = this.sharedService.recoveredCasesUrl;
+    this.refinancedCasesUrl = this.sharedService.refinancedCasesUrl;
+     this.restructuredCasesUrl = this.sharedService.restructuredCasesUrl;
+      this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
+    this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
+    this.route.params.subscribe(params => {
+      
+      const documentId = params['id'];
+      
+    });
+
+
+    this.fetchService();  // fetching requests
+    this.getUnApprovedCases(); // fetching cases
+     this. getrecoveredCases();  // fetching recovered cases
+    this.getrefinancedCases(); // fetching refinanced cases
+    this. getrestructuredCases(); // fetching restructured cases
+  }
+
+    setAction(action: string) {
+    this.actionType = action;
+  }
+  handleSubmit(document:any) {
+    this.loading = true;
+    if (this.actionType === 'approve') {
+      this.approveDocument(document);
+    } else if (this.actionType === 'reject') {
+      this.rejectDocument(document);
+    }
+  }
+  goBack() {
+    this.router.navigate(['/retrieve']); // Assuming 'retrieve' is the route path for your retrieve component
+  }
+
+   approveDocument(document: any) {
+    if (!document || !document.comments) {
+      return;
+    }
+    this.sharedService.approveDocument(document.documentUrl, document.comments,document.id)
+      .subscribe(
+        (response) => {
+          // this.loading = false;
+          this.successMessage = response.message;
+          this.document.verifiedFlag = 'Y';
+          this.updateDocumentStatus(this.document.id, 'Y')
+          
+          // Optionally, you can update the UI or perform any other action after approval
+        },
+        (error) => {
+          // this.errorMessage = response.message;
+          
+        }
+      );
+    }
+
+     updateDocumentStatus(id: string, status: string) {
+    const document = this.documents.find(doc => doc.id === id);
+    if (document) {
+      document.verifiedFlag = status;
+      document.rejectedFlag = status;
+    }
+  }
+  
+  fetchDocuments(): void {
+    this.sharedService.getPendingDocuments().subscribe(
+      (response) => {
+        console.log('Documents fetched successfully:', response);
+        this.documents = response.result.filter((document: any) => document.verifiedFlag === 'N' || document.rejectedFlag ==='N');
+      },
+      (error) => {
+        console.error('Error fetching documents:', error);
+      }
+    );
+  }
+
+
+
+  rejectDocument(document: any) {
+    if (!document || !document.comments) {
+      return;
+    };
+    const documentUrl = document.documentUrl;
+    const comments = document.comments;
+    const id = document.id;
+    this.sharedService.rejectDocument(document.documentUrl, document.comments, document.id).subscribe(
+      (response) => {
+        this.successMessage = response.message;
+        // Setting verifiedFlag to 'N'
+        this.document.rejectedFlag = 'Y'; // Setting rejectFlag to 'Y'
+        this.updateDocumentStatus(document.id,  'Y'); // Updating document status
+        console.log('Document rejected successfully:', response);
+        // Optionally, you can update the UI or perform any other action after rejection
+      },
+      (error) => {
+        console.error('Error rejecting document:', error);
+      }
+    );
+    
+  
+}
+  viewDocument(document: any) {
+    // Implement logic to view the submission details
+  }
+
 
   
 
@@ -233,16 +342,9 @@ export class TabsComponent  implements OnInit {
 
 
 
-  approveDocument() {
-    console.log('Document approved');
-    // Your logic for document approval goes here
-  }
+ 
 
-  rejectDocument() {
-    console.log('Document rejected');
-    // Your logic for document rejection goes here
-  }
-
+ 
   // CLAIMS
   approveClaim() {
     console.log('Claim approved');
@@ -275,23 +377,7 @@ export class TabsComponent  implements OnInit {
     // cases methods'
 
   
-  ngOnInit(): void {
-    this.unapprovedcaseUrl = this.sharedService.unapprovedcaseUrl;
-    this.SubmissionsUrl = this.sharedService.SubmissionsUrl;
-     this.recoveredCasesUrl = this.sharedService.recoveredCasesUrl;
-    this.refinancedCasesUrl = this.sharedService.refinancedCasesUrl;
-     this.restructuredCasesUrl = this.sharedService.restructuredCasesUrl;
-      this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
-    this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
-    
-
-
-    this.fetchService();  // fetching requests
-    this.getUnApprovedCases(); // fetching cases
-     this. getrecoveredCases();  // fetching recovered cases
-    this.getrefinancedCases(); // fetching refinanced cases
-    this. getrestructuredCases(); // fetching restructured cases
-  }
+ 
    sortSubmitData(): void {
     this.SubmitData.sort((a, b) => new Date(b.serviceDate).getTime() - new Date(a.serviceDate).getTime());
   }

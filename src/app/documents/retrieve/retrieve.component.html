@@ -3,7 +3,6 @@
         <div class="col-12 col-lg-2 ">
             <div class="card small-card">
                 <div class="card-body">
-
                     <div class="modal fade" id="fileUploadDialog" tabindex="-1" aria-labelledby="fileUploadDialogLabel"
                         aria-hidden="true">
                         <div class="modal-dialog" style="height: 100px;">
@@ -16,7 +15,7 @@
                                     </button>
                                 </div>
 
-                                <div class="modal-body">
+                                <div class="modal-body" style="color: forestgreen;">
                                     <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()"
                                         class="p-3 border rounded shadow-sm bg-light">
                                         <div class="mb-2">
@@ -26,7 +25,8 @@
                                         </div>
                                         <div class="mb-2">
                                             <label for="accountName" class="form-label">Account Name</label>
-                                            <input formControlName="accountName" class="form-control" id="accountName" placeholder="Account Name">
+                                            <input formControlName="accountName" class="form-control" id="accountName"
+                                                placeholder="Account Name">
                                         </div>
 
                                         <div class="mb-2">
@@ -37,17 +37,24 @@
                                                 </option>
                                             </select>
                                         </div>
-                                        
+                                        <div class="mb-2">
+                                            <label for="formFileMultiple" class="form-label">Choose Files</label>
+                                            <input type="file" class="form-control" id="formFileMultiple" multiple
+                                                (change)="onFileSelected($event)">
+                                        </div>
+
                                         <div class="mb-2">
                                             <label for="fileName" class="form-label">File Name</label>
                                             <input formControlName="fileName" class="form-control" id="fileName"
                                                 placeholder="Enter File Name">
                                         </div>
-                                        <div class="mb-2">
-                                            <label for="fileUpload" class="form-label">Choose File</label>
-                                            <input type="file" class="form-control" id="fileUpload"
+                                        <!-- <div class="mb-2">
+                                            <label for="formFileMultiple" class="form-label">Choose File</label>
+                                            <input type="file" class="form-control" id="formFileMultiple"
                                                 (change)="onFileSelected($event)">
-                                        </div>
+                                        </div> -->
+
+
 
                                         <div class="modal-footer d-flex justify-content-between">
                                             <button type="submit" class="btn btn-success" [disabled]="loading">
@@ -75,18 +82,73 @@
                             </div>
                         </div>
                     </div>
-                        <div class="d-grid">
-                            <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal" data-bs-target="#fileUploadDialog">
-                                + Add File
-                            </button>
+                    <div #viewDocumentModal class="modal fade" id="viewDocumentModal" tabindex="-1"
+                        aria-labelledby="viewDocumentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <!-- View document modal content -->
+                            </div>
                         </div>
+                    </div>
                     <h5 class="my-3">DMS</h5>
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
+                            data-bs-target="#fileUploadDialog">
+                            + Add File
+                        </button>
+                    </div>
+
                     <div class="fm-menu">
                         <div class="list-group list-group-flush">
-                            <a href="javascript:;" class="list-group-item py-1">
+                            <!-- <a href="javascript:;" class="list-group-item py-1">
                                 <i class="bx bx-folder me-2"></i><span>All Files</span> <span
                                     class="badge bg-primary rounded-pill">{{ totalFilesCount }}</span>
-                            </a>
+                            </a> -->
+                            <!-- All Files with Dropdown -->
+                            <div class="list-group">
+                                <div class="list-group-item py-1 dropdown">
+                                    <button class="btn btn-link text-decoration-none p-0" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class="bx bx-folder me-2"></i><span>All Files</span>
+                                        <i class="bx bx-chevron-down ms-auto"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" (click)="filterFiles('all')">
+                                                <span>All Files</span>
+                                                <span class="badge bg-primary rounded-pill ms-2">{{ totalFilesCount
+                                                    }}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                                (click)="filterFiles('approved')">
+                                                <span>Approved</span>
+                                                <span class="badge bg-success rounded-pill ms-2">{{ approvedFilesCount
+                                                    }}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                                (click)="filterFiles('pending')">
+                                                <span>Pending</span>
+                                                <span class="badge bg-warning rounded-pill ms-2">{{ pendingFilesCount
+                                                    }}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                                (click)="filterFiles('rejected')">
+                                                <span>Rejected</span>
+                                                <span class="badge bg-danger rounded-pill ms-2">{{ rejectedFilesCount
+                                                    }}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
                             <a href="javascript:;" class="list-group-item py-1">
                                 <i class="bx bx-devices me-2"></i><span>Folders</span> <span
                                     class="badge bg-primary rounded-pill">{{ folders.length }}</span>
@@ -107,7 +169,7 @@
         <div class="col-12 col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                    <!-- <div class="form-group mx-sm-3 mb-6 d-flex">
                         <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
                         <select [(ngModel)]="searchParam" class="form-control mr-2" style="width: auto; height: auto;">
                             <option value="acid">Account Number</option>
@@ -117,12 +179,27 @@
                         </select>
                         <input [(ngModel)]="searchValue" type="text" placeholder="Enter search value" class="form-control mr-4"
                             style="width: 300px; height: 20px; margin-right: 15px;" required>
-                        <!-- <button (click)="search()" class="btn btn-primary btn-sm" style="border-radius: 5px;">Search</button> -->
+                       
                         <button (click)="search()" class="btn btn-primary btn-sm" style="border-radius: 5px;"
                             [disabled]="!searchValue">Search</button>
 
+                    </div> -->
+                    <div class="form-group mx-sm-3 mb-6 d-flex">
+                        <label for="searchParam" style="width: 100px; margin-right:0px; color:black;">Search by:</label>
+                        <select [(ngModel)]="searchParam" class="form-control mr-2" style="width: auto; height: auto;">
+                            <option value="acid">Account Number</option>
+                            <option value="verified_flag">Document Id</option>
+                            <option value="account_name">Account Name</option>
+                            <option value="id">CIF</option>
+                        </select>
+                        <input [(ngModel)]="searchValue" type="text"
+                            [placeholder]="'Enter ' + (searchParam | titlecase)" class="form-control mr-4"
+                            style="width: 300px; height: 20px; margin-right: 15px;" required>
+                        <button (click)="search()" class="btn btn-primary btn-sm" style="border-radius: 5px;"
+                            [disabled]="!searchValue">Search</button>
                     </div>
-                    
+
+
                     <div *ngIf="searchCommitted">
                         <div *ngIf="filteredLoanData && filteredLoanData.length > 0">
                             <table class="table table-striped">
@@ -136,34 +213,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
-                                    
-                                        <tr *ngFor="let loan of filteredLoanData" (click)="onSelectLoan(loan)">
-                                            <td>{{ loan.acid }}</td>
-                                            <td>{{ loan.id }}</td>
-                                            <td>{{ loan.account_name }}</td>
-                                            <td>{{ loan.sol_code }}</td>
-                                            <td>
-                                                <div class="d-grid">
-                                                    <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
-                                                        data-bs-target="#fileUploadDialog">
-                                                        + Add File
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    
+
+
+                                    <tr *ngFor="let loan of filteredLoanData" (click)="onSelectLoan(loan)">
+                                        <td>{{ loan.acid }}</td>
+                                        <td>{{ loan.id }}</td>
+                                        <td>{{ loan.account_name }}</td>
+                                        <td>{{ loan.sol_code }}</td>
+                                        <td>
+                                            <div class="d-grid">
+                                                <button type="button" class="btn btn-primary small-btn"
+                                                    data-bs-toggle="modal" data-bs-target="#fileUploadDialog">
+                                                    + Add File
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
 
                                 </tbody>
                             </table>
                         </div>
                         <div *ngIf="filteredLoanData.length === 0">
-                            <p>No loans available.</p>
+                            <!-- <p style="color: green;">Error Fetching</p> -->
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div id="folder-container" class="row mt-4">
-                            <div class="col-md-3" *ngFor="let folder of folders" >
+                            <div class="col-md-3" *ngFor="let folder of folders">
                                 <div class="card text-center  custom-card-bg">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ folder }}</h5>
@@ -181,43 +258,122 @@
                                     <a href="javascript:;" class="btn btn-sm btn-outline-secondary">View all</a>
                                 </div>
                             </div>
-                            <div class="table-responsive mt-3">
-                                <table class="table table-striped table-hover table-sm mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Account Name <i class="bx bx-up-arrow-alt ms-2"></i></th>
-                                            <th>Account Number</th>
-                                            <th>File Name</th>
-                                            <th>Upload Date</th>
-                                            <th>Folder</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let file of recentFiles">
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <i class="bx bxs-file me-2 font-24 text-primary"
-                                                        [ngClass]="{'text-danger': file.fileExtension === 'pdf', 'text-primary': file.fileExtension !== 'pdf'}"></i>
-                                                    <span class="font-weight-bold"
-                                                        [ngClass]="{'text-danger': file.fileExtension === 'pdf', 'text-primary': file.fileExtension !== 'pdf'}">{{
-                                                        file.accountName }}</span>
-                                                </div>
-                                            </td>
-                                            <td>{{ file.loanAccount }}</td>
-                                            <td>{{ file.fileName }}</td>
-                                            <td>{{ file.createdOn }}</td>
-                                           
-                                            <td>{{ file.folder }}</td>
-                                            
-                                            <td>
-                                                <button class="btn btn-info btn-sm" style="font-size: 10px;" (click)="viewDocument(file)">View</button>
-                                                <button class="btn btn-success btn-sm ms-2" style="font-size: 10px;"
-                                                    (click)="downloadDocument(file)">Download</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div>
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table id="example" class="display expandable-table table table-striped"
+                                            style="width:100%">
+                                            <thead class="table-sm">
+                                                <tr>
+                                                    <th class="p-1 text-nowrap">Document Id</th>
+                                                    <th class="p-1 text-nowrap">Account Name <i
+                                                            class="bx bx-up-arrow-alt ms-2"></i></th>
+                                                    <th class="p-1 text-nowrap">Account Number</th>
+                                                    <th class="p-1 text-nowrap">File Name</th>
+                                                    <th class="p-1 text-nowrap">Upload Date</th>
+                                                    <th class="p-1 text-nowrap">Folder</th>
+                                                    <th class="p-1 text-nowrap">Status</th>
+                                                    <th class="p-1 text-nowrap">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let file of recentFiles">
+                                                    <td>{{ file.id }}</td>
+                                                    <td>{{ file.accountName }}</td>
+                                                    <td>{{ file.loanAccount }}</td>
+                                                    <td>{{ file.fileName }}</td>
+                                                    <td>{{ file.createdOn }}</td>
+                                                    <td>{{ file.folder }}</td>
+                                                    <!-- <td>{{ file.verifiedFlag }}</td> -->
+                                                    <!-- <td>
+                                                    <ng-container *ngIf="file.verifiedFlag === 'Y'; else pendingFlag">
+                                                        <button type="button" class="btn btn-success btn-sm">Approved</button>
+                                                    </ng-container>
+                                                    <ng-template #pendingFlag>
+                                                        <button type="button" class="btn btn-warning btn-sm">Pending</button>
+                                                    </ng-template>
+                                                </td> -->
+                                                    <!-- <td>
+                                                     <ng-container *ngIf="file.rejectedFlag === 'Y'">
+                                                        <button type="button" class="btn btn-danger btn-sm">Rejected</button>
+                                                    </ng-container>
+                                                    <ng-template >
+                                                        <button type="button" class="btn btn-danger btn-sm" *ngIf="file.rejectedFlag === 'Y'">Rejected</button>
+                                                        <button type="button" class="btn btn-warning btn-sm"
+                                                            *ngIf="file.verifiedFlag === 'N' || file.rejectedFlag === 'N'">Pending</button>
+
+                                                        <button type="button" class="btn btn-success btn-sm" *ngIf="file.verifiedFlag === 'Y'">Approved</button>
+                                                    </ng-template>
+                                                </td> -->
+                                                    <td>
+                                                        <ng-container *ngIf="file.rejectedFlag === 'Y'">
+                                                            <button type="button"
+                                                                class="btn btn-danger btn-sm">Rejected</button>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="file.rejectedFlag !== 'Y'">
+                                                            <button type="button" class="btn btn-warning btn-sm"
+                                                                *ngIf="file.verifiedFlag === 'N' || file.rejectedFlag === 'N'">Pending</button>
+                                                            <button type="button" class="btn btn-success btn-sm"
+                                                                *ngIf="file.verifiedFlag === 'Y'">Approved</button>
+                                                        </ng-container>
+                                                    </td>
+
+
+
+
+
+
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary"
+                                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                            (click)="viewDocument(file)">View</button>
+                                                        <div class="modal fade" id="staticBackdrop"
+                                                            data-bs-backdrop="static" data-bs-keyboard="false"
+                                                            tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header" style="height: 2px;">
+                                                                        <h5 class="modal-title">Document Details</h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div *ngIf="selectedDocument">
+                                                                            <p>Account Name: {{
+                                                                                selectedDocument.accountName }}</p>
+                                                                            <p>Loan Account: {{
+                                                                                selectedDocument.loanAccount }}</p>
+                                                                            <h5>File Name: {{ selectedDocument.fileName
+                                                                                }}</h5>
+                                                                            <iframe [src]="selectedDocument.documentUrl"
+                                                                                width="100%" height="600px"
+                                                                                style="border: 2px solid #ccc;"
+                                                                                (error)="handleError()"></iframe>
+                                                                            <div *ngIf="showError" style="color: red;">
+                                                                                Error loading document. Please try again
+                                                                                later.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <button class="btn btn-success btn-sm ms-2"
+                                                            style="font-size: 10px;"
+                                                            (click)="downloadDocument()">Download</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -225,4 +381,5 @@
             </div>
         </div>
     </div>
+
 </div>
