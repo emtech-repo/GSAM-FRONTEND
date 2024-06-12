@@ -3,36 +3,37 @@
         <div class="container align-self-center">
             <div class="row justify-content-center">
                 <div class="col-11">
-                    <h3 class="mb-7 pb-2 pb-md-0 mb-md-5"
-                        style="background-color: #800000c7; font-size: 25px; color: white; text-align: center; margin-top: 1px;">
-                        Assign Case Form
-                    </h3>
-                    <form > 
-                        <!-- Adjusted margin for better spacing -->
+                    <div class="d-flex justify-content-between align-items-center mb-7 pb-2 pb-md-0 mb-md-5 modal-header"
+                        style="margin-top: 1px;">
+                        <h3 style="font-size: 25px; color:black; text-align: center; margin-top: -5px;">
+                            Assign Case  Form
+                        </h3>
+                    </div>
+
+                    <form>
                         <div class="mb-3" style="margin-top: -20px;">
-                            <label for="disabledTextInput" class="form-label"  style="margin-bottom: 1px;" >Case Number</label>
-                            <input type="text" id="disabledTextInput" class="form-control blue-text" value="{{ caseNumber }}" disabled>
+                            <label for="disabledTextInput" class="form-label" style="margin-bottom: 1px;">Case
+                                Number</label>
+                            <input type="text" id="disabledTextInput" class="form-control blue-text"
+                                value="{{ caseNumber }}" readonly>
                         </div>
                         <div class="mb-3" style="margin-top: -10px;">
-                            <label for="email" class="form-label" style="margin-bottom: 1px;" >Email</label>
-                            <input   type="email" class="form-control" name="email" id="email" [(ngModel)]="UserName" required> 
-                         </div>
-                      
-
-                       
-
-                        <div class="row">
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary small-btn" (click)="assignCase()"
-                                    data-dismiss="modal" style="margin-top: 20px;">Assign</button>
-                            </div>
-
-                            <div class="col">
-                                <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
-                                    (click)="bsModalRef.hide()"
-                                    style="margin-left: 100px;margin-top: 20px;">Close</button>
-                            </div>
+                            <label for="email" class="form-label" style="margin-bottom: 1px;">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" [(ngModel)]="UserName"
+                                required>
                         </div>
+<div class="row">
+    <div class="modal-footer">
+        <div class="d-flex justify-content-end" style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary small-btn me-2"(click)="onCancel()">
+                Close
+            </button>
+            <button type="button" class="btn btn-primary small-btn" (click)="assignCase()">
+                Assign Case
+            </button>
+        </div>
+    </div>
+</div>
 
                     </form>
                 </div>
@@ -40,8 +41,6 @@
         </div>
     </div>
     <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
-        <p >{{ responseMessage }}</p>
+        <p>{{ responseMessage }}</p>
     </div>
-
-   
 </section>

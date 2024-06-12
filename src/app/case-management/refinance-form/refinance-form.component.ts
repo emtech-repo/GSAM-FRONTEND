@@ -119,7 +119,7 @@ export class RefinanceFormComponent implements OnInit {
       (response: any) => {
         console.log('Response received:', response);
         this.loading = false;
-        this.successMessage = 'Refinance data submitted successfully!';
+        this.responseMessage = 'Refinance data submitted successfully!';
         this.toastr.success('Refinance data submitted successfully!', 'Success');
       },
       (error: any) => {

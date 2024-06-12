@@ -15,25 +15,38 @@ export class SharedService {
   loanBalanceChanged: any;
   loanAmountChanged: any;
 
-  submitServiceData(value: any) {
-    throw new Error('Method not implemented.');
-  }
-
-  updateRowData(row: any) {
-    throw new Error('Method not implemented.');
-  }
 
 
-
-
-  private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   readonly RequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/BookService';
   readonly ServiceUrl = 'http://192.168.88.94:5260/api/ServiceRequest/GetAllServiceProviders';
   readonly LoanUrl = 'http://192.168.88.94:9006/accounts/la/all';
   readonly ActivityUrl = 'http://192.168.88.94:5260/api/Case/GetAllCases';
 
+  readonly SubmissionsUrl ='http://192.168.88.94:5260/api/ServiceRequest/GetAllRequests';
+  readonly ApprovalRequestsUrl = 'http://192.168.88.94:5260/api/ServiceRequest/ApproveRequest';
+  readonly RejectRequestsUrl = 'http://192.168.88.94:5260/api/ServiceRequest/RejectRequest';
 
 
+
+
+  readonly UnAssignedUrl = 'http://192.168.88.94:5260/api/Case/GetUnAssignedCases';
+  readonly Cases = 'http://192.168.88.94:5260/api/Case/GetUnAssignedCases?loanAccount=';
+   readonly Decision = 'http://192.168.88.94:5260/api/Case/GetAssignedCases?loanAccount=';
+  readonly AssignedUrl = 'http://192.168.88.94:5260/api/Case/GetAssignedCases';
+   readonly AssignCaseUrl = 'http://192.168.88.94:5260/api/Case/AssignCase';
+  readonly ActiveUrl ='http://192.168.88.94:5260/api/Case/ActiveCases';
+  readonly ClosedUrl = 'http://192.168.88.94:5260/api/Case/ClosedCases';
+  readonly recoveryUrl = 'http://192.168.88.33:5260/api/Recover/CaseRecover';
+   readonly restructureUrl = 'http://192.168.88.94:5260/api/Restructure/CaseRestructure';
+   readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
+   readonly approvecaseUrl = 'http://192.168.88.94:5260/api/Case/ApproveCase';
+   readonly approveRestructuredUrl = 'http://192.168.88.94:5260/api/Restructure/ApproveRestructureCase';
+  readonly deletecaseUrl = 'http://192.168.88.94:5260/api/Case/DeleteCase';
+
+  readonly unapprovedcaseUrl = 'http://192.168.88.94:5260/api/Case/GetUnApprovedCases';
+   readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
+    readonly refinancedCasesUrl = 'http://192.168.88.94:5260/api/Refinance/GetRefinancedCases';
+     readonly restructuredCasesUrl = 'http://192.168.88.94:5260/api/Restructure/GetAllRestructuredCases';
 
 
   readonly UnAssignedUrl = 'http://192.168.88.94:5260/api/Case/GetUnAssignedCases';
@@ -48,20 +61,29 @@ export class SharedService {
    readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
 
 
-  // private documentsUrl = '/assets/data/data.json'
-
-  
 
 
   private readonly userDataUrl = 'http://192.168.88.94:5260/api/Auth/Login';
   private registerUrl = 'http://192.168.88.94:5260/api/Auth/Register';
-  readonly baseUrl = 'http://192.168.88.94:5260/api/Auth/Register';
+  readonly baseUrl = 'http://192.168.88.94:5260/api/Auth/AllUsers';
 
-  // private readonly userDataUrl = 'assets/data/db.json';
-  // baseUrl: string = "http://localhost:3000/";
+
 
   readonly APIUrl = 'https://192.168.88.94:5260';
   readonly baseURL = 'assets/data/db.json'
+  readonly roleURL = 'http://192.168.88.94:5260/api/Role/GetRoles'
+  readonly AssignroleURL = 'http://192.168.88.94:5260/api/Role/AddUserRoles'
+  readonly ActivateURL = 'http://192.168.88.94:5260/api/Auth/ActivateUser'
+  readonly DeactivateURL = 'http://192.168.88.94:5260/api/Auth/DeactivateUser'
+
+
+  readonly CasesUrl = 'http://192.168.88.94:5260/api/Case/GetAllCases'
+  readonly LoanURL = 'http://192.168.88.94:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.88.94:9006/accounts?acid='
+
+
+  readonly APIUrl = 'https://192.168.88.94:5260';
+ 
 
   readonly CasesUrl = 'http://192.168.88.94:5260/api/Case/GetAllCases'
   readonly LoanURL = 'http://192.168.88.94:9006/accounts/la/all'
@@ -71,8 +93,13 @@ export class SharedService {
   readonly CreateCaseUrl='http://192.168.88.94:5260/api/Case/CreateCase';
   readonly LoanAccountCaseUrl ='http://192.168.88.94:9006/accounts';
 
+
   // readonly CustomersUrl ='http://192.168.88.942:5084/api/Refinance';
 
+  readonly CreateCaseUrl='http://192.168.88.94:5260/api/Case/CreateCase';
+  readonly LoanAccountCaseUrl ='http://192.168.88.94:9006/accounts';
+
+  // readonly CustomersUrl ='http://192.168.88.942:5084/api/Refinance';
 
  readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
 
@@ -86,6 +113,7 @@ export class SharedService {
   // readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
   // private storageKey = 'uploads';
   // private dataUrl = '/assets/data/data.json';
+
   // private documentsUrl = 'http://localhost:3000/uploads';
   // private documentsUrl = '/assets/data/data.json';
 
@@ -201,6 +229,26 @@ submitRecovery(inputdata: any) {
    submitRefinance(inputdata: any) {
     return this.http.post(this.refinanceUrl, inputdata)
   }
+
+   approveRestructuredCases(CaseNumber: any) {
+    return this.http.post(this.approveRestructuredUrl, CaseNumber)
+  }
+  
+
+   approveCase(CaseNumber: any) {
+    return this.http.post(this.approvecaseUrl, CaseNumber)
+  }
+
+  deleteCase(caseNumber: string): Observable<any> {
+  const url = `http://192.168.88.94:5260/api/Case/DeleteCase`;
+  const options = {
+    body: { CaseNumber: caseNumber },
+  };
+  return this.http.delete(url, options);
+}
+
+
+
 
 
 
@@ -353,6 +401,45 @@ submitRecovery(inputdata: any) {
         map((data: any) => data['UnAssigned'])
       );
   }
+
+
+ getUnApprovedCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.unapprovedcaseUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched UnApproved:', data)),
+        map((data: any) => data['UnApproved'])
+      );
+  }
+  getrecoveredCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.recoveredCasesUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched recovered:', data)),
+        map((data: any) => data['recovered'])
+      );
+  }
+  getrefinancedCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.refinancedCasesUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched refinanced:', data)),
+        map((data: any) => data['refinanced'])
+      );
+  }
+  getrestructuredCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.restructuredCasesUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched restructured:', data)),
+        map((data: any) => data['restructured'])
+      );
+  }
+
+
+
+
+
   
   Active(): Observable<any[]> {
     return this.http.get<any[]>(this.ActiveUrl);
@@ -395,9 +482,13 @@ submitRecovery(inputdata: any) {
   }
 
 
-  // registerUser(inputdata: any) {
-  //   return this.http.post(this.registerUrl, inputdata)
+  registerUser(inputdata: any) {
+    return this.http.post(this.registerUrl,inputdata)
+  }
+  // registerUser(user: any): Observable<any> {
+  //   return this.http.post<any>(this.apiUrl, user);
   // }
+  
 
   getUserData(): Observable<any> {
     return this.http.get<any>(this.userDataUrl);
@@ -410,28 +501,16 @@ submitRecovery(inputdata: any) {
 
 
 
-  // addEmployee(data: any): Observable<any> {
-  //   return this.http.post(this.baseUrl + 'user', data);
-  // }
-
-
-  // updateEmployee(id: number, updatedFields: any): Observable<any> {
-  //   // Include all fields in the update request
-  //   const allFields = { ...updatedFields }; // Copy the updatedFields object
-  //   allFields.id = id; // Add the employee ID
-  //   return this.http.put(this.baseUrl + `user/${id}`, allFields);
-  // }
+  
 
  
 
-  // getEmployeeList(): Observable<any> {
-  //   return this.http.get(this.baseUrl + 'user');
-  // }
 
-  // deleteEmployee(id: number): Observable<any> {
-  //   return this.http.delete(this.baseUrl + `user/${id}`);
+  getEmployeeList(): Observable<any> {
+    return this.http.get(this.baseUrl);
+  }
 
-  // }
+ 
 
   getServiceData(): Observable<any> {
     return this.http.get<any>(`${this.ServiceUrl}/serviceData`);
@@ -440,48 +519,70 @@ submitRecovery(inputdata: any) {
   submitServiceDatas(data: any): Observable<any> {
     return this.http.post(`${this.ServiceUrl}/serviceData`, data);
   }
+//admin page
+  getroles(): Observable<any> {
+    return this.http.get(this.roleURL);
+  }
+
+  assignRole(email: string, role: string): Observable<any> {
+    const data = { UserEmail: email, role: role };
+    return this.http.post(this.AssignroleURL, data);
+  }
+
+  activateUser(email: string): Observable<any> {
+    const data = { Email: email};
+    return this.http.post(this.ActivateURL, data);
+  }
+  deactivateUser(email: string): Observable<any> {
+    const data = { Email: email };
+    return this.http.post(this.DeactivateURL, data);
+  }
+
+
+  
+
+//end of admin page
+  
+
 
   isAdmin(): boolean {
-    // Example logic to check if user is an admin
-    // You can modify this based on how you store user roles in your system
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       const parsedUser = JSON.parse(currentUser);
-      // Assuming user role is stored in 'role' property
-      return parsedUser.role === 'admin';
+      // Check if the role array contains 'Admin'
+      return parsedUser.role.includes('Admin');
     }
     return false;
   }
+
   isManager(): boolean {
-    // Example logic to check if user is an admin
-    // You can modify this based on how you store user roles in your system
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       const parsedUser = JSON.parse(currentUser);
-      // Assuming user role is stored in 'role' property
-      return parsedUser.role === 'manager';
+      
+      return parsedUser.role.includes('Manager');
     }
     return false;
   }
+
+
   isOfficer(): boolean {
-    // Example logic to check if user is an admin
-    // You can modify this based on how you store user roles in your system
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       const parsedUser = JSON.parse(currentUser);
-      // Assuming user role is stored in 'role' property
-      return parsedUser.role === 'officer';
+
+      return parsedUser.role.includes('Officer');
     }
     return false;
   }
 
 
+ 
 
 
 
-  registerUser(inputdata: any) {
-    return this.http.post(this.baseUrl + 'user', inputdata)
-  }
+
+
 
   addEmployee(data: any): Observable<any> {
     return this.http.post(this.baseUrl + 'user', data);
@@ -504,14 +605,9 @@ submitRecovery(inputdata: any) {
 
   // }
 
-  getEmployeeList(): Observable<any> {
-    return this.http.get(this.baseUrl + 'user');
-  }
+  
 
-  deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + `user/${id}`);
-
-  }
+ 
 
   getServiceProviders(): Observable<any> {
     return this.http.get<any>(this.ServiceUrl);
@@ -520,6 +616,25 @@ submitRecovery(inputdata: any) {
   submitData(data: any): Observable<any> {
     return this.http.post<any>(`${this.RequestUrl}`, data);
   }
+
+  getSubmissions(): Observable<any> {
+    return this.http.get<any>(this.SubmissionsUrl);
+  }
+
+
+  // getServiceDetails(requestId: string): Observable<any> {
+  //   return this.http.get<any>(`${this.SubmissionsUrl}/service-details/${requestId}`);
+  // }
+
+
+  getApprovalRequests(): Observable<any> {
+    return this.http.get<any>(this.ApprovalRequestsUrl);
+  }
+
+  getRejectRequests(): Observable<any> {
+    return this.http.get<any>(this.RejectRequestsUrl);
+  }
+
 
   // this.yourService.updateData(updatedData).subscribe(() => {
   //   this.refreshData(); // Method to fetch and update the data in your component
