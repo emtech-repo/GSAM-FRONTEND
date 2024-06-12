@@ -23,3 +23,40 @@
     align-items: center;
     justify-content: center;
 }
+.custom-alert {
+    position: fixed;
+    width: auto;
+    height: fit-content;
+    border-radius: 10px;
+    max-width: 500px;
+    /* Set a reasonable maximum width */
+    top: 40px;
+    left: 80%;
+    transform: translateX(-50%);
+    background-color: #04ee8c;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    z-index: 9999;
+    white-space: nowrap;
+    /* Prevents text from wrapping */
+    overflow: hidden;
+    /* Hides any overflowing text */
+    text-overflow: ellipsis;
+    /* Adds an ellipsis (...) for overflowed text */
+}
+
+.custom-alert p {
+    width: auto;
+    margin: 0;
+    /* Removes default margins */
+    padding: 0;
+    /* Removes default paddings */
+}
+.close-btn {
+    font-size: 30px;
+    /* Increase the font size */
+    cursor: pointer;
+    /* Optional: Use transform to scale the symbol if you want to maintain aspect ratio */
+    transform: scale(1.5);
+    /* Adjust the scale factor as needed */
+}

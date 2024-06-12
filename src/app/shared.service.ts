@@ -15,19 +15,6 @@ export class SharedService {
   loanBalanceChanged: any;
   loanAmountChanged: any;
 
-
-//   submitServiceData(value: any) {
-//     throw new Error('Method not implemented.');
-//   }
-
-//   updateRowData(row: any) {
-//     throw new Error('Method not implemented.');
-//   }
-
-
-
-
-  private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   readonly RequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/BookService';
   readonly ServiceUrl = 'http://192.168.88.94:5260/api/ServiceRequest/GetAllServiceProviders';
   readonly LoanUrl = 'http://192.168.88.94:9006/accounts/la/all';
@@ -51,17 +38,10 @@ export class SharedService {
    readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
 
 
-  // private documentsUrl = '/assets/data/data.json'
-
-  
-
-
   private readonly userDataUrl = 'http://192.168.88.94:5260/api/Auth/Login';
   private registerUrl = 'http://192.168.88.94:5260/api/Auth/Register';
   readonly baseUrl = 'http://192.168.88.94:5260/api/Auth/AllUsers';
 
-  // private readonly userDataUrl = 'assets/data/db.json';
-  // baseUrl: string = "http://localhost:3000/";
 
   readonly APIUrl = 'https://192.168.88.94:5260';
   readonly baseURL = 'assets/data/db.json'
@@ -377,6 +357,12 @@ submitRecovery(inputdata: any) {
   }
 
 
+  registerUser(inputdata: any) {
+    return this.http.post(this.registerUrl,inputdata)
+  }
+  // registerUser(user: any): Observable<any> {
+  //   return this.http.post<any>(this.apiUrl, user);
+  // }
   
 
   getUserData(): Observable<any> {
@@ -473,9 +459,6 @@ submitRecovery(inputdata: any) {
 
 
 
-  registerUser(inputdata: any) {
-    return this.http.post(this.baseUrl + 'user', inputdata)
-  }
 
   addEmployee(data: any): Observable<any> {
     return this.http.post(this.baseUrl + 'user', data);
@@ -500,10 +483,7 @@ submitRecovery(inputdata: any) {
 
   
 
-  deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + `user/${id}`);
-
-  }
+ 
 
   getServiceProviders(): Observable<any> {
     return this.http.get<any>(this.ServiceUrl);
