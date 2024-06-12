@@ -38,6 +38,7 @@ export class MeetingTabComponent implements OnInit {
   }
 
   ngOnInit() {
+    this. MeetingsUrl = this.sharedService.MeetingsUrl ;
     this.getMeetings();
     this.getUsersList
     this.form = this.formbuilder.group({

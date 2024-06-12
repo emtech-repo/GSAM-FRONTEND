@@ -136,8 +136,10 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary"    (click)="approveCase()" >Approve</button>
+                                
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)=" showRejectionTextarea()">Reject case</button>
+                                <button type="button" class="btn btn-primary small-btn"    (click)="approveCase()" >Approve</button>
                             </div>
 
                             <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
@@ -150,10 +152,19 @@
                             <div *ngIf="loading" class="text-center mt-3">
                                 <p>Loading...</p>
                             </div>
+
+                            <div *ngIf="isRejectionVisible" class="mt-3">
+                                <label for="rejectionMessage" class="form-label">Rejection Message</label>
+                                <textarea class="form-control" id="rejectionMessage" rows="3" [(ngModel)]="rejectionMessage"></textarea>
+                                <button type="button" class="btn btn-primary mt-2 small-btn" (click)="submitRejection()">Submit Rejection</button>
+                            </div>
                             
                         </div>
                     </div>
                 </div>
+
+          
+  
                
 
 
@@ -259,9 +270,9 @@
                         <div class="form-group mb-3">
                             <label>SUPPORTING DOCUMENTS</label>
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-secondary">VIEW</button>
-                                <button type="button" class="btn btn-secondary">DOWNLOAD</button>
-                                <button type="button" class="btn btn-secondary">UPLOAD</button>
+                                <button type="button" class="btn btn-primary">VIEW</button>
+                                <button type="button" class="btn btn-primary">DOWNLOAD</button>
+                                <button type="button" class="btn btn-primary">UPLOAD</button>
                             </div>
                         </div>
 
@@ -529,7 +540,6 @@
                                         <tr>
                                             <th>Case No</th>
                                             <th>CIF ID</th>
-                                            
                                             <th>Acc Name</th>
                                             <th>Loan Acc</th>
                                             <th>Branch code</th>
@@ -538,7 +548,7 @@
                                             <th>new intaslments</th>
                                             <th>Loan Tenure</th>
                                             <th>New Loan Tenure</th>
-                                        
+                                            <th>comments</th>
                                             <th>Action</th>
 
                                             
@@ -555,12 +565,11 @@
                                             <td>{{ item.initialInstalments}}</td>
                                             <td>{{ item.newInstalments }}</td>
                                             <td>{{ item.loanTenure}}</td>
-                                            <td>{{ item.newLoanTenure }}</td>
-                                           
-                                            
+                                            <td>{{ item.newLoanTenure}}</td>
+                                            <td>{{ item.comments }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
-                                                    data-bs-target="#RestructureapprovalModal" >
+                                                    data-bs-target="#RestructureapprovalModal" (click)="openRestructureModal(item)" >
                                                     Proceed
                                                 </button>
                                             </td>
@@ -592,7 +601,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="approveCaseForm">
+                                <form id="approveRestructureCaseForm">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <!-- First Column -->
@@ -600,22 +609,20 @@
                                                 <div class="col-md-12 ps-9">
                                                     <!-- Form groups for the first column -->
                                                     <div class="form-group" style="margin-top: -30px;">
-                                                        <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
-                                                        <input type="text" class="form-control" id="cifId"  readonly />
+                                                        <label for="caseNumber" class="form-label" style="margin-bottom: -1px;">Case Number</label>
+                                                        <input type="text" class="form-control" id="caseNumber" readonly>
                                                     </div>
                                                     <div class="form-group" style="margin-top: -20px;">
-                                                        <label for="inputEmail4" style="margin-bottom: -1px;">Case Number</label>
-                                                        <input type="text" class="form-control" id="caseNumber" 
-                                                            readonly />
+                                                        <label for="cifID " class="form-label"  style="margin-bottom: -1px;">CIF ID</label>
+                                                        <input type="text" class="form-control" id="cifID" readonly>
                                                     </div>
                                                     <div class="form-group" style="margin-top: -20px;">
-                                                        <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
-                                                        <input type="text" class="form-control" id="loanAmount" 
-                                                            readonly />
+                                                    <label for="accountName" class="form-label"  style="margin-bottom: -1px;">Account Name</label>
+                                                    <input type="text" class="form-control" id="accountName" readonly>
                                                     </div>
                                                     <div class="form-group" style="margin-top: -20px;">
-                                                        <label for="inputloantenure" style="margin-bottom: -1px;">New Loan Tenure</label>
-                                                        <input type="number" class="form-control" id="newLoanTenure" readonly />
+                                                        <label for="loanAccount" class="form-label"  style="margin-bottom: -1px;">Loan Account</label>
+                                                        <input type="text" class="form-control" id="loanAccount" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -627,23 +634,20 @@
                                                 <div class="col-md-12 ps-9">
                                                     <!-- Form groups for the second column -->
                                                     <div class="form-group" style="margin-top: -30px;">
-                                                        <label for="inputEmail4" style="margin-bottom: -1px;">Loan Account</label>
-                                                        <input type="text" class="form-control" id="loanAccount"
-                                                            readonly />
+                                                        <label for="solId" class="form-label"  style="margin-bottom: -1px;">Branch Code</label>
+                                                        <input type="text" class="form-control" id="solId" readonly>
                                                     </div>
                                                     <div class="form-group" style="margin-top: -20px;">
-                                                        <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
-                                                        <input type="text" class="form-control" id="branchName" 
-                                                            readonly />
+                                                        <label for="loanBalance" class="form-label"  style="margin-bottom: -1px;">Loan Balance</label>
+                                                        <input type="text" class="form-control" id="loanBalance" readonly>
                                                     </div>
                                                     <div class="form-group" style="margin-top: -20px;">
-                                                        <label for="inputEmail4" style="margin-bottom: -1px;">Initial Instalments</label>
-                                                        <input type="text" class="form-control" id="initialInstalments" 
-                                                            readonly />
+                                                        <label for="initialInstalments" class="form-label"  style="margin-bottom: -1px;">Initial Instalments</label>
+                                                        <input type="text" class="form-control" id="initialInstalments" readonly>
                                                     </div>
                                                     <div class="form-group" style="margin-top: -20px;">
-                                                        <label for="inputinstalments" style="margin-bottom: -1px;">New Instalments</label>
-                                                        <input type="text" class="form-control" id="newInstalments"  readonly />
+                                                        <label for="inputinstalments" style="margin-bottom: -1px;"  style="margin-bottom: -1px;">New Instalments</label>
+                                                        <input type="text" class="form-control" id="newInstalments" readonly />
                                                     </div>
                                                 </div>
                                             </div>
@@ -657,15 +661,10 @@
                                                 <div class="col-md-12 ps-9">
                                                     <!-- Form groups for the third column -->
                                                     <div class="form-group" style="margin-top: -20px;">
-                                                        <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
-                                                        <input type="text" class="form-control" id="accountName"
-                                                            readonly />
+                                                        <label for="loanTenure" class="form-label"  style="margin-bottom: -1px;">Loan Tenure</label>
+                                                        <input type="text" class="form-control" id="loanTenure" readonly>
                                                     </div>
-                                                    <div class="form-group" style="margin-top: -20px;">
-                                                        <label for="inputEmail4" style="margin-bottom: -1px;">Loan Tenure</label>
-                                                        <input type="text" class="form-control" id="loanTenure" 
-                                                            readonly />
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -674,20 +673,18 @@
                                             <!-- Fourth Column -->
                                             <div class="row">
                                                 <div class="col-md-12 ps-9">
-                                                    <!-- Form groups for the fourth column -->
                                                     <div class="form-group" style="margin-top: -20px;">
-                                                        <label for="inputloanbalance" style="margin-bottom: -1px;">Loan Balance</label>
-                                                        <input type="text" class="form-control" id="loanBalance"
-                                                            readonly />
+                                                        <label for="newLoanTenure" class="form-label" style="margin-bottom: -1px;">New Loan Tenure</label>
+                                                        <input type="text" class="form-control" id="newLoanTenure" readonly>
                                                     </div>
-                                                    <div data-mdb-input-init class="form-outline w-100" style="margin-top: -26px;">
-                                                        <label class="form-label" for="textAreaExample" style="color:black; margin-bottom: -1px;">Comments</label>
-                                                        <textarea class="form-control" id="textAreaExample" rows="4" readonly></textarea>
                                                     
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                                        <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
+                                        <textarea class="form-control" id="comments" rows="4" readonly></textarea>
                                     </div>
                                     
                                     
@@ -696,8 +693,10 @@
                 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" (click)="approveCase()">Approve</button>
+
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)=" showRejectionTextarea()">Reject case</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)="approveCase()">Approve</button>
                             </div>
                 
                             <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
@@ -709,6 +708,11 @@
                             </div>
                             <div *ngIf="loading" class="text-center mt-3">
                                 <p>Loading...</p>
+                            </div>
+                            <div *ngIf="isRejectionVisible" class="mt-3">
+                                <label for="rejectionMessage" class="form-label">Rejection Message</label>
+                                <textarea class="form-control" id="rejectionMessage" rows="3" [(ngModel)]="rejectionMessage"></textarea>
+                                <button type="button" class="btn btn-primary mt-2 small-btn" (click)="submitRejection()">Submit Rejection</button>
                             </div>
                 
                         </div>
@@ -751,6 +755,7 @@
                                             <th>Refinance amount</th>
                                             <th>loan Tenure</th>
                                             <th>New LoanTenure</th>
+                                            <th>comments</th>
                                           
                                             <th>Action</th>
 
@@ -771,11 +776,12 @@
                                         <td>{{ item.refinanceAmount}}</td>
                                         <td>{{ item.loanTenure}}</td>
                                         <td>{{ item.newLoanTenure}}</td>
+                                        <td>{{ item.comments}}</td>
                                      
 
                                             <td>
                                                 <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
-                                                    data-bs-target="#refinanceapprovalModal">
+                                                    data-bs-target="#refinanceapprovalModal"  (click)="openRefinanceModal(item)">
                                                     Proceed
                                                 </button>
                                             </td>
@@ -799,7 +805,8 @@
                     </div>
                 </div>
                 <!-- refinance approval modal-->
-                <div class="modal fade" id="refinanceapprovalModal" tabindex="-1" aria-labelledby="refinanceapprovalModalLabel" aria-hidden="true">
+                <div class="modal fade" id="refinanceapprovalModal" tabindex="-1" aria-labelledby="refinanceapprovalModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -807,121 +814,107 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="approveCaseForm">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <!-- First Column -->
-                                                        <div class="row">
-                                                            <div class="col-md-12 ps-9">
-                                                                <!-- Form groups for the first column -->
-                                                                <div class="form-group" style="margin-top: -30px;">
-                                                                    <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
-                                                                    <input type="text" class="form-control" id="cifId"
-                                                                        readonly />
-                                                                </div>
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputEmail4" style="margin-bottom: -1px;">Case Number</label>
-                                                                    <input type="text" class="form-control" id="caseNumber" 
-                                                                        readonly />
-                                                                </div>
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputloan" style="margin-bottom: -1px;">Initial Loan Amount</label>
-                                                                    <input type="text" class="form-control" id="loanAmount" 
-                                                                        readonly />
-                                                                </div>
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputamount" style="margin-bottom: -1px;">Refinance amount</label>
-                                                                    <input type="text" class="form-control" id="refinanceAmount" readonly />
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                <form id="approveRefinanceCaseForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- First Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the first column -->
+                                                    <div class="form-group" style="margin-top: -40px;">
+                                                        <label for="cifID" class="form-label" style="margin-bottom: -1px;">CIF ID</label>
+                                                        <input type="text" class="form-control" id="cifID" readonly>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <!-- Second Column -->
-                                                        <div class="row">
-                                                            <div class="col-md-12 ps-9">
-                                                                <!-- Form groups for the second column -->
-                                                                <div class="form-group" style="margin-top: -30px;">
-                                                                    <label for="inputEmail4" style="margin-bottom: -1px;">Loan Account</label>
-                                                                    <input type="text" class="form-control" id="loanAccount"
-                                                                        readonly />
-                                                                </div>
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputEmail4" style="margin-bottom: -1px;">Branch Name</label>
-                                                                    <input type="text" class="form-control" id="solId"
-                                                                        readonly />
-                                                                </div>
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputEmail4" style="margin-bottom: -1px;">Initial Instalments</label>
-                                                                    <input type="text" class="form-control" id="initialInstalments"
-                                                                        readonly />
-                                                                </div>
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputloantenure" style="margin-bottom: -1px;">New Loan Tenure</label>
-                                                                    <input type="number" class="form-control" id="newLoanTenure"
-                                                                   readonly    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="caseNumber" class="form-label" style="margin-bottom: -1px;">Case Number</label>
+                                                        <input type="text" class="form-control" id="caseNumber" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="loanAmount" class="form-label" style="margin-bottom: -1px;">Initial Loan Amount</label>
+                                                        <input type="text" class="form-control" id="loanAmount" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="refinanceAmount" style="margin-bottom: -1px;">Refinance
+                                                            amount</label>
+                                                        <input type="text" class="form-control" id="refinanceAmount" readonly>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <!-- Third Column -->
-                                                        <div class="row">
-                                                            <div class="col-md-12 ps-9">
-                                                                <!-- Form groups for the third column -->
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputEmail4" style="margin-bottom: -1px;">Acc Name</label>
-                                                                    <input type="text" class="form-control" id="accountName"
-                                                                        readonly />
-                                                                </div>
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputloan" style="margin-bottom: -1px;">Loan Tenure</label>
-                                                                    <input type="text" class="form-control" id="loanTenure" 
-                                                                        readonly />
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- Second Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the second column -->
+                                                    <div class="form-group" style="margin-top: -32px;">
+                                                        <label for="loanAccount" style="margin-bottom: -1px;">Loan Account</label>
+                                                        <input type="text" class="form-control" id="loanAccount" readonly>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <!-- Fourth Column -->
-                                                        <div class="row">
-                                                            <div class="col-md-12 ps-9">
-                                                                <!-- Form groups for the fourth column -->
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputbalance" style="margin-bottom: -1px;">Loan Balance</label>
-                                                                    <input type="text" class="form-control" id="loanBalance"
-                                                                       readonly />
-                                                                </div>
-                                                                <div class="form-group" style="margin-top: -20px;">
-                                                                    <label for="inputinstalments" style="margin-bottom: -1px;">New Instalments</label>
-                                                                    <input type="text" class="form-control" id="newInstalments" readonly />
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="form-group" style="margin-top: -15px;">
+                                                        <label for="solId" style="margin-bottom: -1px;">Branch Name</label>
+                                                        <input type="text" class="form-control" id="solId" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top:  -15px;">
+                                                        <label for="initialInstalments" style="margin-bottom: -1px;">Initial Instalments</label>
+                                                        <input type="text" class="form-control" id="initialInstalments" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -15px;">
+                                                        <label for="newLoanTenure" style="margin-bottom: -1px;">New Loan Tenure</label>
+                                                        <input type="number" class="form-control" id="newLoanTenure" readonly>
                                                     </div>
                                                 </div>
-                                                <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
-                                                    <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
-                                                    <textarea class="form-control" id="textAreaExample" rows="4"  readonly></textarea>
-                                                
-                                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Third Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the third column -->
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="accountName" style="margin-bottom: -1px;">Acc Name</label>
+                                                        <input type="text" class="form-control" id="accountName" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="loanTenure" style="margin-bottom: -1px;">Loan Tenure</label>
+                                                        <input type="text" class="form-control" id="loanTenure" readonly>
+                                                    </div>
                                                 </div>
-                                   
-                                   
-                                  
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- Fourth Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the fourth column -->
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="loanBalance" style="margin-bottom: -1px;">Loan Balance</label>
+                                                        <input type="text" class="form-control" id="loanBalance" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="newInstalments" style="margin-bottom: -1px;">New Instalments</label>
+                                                        <input type="text" class="form-control" id="newInstalments" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                                        <label class="form-label" for="textAreaExample"
+                                            style="color: blue; margin-bottom: -1px;">Comments</label>
+                                        <textarea class="form-control" id="comments" rows="4" readonly></textarea>
+                                    </div>
                                 </form>
-                
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" (click)="approveCase()">Approve</button>
+                             
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)=" showRejectionTextarea()">Reject case</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)="approveCase()">Approve</button>
                             </div>
-                
                             <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
                                 <p>{{ errorMessage }}</p>
-                
                             </div>
                             <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
                                 <p>{{ responseMessage }}</p>
@@ -929,10 +922,16 @@
                             <div *ngIf="loading" class="text-center mt-3">
                                 <p>Loading...</p>
                             </div>
-                
+                            <div *ngIf="isRejectionVisible" class="mt-3">
+                                <label for="rejectionMessage" class="form-label">Rejection Message</label>
+                                <textarea class="form-control" id="rejectionMessage" rows="3" [(ngModel)]="rejectionMessage"></textarea>
+                                <button type="button" class="btn btn-primary mt-2 small-btn" (click)="submitRejection()">Submit
+                                    Rejection</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
 
             </ng-container>
             <ng-container *ngIf="i === 7">
@@ -968,8 +967,7 @@
                                             <th>Branch code</th>
                                             <th>Loan Paid</th>
                                             <th>Months in dafault</th>
-                                           
-                                         
+                                            <th>comments</th>
                                             <th>Action</th>
             
             
@@ -987,11 +985,12 @@
                                         
                                         <td>{{ item.loanPaid}}</td>
                                         <td>{{ item.monthsInDefault}}</td>
+                                        <td>{{ item.comments}}</td>
                                        
                                        
                                             <td>
                                                 <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
-                                                    data-bs-target="#recoveryapprovalModal">
+                                                    data-bs-target="#recoveryapprovalModal"  (click)="openRecoveryModal(item)">
                                                     Proceed
                                                 </button>
                                             </td>
@@ -1024,21 +1023,21 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="approveCaseForm">
+                                <form id="approveRecoveryCaseForm">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <!-- Forms for the first column -->
                                             <div class="form-group" style="margin-top: -30px;">
-                                                <label for="inputcifid" style="margin-bottom: -1px;">Loan Account</label>
-                                                <input type="text" class="form-control" readonly />
+                                                <label for="loanAccount" style="margin-bottom: -1px;">Loan Account</label>
+                                                <input type="text" class="form-control" id="loanAccount" readonly>
                                             </div>
                                             <div class="form-group" style="margin-top: -20px;">
-                                                <label for="inputEmail4" style="margin-bottom: -1px;">Case Number</label>
-                                                <input type="text" class="form-control" readonly />
+                                                <label for="caseNumber" style="margin-bottom: -1px;">Case Number</label>
+                                                <input type="text" class="form-control" id="caseNumber" readonly>
                                             </div>
                                             <div class="form-group" style="margin-top: -20px;">
-                                                <label for="inputloan" style="margin-bottom: -1px;">Loan Amount</label>
-                                                <input type="text" class="form-control" readonly />
+                                                <label for="loanAmount" style="margin-bottom: -1px;">Loan Amount</label>
+                                                <input type="text" class="form-control" id="loanAmount" readonly>
                                             </div>
                                             <!-- Add other form groups for the first column here -->
             
@@ -1046,55 +1045,57 @@
                                         <div class="col-md-6">
                                             <!-- Forms for the second column -->
                                             <div class="form-group" style="margin-top: -30px;">
-                                                <label for="inputEmail4" style="margin-bottom: -1px;">CIF ID</label>
-                                                <input type="text" class="form-control" readonly />
+                                            <label for="cifId" style="margin-bottom: -1px;">Cif ID</label>
+                                            <input type="text" class="form-control" id="cifId" readonly>
                                             </div>
                                             <div class="form-group" style="margin-top: -20px;">
-                                                <label for="inputEmail4" style="margin-bottom: -1px;">Account Name</label>
-                                                <input type="text" class="form-control" readonly />
+                                                <label for="accountName" style="margin-bottom: -1px;">Account Name</label>
+                                                <input type="text" class="form-control" id="accountName" readonly>
                                             </div>
                                             <div class="form-group" style="margin-top: -20px;">
-                                                <label for="inputEmail4" style="margin-bottom: -1px;">Branch Id</label>
-                                                <input type="text" class="form-control" readonly />
+                                                <label for="solId" style="margin-bottom: -1px;">Branch Id</label>
+                                                <input type="text" class="form-control" id="solId" readonly>
                                             </div>
             
                                         </div>
                                         
                                             <div class="col-md-6">
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputEmail4" style="margin-bottom: -1px;">Loan Balance</label>
-                                                    <input type="text" class="form-control" readonly />
+                                                    <label for="loanBalance" style="margin-bottom: -1px;">Loan Balance</label>
+                                                <input type="text" class="form-control" id="loanBalance" readonly>
                                                 </div>
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputEmail4" style="margin-bottom: -1px;">Loan Paid</label>
-                                                    <input type="text" class="form-control" readonly />
+                                                    <label for="loanPaid" style="margin-bottom: -1px;">Loan Paid</label>
+                                                <input type="text" class="form-control" id="loanPaid" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputEmail4" style="margin-bottom: -1px;">Months in Default</label>
-                                                    <input type="text" class="form-control" readonly />
+                                                    <label for="monthsInDefault" style="margin-bottom: -1px;">Months in Default</label>
+                                                <input type="text" class="form-control" id="monthsInDefault" readonly>
                                                 </div>
-                                                <div data-mdb-input-init class="form-outline w-100" style="margin-top: -26px;">
-                                                    <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
-                                                    <textarea class="form-control" id="textAreaExample" rows="4"   readonly></textarea>
                                                 
-                                                
-                                                </div>
+                                               
                                             </div>
                                             
                                          
                                      
                                       
                                     </div>
+                                    <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                                                    <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
+                                                    <textarea class="form-control" id="comments" rows="4" readonly></textarea>
+                                                </div>
             
             
                                 </form>
             
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" (click)="approveCase()">Approve</button>
+
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)=" showRejectionTextarea()">Reject case</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)="approveCase()">Approve</button>
                             </div>
             
                             <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
@@ -1106,6 +1107,11 @@
                             </div>
                             <div *ngIf="loading" class="text-center mt-3">
                                 <p>Loading...</p>
+                            </div>
+                            <div *ngIf="isRejectionVisible" class="mt-3">
+                                <label for="rejectionMessage" class="form-label">Rejection Message</label>
+                                <textarea class="form-control" id="rejectionMessage" rows="3" [(ngModel)]="rejectionMessage"></textarea>
+                                <button type="button" class="btn btn-primary mt-2 small-btn" (click)="submitRejection()">Submit Rejection</button>
                             </div>
             
                         </div>

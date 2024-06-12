@@ -15,7 +15,7 @@ export class TabsComponent  implements OnInit {
 
   Data = {
   
-    caseNumber: '',
+  caseNumber: '',
     
   };
   @Input() tabs: { title: string, content: string }[] = [];
@@ -38,6 +38,8 @@ export class TabsComponent  implements OnInit {
   @Input() loanAccount: any = '';
    SubmitData: any[] = [];
     responseMessage: string = '';
+  
+    
   errorMessage: string | null = null;
   successMessage: string | null = null;
   loading: boolean = false;
@@ -50,7 +52,10 @@ export class TabsComponent  implements OnInit {
   recoveredCasesUrl: string = '';
   refinancedCasesUrl: string = '';
  restructuredCasesUrl: string = '';
+ isRejectionVisible: boolean = false;
+  rejectionMessage: string = '';
 
+  
 
 
 
@@ -214,7 +219,7 @@ export class TabsComponent  implements OnInit {
     this.unapprovedcasedata = this.unapprovedcasedata.slice(startIndex, endIndex);
   }
 
-      // cases modal method for autofilling a form
+      //  method for  approve autofilling a form
 
  openModal(item: any) {
   // Get the modal form elements
@@ -240,7 +245,84 @@ export class TabsComponent  implements OnInit {
   // Assign the caseNumber to this.Data
   this.Data.caseNumber = item.caseNumber;
 }
- //end of cases autofill form
+
+
+      // restructure modal method for autofilling a form
+
+openRestructureModal(item: any) {
+  // Populate the form fields with the item data
+  const modalForm = document.getElementById('approveRestructureCaseForm') as HTMLFormElement;
+
+  // Loop through each input and textarea element in the form
+  modalForm.querySelectorAll('input, textarea').forEach((element: Element) => {
+    const fieldName = (element as HTMLInputElement | HTMLTextAreaElement).id;
+    if (fieldName && item.hasOwnProperty(fieldName)) {
+      // Handle different types of elements appropriately
+      if (element.tagName === 'INPUT') {
+        // For input elements
+        (element as HTMLInputElement).value = item[fieldName];
+      } else if (element.tagName === 'TEXTAREA') {
+        // For textarea elements
+        (element as HTMLTextAreaElement).value = item[fieldName];
+      }
+    }
+  });
+
+  
+}
+
+      // refinance modal method for autofilling a form
+
+openRefinanceModal(item: any) {
+  // Populate the form fields with the item data
+  const modalForm = document.getElementById('approveRefinanceCaseForm') as HTMLFormElement;
+
+  // Loop through each input and textarea element in the form
+  modalForm.querySelectorAll('input, textarea').forEach((element: Element) => {
+    const fieldName = (element as HTMLInputElement | HTMLTextAreaElement).id;
+    if (fieldName && item.hasOwnProperty(fieldName)) {
+      // Handle different types of elements appropriately
+      if (element.tagName === 'INPUT') {
+        // For input elements
+        (element as HTMLInputElement).value = item[fieldName];
+      } else if (element.tagName === 'TEXTAREA') {
+        // For textarea elements
+        (element as HTMLTextAreaElement).value = item[fieldName];
+      }
+    }
+  });
+
+  
+}
+
+
+      // recovery  modal method for autofilling a form
+
+openRecoveryModal(item: any) {
+  // Populate the form fields with the item data
+  const modalForm = document.getElementById('approveRecoveryCaseForm') as HTMLFormElement;
+
+  // Loop through each input and textarea element in the form
+  modalForm.querySelectorAll('input, textarea').forEach((element: Element) => {
+    const fieldName = (element as HTMLInputElement | HTMLTextAreaElement).id;
+    if (fieldName && item.hasOwnProperty(fieldName)) {
+      // Handle different types of elements appropriately
+      if (element.tagName === 'INPUT') {
+        // For input elements
+        (element as HTMLInputElement).value = item[fieldName];
+      } else if (element.tagName === 'TEXTAREA') {
+        // For textarea elements
+        (element as HTMLTextAreaElement).value = item[fieldName];
+      }
+    }
+  });
+
+  
+}
+
+
+
+ //approve case method 
 
 approveCase(): void {
   // Ensure caseNumber is valid
@@ -276,6 +358,22 @@ approveCase(): void {
 
  // End of approve case functionality case
 }
+     // functionality for reject case 
+ submitRejection() {
+    if (this.rejectionMessage.trim()) {
+      // Logic to handle the rejection with the rejectionMessage
+      console.log('Rejection message:', this.rejectionMessage);
+      // Hide the textarea and reset the message after submission
+      this.isRejectionVisible = false;
+      this.rejectionMessage = '';
+    } else {
+      // Handle empty rejection message case
+      alert('Rejection message cannot be empty');
+    }
+  }
+  showRejectionTextarea() {
+    this.isRejectionVisible = true;
+  }
 
 
 
