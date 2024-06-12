@@ -36,9 +36,9 @@
                                         <th>Loan Tenure</th>
                                         <th>Branch code</th>
                                         <th>Loan Balance</th>
-                                        <th>syndicated</th>
+                                        <th>verified</th>
                                         <th>Verified</th>
-                                        <th>Action</th>
+                                        <th>syndicated</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,9 +50,10 @@
                                         <td>{{ item.loanAmount }}</td>
                                         <td>{{ item.loanTenure }}</td>
                                         <td>{{ item.solId }}</td>
-                                        <td>{{ item.loanBalance }}</td> 
-                                        <td>{{ item.syndicatedFlag }}</td>
+                                        <td>{{ item.loanBalance }}</td>
                                         <td>{{ item.verifiedFlag }}</td>
+                                        <td>{{ item.syndicatedFlag }}</td>
+                                        
                                         <td>
                                             <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
                                                 data-bs-target="#deletecaseModal" (click)="opendeleteModal(item)" >
@@ -142,11 +143,11 @@
                                         <div class="col-md-6">
                                             <div class="form-group" style="margin-top: -20px;">
                                                 <label for="syndicatedFlag" style="margin-bottom: -1px;">syndicated</label>
-                                                <input type="text" class="form-control" id="syndicatedFlag" >
+                                                <input type="text" class="form-control" id="syndicatedFlag"readonly >
                                             </div>
                                             <div class="form-group" style="margin-top: -20px;">
                                                 <label for="verifiedFlag" style="margin-bottom: -1px;">verified</label>
-                                                <input type="text" class="form-control" id="verifiedFlag">
+                                                <input type="text" class="form-control" id="verifiedFlag" readonly>
                                             </div>
                 
                 
@@ -165,7 +166,7 @@
                             <div class="modal-footer">
                 
                                 <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
-                               
+                                <button type="button" class="btn btn-primary small-btn" >Modify</button>
                                  <button type="button" class="btn btn-primary small-btn" (click)="deleteCase()">Delete</button>
                             </div>
                 

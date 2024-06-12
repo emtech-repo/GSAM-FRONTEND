@@ -1,5 +1,5 @@
 .assign {
-    background-color: #800000;
+    background-color:#973B38;
     color: #fff;
     border: none;
     padding: 3px 6px;
@@ -12,7 +12,7 @@
 }
 
 .assign:hover {
-    background-color: #00124c;
+    background-color: #10004cfd;
 }
 
 table {
