@@ -88,18 +88,56 @@
                             </div>
                         </div>
                     </div>
+                    <h5 class="my-3">DMS</h5>
                         <div class="d-grid">
                             <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal" data-bs-target="#fileUploadDialog">
                                 + Add File
                             </button>
                         </div>
-                    <h5 class="my-3">DMS</h5>
+                    
                     <div class="fm-menu">
                         <div class="list-group list-group-flush">
-                            <a href="javascript:;" class="list-group-item py-1">
+                            <!-- <a href="javascript:;" class="list-group-item py-1">
                                 <i class="bx bx-folder me-2"></i><span>All Files</span> <span
                                     class="badge bg-primary rounded-pill">{{ totalFilesCount }}</span>
-                            </a>
+                            </a> -->
+                            <!-- All Files with Dropdown -->
+                            <div class="list-group">
+                                <div class="list-group-item py-1 dropdown">
+                                        <button class="btn btn-link text-decoration-none p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bx bx-folder me-2"></i><span>All Files</span>
+                                            <i class="bx bx-chevron-down ms-auto"></i>
+                                        </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" (click)="filterFiles('all')">
+                                                <span>All Files</span>
+                                                <span class="badge bg-primary rounded-pill ms-2">{{ totalFilesCount }}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0);" (click)="filterFiles('approved')">
+                                                <span>Approved</span>
+                                                <span class="badge bg-success rounded-pill ms-2">{{ approvedFilesCount }}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0);" (click)="filterFiles('pending')">
+                                                <span>Pending</span>
+                                                <span class="badge bg-warning rounded-pill ms-2">{{ pendingFilesCount }}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0);" (click)="filterFiles('rejected')">
+                                                <span>Rejected</span>
+                                                <span class="badge bg-danger rounded-pill ms-2">{{ rejectedFilesCount }}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
                             <a href="javascript:;" class="list-group-item py-1">
                                 <i class="bx bx-devices me-2"></i><span>Folders</span> <span
                                     class="badge bg-primary rounded-pill">{{ folders.length }}</span>
@@ -210,10 +248,11 @@
                             </div>
                             <div>
                                 <div  class="col-12">
-                                    <div class="table-responsive">
+                                    <div class="table-striped">
                                     <table id="example" class="display expandable-table table table-striped" style="width:100%">
                                         <thead class="table-sm">
                                             <tr>
+                                                <th class="p-1 text-nowrap">Document Id</th>
                                                 <th class="p-1 text-nowrap">Account Name <i class="bx bx-up-arrow-alt ms-2"></i></th>
                                                 <th class="p-1 text-nowrap">Account Number</th>
                                                 <th class="p-1 text-nowrap">File Name</th>
@@ -225,20 +264,48 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let file of recentFiles">
+                                                <td>{{ file.id }}</td>
                                                 <td>{{ file.accountName }}</td>
                                                 <td>{{ file.loanAccount }}</td>
                                                 <td>{{ file.fileName }}</td>
                                                 <td>{{ file.createdOn }}</td>
                                                 <td>{{ file.folder }}</td>
                                                 <!-- <td>{{ file.verifiedFlag }}</td> -->
-                                                <td>
+                                                <!-- <td>
                                                     <ng-container *ngIf="file.verifiedFlag === 'Y'; else pendingFlag">
                                                         <button type="button" class="btn btn-success btn-sm">Approved</button>
                                                     </ng-container>
                                                     <ng-template #pendingFlag>
                                                         <button type="button" class="btn btn-warning btn-sm">Pending</button>
                                                     </ng-template>
+                                                </td> -->
+                                                <!-- <td>
+                                                     <ng-container *ngIf="file.rejectedFlag === 'Y'">
+                                                        <button type="button" class="btn btn-danger btn-sm">Rejected</button>
+                                                    </ng-container>
+                                                    <ng-template >
+                                                        <button type="button" class="btn btn-danger btn-sm" *ngIf="file.rejectedFlag === 'Y'">Rejected</button>
+                                                        <button type="button" class="btn btn-warning btn-sm"
+                                                            *ngIf="file.verifiedFlag === 'N' || file.rejectedFlag === 'N'">Pending</button>
+
+                                                        <button type="button" class="btn btn-success btn-sm" *ngIf="file.verifiedFlag === 'Y'">Approved</button>
+                                                    </ng-template>
+                                                </td> -->
+                                                <td>
+                                                    <ng-container *ngIf="file.rejectedFlag === 'Y'">
+                                                        <button type="button" class="btn btn-danger btn-sm">Rejected</button>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="file.rejectedFlag !== 'Y'">
+                                                        <button type="button" class="btn btn-warning btn-sm"
+                                                            *ngIf="file.verifiedFlag === 'N' || file.rejectedFlag === 'N'">Pending</button>
+                                                        <button type="button" class="btn btn-success btn-sm" *ngIf="file.verifiedFlag === 'Y'">Approved</button>
+                                                    </ng-container>
                                                 </td>
+
+
+
+
+
 
                                                 <td>
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"

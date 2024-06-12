@@ -49,6 +49,12 @@ export class RetrieveComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
   elementRef: any;
   showError: boolean =false;
+  
+  approvedFilesCount: number = 0;
+  pendingFilesCount: number = 0;
+  rejectedFilesCount: number = 0;
+  documents: any[] = [];
+  filteredDocuments: any[] = [];
 
 
   constructor(
@@ -249,11 +255,41 @@ export class RetrieveComponent implements OnInit, OnDestroy {
       console.error('Form is invalid');
     }
   }
+  
+  
+
+  filterFiles(status: string) {
+    // if (status === 'all') {
+    //   this.recentFiles = this.documents;
+    // } else if (status === 'approved') {
+    //   this.recentFiles = this.documents.filter(doc => doc.verifiedFlag === 'Y' );
+    // } else if (status === 'pending') {
+    //   this.recentFiles = this.documents.filter(doc => doc.verifiedFlag === 'N' && doc.rejectedFlag === 'N');
+    // } else if (status === 'rejected') {
+    //   this.recentFiles = this.documents.filter(doc => doc.rejectedFlag === 'Y' );
+    // }
+    if (status === 'all') {
+      this.recentFiles = this.documents;
+    } else if (status === 'approved') {
+      this.recentFiles = this.documents.filter(doc => doc.verifiedFlag === 'Y');
+    } else if (status === 'pending') {
+      this.recentFiles = this.documents.filter(doc => doc.verifiedFlag === 'N' || doc.rejectedFlag === 'N');
+    } else if (status === 'rejected') {
+      this.recentFiles = this.documents.filter(doc => doc.rejectedFlag === 'Y');
+    }
+  }
+
 
 
 
 
   updateCounts(documents: any[]) {
+    
+    this.totalFilesCount = documents.length;
+    this.approvedFilesCount = documents.filter(doc => doc.verifiedFlag === 'Y').length;
+    this.pendingFilesCount = documents.filter(doc => doc.verifiedFlag === 'N' || doc.rejectedFlag === 'N').length;
+    this.rejectedFilesCount = documents.filter(doc => doc.rejectedFlag === 'Y' ).length;
+
     // Reset the counts
     this.folderCounts = {
       'Collateral': 0,
@@ -272,6 +308,7 @@ export class RetrieveComponent implements OnInit, OnDestroy {
    
     this.totalFilesCount = this.recentFiles.length;
     this.totalRecentFilesCount = this.recentFiles.length;
+    
   }
   
   

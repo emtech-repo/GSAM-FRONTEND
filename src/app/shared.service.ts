@@ -81,6 +81,7 @@ export class SharedService {
   private AllDocumentUrl = "http://192.168.88.33:5260/api/DocumentMgnt/GetAllDocuments";
   private documentApprovalUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/ApproveUploadedDocument';
   private pendingdocumentsUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/GetUnApprovedDocuments';
+  private rejectdocumentUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/RejectUploadedDocument';
 
   // readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
   // private storageKey = 'uploads';
@@ -142,10 +143,12 @@ export class SharedService {
     
    return this.http.post<any>(this.documentsUrl, formData);
   }
-  approveDocument(documentUrl: string, comments: string): Observable<any> {
+  approveDocument(documentUrl: string, comments: string, id: string): Observable<any> {
     const requestBody = {
       documentUrl: documentUrl,
-      comments: comments
+      comments: comments,
+      id :id,
+      
     };
     return this.http.post<any>(this.documentApprovalUrl, requestBody);
   }
@@ -160,6 +163,15 @@ export class SharedService {
   getPendingDocuments(): Observable<any> {
     return this.http.get<any>(this.pendingdocumentsUrl);
 
+  }
+  rejectDocument(documentUrl: string,  comments: string, id: number): Observable<any> {
+    const requestBody = { 
+      documentUrl: documentUrl,
+      comments: comments,
+      id: id 
+      
+    };
+    return this.http.post<any>(this.rejectdocumentUrl, requestBody);
   }
 
   
