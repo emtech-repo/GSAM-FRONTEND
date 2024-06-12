@@ -38,12 +38,19 @@ export class SharedService {
    readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
    readonly approvecaseUrl = 'http://192.168.88.94:5260/api/Case/ApproveCase';
    readonly approveRestructuredUrl = 'http://192.168.88.94:5260/api/Restructure/ApproveRestructureCase';
+   readonly approveRefinancedUrl = 'http://192.168.88.94:5260/api/Refinance/ApproveRefinancedCase';
   readonly deletecaseUrl = 'http://192.168.88.94:5260/api/Case/DeleteCase';
 
   readonly unapprovedcaseUrl = 'http://192.168.88.94:5260/api/Case/GetUnApprovedCases';
-   readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
-    readonly refinancedCasesUrl = 'http://192.168.88.94:5260/api/Refinance/GetRefinancedCases';
-     readonly restructuredCasesUrl = 'http://192.168.88.94:5260/api/Restructure/GetAllRestructuredCases';
+  readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
+  readonly refinancedCasesUrl = 'http://192.168.88.94:5260/api/Refinance/GetRefinancedCases';
+  readonly restructuredCasesUrl = 'http://192.168.88.94:5260/api/Restructure/GetAllRestructuredCases';
+
+  private documentsUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/DocumentUpload';
+  private AllDocumentUrl = "http://192.168.88.33:5260/api/DocumentMgnt/GetAllDocuments";
+  private documentApprovalUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/ApproveUploadedDocument';
+  private pendingdocumentsUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/GetUnApprovedDocuments';
+  private rejectdocumentUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/RejectUploadedDocument';  
 
 
 
@@ -76,9 +83,7 @@ export class SharedService {
 
 
   
-  private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
-  private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
-
+  
   // readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
   private storageKey = 'uploads';
   private dataUrl = '/assets/data/data.json';
@@ -127,18 +132,7 @@ export class SharedService {
 
 
 
-  uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('loanAccount', loanAccount);
-    formData.append('fileName', fileName);
-    formData.append('fileType', fileType);
-    formData.append('folder', folder);
-    formData.append('fileExtension', fileExtension);
-    formData.append('accountName', accountName);
-    
-   return this.http.post<any>(this.documentsUrl, formData);
-  }
+ 
   getCases(): Observable<any> {
      return this.http.get<any>(this.CasesUrl);
     
@@ -147,6 +141,20 @@ export class SharedService {
     return this.http.get<any>(this.AllDocumentUrl);
 
   }
+  getPendingDocuments(): Observable<any> {
+    return this.http.get<any>(this.pendingdocumentsUrl);
+
+  }
+  rejectDocument(documentUrl: string,  comments: string, id: number): Observable<any> {
+    const requestBody = { 
+      documentUrl: documentUrl,
+      comments: comments,
+      id: id 
+      
+    };
+    return this.http.post<any>(this.rejectdocumentUrl, requestBody);
+  }
+
 
   
  
@@ -179,19 +187,21 @@ submitRecovery(inputdata: any) {
    approveRestructuredCases(CaseNumber: any) {
     return this.http.post(this.approveRestructuredUrl, CaseNumber)
   }
+   approveRefinancedCases(CaseNumber: any) {
+    return this.http.post(this.approveRefinancedUrl, CaseNumber)
+  }
   
 
    approveCase(CaseNumber: any) {
     return this.http.post(this.approvecaseUrl, CaseNumber)
   }
 
-  deleteCase(caseNumber: string): Observable<any> {
-  const url = `http://192.168.88.94:5260/api/Case/DeleteCase`;
-  const options = {
-    body: { CaseNumber: caseNumber },
-  };
-  return this.http.delete(url, options);
-}
+deleteCase(caseNumber: string): Observable<any> {
+    const options = {
+      body: { CaseNumber: caseNumber },
+    };
+    return this.http.delete(this.deletecaseUrl, options);
+  }
 
 
 
@@ -267,6 +277,30 @@ submitRecovery(inputdata: any) {
         map((data: any) => data['documents']) // Assuming 'document' is the key containing your documents
       );
   }
+
+ uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('loanAccount', loanAccount);
+    formData.append('fileName', fileName);
+    formData.append('fileType', fileType);
+    formData.append('folder', folder);
+    formData.append('fileExtension', fileExtension);
+    formData.append('accountName', accountName);
+    
+   return this.http.post<any>(this.documentsUrl, formData);
+  }
+  approveDocument(documentUrl: string, comments: string, id: string): Observable<any> {
+    const requestBody = {
+      documentUrl: documentUrl,
+      comments: comments,
+      id :id,
+      
+    };
+    return this.http.post<any>(this.documentApprovalUrl, requestBody);
+  }
+
+
   getCreateCase(): Observable<any[]> {
     return this.http.get<any[]>(`${this.CreateCaseUrl}`)
       .pipe(
