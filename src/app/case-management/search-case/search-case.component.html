@@ -518,9 +518,11 @@
                                     <div class="tab-pane fade" [ngClass]="{'show active': activeTab === 'documents'}"
                                         id="pills-documents" role="tabpanel" aria-labelledby="pills-documents-tab">
                                         <div *ngIf="loanDetails">
-                                            <button class="btn btn-link" [routerLink]="['/documents/app-retrieve']">Go
-                                                to Documentation</button>
+                                            <button class="btn btn-link" [routerLink]="['/documents/app-retrieve', loanDetails?.acid]">
+                                                Go to Documentation
+                                            </button>
                                         </div>
+
                                     </div>
 
                                 </div>

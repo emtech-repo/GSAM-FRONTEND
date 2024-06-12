@@ -130,6 +130,7 @@ body {
     padding: 2px;
     cursor: pointer;
 }
+
 /* Minimize table row padding and button sizes */
 table tbody tr td {
     padding: 0.25rem;
@@ -145,7 +146,6 @@ table tbody tr td .d-flex {
 table tbody tr td button {
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
-    /* Smaller font size for buttons */
 }
 .small-btn {
     font-size: 15px;
@@ -167,4 +167,36 @@ table tbody tr td button {
     /* Adjust as needed */
     height: 3rem;
     /* Adjust as needed */
+}
+.table-responsive {
+    max-height: 400px;
+    /* Adjust the max-height as needed */
+    overflow-y: auto;
+}
+.list-group-item {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
 }
