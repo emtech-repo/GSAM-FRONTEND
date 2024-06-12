@@ -20,9 +20,9 @@ declare var bootstrap: any;
 
 export class TabsComponent  implements OnInit {
 
-  Data = {
-  
-  caseNumber: '',
+  Data = {caseNumber: '', };
+   
+  RestructureData = {caseNumber: '',
     
   };
 
@@ -297,11 +297,56 @@ export class TabsComponent  implements OnInit {
     this.filterData(); // Update displayed data when page changes
   }
 
-  onSearch(): void {
-    this.currentPage = 1; // Reset current page to 1 when searching
 
-    this.getUnApprovedCases(); // Refetch data after search
+    onSearch(): void {
+    this.currentPage = 1; // Reset current page when performing a new search
+
+    let searchParamKey: string = this.searchParams.param;
+    if (!searchParamKey) {
+      console.error('Search parameter is not selected');
+      return;
+    }
+
+    const searchValue: string = this.searchParams.value.toLowerCase();
+
+    this.unapprovedcasedata = this.data.filter(item => {
+      return item[searchParamKey]?.toString().toLowerCase().includes(searchValue);
+    });
+
+    this.totalItems = this.unapprovedcasedata.length;
+    this.getUnApprovedCases();
   }
+
+  search(): void {
+    console.log('Search method called');
+    this.currentPage = 1; // Reset current page for search
+
+    let searchParamKey: string;
+    switch (this.searchParams.param) {
+      case 'loanAccount':
+        searchParamKey = 'loanAccount';
+        break;
+      case 'accountName':
+        searchParamKey = 'accountName';
+        break;
+      case 'caseNumber':
+        searchParamKey = 'caseNumber';
+        break;
+      case 'cifId':
+        searchParamKey = 'cifId';
+        break;
+      default:
+        console.error('Invalid search parameter');
+        return;
+    }
+
+    this.restructuredCasesdata = this.data.filter(item => {
+      return item[searchParamKey].toLowerCase().includes(this.searchParams.value.toLowerCase());
+    });
+    this.totalItems = this.restructuredCasesdata.length;
+    this.getrestructuredCases();
+  }
+
 
    fetchService(): void {
     this.http.get<any>(this.SubmissionsUrl).subscribe(response => {
@@ -343,9 +388,9 @@ export class TabsComponent  implements OnInit {
   }
 
   getUnApprovedCases(): void {
-    this.http.get<any>(this.restructuredCasesUrl).subscribe(response => {
+    this.http.get<any>(this.unapprovedcaseUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
-        this.restructuredCasesdata = response.result;
+        this.unapprovedcasedata = response.result;
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -355,9 +400,10 @@ export class TabsComponent  implements OnInit {
   }
 
  getrestructuredCases(): void {
-    this.http.get<any>(this.unapprovedcaseUrl).subscribe(response => {
+    this.http.get<any>(this.restructuredCasesUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
-        this.unapprovedcasedata = response.result;
+        this.restructuredCasesdata = response.result;
+        
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -434,8 +480,43 @@ openRestructureModal(item: any) {
     }
   });
 
-  
+  // Assign the caseNumber to RestructureData
+  this.RestructureData.caseNumber = item.caseNumber;
 }
+
+approveRestructuredCase(): void {
+  // Ensure caseNumber is valid
+  if (!this.RestructureData.caseNumber) {
+    console.error('Case number is undefined or empty.');
+    return;
+  }
+
+  // Constructing the data object to be submitted
+  const approveRestructureData = {
+    CaseNumber: this.RestructureData.caseNumber,
+  };
+
+  console.log('Case Data to be Submitted:', approveRestructureData);
+  this.loading = true; // Indicate loading state
+
+  // Attempt to approve the case
+  this.sharedService.approveRestructuredCases(approveRestructureData).subscribe(
+     (response: any) => {
+      console.log('Response received:', response);
+      this.loading = false; // Reset loading state upon success
+      this.successMessage = ' Restructured Case  approved successfully!';
+      this.responseMessage = response.message; // Set the response message
+      this.toastr.success(' Restructured Case approved successfully!', 'Success');
+    },
+    (error: any) => {
+      this.loading = false; // Reset loading state upon failure
+      console.error('Error approving case:', error);
+      this.errorMessage = 'Failed to approve case. Please try again.';
+      this.toastr.error('Failed to approve case. Please try again.', 'Error');
+    }
+  );
+}
+
 
       // refinance modal method for autofilling a form
 
@@ -524,6 +605,11 @@ approveCase(): void {
 
  // End of approve case functionality case
 }
+
+ //approve restructure case method 
+
+
+
      // functionality for reject case 
  submitRejection() {
     if (this.rejectionMessage.trim()) {

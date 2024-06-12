@@ -130,11 +130,7 @@ export const routes: Routes = [
       
       component:DeleteCaseComponent,
     },
-     {
-      path: 'modify-case',
-      component:ModifyCaseComponent,
-    },
-
+     
     
     
     

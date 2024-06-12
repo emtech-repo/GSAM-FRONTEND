@@ -102,3 +102,15 @@ table td {
     color: white !important;
 
 }
+.proceed {
+    background-color: #973B38;
+    color: #fff;
+    border: none;
+    padding: 3px 6px;
+    border-radius: 10px;
+   
+}
+
+.proceed:hover {
+    background-color: #00124c;
+}

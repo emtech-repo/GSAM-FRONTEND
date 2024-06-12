@@ -54,10 +54,7 @@ export class HomeComponent implements OnInit {
       title: "delete case",
       path: "../../../case-management/delete-case"
     },
-     {
-      title: "modify case",
-      path: "../../../case-management/modify-case"
-    },
+     
     {
       title: "gsam cases",
       path: "../../../case-management/app-search-cases"
