@@ -30,20 +30,12 @@
     overflow-x: auto;
 }
 
-
-table {
-    width: 120%;
-    border-collapse: collapse;
-}
-
-
 table th,
 table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
-
 
 #example th,
 #example td {
@@ -64,7 +56,6 @@ table td {
     margin-bottom: 50px;
 }
 
-
 .small-btn {
     font-size: 15px;
     padding: 5px 10px;
@@ -72,33 +63,15 @@ table td {
     border-radius: 5px;
 }
 
-
 .pagination-container {
     position: absolute;
     bottom: 0;
     right: 0;
     margin-bottom: 10px;
 }
-
 .form-control {
     width: 100%;
     height: 30px;
     padding: 5px 10px;
 }
 
-
-.btn-success {
-    background-color: #28a745 !important;
-    color: white !important;
-}
-
-.btn-danger {
-    background-color: #dc3545 !important;
-    color: white !important;
-}
-
-.btn-primary {
-    background-color: #007bff !important;
-    color: white !important;
-
-}

@@ -31,41 +31,43 @@
                                 <button (click)="onSearch()" class="btn btn-primary btn-sm"
                                     style="border-radius: 5px; margin-left: -10px;">Search</button>
                             </div>
-                            <div class="table-responsive">
-                                <table id="example" class="display expandable-table" style="width:100%">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Case Number</th>
-                                            <th>Cif ID</th>
-                                            <th>Loan account</th>
-                                            <th>Account Name</th>
-                                            <th>loan Amount</th>
-                                            <th>Loan Tenure</th>
-                                            <th>Branch code</th>
-                                            <th>Loan Balance</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let item of pagedCasesdata">
-                                            <td>{{ item.caseNumber}}</td>
-                                            <td>{{ item.cifId }}</td>
-                                            <td>{{ item.loanAccount }}</td>
-                                            <td>{{ item.accountName }}</td>
-                                            <td>{{ item.loanAmount }}</td>
-                                            <td>{{ item.loanTenure }}</td>
-                                            <td>{{ item.solId }}</td>
-                                            <td>{{ item.loanBalance }}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary small-btn"
-                                                    data-bs-toggle="modal" data-bs-target="#approvecaseModal">
-                                                    Approve
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+
+                        <div class="table-responsive">
+                            <table id="example" class="display expandable-table" style="width:100%">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Case Number</th>
+                                        <th>Cif ID</th>
+                                        <th>Loan account</th>
+                                        <th>Account Name</th>
+                                        <th>Loan Amount</th>
+                                        <th>Loan Tenure</th>
+                                        <th>Branch code</th>
+                                        <th>Loan Balance</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of unapprovedcasedata">
+                                        <td>{{ item.caseNumber }}</td>
+                                        <td>{{ item.cifId }}</td>
+                                        <td>{{ item.loanAccount }}</td>
+                                        <td>{{ item.accountName }}</td>
+                                        <td>{{ item.loanAmount }}</td>
+                                        <td>{{ item.loanTenure }}</td>
+                                        <td>{{ item.solId }}</td>
+                                        <td>{{ item.loanBalance }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
+                                                data-bs-target="#approvecaseModal" (click)="openModal(item)">
+                                                Proceed
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                             <div class="row">
                                 <div class="col-12">
                                     <pagination [(ngModel)]="currentPage" [totalItems]="totalItems"
@@ -81,114 +83,92 @@
 
                     </div>
                 </div>
+
                 <!-- case  approval modal-->
-                <div class="modal fade" id="approvecaseModal" tabindex="-1" aria-labelledby="approvecaseModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="approvecaseModal" tabindex="-1" aria-labelledby="approvecaseModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="approvecaseModalLabel">Case Approval Form</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <h5 class="modal-title" id="approvecaseModalLabel">Approve Case</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+                            <form id="approveCaseForm">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <!-- First Column -->
-                                        <div class="row">
-                                            <div class="col-md-12 ps-9">
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloanaccount" style="margin-bottom: -1px;">Loan
-                                                        Account
-                                                    </label>
-                                                    <input type="text" class="form-control" id="CifID" readonly />
-
-
-                                                </div>
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputcasenumber" style="margin-bottom: -1px;">Case
-                                                        Number </label>
-                                                    <input type="text" class="form-control" id="caseNumber" readonly />
-
-                                                </div>
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloan" style="margin-bottom: -1px;"> Loan
-                                                        Amount</label>
-                                                    <input type="text" class="form-control" id="loanAmount" readonly />
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
+                                    <div class="col-md-6 mb-3"  style="margin-top: -20px;">
+                                        <label for="caseNumber" class="form-label"  style="margin-bottom: -1px;">Case Number</label>
+                                        <input type="text" class="form-control" id="caseNumber" readonly>
                                     </div>
-                                    <div class="col-md-4">
-                                        <!-- Second Column -->
-                                        <div class="row">
-                                            <div class="col-md-12 ps-9">
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputcifId" style="margin-bottom: -1px;">CIF ID</label>
-                                                    <input type="text" class="form-control" id="cifId" readonly />
-
-
-                                                </div>
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inpubranchid" style="margin-bottom: -1px;">Branch
-                                                        ID</label>
-                                                    <input type="text" class="form-control" id="solId" y />
-
-
-                                                </div>
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloanbalance" style="margin-bottom: -1px;">Loan
-                                                        Balance</label>
-                                                    <input type="text" class="form-control" id="loanBalance" readonly />
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <!-- Third Column -->
-                                        <div class="row">
-                                            <div class="col-md-12 ps-9">
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputaccname" style="margin-bottom: -1px;">Acc
-                                                        Name</label>
-                                                    <input type="text" class="form-control" id="accountName" readonly />
-
-
-                                                </div>
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloantenure" style="margin-bottom: -1px;">Loan
-                                                        Tenure</label>
-                                                    <input type="text" class="form-control" id="loanTenure" readonly />
-
-                                                </div>
-                                                <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="inputloantenure" style="margin-bottom: -1px;">Case
-                                                        number </label>
-                                                    <input type="text" class="form-control" id="loanTenure" readonly />
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
+                                    <div class="col-md-6 mb-3"  style="margin-top: -20px;">
+                                        <label for="cifId" class="form-label"  style="margin-bottom: -1px;">Cif ID</label>
+                                        <input type="text" class="form-control" id="cifId" readonly>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3"  style="margin-top: -10px;">
+                                        <label for="loanAccount" class="form-label"  style="margin-bottom: -1px;">Loan Account</label>
+                                        <input type="text" class="form-control" id="loanAccount" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3"  style="margin-top: -10px;">
+                                        <label for="accountName" class="form-label"  style="margin-bottom: -1px;">Account Name</label>
+                                        <input type="text" class="form-control" id="accountName" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3" style="margin-top: -10px;">
+                                        <label for="loanAmount" class="form-label"  style="margin-bottom: -1px;">Loan Amount</label>
+                                        <input type="text" class="form-control" id="loanAmount" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3"  style="margin-top: -10px;">
+                                        <label for="loanTenure" class="form-label"  style="margin-bottom: -1px;">Loan Tenure</label>
+                                        <input type="text" class="form-control" id="loanTenure" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3"  style="margin-top: -10px;">
+                                        <label for="solId" class="form-label"  style="margin-bottom: -1px;">Branch Code</label>
+                                        <input type="text" class="form-control" id="solId" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3" style="margin-top: -10px;">
+                                        <label for="loanBalance" class="form-label" style="margin-bottom: -1px;">Loan Balance</label>
+                                        <input type="text" class="form-control" id="loanBalance" readonly>
+                                    </div>
+                                </div>
+                            </form>
+
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary small-btn"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary small-btn">Approve Case</button>
+                                
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)=" showRejectionTextarea()">Reject case</button>
+                                <button type="button" class="btn btn-primary small-btn"    (click)="approveCase()" >Approve</button>
                             </div>
+
+                            <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
+                                <p>{{ errorMessage }}</p>
+                            
+                            </div>
+                            <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+                                <p>{{ responseMessage }}</p>
+                            </div>
+                            <div *ngIf="loading" class="text-center mt-3">
+                                <p>Loading...</p>
+                            </div>
+
+                            <div *ngIf="isRejectionVisible" class="mt-3">
+                                <label for="rejectionMessage" class="form-label">Rejection Message</label>
+                                <textarea class="form-control" id="rejectionMessage" rows="3" [(ngModel)]="rejectionMessage"></textarea>
+                                <button type="button" class="btn btn-primary mt-2 small-btn" (click)="submitRejection()">Submit Rejection</button>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
+
+          
+  
+               
+
 
 
             </ng-container>
@@ -250,6 +230,7 @@
                     <div class="container mt-5">
                         <!-- <h2 class="text-center mb-4">APPROVE CLAIM</h2> -->
 
+
                         <!-- Form fields -->
                         <div class="form-row mb-3">
                             <div class="col">
@@ -310,6 +291,7 @@
 
                 </body>
 
+
                 </html>
 
             </ng-container>
@@ -340,6 +322,7 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>Request id</th>
+
                                             <th>Service Name</th>
                                             <th>Provider Name</th>
                                             <th>Account Number</th>
@@ -394,6 +377,7 @@
 
                     </div>
                 </div>
+
                 <!-- services modal -->
                 <div class="modal fade" id="approveserviceModal" tabindex="-1" aria-labelledby="approveserviceModalLabel"
                     aria-hidden="true">
@@ -418,10 +402,12 @@
                                                     <label for="serviceName" style="margin-bottom: -1px;">Service Name</label>
                                                     <input type="text" class="form-control" id="serviceName" readonly />
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
+
                                         <!-- Second Column  -->
                                         <div class="row">
                                             <div class="col-md-12 ps-9">
@@ -437,11 +423,13 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-4">
                                         <!-- Third Column -->
                                         <div class="row">
                                             <div class="col-md-12 ps-9">
                                                 <div class="form-group" style="margin-top: -20px;">
+
                                                     <label for="status" style="margin-bottom: -1px;">Status</label>
                                                     <input type="text" class="form-control" id="status" readonly />
                                                 </div>
@@ -522,17 +510,612 @@
                 </div>
             </ng-container>
             <ng-container *ngIf="i === 5">
-                <!-- Display content for "recovery cases" tab -->
 
-            </ng-container>
-            <ng-container *ngIf="i === 6">
                 <!-- Display content for "restructure cases" tab -->
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group mx-sm-3 mb-6 d-flex">
+                                <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                                    style="width: 150px; height: 30px;">
+                                    <option value="1" disabled>search by</option>
+                                    <option value="loanAccount">Loan Account</option>
+                                    <option value="accountName">Account Name</option>
+                                    <option value="caseNumber">Case Number</option>
+                                    <option value="cifId">CIF ID</option>
+                                </select>
+                                <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                                    class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
+                                <button (click)="onSearch()" class="btn btn-primary btn-sm"
+                                    style="border-radius: 5px; margin-left: -10px;">Search</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="example" class="display expandable-table" style="width:100%">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Case No</th>
+                                            <th>CIF ID</th>
+                                            <th>Acc Name</th>
+                                            <th>Loan Acc</th>
+                                            <th>Branch code</th>
+                                            <th>Loan Balance</th>
+                                            <th>instalments</th>
+                                            <th>new intaslments</th>
+                                            <th>Loan Tenure</th>
+                                            <th>New Loan Tenure</th>
+                                            <th>comments</th>
+                                            <th>Action</th>
+
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr   *ngFor="let item of restructuredCasesdata" >
+                                            <td>{{ item.caseNumber}}</td>
+                                            <td>{{ item.cifID }}</td>
+                                            <td>{{ item.accountName}}</td>
+                                            <td>{{ item.loanAccount }}</td>
+                                            <td>{{ item.solId}}</td>
+                                            <td>{{ item.loanBalance }}</td>
+                                            <td>{{ item.initialInstalments}}</td>
+                                            <td>{{ item.newInstalments }}</td>
+                                            <td>{{ item.loanTenure}}</td>
+                                            <td>{{ item.newLoanTenure}}</td>
+                                            <td>{{ item.comments }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
+                                                    data-bs-target="#RestructureapprovalModal" (click)="openRestructureModal(item)" >
+                                                    Proceed
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                
+                            <div class="row">
+                                <div class="col-12">
+                                    <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                                        (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                                    </pagination>
+                                </div>
+                
+                            </div>
+                        </div>
+                
+                
+                
+                    </div>
+                </div>
+                <!-- restructure approval modal-->
+                <div class="modal fade" id="RestructureapprovalModal" tabindex="-1" aria-labelledby="RestructureapprovalModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="RestructureapprovalModalLabel">Restructure Approval form</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="approveRestructureCaseForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- First Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the first column -->
+                                                    <div class="form-group" style="margin-top: -30px;">
+                                                        <label for="caseNumber" class="form-label" style="margin-bottom: -1px;">Case Number</label>
+                                                        <input type="text" class="form-control" id="caseNumber" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="cifID " class="form-label"  style="margin-bottom: -1px;">CIF ID</label>
+                                                        <input type="text" class="form-control" id="cifID" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                    <label for="accountName" class="form-label"  style="margin-bottom: -1px;">Account Name</label>
+                                                    <input type="text" class="form-control" id="accountName" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="loanAccount" class="form-label"  style="margin-bottom: -1px;">Loan Account</label>
+                                                        <input type="text" class="form-control" id="loanAccount" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-md-6">
+                                            <!-- Second Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the second column -->
+                                                    <div class="form-group" style="margin-top: -30px;">
+                                                        <label for="solId" class="form-label"  style="margin-bottom: -1px;">Branch Code</label>
+                                                        <input type="text" class="form-control" id="solId" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="loanBalance" class="form-label"  style="margin-bottom: -1px;">Loan Balance</label>
+                                                        <input type="text" class="form-control" id="loanBalance" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="initialInstalments" class="form-label"  style="margin-bottom: -1px;">Initial Instalments</label>
+                                                        <input type="text" class="form-control" id="initialInstalments" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="inputinstalments" style="margin-bottom: -1px;"  style="margin-bottom: -1px;">New Instalments</label>
+                                                        <input type="text" class="form-control" id="newInstalments" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Third Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the third column -->
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="loanTenure" class="form-label"  style="margin-bottom: -1px;">Loan Tenure</label>
+                                                        <input type="text" class="form-control" id="loanTenure" readonly>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-md-6">
+                                            <!-- Fourth Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="newLoanTenure" class="form-label" style="margin-bottom: -1px;">New Loan Tenure</label>
+                                                        <input type="text" class="form-control" id="newLoanTenure" readonly>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                                        <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
+                                        <textarea class="form-control" id="comments" rows="4" readonly></textarea>
+                                    </div>
+                                    
+                                    
+                                    
+                                </form>
+                
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)=" showRejectionTextarea()">Reject case</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)="approveCase()">Approve</button>
+                            </div>
+                
+                            <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
+                                <p>{{ errorMessage }}</p>
+                
+                            </div>
+                            <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+                                <p>{{ responseMessage }}</p>
+                            </div>
+                            <div *ngIf="loading" class="text-center mt-3">
+                                <p>Loading...</p>
+                            </div>
+                            <div *ngIf="isRejectionVisible" class="mt-3">
+                                <label for="rejectionMessage" class="form-label">Rejection Message</label>
+                                <textarea class="form-control" id="rejectionMessage" rows="3" [(ngModel)]="rejectionMessage"></textarea>
+                                <button type="button" class="btn btn-primary mt-2 small-btn" (click)="submitRejection()">Submit Rejection</button>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+
+            </ng-container>        
+            <ng-container *ngIf="i === 6">
+                <!-- Display content for "refinance cases" tab -->
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group mx-sm-3 mb-6 d-flex">
+                                <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                                    style="width: 150px; height: 30px;">
+                                    <option value="1" disabled>search by</option>
+                                    <option value="loanAccount">Loan Account</option>
+                                    <option value="accountName">Account Name</option>
+                                    <option value="caseNumber">Case Number</option>
+                                    <option value="cifId">CIF ID</option>
+                                </select>
+                                <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                                    class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
+                                <button (click)="onSearch()" class="btn btn-primary btn-sm"
+                                    style="border-radius: 5px; margin-left: -10px;">Search</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="example" class="display expandable-table" style="width:100%">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Case No</th>
+                                            <th>Cif ID</th>
+                                            <th>Loan acc</th>
+                                            <th>Acc Name</th>
+                                            <th>loan balance</th>
+                                            <th>Branch code</th>
+                                            <th>loan Amount</th>
+                                            <th>installments</th>
+                                            <th>new instalments</th>
+                                            <th>Refinance amount</th>
+                                            <th>loan Tenure</th>
+                                            <th>New LoanTenure</th>
+                                            <th>comments</th>
+                                          
+                                            <th>Action</th>
+
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr  *ngFor="let item of  refinancedCasesdata" >
+                                        <td>{{ item.caseNumber}}</td>
+                                        <td>{{ item.cifID}}</td>
+                                        <td>{{ item.loanAccount }}</td>
+                                        <td>{{ item.accountName }}</td>
+                                        <td>{{ item.loanBalance }}</td>
+                                        <td>{{ item.solId}}</td>
+                                        <td>{{ item.loanAmount}}</td>
+                                        <td>{{ item.initialInstalments }}</td>
+                                        <td>{{ item.newInstalments }}</td>
+                                        <td>{{ item.refinanceAmount}}</td>
+                                        <td>{{ item.loanTenure}}</td>
+                                        <td>{{ item.newLoanTenure}}</td>
+                                        <td>{{ item.comments}}</td>
+                                     
+
+                                            <td>
+                                                <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
+                                                    data-bs-target="#refinanceapprovalModal"  (click)="openRefinanceModal(item)">
+                                                    Proceed
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                
+                            <div class="row">
+                                <div class="col-12">
+                                    <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                                        (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                                    </pagination>
+                                </div>
+                
+                            </div>
+                        </div>
+                
+                
+                
+                    </div>
+                </div>
+                <!-- refinance approval modal-->
+                <div class="modal fade" id="refinanceapprovalModal" tabindex="-1" aria-labelledby="refinanceapprovalModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="refinanceapprovalModalLabel">Refinance approval Form</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="approveRefinanceCaseForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- First Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the first column -->
+                                                    <div class="form-group" style="margin-top: -40px;">
+                                                        <label for="cifID" class="form-label" style="margin-bottom: -1px;">CIF ID</label>
+                                                        <input type="text" class="form-control" id="cifID" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="caseNumber" class="form-label" style="margin-bottom: -1px;">Case Number</label>
+                                                        <input type="text" class="form-control" id="caseNumber" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="loanAmount" class="form-label" style="margin-bottom: -1px;">Initial Loan Amount</label>
+                                                        <input type="text" class="form-control" id="loanAmount" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="refinanceAmount" style="margin-bottom: -1px;">Refinance
+                                                            amount</label>
+                                                        <input type="text" class="form-control" id="refinanceAmount" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- Second Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the second column -->
+                                                    <div class="form-group" style="margin-top: -32px;">
+                                                        <label for="loanAccount" style="margin-bottom: -1px;">Loan Account</label>
+                                                        <input type="text" class="form-control" id="loanAccount" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -15px;">
+                                                        <label for="solId" style="margin-bottom: -1px;">Branch Name</label>
+                                                        <input type="text" class="form-control" id="solId" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top:  -15px;">
+                                                        <label for="initialInstalments" style="margin-bottom: -1px;">Initial Instalments</label>
+                                                        <input type="text" class="form-control" id="initialInstalments" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -15px;">
+                                                        <label for="newLoanTenure" style="margin-bottom: -1px;">New Loan Tenure</label>
+                                                        <input type="number" class="form-control" id="newLoanTenure" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Third Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the third column -->
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="accountName" style="margin-bottom: -1px;">Acc Name</label>
+                                                        <input type="text" class="form-control" id="accountName" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="loanTenure" style="margin-bottom: -1px;">Loan Tenure</label>
+                                                        <input type="text" class="form-control" id="loanTenure" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- Fourth Column -->
+                                            <div class="row">
+                                                <div class="col-md-12 ps-9">
+                                                    <!-- Form groups for the fourth column -->
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="loanBalance" style="margin-bottom: -1px;">Loan Balance</label>
+                                                        <input type="text" class="form-control" id="loanBalance" readonly>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: -20px;">
+                                                        <label for="newInstalments" style="margin-bottom: -1px;">New Instalments</label>
+                                                        <input type="text" class="form-control" id="newInstalments" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                                        <label class="form-label" for="textAreaExample"
+                                            style="color: blue; margin-bottom: -1px;">Comments</label>
+                                        <textarea class="form-control" id="comments" rows="4" readonly></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                             
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)=" showRejectionTextarea()">Reject case</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)="approveCase()">Approve</button>
+                            </div>
+                            <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
+                                <p>{{ errorMessage }}</p>
+                            </div>
+                            <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+                                <p>{{ responseMessage }}</p>
+                            </div>
+                            <div *ngIf="loading" class="text-center mt-3">
+                                <p>Loading...</p>
+                            </div>
+                            <div *ngIf="isRejectionVisible" class="mt-3">
+                                <label for="rejectionMessage" class="form-label">Rejection Message</label>
+                                <textarea class="form-control" id="rejectionMessage" rows="3" [(ngModel)]="rejectionMessage"></textarea>
+                                <button type="button" class="btn btn-primary mt-2 small-btn" (click)="submitRejection()">Submit
+                                    Rejection</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </ng-container>
             <ng-container *ngIf="i === 7">
-                <!-- Display content for "refinance cases" tab -->
+                <!-- Display content for "recovery cases" tab -->
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group mx-sm-3 mb-6 d-flex">
+                                <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                                    style="width: 150px; height: 30px;">
+                                    <option value="1" disabled>search by</option>
+                                    <option value="loanAccount">Loan Account</option>
+                                    <option value="accountName">Account Name</option>
+                                    <option value="caseNumber">Case Number</option>
+                                    <option value="cifId">CIF ID</option>
+                                </select>
+                                <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                                    placeholder="Enter search value" class="form-control mr-4"
+                                    style="width: 500%; height: 31px; margin-right: 15px;" required>
+                                <button (click)="onSearch()" class="btn btn-primary btn-sm"
+                                    style="border-radius: 5px; margin-left: -10px;">Search</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="example" class="display expandable-table" style="width:100%">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Case Number</th>
+                                            <th>loan Account</th>
+                                            <th>CIF ID</th>
+                                            <th>Account Name</th>
+                                            <th>Loan Amount</th>
+                                            <th>Loan Balance</th>
+                                            <th>Branch code</th>
+                                            <th>Loan Paid</th>
+                                            <th>Months in dafault</th>
+                                            <th>comments</th>
+                                            <th>Action</th>
+            
+            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of  recoveredCasesdata">
+                                        <td>{{ item.caseNumber }}</td>
+                                        <td>{{ item.loanAccount }}</td>
+                                        <td>{{ item.cifId}}</td>
+                                        <td>{{ item.accountName}}</td>
+                                        <td>{{ item.loanAmount}}</td>
+                                        <td>{{ item.loanBalance }}</td>
+                                        <td>{{ item.solId}}</td>
+                                        
+                                        <td>{{ item.loanPaid}}</td>
+                                        <td>{{ item.monthsInDefault}}</td>
+                                        <td>{{ item.comments}}</td>
+                                       
+                                       
+                                            <td>
+                                                <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
+                                                    data-bs-target="#recoveryapprovalModal"  (click)="openRecoveryModal(item)">
+                                                    Proceed
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+            
+                            <div class="row">
+                                <div class="col-12">
+                                    <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                                        (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                                    </pagination>
+                                </div>
+            
+                            </div>
+                        </div>
+            
+            
+            
+                    </div>
+                </div>
+                <!-- recovery approval modal-->
+                <div class="modal fade" id="recoveryapprovalModal" tabindex="-1" aria-labelledby="recoveryapprovalModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="recoveryapprovalModalLabel">Approve Recovery form</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="approveRecoveryCaseForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Forms for the first column -->
+                                            <div class="form-group" style="margin-top: -30px;">
+                                                <label for="loanAccount" style="margin-bottom: -1px;">Loan Account</label>
+                                                <input type="text" class="form-control" id="loanAccount" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="caseNumber" style="margin-bottom: -1px;">Case Number</label>
+                                                <input type="text" class="form-control" id="caseNumber" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="loanAmount" style="margin-bottom: -1px;">Loan Amount</label>
+                                                <input type="text" class="form-control" id="loanAmount" readonly>
+                                            </div>
+                                            <!-- Add other form groups for the first column here -->
+            
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- Forms for the second column -->
+                                            <div class="form-group" style="margin-top: -30px;">
+                                            <label for="cifId" style="margin-bottom: -1px;">Cif ID</label>
+                                            <input type="text" class="form-control" id="cifId" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="accountName" style="margin-bottom: -1px;">Account Name</label>
+                                                <input type="text" class="form-control" id="accountName" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="solId" style="margin-bottom: -1px;">Branch Id</label>
+                                                <input type="text" class="form-control" id="solId" readonly>
+                                            </div>
+            
+                                        </div>
+                                        
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="margin-top: -20px;">
+                                                    <label for="loanBalance" style="margin-bottom: -1px;">Loan Balance</label>
+                                                <input type="text" class="form-control" id="loanBalance" readonly>
+                                                </div>
+                                                <div class="form-group" style="margin-top: -20px;">
+                                                    <label for="loanPaid" style="margin-bottom: -1px;">Loan Paid</label>
+                                                <input type="text" class="form-control" id="loanPaid" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="margin-top: -20px;">
+                                                    <label for="monthsInDefault" style="margin-bottom: -1px;">Months in Default</label>
+                                                <input type="text" class="form-control" id="monthsInDefault" readonly>
+                                                </div>
+                                                
+                                               
+                                            </div>
+                                            
+                                         
+                                     
+                                      
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline w-100" style="margin-top: -20px;">
+                                                    <label class="form-label" for="textAreaExample" style="color: blue; margin-bottom: -1px;">Comments</label>
+                                                    <textarea class="form-control" id="comments" rows="4" readonly></textarea>
+                                                </div>
+            
+            
+                                </form>
+            
+                            </div>
+                            <div class="modal-footer">
 
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)=" showRejectionTextarea()">Reject case</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)="approveCase()">Approve</button>
+                            </div>
+            
+                            <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
+                                <p>{{ errorMessage }}</p>
+            
+                            </div>
+                            <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+                                <p>{{ responseMessage }}</p>
+                            </div>
+                            <div *ngIf="loading" class="text-center mt-3">
+                                <p>Loading...</p>
+                            </div>
+                            <div *ngIf="isRejectionVisible" class="mt-3">
+                                <label for="rejectionMessage" class="form-label">Rejection Message</label>
+                                <textarea class="form-control" id="rejectionMessage" rows="3" [(ngModel)]="rejectionMessage"></textarea>
+                                <button type="button" class="btn btn-primary mt-2 small-btn" (click)="submitRejection()">Submit Rejection</button>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            
             </ng-container>
+           
+
 
 
 

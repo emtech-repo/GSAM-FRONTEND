@@ -115,7 +115,7 @@ calculateNewInstalments(): void {
       (response: any) => {
         console.log('Response received:', response);
         this.loading = false;
-        this.successMessage = 'Restructure data submitted successfully!';
+        this.responseMessage = 'Restructure data submitted successfully!';
         this.toastr.success('Restructure data submitted successfully!', 'Success');
       },
       (error: any) => {

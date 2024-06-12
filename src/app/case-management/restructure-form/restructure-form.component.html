@@ -2,7 +2,13 @@
     <div class="col-md-13 grid-margin stretch-card">
         <div class="card" style="margin-top:5px ;">
             <div class="card-body">
-                <p class="card-title text-center" style="background-color: grey;color: white;">Restructure Form</p>
+                <div class="d-flex justify-content-between align-items-center mb-7 pb-2 pb-md-0 mb-md-5 modal-header"
+                    style="margin-top: 1px;">
+                    <h3 style="font-size: 25px; color:black; margin-top: -30px; margin-left: 70px;">
+                        Restructure Form
+                    </h3>
+
+                </div>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -10,7 +16,7 @@
                         <div class="row">
                             <div class="col-md-12 ps-9">
                                 <!-- Form groups for the first column -->
-                                <div class="form-group" style="margin-top: -20px;">
+                                <div class="form-group" style="margin-top: -48px;">
                                     <label for="inputcifid" style="margin-bottom: -1px;">CIF ID</label>
                                     <input type="text" class="form-control" id="cifId"
                                         [value]="decisionDetails.cifId || ''" readonly />
@@ -39,7 +45,7 @@
                         <div class="row">
                             <div class="col-md-12 ps-9">
                                 <!-- Form groups for the second column -->
-                                <div class="form-group" style="margin-top: -20px;">
+                                <div class="form-group" style="margin-top: -48px;">
                                     <label for="inputEmail4" style="margin-bottom: -1px;">Loan Account</label>
                                     <input type="text" class="form-control" id="loanAccount"
                                         [value]="decisionDetails.loanAccount || ''" readonly />
@@ -103,20 +109,20 @@
                     <label class="form-label" for="textAreaExample"
                         style="color: blue; margin-bottom: -1px;">Comments</label>
                     <textarea class="form-control" id="textAreaExample" rows="4" [(ngModel)]="comments"></textarea>
-                    <div style="margin-top: 2px;">
+                    <div   class="d-flex justify-content-end" style="margin-top: 10px;">
                         <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
-                            (click)="bsModalRef.hide()" style="margin-left: 50px; margin-right: 10px;">Exit
+                            (click)="bsModalRef.hide()" >Exit
                             Page</button>
                         <button type="button" class="btn btn-primary small-btn" data-dismiss="modal"
-                            (click)="submitRestructure()" style="margin-left: 200px;">Submit</button>
+                            (click)="submitRestructure()" style="margin-left: 10px;" >Submit</button>
                     </div>
                 </div>
                 <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
                     <p>{{ errorMessage }}</p>
                 </div>
-                <div class="alert alert-success mt-3" *ngIf="successMessage" style="margin-top: 20px;">
-                    <p>{{ successMessage }}</p>
-                </div>
+            <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+                <p>{{ responseMessage }}</p>
+            </div>
                 <div *ngIf="loading" class="text-center mt-3">
                     <p>Loading...</p>
                 </div>

@@ -27,6 +27,7 @@ export class SharedService {
 
 
 
+
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
   readonly RequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/BookService';
   readonly ServiceUrl = 'http://192.168.88.94:5260/api/ServiceRequest/GetAllServiceProviders';
@@ -38,7 +39,6 @@ export class SharedService {
 
 
 
-
   readonly UnAssignedUrl = 'http://192.168.88.94:5260/api/Case/GetUnAssignedCases';
   readonly Cases = 'http://192.168.88.94:5260/api/Case/GetUnAssignedCases?loanAccount=';
    readonly Decision = 'http://192.168.88.94:5260/api/Case/GetAssignedCases?loanAccount=';
@@ -46,9 +46,18 @@ export class SharedService {
    readonly AssignCaseUrl = 'http://192.168.88.94:5260/api/Case/AssignCase';
   readonly ActiveUrl ='http://192.168.88.94:5260/api/Case/ActiveCases';
   readonly ClosedUrl = 'http://192.168.88.94:5260/api/Case/ClosedCases';
-  readonly recoveryUrl = 'http://192.168.89.93:5260/api/Recover/CaseRecover';
+  readonly recoveryUrl = 'http://192.168.88.33:5260/api/Recover/CaseRecover';
    readonly restructureUrl = 'http://192.168.88.94:5260/api/Restructure/CaseRestructure';
    readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
+   readonly approvecaseUrl = 'http://192.168.88.94:5260/api/Case/ApproveCase';
+    readonly deletecaseUrl = 'http://192.168.88.94:5260/api/Case/DeleteCase';
+
+  readonly unapprovedcaseUrl = 'http://192.168.88.94:5260/api/Case/GetUnApprovedCases';
+   readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
+    readonly refinancedCasesUrl = 'http://192.168.88.94:5260/api/Refinance/GetRefinancedCases';
+     readonly restructuredCasesUrl = 'http://192.168.88.94:5260/api/Restructure/GetAllRestructuredCases';
+
+
 
 
   // private documentsUrl = '/assets/data/data.json'
@@ -81,7 +90,9 @@ export class SharedService {
   // readonly CustomersUrl ='http://192.168.88.942:5084/api/Refinance';
 
 
- readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
+
+ readonly MeetingsUrl = 'http://192.168.133.94:5018/api/Meetings';
+
 
   
   private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
@@ -183,6 +194,23 @@ submitRecovery(inputdata: any) {
    submitRefinance(inputdata: any) {
     return this.http.post(this.refinanceUrl, inputdata)
   }
+
+
+  
+
+   approveCase(CaseNumber: any) {
+    return this.http.post(this.approvecaseUrl, CaseNumber)
+  }
+    deleteCase(caseNumber: string): Observable<any> {
+  const url = `http://192.168.88.94:5260/api/Case/DeleteCase`;
+  const options = {
+    body: { CaseNumber: caseNumber },
+  };
+  return this.http.delete(url, options);
+}
+
+
+
 
 
 
@@ -335,6 +363,45 @@ submitRecovery(inputdata: any) {
         map((data: any) => data['UnAssigned'])
       );
   }
+
+
+ getUnApprovedCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.unapprovedcaseUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched UnApproved:', data)),
+        map((data: any) => data['UnApproved'])
+      );
+  }
+  getrecoveredCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.recoveredCasesUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched recovered:', data)),
+        map((data: any) => data['recovered'])
+      );
+  }
+  getrefinancedCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.refinancedCasesUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched refinanced:', data)),
+        map((data: any) => data['refinanced'])
+      );
+  }
+  getrestructuredCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.restructuredCasesUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched restructured:', data)),
+        map((data: any) => data['restructured'])
+      );
+  }
+
+
+
+
+
   
   Active(): Observable<any[]> {
     return this.http.get<any[]>(this.ActiveUrl);
@@ -398,7 +465,6 @@ submitRecovery(inputdata: any) {
   getEmployeeList(): Observable<any> {
     return this.http.get(this.baseUrl);
   }
-
 
  
 
@@ -517,9 +583,11 @@ submitRecovery(inputdata: any) {
     return this.http.get<any>(this.SubmissionsUrl);
   }
 
+
   // getServiceDetails(requestId: string): Observable<any> {
   //   return this.http.get<any>(`${this.SubmissionsUrl}/service-details/${requestId}`);
   // }
+
 
   getApprovalRequests(): Observable<any> {
     return this.http.get<any>(this.ApprovalRequestsUrl);
@@ -528,6 +596,7 @@ submitRecovery(inputdata: any) {
   getRejectRequests(): Observable<any> {
     return this.http.get<any>(this.RejectRequestsUrl);
   }
+
 
   // this.yourService.updateData(updatedData).subscribe(() => {
   //   this.refreshData(); // Method to fetch and update the data in your component
