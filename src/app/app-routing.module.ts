@@ -26,6 +26,8 @@ import { AssignPopupComponent } from './case-management/assign-popup/assign-popu
 import { SearchCaseComponent } from './case-management/search-case/search-case.component';
 
 import { RecoveryFormComponent } from './case-management/recovery-form/recovery-form.component';
+import { DeleteCaseComponent } from './case-management/delete-case/delete-case.component';
+import { ModifyCaseComponent } from './case-management/modify-case/modify-case.component';
 
 
 
@@ -156,11 +158,21 @@ export const routes: Routes = [
       component: SearchCaseComponent,
        canActivate: [AuthenticationGuard],
     }, 
+    {
+      path: 'delete-case',    
+      component: DeleteCaseComponent,
+       canActivate: [AuthenticationGuard],
+    }, 
      {
        path: 'recovery-form',     
       component: RecoveryFormComponent,
        canActivate: [AuthenticationGuard],
     }, 
+     {
+       path: 'modify-case',     
+      component: ModifyCaseComponent,
+       canActivate: [AuthenticationGuard],
+    },
     {
        path: 'app-admin-page',     
       component: AdminPageComponent,

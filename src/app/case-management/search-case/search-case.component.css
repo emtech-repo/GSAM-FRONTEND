@@ -1,4 +1,3 @@
-
 label {
   font-weight: bold;
 }
@@ -13,74 +12,12 @@ label {
   margin-bottom: 20px;
 }
 
-/* Table */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table th,
-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-/* Pagination container */
-.pagination-container {
-  text-align: center;
-}
-
-/* Pagination styles */
-.pagination {
-  display: inline-block;
-}
-
-.pagination li {
-  display: inline;
-  margin: 0 2px;
-}
-
-.pagination li a {
-  color: #007bff;
-  padding: 8px 16px;
-  text-decoration: none;
-  border: 1px solid #ddd;
-}
-
-.pagination li.active a {
-  background-color: #007bff;
-  color: white;
-}
-
-.pagination li.disabled a {
-  color: #aaa;
-  pointer-events: none;
-}
-
-
-
 .container {
 
   white-space: nowrap;
 }
 
 
-
-.custom-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.custom-list li {
-  margin-bottom: 0px;
-}
-
-
-/* documentation.component.css */
-
-/* Style the table */
 table {
   width: 100%;
   /* border-collapse: collapse; */
@@ -129,50 +66,6 @@ tr:hover {
   width: 200px;
 }
 
-/* Style the search button */
-.btn-search {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.custom-input:focus::placeholder {
-  color: black;
-  /* Change color to match your input text */
-}
-
-/* custom-modal.css */
-.card {
-  width: 80%;
-  /* Adjust the percentage or pixel value as needed */
-  margin: auto;
-  /* Center the card horizontally */
-}
-
-/* .modal {
-      background-color: #f9f9f9;
-      padding: 20px;
-      border-radius: 5px;
-  } */
-
-#searchInput {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-/* Add this style to your component's CSS file */
-#searchValue::placeholder {
-  font-size: 14px;
-  /* Adjust the font size as needed */
-  font-weight: bold;
-  /* Adjust font weight if desired */
-  color: #999;
-  /* Adjust placeholder color if desired */
-  /* You can adjust other properties here as needed */
-}
-
-
-
 /* Input Group Styles */
 .input-group {
   margin-bottom: 20px;
@@ -182,32 +75,6 @@ tr:hover {
   width: 200px;
 }
 
-.btn-search {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.custom-input:focus::placeholder {
-  color: black;
-}
-
-#searchInput {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-#searchValue::placeholder {
-  font-size: 14px;
-  font-weight: bold;
-  color: #999;
-}
-
-/* Card and Modal Styles */
-.card {
-  width: 80%;
-  margin: auto;
-}
 
 /* Tab Styles */
 
@@ -296,10 +163,9 @@ table td {
   text-align: left;
 }
 
-.small-btn{
+.small-btn {
   font-size: 15px;
   padding: 5px 10px;
   height: 30px;
   border-radius: 5px;
 }
-

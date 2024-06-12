@@ -12,10 +12,12 @@ export class AssignPopupComponent implements OnInit {
   @Input() caseNumber:string = '';
   UserName: string = '';
   responseMessage:  string = '';
+    @Input() onClose!: () => void;
 
   constructor(
     private toastr: ToastrService,
     public bsModalRef: BsModalRef,
+    public modalRef: BsModalRef,
     private sharedService: SharedService
   ) { }
 
@@ -51,5 +53,9 @@ export class AssignPopupComponent implements OnInit {
 
   closeModal(): void {
     this.bsModalRef.hide();
+  }
+   onCancel() {
+    this.modalRef.hide();
+    this.onClose();
   }
 }
