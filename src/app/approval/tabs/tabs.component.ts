@@ -25,6 +25,11 @@ export class TabsComponent  implements OnInit {
   RestructureData = {caseNumber: '',
     
   };
+   RefinancedData = {caseNumber: '',
+    
+  };
+
+  
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
@@ -538,8 +543,40 @@ openRefinanceModal(item: any) {
       }
     }
   });
-
+ this.RefinancedData.caseNumber = item.caseNumber;
   
+}
+approveRefiancedCases(): void {
+  // Ensure caseNumber is valid
+  if (!this.RefinancedData.caseNumber) {
+    console.error('Case number is undefined or empty.');
+    return;
+  }
+
+  // Constructing the data object to be submitted
+  const approveRefinancedData= {
+    CaseNumber: this.RefinancedData.caseNumber,
+  };
+
+  console.log('Case Data to be Submitted:', approveRefinancedData);
+  this.loading = true; // Indicate loading state
+
+  // Attempt to approve the case
+  this.sharedService.approveRefinancedCases(approveRefinancedData).subscribe(
+     (response: any) => {
+      console.log('Response received:', response);
+      this.loading = false; // Reset loading state upon success
+      this.successMessage = ' Refinanced Case  approved successfully!';
+      this.responseMessage = response.message; // Set the response message
+      this.toastr.success(' Refinanced Case Case approved successfully!', 'Success');
+    },
+    (error: any) => {
+      this.loading = false; // Reset loading state upon failure
+      console.error('Error approving case:', error);
+      this.errorMessage = 'Failed to approve case. Please try again.';
+      this.toastr.error('Failed to approve case. Please try again.', 'Error');
+    }
+  );
 }
 
 

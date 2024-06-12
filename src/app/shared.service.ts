@@ -38,6 +38,7 @@ export class SharedService {
    readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
    readonly approvecaseUrl = 'http://192.168.88.94:5260/api/Case/ApproveCase';
    readonly approveRestructuredUrl = 'http://192.168.88.94:5260/api/Restructure/ApproveRestructureCase';
+   readonly approveRefinancedUrl = 'http://192.168.88.94:5260/api/Refinance/ApproveRefinancedCase';
   readonly deletecaseUrl = 'http://192.168.88.94:5260/api/Case/DeleteCase';
 
   readonly unapprovedcaseUrl = 'http://192.168.88.94:5260/api/Case/GetUnApprovedCases';
@@ -179,19 +180,21 @@ submitRecovery(inputdata: any) {
    approveRestructuredCases(CaseNumber: any) {
     return this.http.post(this.approveRestructuredUrl, CaseNumber)
   }
+   approveRefinancedCases(CaseNumber: any) {
+    return this.http.post(this.approveRefinancedUrl, CaseNumber)
+  }
   
 
    approveCase(CaseNumber: any) {
     return this.http.post(this.approvecaseUrl, CaseNumber)
   }
 
-  deleteCase(caseNumber: string): Observable<any> {
-  const url = `http://192.168.88.94:5260/api/Case/DeleteCase`;
-  const options = {
-    body: { CaseNumber: caseNumber },
-  };
-  return this.http.delete(url, options);
-}
+deleteCase(caseNumber: string): Observable<any> {
+    const options = {
+      body: { CaseNumber: caseNumber },
+    };
+    return this.http.delete(this.deletecaseUrl, options);
+  }
 
 
 
