@@ -31,8 +31,8 @@ onFunctionChange(event: Event) {
             this.router.navigate(['/search-case']);
         } else if (this.selectedFunction === '3') {  // 3 corresponds to "DELETE"
             this.router.navigate(['/delete-case']);
-        }else if (this.selectedFunction === '4') {  // 3 corresponds to "MODIFY"
-            this.router.navigate(['/modify-case']);
+        }else if (this.selectedFunction === '3') {  // 3 corresponds to "MODIFY"
+            this.router.navigate(['/delete-case']);
         }
         // Add other conditions for different options if needed
     }
