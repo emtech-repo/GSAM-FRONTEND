@@ -1,4 +1,5 @@
-
+import { ActivatedRoute,Router } from '@angular/router'; // If needed
+import { response } from 'express';
 import { Component, Input, OnInit } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
@@ -12,11 +13,16 @@ import jsPDF from 'jspdf';
 declare var bootstrap: any;
 
 
+
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.css']
 })
+
+export class TabsComponent {
+[x: string]: any;
+
 
 export class TabsComponent  implements OnInit {
 
@@ -26,11 +32,47 @@ export class TabsComponent  implements OnInit {
     
   };
 
+
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
   submittedSuccessfully: any;
   comments: string = '';
   action: string = ''; // Declare the action property
+
+  document: any;
+  documents: any[] = []; 
+  
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  loading: boolean = false;
+  actionType: string |null=null;
+  
+
+  constructor(private sharedService: SharedService, private route: ActivatedRoute, private router: Router) { }
+
+  ngOnInit(): void {
+    
+    this.route.params.subscribe(params => {
+      
+      const documentId = params['id'];
+      
+    });
+  }
+  setAction(action: string) {
+    this.actionType = action;
+  }
+  handleSubmit(document:any) {
+    this.loading = true;
+    if (this.actionType === 'approve') {
+      this.approveDocument(document);
+    } else if (this.actionType === 'reject') {
+      this.rejectDocument(document);
+    }
+  }
+  goBack() {
+    this.router.navigate(['/retrieve']); // Assuming 'retrieve' is the route path for your retrieve component
+  }
+=======
   searchParams: any = { param: 'acid', value: '' };
 
    pagedCasesdata: any[] = [];
@@ -81,9 +123,37 @@ export class TabsComponent  implements OnInit {
 
 
 
+
   selectTab(index: number) {
     this.selectedIndex = index;
   }
+
+  viewSubmission(document: any) {
+    // Implement logic to view the submission details
+  }
+  viewDocument(document: any) {
+    // Implement logic to view the submission details
+  }
+  approveDocument(document: any) {
+    if (!document || !document.comments) {
+      return;
+    }
+    this.sharedService.approveDocument(document.documentUrl, document.comments,document.id)
+      .subscribe(
+        (response) => {
+          // this.loading = false;
+          this.successMessage = response.message;
+          this.document.verifiedFlag = 'Y';
+          this.updateDocumentStatus(this.document.id, 'Y')
+          
+          // Optionally, you can update the UI or perform any other action after approval
+        },
+        (error) => {
+          // this.errorMessage = response.message;
+          
+        }
+      );
+
   
   openSubmitModal(item: any) {
     // Ensure item contains expected properties
@@ -228,15 +298,54 @@ export class TabsComponent  implements OnInit {
 
 
 
-  approveDocument() {
-    console.log('Document approved');
-    // Your logic for document approval goes here
+ 
   }
 
-  rejectDocument() {
-    console.log('Document rejected');
-    // Your logic for document rejection goes here
+  updateDocumentStatus(id: string, status: string) {
+    const document = this.documents.find(doc => doc.id === id);
+    if (document) {
+      document.verifiedFlag = status;
+      document.rejectedFlag = status;
+    }
   }
+  
+  fetchDocuments(): void {
+    this.sharedService.getPendingDocuments().subscribe(
+      (response) => {
+        console.log('Documents fetched successfully:', response);
+        this.documents = response.result.filter((document: any) => document.verifiedFlag === 'N' || document.rejectedFlag ==='N');
+      },
+      (error) => {
+        console.error('Error fetching documents:', error);
+      }
+    );
+  }
+
+
+
+  rejectDocument(document: any) {
+    if (!document || !document.comments) {
+      return;
+    };
+    const documentUrl = document.documentUrl;
+    const comments = document.comments;
+    const id = document.id;
+    this.sharedService.rejectDocument(document.documentUrl, document.comments, document.id).subscribe(
+      (response) => {
+        this.successMessage = response.message;
+        // Setting verifiedFlag to 'N'
+        this.document.rejectedFlag = 'Y'; // Setting rejectFlag to 'Y'
+        this.updateDocumentStatus(document.id,  'Y'); // Updating document status
+        console.log('Document rejected successfully:', response);
+        // Optionally, you can update the UI or perform any other action after rejection
+      },
+      (error) => {
+        console.error('Error rejecting document:', error);
+      }
+    );
+    
+  
+}
 
   // CLAIMS
   approveClaim() {

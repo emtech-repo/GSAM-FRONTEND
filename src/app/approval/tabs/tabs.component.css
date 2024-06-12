@@ -89,16 +89,22 @@ table td {
 
 .btn-success {
     background-color: #28a745 !important;
+
     color: white !important;
+
 }
 
 .btn-danger {
     background-color: #dc3545 !important;
+
     color: white !important;
+
 }
 
 .btn-primary {
     background-color: #007bff !important;
+
+
     color: white !important;
 
 }
@@ -113,4 +119,5 @@ table td {
 
 .proceed:hover {
     background-color: #00124c;
+
 }
