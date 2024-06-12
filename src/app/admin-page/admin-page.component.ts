@@ -30,12 +30,9 @@ export class AdminPageComponent implements OnInit {
   
   
 
-  roles: { id: string, name: string }[] = [];
-  selectedUser: any;
+  
   searchText: string = '';
-  selectedUserPf!: string;
-  selectedUserName!: string;
-  selectedRole: any
+ 
 
   currentPage: number = 1;
   pageSize: number = 6;

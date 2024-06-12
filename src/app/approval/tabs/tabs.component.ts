@@ -67,6 +67,7 @@ export class TabsComponent  implements OnInit {
   rejectionMessage: string = '';
  ApprovalRequestsUrl: string = '';
   RejectRequestsUrl: string = ''
+  message: any;
 
   
 
