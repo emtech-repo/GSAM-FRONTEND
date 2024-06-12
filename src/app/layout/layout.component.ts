@@ -14,13 +14,18 @@ export class LayoutComponent implements OnInit {
   isAdmin: boolean = false;
   isManager: boolean = false;
   isOfficer: boolean = false;
+  unverifiedUserCount: number = 0;
+  dataSource: any[] = [];
 
   constructor(
     public sharedService: SharedService, private router: Router
   ) {}
 
   ngOnInit(): void {
-   
+    this.getUnverifiedcount();
+   // notifications
+
+
 
     // Retrieve user information from local storage
     const currentUserString = localStorage.getItem('currentUser');
@@ -51,6 +56,20 @@ export class LayoutComponent implements OnInit {
     this.router.navigate(['/documents/retrieve']); // Navigate to the RetrieveComponent in the Documents module
   }
 
-  
+  getUnverifiedcount() {
+    this.sharedService.getEmployeeList().subscribe({
+      next: (res: any) => {
+        this.dataSource = res.result; // Assign res.result to dataSource
+
+        // Filter unverified users and get the count
+        const unverifiedUsers = this.dataSource.filter((user: any) => user.activeFlag === 'N');
+        this.unverifiedUserCount = unverifiedUsers.length; // Store the count
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
 
 }

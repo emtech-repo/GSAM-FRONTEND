@@ -15,13 +15,15 @@ export class SharedService {
   loanBalanceChanged: any;
   loanAmountChanged: any;
 
-  submitServiceData(value: any) {
-    throw new Error('Method not implemented.');
-  }
 
-  updateRowData(row: any) {
-    throw new Error('Method not implemented.');
-  }
+//   submitServiceData(value: any) {
+//     throw new Error('Method not implemented.');
+//   }
+
+//   updateRowData(row: any) {
+//     throw new Error('Method not implemented.');
+//   }
+
 
 
 
@@ -33,8 +35,7 @@ export class SharedService {
   readonly ActivityUrl = 'http://192.168.88.94:5260/api/Case/GetAllCases';
   readonly SubmissionsUrl ='http://192.168.88.94:5260/api/ServiceRequest/GetAllRequests';
   readonly ApprovalRequestsUrl = 'http://192.168.88.94:5260/api/ServiceRequest/ApproveRequest';
-
-
+  readonly RejectRequestsUrl = 'http://192.168.88.94:5260/api/ServiceRequest/RejectRequest';
 
 
 
@@ -49,12 +50,13 @@ export class SharedService {
    readonly restructureUrl = 'http://192.168.88.94:5260/api/Restructure/CaseRestructure';
    readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
    readonly approvecaseUrl = 'http://192.168.88.94:5260/api/Case/ApproveCase';
-      readonly deletecaseUrl = 'http://192.168.88.94:5260/api/Case/DeleteCase';
+    readonly deletecaseUrl = 'http://192.168.88.94:5260/api/Case/DeleteCase';
 
   readonly unapprovedcaseUrl = 'http://192.168.88.94:5260/api/Case/GetUnApprovedCases';
    readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
     readonly refinancedCasesUrl = 'http://192.168.88.94:5260/api/Refinance/GetRefinancedCases';
      readonly restructuredCasesUrl = 'http://192.168.88.94:5260/api/Restructure/GetAllRestructuredCases';
+
 
 
 
@@ -88,7 +90,9 @@ export class SharedService {
   // readonly CustomersUrl ='http://192.168.88.942:5084/api/Refinance';
 
 
+
  readonly MeetingsUrl = 'http://192.168.133.94:5018/api/Meetings';
+
 
   
   private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
@@ -462,7 +466,6 @@ submitRecovery(inputdata: any) {
     return this.http.get(this.baseUrl);
   }
 
-
  
 
   getServiceData(): Observable<any> {
@@ -580,9 +583,20 @@ submitRecovery(inputdata: any) {
     return this.http.get<any>(this.SubmissionsUrl);
   }
 
+
+  // getServiceDetails(requestId: string): Observable<any> {
+  //   return this.http.get<any>(`${this.SubmissionsUrl}/service-details/${requestId}`);
+  // }
+
+
   getApprovalRequests(): Observable<any> {
     return this.http.get<any>(this.ApprovalRequestsUrl);
   }
+
+  getRejectRequests(): Observable<any> {
+    return this.http.get<any>(this.RejectRequestsUrl);
+  }
+
 
   // this.yourService.updateData(updatedData).subscribe(() => {
   //   this.refreshData(); // Method to fetch and update the data in your component

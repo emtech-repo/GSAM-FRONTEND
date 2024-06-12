@@ -1,4 +1,5 @@
-import { Component, Input,OnInit } from '@angular/core';
+
+import { Component, Input, OnInit } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -6,11 +7,17 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import jsPDF from 'jspdf';
 
+// import bootstrap from 'bootstrap';
+
+declare var bootstrap: any;
+
+
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.css']
 })
+
 export class TabsComponent  implements OnInit {
 
   Data = {
@@ -18,13 +25,16 @@ export class TabsComponent  implements OnInit {
   caseNumber: '',
     
   };
+
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
   submittedSuccessfully: any;
   comments: string = '';
   action: string = ''; // Declare the action property
   searchParams: any = { param: 'acid', value: '' };
+
    pagedCasesdata: any[] = [];
+
   currentPage: number = 1;
   totalItems: number = 0;
   SearchQuery: string = '';
@@ -32,6 +42,7 @@ export class TabsComponent  implements OnInit {
   selectedItem: any;
   data: any[] = [];
   Casesdata: any[] = [];
+
    unapprovedcaseUrl: string = '';
    SubmissionsUrl: string = '';
    selectedRowData: any; 
@@ -54,6 +65,8 @@ export class TabsComponent  implements OnInit {
  restructuredCasesUrl: string = '';
  isRejectionVisible: boolean = false;
   rejectionMessage: string = '';
+ ApprovalRequestsUrl: string = '';
+  RejectRequestsUrl: string = ''
 
   
 
@@ -66,9 +79,151 @@ export class TabsComponent  implements OnInit {
   
 
 
+
   selectTab(index: number) {
     this.selectedIndex = index;
   }
+  
+  openSubmitModal(item: any) {
+    // Ensure item contains expected properties
+    if (!item) {
+      console.error('Invalid item:', item);
+      return;
+    }
+    // Populate modal fields
+    const requestId = document.getElementById('requestId') as HTMLInputElement;
+    const serviceName = document.getElementById('serviceName') as HTMLInputElement;
+    const serviceProviderName = document.getElementById('serviceProviderName') as HTMLInputElement;
+    const providerAccountNumber = document.getElementById('providerAccountNumber') as HTMLInputElement;
+    const providerPhoneNumber = document.getElementById('providerPhoneNumber') as HTMLInputElement;
+    const status = document.getElementById('status') as HTMLInputElement;
+
+    if (requestId && serviceName && serviceProviderName && providerAccountNumber && providerPhoneNumber && status) {
+      requestId.value = item.requestId || '';
+      serviceName.value = item.serviceName || '';
+      serviceProviderName.value = item.serviceProviderName || '';
+      providerAccountNumber.value = item.providerAccountNumber || '';
+      providerPhoneNumber.value = item.providerPhoneNumber || '';
+      status.value = item.status || '';
+    }
+
+    const modalElement = document.getElementById('approveserviceModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+
+  closeSubmitModal() {
+    const modalElement = document.getElementById('approveserviceModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      modal.hide();
+    }
+    
+  }
+
+  approveSubmitService() {
+    // this.showModalMessage('Request Approved', 'alert-success');
+    this.postSubmitData('approve');
+    // this.closeSubmitModal();
+  } 
+  rejectSubmitService() {
+    // this.showModalMessage('Request Rejected', 'alert-danger');
+    this.postRejectData('reject');
+    // this.closeSubmitModal();
+  }
+
+
+  showModalMessage(message: string, alertClass: string) {
+    const modalMessage = document.getElementById('modalMessage');
+    if (modalMessage) {
+      modalMessage.innerText = message;
+      modalMessage.className = `alert ${alertClass}`;
+      modalMessage.style.display = 'block';
+    }
+    }
+
+  postRejectData(action: string) {
+    const data = {
+      RequestId: (document.getElementById('requestId') as HTMLInputElement).value,
+      ServiceName: (document.getElementById('serviceName') as HTMLInputElement).value,
+      ServiceProviderName: (document.getElementById('serviceProviderName') as HTMLInputElement).value,
+      ProviderAccountNumber: (document.getElementById('providerAccountNumber') as HTMLInputElement).value,
+      PageTransitionEventroviderPhoneNumber: (document.getElementById('providerPhoneNumber') as HTMLInputElement).value,
+      Status: (document.getElementById('status') as HTMLInputElement).value,
+      ApproverComments: (document.getElementById('comments') as HTMLInputElement).value,
+      action: action
+    };
+
+    this.http.post<any>(this.RejectRequestsUrl, data).subscribe(
+      response => {
+        console.log('Data posted successfully:', response);
+        if (action === 'reject') {
+          this.message= response.message
+          this.toastr.success(response.message);
+          this.showModalMessage(response.message, 'alert-danger');
+        } 
+         else {
+          this.message = response.message
+          this.toastr.success(response.message);
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error posting data:', error);
+        if (error.status === 404) {
+          this.toastr.error('API endpoint not found. Please check the URL.');
+        } else {
+          this.toastr.error('An error occurred while processing your request');
+        }
+      }
+    );
+  }
+
+  postSubmitData(action: string) {
+    const data = {
+      RequestId: (document.getElementById('requestId') as HTMLInputElement).value,
+      ServiceName: (document.getElementById('serviceName') as HTMLInputElement).value,
+      ServiceProviderName: (document.getElementById('serviceProviderName') as HTMLInputElement).value,
+      ProviderAccountNumber: (document.getElementById('providerAccountNumber') as HTMLInputElement).value,
+      PageTransitionEventroviderPhoneNumber: (document.getElementById('providerPhoneNumber') as HTMLInputElement).value,
+      Status: (document.getElementById('status') as HTMLInputElement).value,
+      ApproverComments: (document.getElementById('comments') as HTMLInputElement).value,
+      action: action
+    };
+
+    this.http.post<any>(this.ApprovalRequestsUrl, data).subscribe(
+      response => {
+        console.log('Data posted successfully:', response);
+        if (action === 'approve') {
+          this.message = response.message
+          this.toastr.success(response.message);
+          this.showModalMessage(response.message, 'alert-success');
+
+        } else if (action === 'reject') {
+          this.message = response.message
+          this.toastr.success(response.message);
+        } else {
+          this.message = response.message
+          this.toastr.success(response.message);
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error posting data:', error);
+        if (error.status === 404) {
+          this.toastr.error('API endpoint not found. Please check the URL.');
+        } else {
+          this.toastr.error('An error occurred while processing your request');
+        }
+      }
+    );
+  }
+
+  
+
+
+
 
 
 
@@ -120,6 +275,9 @@ export class TabsComponent  implements OnInit {
      this.recoveredCasesUrl = this.sharedService.recoveredCasesUrl;
     this.refinancedCasesUrl = this.sharedService.refinancedCasesUrl;
      this.restructuredCasesUrl = this.sharedService.restructuredCasesUrl;
+      this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
+    this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
+    
 
 
     this.fetchService();  // fetching requests
@@ -128,6 +286,10 @@ export class TabsComponent  implements OnInit {
     this.getrefinancedCases(); // fetching refinanced cases
     this. getrestructuredCases(); // fetching restructured cases
   }
+   sortSubmitData(): void {
+    this.SubmitData.sort((a, b) => new Date(b.serviceDate).getTime() - new Date(a.serviceDate).getTime());
+  }
+
 
   pageChanged(event: any): void {
     this.currentPage = event.page;
@@ -136,6 +298,7 @@ export class TabsComponent  implements OnInit {
 
   onSearch(): void {
     this.currentPage = 1; // Reset current page to 1 when searching
+
     this.getUnApprovedCases(); // Refetch data after search
   }
 
@@ -209,6 +372,7 @@ export class TabsComponent  implements OnInit {
     } else {
       // Filter data based on selected parameter and value
       this.unapprovedcasedata = this.data.filter(item => {
+
         return item[this.searchParams.param]?.toString().toLowerCase().includes(this.searchParams.value.toLowerCase());
       });
     }
@@ -216,6 +380,7 @@ export class TabsComponent  implements OnInit {
     // Calculate pagination
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
+
     this.unapprovedcasedata = this.unapprovedcasedata.slice(startIndex, endIndex);
   }
 
@@ -378,3 +543,4 @@ approveCase(): void {
 
 
 }
+

@@ -27,9 +27,11 @@ export class ApprovalInterfaceComponent {
     { title: 'Requests', content: '' },
     { title: 'Meetings', content: '' },
     { title: 'Restructure', content: '' },
+
      { title: 'Refinance', content: '' },
       { title: 'Recovery', content: '' },
     
+
 
   ];
 

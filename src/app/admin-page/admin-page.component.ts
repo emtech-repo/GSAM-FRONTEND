@@ -1,8 +1,11 @@
+
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SharedService } from '../shared.service';
 import { AdminPopupComponent } from '../admin-popup/admin-popup.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 
 declare function showSuccessToast(msg: any): any;
@@ -27,15 +30,24 @@ export class AdminPageComponent implements OnInit {
   
   
 
+  roles: { id: string, name: string }[] = [];
+  selectedUser: any;
+  searchText: string = '';
+  selectedUserPf!: string;
+  selectedUserName!: string;
+  selectedRole: any
+
+  currentPage: number = 1;
+  pageSize: number = 6;
+  totalItems: number = 0;
 
   constructor(private modalService: BsModalService, private empService: SharedService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.getEmployeeList();
-    // Initialize dataSourceFiltered with dataSource to display data immediately
-    this.dataSourceFiltered = [...this.dataSource];
+
     this.getroles();
-    
+
   }
 
   updateSelectedUserData() {
@@ -44,6 +56,13 @@ export class AdminPageComponent implements OnInit {
       this.selectedUserPf = selectedUser.pfNumber;
       this.selectedUserName = selectedUser.fullName;
     }
+
+  }
+
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.updatePagination();
+
   }
 
   openAddEditEmployeeDialog() {
@@ -58,9 +77,11 @@ export class AdminPageComponent implements OnInit {
   getEmployeeList() {
     this.empService.getEmployeeList().subscribe({
       next: (res: any) => {
-        this.dataSource = res.result; // Assign res.result to dataSource
-        // Update dataSourceFiltered to reflect the new data
-        this.dataSourceFiltered = [...this.dataSource];
+
+        this.dataSource = res.result;
+        this.totalItems = this.dataSource.length;
+        this.updatePagination();
+
       },
       error: (err) => {
         console.log(err);
@@ -69,19 +90,29 @@ export class AdminPageComponent implements OnInit {
   }
 
   applyFilter(event: any) {
-    const filterValue = event.target.value.toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+    const filterValue = event.target.value.toLowerCase();
     if (filterValue.trim() === '') {
-      // If the input value is empty, show the original data
       this.dataSourceFiltered = this.dataSource;
     } else {
-      // Otherwise, filter the original data based on the input value
+
+
       this.dataSourceFiltered = this.dataSource.filter(item =>
         item.fullName.toLowerCase().includes(filterValue) ||
         item.pfNumber.toLowerCase().includes(filterValue) ||
         item.email.toLowerCase().includes(filterValue)
       );
     }
+    this.totalItems = this.dataSourceFiltered.length;
+    this.updatePagination();
   }
+
+
+  updatePagination() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.dataSourceFiltered = this.dataSource.slice(startIndex, endIndex);
+  }
+
 
   deleteEmployee(id: number) {
     let confirm = window.confirm("Do you want to delete this employee?");
@@ -109,15 +140,13 @@ export class AdminPageComponent implements OnInit {
   }
 
 
-
-//fetch roles
-
   getroles() {
     this.empService.getroles().subscribe({
       next: (res: any) => {
         if (res.result && Array.isArray(res.result)) {
-          this.roles = res.result; // Ensure roles is set to the array
-          // console.log('role',this.roles)
+
+          this.roles = res.result;
+
         } else {
           console.error('Unexpected response format:', res);
         }
@@ -129,19 +158,13 @@ export class AdminPageComponent implements OnInit {
   }
 
 
-///assign role
   saveRoleAssignment() {
     if (this.selectedUser && this.selectedRole) {
       const selectedUserEmail = this.dataSource.find(user => user.email === this.selectedUser).email;
-      console.log('Selected User Email:', selectedUserEmail);
-
       this.empService.assignRole(selectedUserEmail, this.selectedRole).subscribe({
         next: (res) => {
-          console.log (res)
           showSuccessToast('Role assigned successfully!');
-          // Additional actions like refreshing the user list if necessary
-          // Reload the page after successful role assignment
-          // location.reload();
+
         },
         error: (err) => {
           console.error('Error assigning role:', err);
@@ -153,15 +176,15 @@ export class AdminPageComponent implements OnInit {
     }
   }
 
-//Activate and dectivate user
 
   activateUser() {
     if (this.selectedUser) {
       this.empService.activateUser(this.selectedUser).subscribe({
         next: (res) => {
-          console.log(res);
+
           showSuccessToast('User activated successfully!');
-          this.getEmployeeList(); // Refresh the employee list if needed
+          this.getEmployeeList();
+
         },
         error: (err) => {
           console.error('Error activating user:', err);
@@ -177,9 +200,10 @@ export class AdminPageComponent implements OnInit {
     if (this.selectedUser) {
       this.empService.deactivateUser(this.selectedUser).subscribe({
         next: (res) => {
-          console.log(res);
+
           showSuccessToast('User deactivated successfully!');
-          this.getEmployeeList(); // Refresh the employee list if needed
+          this.getEmployeeList();
+
         },
         error: (err) => {
           console.error('Error deactivating user:', err);
@@ -190,7 +214,6 @@ export class AdminPageComponent implements OnInit {
       showDangerToast('Please select a user.');
     }
   }
-
 
 
 }

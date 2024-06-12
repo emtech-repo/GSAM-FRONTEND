@@ -2,8 +2,8 @@
   <div class="card-header">
     <h3 class="card-title">Roles Management</h3>
     <div class="card-actions">
-      <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#activateUserModal">Activate
-        User</button>
+
+      <button cl
       <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createRoleModal">Create Role</button>
       <button class="btn btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#viewRolesModal">View Roles</button>
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#assignRoleModal">Assign Role</button>
@@ -13,8 +13,10 @@
     <div>
       <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Search by PF eg. 10923" #input>
     </div>
-    <div class="table-responsive">
-      <table id="example" class="display expandable-table" style="width:100%">
+
+    <div class="table-container">
+      <table class="table table-striped">
+
         <thead style="background-color: #a31017; color: cornsilk">
           <tr>
             <th>P.F/ID</th>
@@ -22,7 +24,9 @@
             <th>Email</th>
             <th>Status</th>
             <th>Role</th>
-            <th>Action</th>
+
+            <th>More info</th>
+
           </tr>
         </thead>
         <tbody>
@@ -35,22 +39,33 @@
               {{ row.role === ""? "Unassigned" : row.role }}
             </td>
             <td>
-              <button class="btn btn-primary btn-sm" *ngIf="row.role!== 'admin'" (click)="openEditForm(row)">User
-                details</button>
+
+              <span class="more-info" (click)="openEditForm(row)">...</span>
+
+              <!-- <button class="btn btn-primary btn-sm"  (click)="openEditForm(row)">more info</button> -->
+
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <div class="row" style="margin-left: 57%;">
+          <div class="col-12">
+            <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+              (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true"></pagination>
+          </div>
+        </div>
+
   </div>
 </div>
 
 
 
+
 <!-- Activate User Modal -->
 <!-- Activate User Modal -->
-<div class="modal fade" id="activateUserModal" tabindex="-1" aria-labelledby="activateUserModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="activateUserModal" tabindex="-1" aria-labelledby="activateUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -63,9 +78,8 @@
           <div *ngIf="!dataSource; else userContent" class="text-center">Loading users...</div>
           <ng-template #userContent>
             <div class="mb-3">
-              <label for="selectUser" class="form-label">Select User</label>
-              <select id="selectUser" class="form-select" [(ngModel)]="selectedUser" name="selectedUser"
-                (change)="updateSelectedUserData()">
+              <label for="selectUser" class="form-label" >Select User</label>
+              <select id="selectUser" class="form-select" [(ngModel)]="selectedUser"   name="selectedUser" (change)="updateSelectedUserData()">
                 <option *ngFor="let user of dataSource" [value]="user.email">{{ user.email }}</option>
               </select>
             </div>
@@ -73,22 +87,23 @@
 
           <div class="mb-3">
             <label for="pfNumber" class="form-label">PF</label>
-            <input type="text" class="form-control" id="pfNumber" [(ngModel)]="selectedUserPf" name="selectedUserPf"
-              readonly>
+            <input type="text" class="form-control" id="pfNumber" [(ngModel)]="selectedUserPf" name="selectedUserPf" readonly>
 
           </div>
           <div class="mb-3">
             <label for="fullName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="fullName" [(ngModel)]="selectedUserName" name="selectedUserName"
-              readonly>
+            <input type="text" class="form-control" id="fullName" [(ngModel)]="selectedUserName" name="selectedUserName" readonly>
 
           </div>
+
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" (click)="activateUser()">Activate</button>
-        <button type="button" class="btn btn-danger" (click)="deactivateUser()">Deactivate</button>
+
+        <button type="button" class="btn btn-primary" (click)="activateUser()">Activate</button>
+        <button type="button" class="btn btn-primary" (click)="deactivateUser()">Deactivate</button>
+
       </div>
     </div>
   </div>
@@ -96,9 +111,10 @@
 
 
 
+
 <!-- Create Role Modal -->
 <div class="modal fade" id="createRoleModal" tabindex="-1" aria-labelledby="createRoleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="createRoleModalLabel">Create Role</h5>
@@ -110,6 +126,75 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Roles Modal -->
+<div class="modal fade" id="viewRolesModal" tabindex="-1" aria-labelledby="viewRolesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewRolesModalLabel">View Roles</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      
+      <div class="modal-body">
+        <div *ngIf="!roles; else rolesContent" class="text-center">Loading roles...</div>
+        <ng-template #rolesContent>
+          <select class="form-select" data-mdb-select-init data-mdb-filter="true">
+            <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+          </select>
+        </ng-template>
+      </div>
+
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Assign Role Modal -->
+
+<div class="modal fade" id="assignRoleModal" tabindex="-1" aria-labelledby="assignRoleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="assignRoleModalLabel">Assign Role</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Select User -->
+        <div *ngIf="!dataSource; else userContent" class="text-center">Loading users...</div>
+        <ng-template #userContent>
+          <div class="mb-3">
+            <label for="selectUser" class="form-label">Select User</label>
+            <select id="selectUser" class="form-select" [(ngModel)]="selectedUser" data-mdb-select-init>
+              <option *ngFor="let user of dataSource" [value]="user.email">{{ user.email }}</option>
+            </select>
+          </div>
+        </ng-template>
+
+        <!-- Select Role -->
+        <div *ngIf="!roles; else roleContent" class="text-center">Loading roles...</div>
+        <ng-template #roleContent>
+          <div class="mb-3">
+            <label for="selectRole" class="form-label">Select Role</label>
+            <select id="selectRole" class="form-select" [(ngModel)]="selectedRole" data-mdb-select-init>
+              <option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</option>
+            </select>
+          </div>
+        </ng-template>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveRoleAssignment()">Assign Role</button>
+
       </div>
     </div>
   </div>
