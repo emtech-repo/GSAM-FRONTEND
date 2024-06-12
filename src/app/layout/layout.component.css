@@ -26,15 +26,16 @@
 .custom-alert {
     position: fixed;
     width: auto;
-    height: fit-content;
+    height: 80px;
     border-radius: 10px;
-    max-width: 500px;
+    max-width: 800px;
     /* Set a reasonable maximum width */
-    top: 40px;
+    top: 45px;
     left: 80%;
     transform: translateX(-50%);
-    background-color: #04ee8c;
-    border: 1px solid #f5c6cb;
+    color: whitesmoke;
+    background-color: #b00020;
+    
     padding: 15px;
     z-index: 9999;
     white-space: nowrap;
@@ -43,6 +44,8 @@
     /* Hides any overflowing text */
     text-overflow: ellipsis;
     /* Adds an ellipsis (...) for overflowed text */
+   animation: hideAlert 5ms forwards;
+        /* Animation to hide alert after 10 seconds */
 }
 
 .custom-alert p {
