@@ -26,6 +26,8 @@ import { DeleteCaseComponent } from './delete-case/delete-case.component';
 
 
 
+
+
 export const routes: Routes = [
   {
       path: '',
