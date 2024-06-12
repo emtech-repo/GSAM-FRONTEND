@@ -111,20 +111,6 @@ export class AdminPageComponent implements OnInit {
   }
 
 
-  deleteEmployee(id: number) {
-    let confirm = window.confirm("Do you want to delete this employee?");
-    if (confirm) {
-      this.empService.deleteEmployee(id).subscribe({
-        next: (res) => {
-          alert('Employee deleted!');
-          this.getEmployeeList();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
-  }
 
   openEditForm(data: any) {
     const modalRef: BsModalRef = this.modalService.show(AdminPopupComponent, { initialState: { data } });
