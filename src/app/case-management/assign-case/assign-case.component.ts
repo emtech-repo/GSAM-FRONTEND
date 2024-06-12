@@ -104,6 +104,8 @@ export class AssignCaseComponent {
  pageChanged(event: any): void {
     this.currentPage = event.page;
     this.updatePagedData();
+     this.getAssigned();
+     this.UnAssigned();
   }
 
   updatePagedData(): void {

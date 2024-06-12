@@ -27,7 +27,7 @@ import { SearchCaseComponent } from './case-management/search-case/search-case.c
 
 import { RecoveryFormComponent } from './case-management/recovery-form/recovery-form.component';
 import { DeleteCaseComponent } from './case-management/delete-case/delete-case.component';
-import { ModifyCaseComponent } from './case-management/modify-case/modify-case.component';
+
 
 
 
@@ -168,11 +168,7 @@ export const routes: Routes = [
       component: RecoveryFormComponent,
        canActivate: [AuthenticationGuard],
     }, 
-     {
-       path: 'modify-case',     
-      component: ModifyCaseComponent,
-       canActivate: [AuthenticationGuard],
-    },
+     
     {
        path: 'app-admin-page',     
       component: AdminPageComponent,

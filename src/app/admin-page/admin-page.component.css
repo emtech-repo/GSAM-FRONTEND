@@ -44,3 +44,34 @@ background: rgba(238, 228, 228, 1);
   text-decoration: underline;
 
 }
+able {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#example th,
+#example td {
+  padding: 6px;
+}
+
+#example tr:nth-child(even) {
+  background-color: #c0c0c0;
+}
+
+#example tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.pagination-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 10px;
+}
