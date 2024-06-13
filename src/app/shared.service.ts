@@ -141,19 +141,25 @@ export class SharedService {
     return this.http.get<any>(this.AllDocumentUrl);
 
   }
-  getPendingDocuments(): Observable<any> {
-    return this.http.get<any>(this.pendingdocumentsUrl);
+  // getPendingDocuments(): Observable<any> {
+  //   return this.http.get<any>(this.pendingdocumentsUrl);
 
+  // }
+  getPendingDocuments(): Observable<any> {
+    return this.http.get<any>(`${this.pendingdocumentsUrl}`);
   }
-  rejectDocument(documentUrl: string,  comments: string, id: number): Observable<any> {
-    const requestBody = { 
-      documentUrl: documentUrl,
-      comments: comments,
-      id: id 
+  rejectDocument(documentUrl: string, comments: string, id: string): Observable<any> {
+    return this.http.post<any>(`${this.rejectdocumentUrl}`, { documentUrl, comments, id });
+  }
+  // rejectDocument(documentUrl: string,  comments: string, id: number): Observable<any> {
+  //   const requestBody = { 
+  //     documentUrl: documentUrl,
+  //     comments: comments,
+  //     id: id 
       
-    };
-    return this.http.post<any>(this.rejectdocumentUrl, requestBody);
-  }
+  //   };
+  //   return this.http.post<any>(this.rejectdocumentUrl, requestBody);
+  // }
 
 
   

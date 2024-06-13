@@ -20,22 +20,23 @@
     /* Tab text color on hover */
 }
 
+/* Modal content background color */
 .modal-content {
     background-color: #dbe8e9;
-
 }
 
+/* Table container for responsive design */
 .table-container {
     width: 100%;
     overflow-x: auto;
 }
 
-
+/* Table styles */
 table {
-    width: 120%;
+    width: 100%;
+    /* Adjusted to full width for proper display */
     border-collapse: collapse;
 }
-
 
 table th,
 table td {
@@ -44,7 +45,7 @@ table td {
     text-align: left;
 }
 
-
+/* Specific styles for the #example table */
 #example th,
 #example td {
     padding: 6px;
@@ -58,13 +59,14 @@ table td {
     background-color: #ffffff;
 }
 
+/* Responsive table */
 .table-responsive {
     max-height: 400px;
     overflow-y: auto;
     margin-bottom: 50px;
 }
 
-
+/* Small button styles */
 .small-btn {
     font-size: 15px;
     padding: 5px 10px;
@@ -72,7 +74,7 @@ table td {
     border-radius: 5px;
 }
 
-
+/* Pagination container position */
 .pagination-container {
     position: absolute;
     bottom: 0;
@@ -80,44 +82,36 @@ table td {
     margin-bottom: 10px;
 }
 
+/* Form control styles */
 .form-control {
     width: 100%;
     height: 30px;
     padding: 5px 10px;
 }
 
-
+/* Button success styles */
 .btn-success {
     background-color: #28a745 !important;
-
     color: white !important;
-
 }
 
+/* Button danger styles */
 .btn-danger {
     background-color: #dc3545 !important;
-
     color: white !important;
-
 }
 
+/* Button primary styles */
 .btn-primary {
     background-color: #007bff !important;
-
-
     color: white !important;
-
 }
+
+/* Proceed button styles */
 .proceed {
     background-color: #973B38;
     color: #fff;
     border: none;
     padding: 3px 6px;
     border-radius: 10px;
-   
-}
-
-.proceed:hover {
-    background-color: #00124c;
-
 }

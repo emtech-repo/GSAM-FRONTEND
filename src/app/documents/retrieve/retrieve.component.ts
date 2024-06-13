@@ -54,6 +54,7 @@ export class RetrieveComponent implements OnInit, OnDestroy {
   rejectedFilesCount: number = 0;
   documents: any[] = [];
   filteredDocuments: any[] = [];
+  canUpload = false;
 
 
   constructor(
@@ -185,10 +186,13 @@ export class RetrieveComponent implements OnInit, OnDestroy {
         } else {
           console.error('Error: Response result is not an array', response);
         }
+        this.updateCanUpload();
       },
       (error) => {
         console.error('Error fetching documents:', error);
       }
+      
+      
     );
   }
  
@@ -202,6 +206,9 @@ export class RetrieveComponent implements OnInit, OnDestroy {
       fileType: file.type,
       fileExtension: file.name.split('.').pop()
     });
+  }
+  updateCanUpload() {
+    this.canUpload = this.recentFiles.length === 0;
   }
  
   onSubmit() {
@@ -258,15 +265,7 @@ export class RetrieveComponent implements OnInit, OnDestroy {
   
 
   filterFiles(status: string) {
-    // if (status === 'all') {
-    //   this.recentFiles = this.documents;
-    // } else if (status === 'approved') {
-    //   this.recentFiles = this.documents.filter(doc => doc.verifiedFlag === 'Y' );
-    // } else if (status === 'pending') {
-    //   this.recentFiles = this.documents.filter(doc => doc.verifiedFlag === 'N' && doc.rejectedFlag === 'N');
-    // } else if (status === 'rejected') {
-    //   this.recentFiles = this.documents.filter(doc => doc.rejectedFlag === 'Y' );
-    // }
+
     if (status === 'all') {
       this.recentFiles = this.documents;
     } else if (status === 'approved') {
@@ -303,7 +302,7 @@ export class RetrieveComponent implements OnInit, OnDestroy {
           this.folderCounts[file.folder]++;
         }
     });
-    
+    this.pendingFilesCount = documents.filter(doc => doc.verifiedFlag === 'N' && doc.rejectedFlag !== 'Y').length;
    
     this.totalFilesCount = this.recentFiles.length;
     this.totalRecentFilesCount = this.recentFiles.length;
