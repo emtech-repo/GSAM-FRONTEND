@@ -20,6 +20,10 @@ import { SearchCasesComponent } from './search-cases/search-cases.component';
 import { TotalCasesComponent } from './total-cases/total-cases.component';
 import { ClosedCasesComponent } from './closed-cases/closed-cases.component';
 import { ActiveCasesComponent } from './active-cases/active-cases.component';
+import { DeleteCaseComponent } from './delete-case/delete-case.component';
+
+
+
 
 
 
@@ -123,6 +127,14 @@ export const routes: Routes = [
       
       component:SearchCasesComponent,
     },
+     {
+      path: 'delete-case',
+      
+      component:DeleteCaseComponent,
+    },
+     
+    
+    
     
      
   

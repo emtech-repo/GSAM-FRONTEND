@@ -1,6 +1,6 @@
 /* Custom CSS to change tab colors */
 .nav-tabs .nav-link.active {
-    background-color: #007bff;
+    background-color: #cc042f;
     /* Active tab background color */
     color: #fdf2f2;
     /* Active tab text color */
@@ -30,10 +30,12 @@
     overflow-x: auto;
 }
 
+
 table {
     width: 120%;
     border-collapse: collapse;
 }
+
 
 table th,
 table td {
@@ -42,11 +44,40 @@ table td {
     text-align: left;
 }
 
+
+#example th,
+#example td {
+    padding: 6px;
+}
+
+#example tr:nth-child(even) {
+    background-color: #c0c0c0;
+}
+
+#example tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 50px;
+}
+
+
 .small-btn {
     font-size: 15px;
     padding: 5px 10px;
     height: 30px;
     border-radius: 5px;
+}
+
+
+.pagination-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 10px;
 }
 
 .form-control {
@@ -55,7 +86,9 @@ table td {
     padding: 5px 10px;
 }
 
+
 .btn-success {
+
     background-color: #28a745;
     color: white ;
 }
@@ -85,4 +118,18 @@ table td {
     /* Centers the text inside the badge */
     white-space: nowrap;
     /* Prevents the text from wrapping */
+
+.proceed {
+    background-color: #973B38;
+    color: #fff;
+    border: none;
+    padding: 3px 6px;
+    border-radius: 10px;
+   
+}
+
+.proceed:hover {
+    background-color: #00124c;
+
+
 }

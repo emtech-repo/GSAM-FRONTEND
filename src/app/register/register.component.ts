@@ -39,7 +39,7 @@ export class RegisterComponent {
             this.showMessage('Success', response.message, true);
 
             this.registerForm.reset(); // Clear the form
-            this.router.navigate(['/register']);// refresh
+            // this.router.navigate(['/register']);// refresh
           } else {
             this.showMessage('Error', response.message || 'An error occurred', false);
           }

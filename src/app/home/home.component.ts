@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
       path: "../../../case-management/app-create-case"
     },
      {
-      title: "Search case",
+      title: "core banking",
       path: "../../../case-management/app-search-case"
     },
      {
@@ -50,6 +50,16 @@ export class HomeComponent implements OnInit {
       title: "case tracking",
       path: "../../../case-management/app-case-tracking"
     },
+     {
+      title: "delete case",
+      path: "../../../case-management/delete-case"
+    },
+     
+    {
+      title: "gsam cases",
+      path: "../../../case-management/app-search-cases"
+    },
+    
     {
       title: "case decision",
       path: "../../../case-management/app-case-decision"

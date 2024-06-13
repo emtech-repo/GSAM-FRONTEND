@@ -9,6 +9,7 @@
     padding: 5px 10px;
 }
 
+
 .custom-card {
     border-radius: 15px;
     height: 40%;
@@ -72,6 +73,7 @@
     width: 100%;
     overflow-x: auto;
 }
+
 
 table {
     width: 120%;

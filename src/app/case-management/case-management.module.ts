@@ -27,6 +27,8 @@ import { ClosedCasesComponent } from './closed-cases/closed-cases.component';
 import { RecoveryFormComponent } from './recovery-form/recovery-form.component';
 import { RefinanceFormComponent } from './refinance-form/refinance-form.component';
 import { RestructureFormComponent } from './restructure-form/restructure-form.component';
+import { DeleteCaseComponent } from './delete-case/delete-case.component';
+
 // import { TotalCasesComponent } from './total-cases/total-cases.component';
 
 
@@ -62,6 +64,8 @@ import { RestructureFormComponent } from './restructure-form/restructure-form.co
     RecoveryFormComponent,
     RefinanceFormComponent,
     RestructureFormComponent,
+    DeleteCaseComponent,
+   
     
 
    

@@ -215,77 +215,7 @@ export class LoginComponent implements OnInit {
     this.changetype = !this.changetype;
   }
 
-  // login() {
-  //   console.log('Form Status:', this.formData.status); // Debugging form status
-  //   console.log('Form Errors:', this.formData.errors); // Debugging form errors
-
-  //   if (this.formData.valid) {
-  //     this.service.loader = true;
-
-  //     const credentials = {
-  //       email: this.formData.value.Email,
-  //       password: this.formData.value.Password
-  //     };
-
-  //     this.service.getLogin(credentials).subscribe(
-  //       (response: any) => {
-  //         this.service.loader = false; // Move this line before checking the response to ensure it's reset
-
-  //         if (response && response.statusCode === 200) {
-  //           const result = response.result;
-  //           showSuccessToast('Login Successful');
-
-            
-  //           localStorage.setItem('currentUser', JSON.stringify(res.result.jwtToken));
-  //            this.service.isAuthenticated = true;
-
-
-
-  //           // Check if the user is authenticated
-  //           if (this.service.isAuthenticated) {
-  //             this.router.navigate(['/Dashboard']);
-  //           } else {
-  //             showDangerToast('Authentication failed');
-  //           }
-  //         } else {
-  //           showDangerToast(response.message);
-  //         }
-  //       },
-  //       (error) => {
-  //         this.service.loader = false; // Ensure loader is reset even on error
-  //         showDangerToast('Error: Unable to Login');
-  //       }
-  //     );
-  //   } else {
-  //     this.formData.markAllAsTouched(); // Mark all fields as touched to trigger validation messages
-  //     showDangerToast('Please fill in all fields');
-  //   }
-  // }
-    // login() {
-    //   if (this.formData.valid) {
-    //     console.log('Logging in with:', this.formData.value);
-
-    //     this.service.loader = true;
-    //     this.service.getLogin(this.formData.value)
-    //       .subscribe((res) => {
-    //         console.log('Login response:', res);
-    //         this.service.loader = false;
-
-    //         if (res.statusCode == 200) {
-    //           this.router.navigate(['/Dashboard']);
-    //           showSuccessToast(res.message);
-    //           localStorage.setItem('currentUser', res.result.token);
-    //           // localStorage.setItem('currentUser', JSON.stringify(res.result.jwtToken));
-    //           this.service.isAuthenticated = true;
-    //         } else {
-    //           showDangerToast(res.message);
-    //         }
-    //       });
-    //   } else {
-    //     this.formData.markAllAsTouched(); // Mark all fields as touched to trigger validation messages
-    //     showDangerToast('Please fill in all fields');
-    //   }
-    // }
+  
   login() {
     if (this.formData.valid) {
       this.service.loader = true;

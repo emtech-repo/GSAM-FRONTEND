@@ -16,30 +16,27 @@ export class CreateCaseComponent {
   selectedFunction: string = 'choose option';
   selectedLoanAccount: string = '';
 
-  constructor(
-    private router: Router,
-    private sharedService: SharedService,
-    public bsModalRef: BsModalRef,
-    private modalService: BsModalService
+  constructor(private router: Router,private sharedService: SharedService,public bsModalRef: BsModalRef,private modalService: BsModalService
   ) { }
-
-  onFunctionChange(event: Event) {
+  
+onFunctionChange(event: Event) {
     if (event.target instanceof HTMLSelectElement) {
-      const target = event.target as HTMLSelectElement;
-      this.selectedFunction = target.value;
-      this.selectedLoanAccount = ''; // Reset the selected loan account when the function changes
+        const target = event.target as HTMLSelectElement;
+        this.selectedFunction = target.value;
+        this.selectedLoanAccount = ''; // Reset the selected loan account when the function changes
 
-
-      if (this.selectedFunction === '5') {  // 5 corresponds to "INQUIRE"
-         this.router.navigate(['/add-case']);
-       
-      } else if (this.selectedFunction === '2') { 
-         this.router.navigate(['/search-case']); // 2 corresponds to "ADD"
-        // Example route for ADD functionality
-      }
-      // Add other conditions for different options if needed
+        if (this.selectedFunction === '5') {  // 5 corresponds to "ADD"
+            this.router.navigate(['/add-case']);
+        } else if (this.selectedFunction === '2') {  // 2 corresponds to "INQUIRE"
+            this.router.navigate(['/search-case']);
+        } else if (this.selectedFunction === '3') {  // 3 corresponds to "DELETE"
+            this.router.navigate(['/delete-case']);
+        }else if (this.selectedFunction === '3') {  // 3 corresponds to "MODIFY"
+            this.router.navigate(['/delete-case']);
+        }
+        // Add other conditions for different options if needed
     }
-  }
+}
 
   goToHome() {
     this.router.navigate(['/home']);
