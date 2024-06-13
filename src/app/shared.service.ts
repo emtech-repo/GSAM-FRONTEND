@@ -28,6 +28,8 @@ export class SharedService {
 
 
   private JsonDataUrl = 'https://datausa.io/api/data?drilldowns=Nation&measures=Population';
+  readonly DeleteRequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/DeleteServiceBooking';
+  readonly UpdateRequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/UpdateRequest';
   readonly RequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/BookService';
   readonly ServiceUrl = 'http://192.168.88.94:5260/api/ServiceRequest/GetAllServiceProviders';
   readonly LoanUrl = 'http://192.168.88.94:9006/accounts/la/all';
@@ -529,9 +531,13 @@ submitRecovery(inputdata: any) {
     return this.http.get<any>(this.RejectRequestsUrl);
   }
 
-  // this.yourService.updateData(updatedData).subscribe(() => {
-  //   this.refreshData(); // Method to fetch and update the data in your component
-  // });
+  UpdateRequest(requestId: string, updatedData: any): Observable<any> {
+    return this.http.patch(`${this. UpdateRequestUrl}/${requestId}`, updatedData);
+  }
 
-
+  DeleteRequest(requestId: string): Observable<any> {
+    return this.http.delete(`${this.DeleteRequestUrl}/${requestId}`);
+  }
 }
+
+  

@@ -18,7 +18,7 @@ export class RequestServiceComponent implements OnInit {
   errorMessage: string | null = null;
   isRegionFilterActive: boolean = false;
 
-  constructor(private fb: FormBuilder, private sharedService: SharedService) {
+  constructor(private fb: FormBuilder, private sharedService: SharedService ) {
     this.serviceForm = this.fb.group({
       searchParam: ['id'],
       searchValue: [''],
@@ -35,9 +35,18 @@ export class RequestServiceComponent implements OnInit {
       regionId: [''],
       accountNumber: [''],
       Comments: [''],
+      supportingDocuments: [null],
+
     });
   }
-
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const files = event.target.files;
+      this.serviceForm.patchValue({
+        supportingDocuments: files
+      });
+    }
+  }
   ngOnInit(): void {
     this.fetchServiceProviders();
   }
