@@ -66,12 +66,12 @@
                 <div class="form-group">
                   <label for="serviceName">Service Name</label>
                   <input type="text" id="serviceName" [(ngModel)]="currentRequest.serviceName" name="serviceName"
-                    class="form-control">
+                    class="form-control" readonly>
                 </div>
                 <div class="form-group">
                   <label for="serviceProviderName">Service Provider Name</label>
                   <input type="text" id="serviceProviderName" [(ngModel)]="currentRequest.serviceProviderName"
-                    name="serviceProviderName" class="form-control">
+                    name="serviceProviderName" class="form-control" readonly>
                 </div>
               </div>
 
@@ -80,7 +80,7 @@
                 <div class="form-group">
                   <label for="providerPhoneNumber">Provider Phone Number</label>
                   <input type="text" id="providerPhoneNumber" [(ngModel)]="currentRequest.providerPhoneNumber"
-                    name="providerPhoneNumber" class="form-control">
+                    name="providerPhoneNumber" class="form-control" readonly>
                 </div>
                 <div class="form-group">
                   <label for="serviceDate">Service Date</label>
@@ -89,7 +89,8 @@
                 </div>
                 <div class="form-group">
                   <label for="status" style="height: 10px;">Status</label>
-                  <input type="text" id="status" [(ngModel)]="currentRequest.status" name="status" class="form-control">
+                  <input type="text" id="status" [(ngModel)]="currentRequest.status" name="status" class="form-control"
+                    readonly>
                 </div>
               </div>
             </div>
