@@ -1,7 +1,9 @@
+
 .table-container {
     width: 100%;
     overflow-x: auto;
 }
+
 
 table {
     width: 120%;
@@ -10,10 +12,13 @@ table {
 
 table th,
 table td {
+
     /* border: 1px solid #ddd; */
+
     padding: 8px;
     text-align: left;
 }
+
 
 .modal-body {
     background-color: #dbe8e9;
@@ -25,4 +30,5 @@ table td {
     height: 20px;
     padding: 5px 10px;
     background-color: azure;
+
 }

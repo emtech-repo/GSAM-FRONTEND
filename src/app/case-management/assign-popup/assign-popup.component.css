@@ -1,4 +1,15 @@
-.blue-text {
-   background-color: rgb(219, 78, 120);
-   color: white;
+
+
+
+.small-btn {
+   font-size: 15px;
+   padding: 5px 10px;
+   height: 30px;
+   border-radius: 5px;
+}
+.form-control {
+   width: 100%;
+   height: 40px;
+   padding: 5px 10px;
+
 }

@@ -23,3 +23,43 @@
     align-items: center;
     justify-content: center;
 }
+.custom-alert {
+    position: fixed;
+    width: auto;
+    height: 80px;
+    border-radius: 10px;
+    max-width: 800px;
+    /* Set a reasonable maximum width */
+    top: 45px;
+    left: 80%;
+    transform: translateX(-50%);
+    color: whitesmoke;
+    background-color: #b00020;
+    
+    padding: 15px;
+    z-index: 9999;
+    white-space: nowrap;
+    /* Prevents text from wrapping */
+    overflow: hidden;
+    /* Hides any overflowing text */
+    text-overflow: ellipsis;
+    /* Adds an ellipsis (...) for overflowed text */
+   animation: hideAlert 5ms forwards;
+        /* Animation to hide alert after 10 seconds */
+}
+
+.custom-alert p {
+    width: auto;
+    margin: 0;
+    /* Removes default margins */
+    padding: 0;
+    /* Removes default paddings */
+}
+.close-btn {
+    font-size: 30px;
+    /* Increase the font size */
+    cursor: pointer;
+    /* Optional: Use transform to scale the symbol if you want to maintain aspect ratio */
+    transform: scale(1.5);
+    /* Adjust the scale factor as needed */
+}

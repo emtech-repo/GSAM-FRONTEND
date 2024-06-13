@@ -21,11 +21,11 @@
               <div class="card card-5">
                 <!-- Card heading -->
                 <div class="card-heading" style="
-                    background-color: maroon;
+                    background-color: grey;
                     color: white;
                     text-align: center;
                   ">
-                  <h2 class="title">Meeting Details</h2>
+                  <h2 class="title">Meeting Form</h2>
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
@@ -66,6 +66,17 @@
                       </div>
                     </div>
 
+
+                    <div class="form-row">
+                      <div class="name">Meeting Link</div>
+                      <div class="value" style="flex: 1;">
+                        <div class="input-group" style="width: 100%;">
+                          <textarea class="input--style-5" name="company" style="width: 100%;"></textarea>
+                        </div>
+                      </div>
+                    </div>
+
+
                     <!-- Case Details section -->
                     <div class="form-row">
                       <div class="name">Case Details</div>
@@ -95,17 +106,14 @@
                       </div>
                     </div>
                     <!-- Container For Clear Form and Submit Buttons -->
-                    <div style="display: flex; justify-content: space-between">
-                      <div class="clear-button-container" style="margin-top: 5px">
-                        <button class="btn btn--radius-2 btn--red" type="button" (click)="clearForm()"
-                          style="background-color: maroon">
-                          Clear Form
-                        </button>
-                      </div>
-                      <div style="text-align: right">
-                        <button class="btn btn--radius-2 btn--red" type="submit" style="background-color: maroon">
-                          Submit
-                        </button>
+                    <div class="col-md-9">
+                      <div class="px-5 py-4">
+                        <div class="d-flex justify-content-between">
+                          <button type="button" class="btn btn-primary small-btn" (click)="goToHome()"
+                            style="margin-left: 50px;">Exit Page</button>
+                          <button type="button" class="btn btn-primary small-btn" (click)="goToCaseDecision()"
+                            style="margin-left: 50px;" [disabled]="!form.valid">Submit</button>
+                        </div>
                       </div>
                     </div>
                   </form>
@@ -137,17 +145,9 @@
             <div class="card">
               <div class="card-body">
                 <p class="card-title">Meetings</p>
-
                 <!-- SEEERCH BUTTON-->
                 <div class="row">
-                  <!-- <div class="col-8 mb-3 ">
-                                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchQuery"
-                                            (ngModelChange)="onSearch()">
-                                    </div> -->
                 </div>
-
-
-
                 <!-- app.component.html -->
                 <div class="form-group mx-sm-3 mb-6 d-flex" style="margin-bottom: 10px;">
                   <select class="form-control mr-2" id="dropdownMenu"
@@ -161,7 +161,8 @@
                   <input type="text" class="form-control mr-4" id="searchInput" placeholder="Search"
                     style="width: 700px; height: 40px; margin-right: 15px;border: 2px solid grey;"
                     [(ngModel)]="searchTerm">
-                  <button type="button" class="btn btn-primary" (click)="performSearch()">Search</button>
+                  <button type="button" (click)="performSearch()" class="btn btn-primary small-btn"
+                    style="border-radius: 3px;">Search</button>
                 </div>
                 <div class="row">
                   <div class="col-12">
@@ -181,13 +182,13 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let meeting of Meetings">
-                            <td>{{ meeting.meetingId }}</td>
-                            <td>{{ meeting.meetingDetails }}</td>
+                          <tr >
+                            <td>111</td>
+                            <td>222</td>
                             <!-- <td>{{ meeting.members }}</td> -->
-                            <td>{{ meeting.venue }}</td>
-                            <td>{{ meeting.dateTime }}</td>
-                            <td>{{ meeting.status }}</td>
+                            <td>333</td>
+                            <td>444</td>
+                            <td>555</td>
                           </tr>
                         </tbody>
 

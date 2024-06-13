@@ -15,6 +15,8 @@ import { RestructureFormComponent } from '../restructure-form/restructure-form.c
 export class DecisionTabComponent {
 
   currentPage: number = 1;
+  pageSize: number = 5;
+  totalItems: number = 0;
   dataSource: any[] = [];
   dataSourceFiltered: any[] = [];
   Assigneddata: any[] = [];
@@ -23,6 +25,7 @@ export class DecisionTabComponent {
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
+  data: any;
 
   constructor(private router: Router, private sharedService: SharedService,
     public bsModalRef: BsModalRef, private http: HttpClient, private modalService: BsModalService) { }
@@ -80,4 +83,15 @@ export class DecisionTabComponent {
       initialState: { loanAccount: loanAccount }  
     });
   }
+
+ pageChanged(event: any): void {
+  this.currentPage = event.page;
+  this.updatePagedData(); // Call updatePagedData method when page changes
+}
+
+updatePagedData(): void {
+  const startIndex = (this.currentPage - 1) * this.pageSize;
+  const endIndex = startIndex + this.pageSize;
+  this.dataSourceFiltered = this.dataSource.slice(startIndex, endIndex); // Update the filtered data based on pagination
+}
 }

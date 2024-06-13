@@ -1,3 +1,5 @@
+
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared.service';
@@ -5,65 +7,53 @@ import { SharedService } from '../shared.service';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
+  styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
-
-
   currentUser: any;
-  isAdmin: boolean = false;
-  isManager: boolean = false;
-  isOfficer: boolean = false;
+  userRoles: string[] = [];
+  allowedRoles: string[] = ['Admin', 'Manager', 'Officer'];
   unverifiedUserCount: number = 0;
   dataSource: any[] = [];
+message: any;
 
   constructor(
-    public sharedService: SharedService, private router: Router
-  ) {}
+    public sharedService: SharedService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.getUnverifiedcount();
-   // notifications
-
-
-
-    // Retrieve user information from local storage
+    this.getUnverifiedCount();
     const currentUserString = localStorage.getItem('currentUser');
     if (currentUserString) {
       try {
         this.currentUser = JSON.parse(currentUserString);
-        console.log('Current user:', this.currentUser); // Debugging statement
-        // console.log('Logged in user:', this.currentUser.email, this.currentUser.role); // Print email and roles
-
+        // console.log('Current user:', this.currentUser);
+        // console.log('roles',this.userRoles)
+        this.userRoles = this.currentUser.role; // Update to access 'role' instead of 'roles'
       } catch (error) {
         console.error('Error parsing currentUser from local storage:', error);
       }
     }
-    this.isAdmin = this.sharedService.isAdmin();
-    this.isManager = this.sharedService.isManager();
-    this.isOfficer = this.sharedService.isOfficer();
   }
 
-
-  
-  logout(){
-    localStorage.removeItem("currentUser");
+  logout(): void {
+    localStorage.removeItem('currentUser');
     this.sharedService.isAuthenticated = false;
-      this.router.navigate(['/Authenticate']);
-
-  }
-  navigateToRetrieve() {
-    this.router.navigate(['/documents/retrieve']); // Navigate to the RetrieveComponent in the Documents module
+    this.router.navigate(['/Authenticate']);
   }
 
-  getUnverifiedcount() {
+  navigateToRetrieve(): void {
+    this.router.navigate(['/documents/retrieve']);
+  }
+
+
+  getUnverifiedCount(): void {
     this.sharedService.getEmployeeList().subscribe({
       next: (res: any) => {
-        this.dataSource = res.result; // Assign res.result to dataSource
-
-        // Filter unverified users and get the count
+        this.dataSource = res.result;
         const unverifiedUsers = this.dataSource.filter((user: any) => user.activeFlag === 'N');
-        this.unverifiedUserCount = unverifiedUsers.length; // Store the count
+        this.unverifiedUserCount = unverifiedUsers.length;
       },
       error: (err) => {
         console.log(err);
@@ -71,5 +61,14 @@ export class LayoutComponent implements OnInit {
     });
   }
 
+  userHasAccess(allowedRoles: string[]): boolean {
+    // Ensure this.userRoles is defined
+    if (!this.userRoles) {
+      return false;
+    }
+    return allowedRoles.some(role => this.userRoles.includes(role));
+  }
+
 
 }
+

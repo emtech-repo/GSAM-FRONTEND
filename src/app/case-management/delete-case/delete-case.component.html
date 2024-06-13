@@ -1,0 +1,188 @@
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-title">Total Cases</p>
+            
+                <!-- Search Form -->
+                <div class="form-group mx-sm-3 mb-6 d-flex">
+                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                        style="width: 150px; height: 30px;">
+                        <option value="1" disabled>search by</option>
+                        <option value="loanAccount">Loan Account</option>
+                        <option value="accountName">Account Name</option>
+                        <option value="caseNumber">Case Number</option>
+                        <option value="cifId">CIF ID</option>
+                    </select>
+                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                        class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
+                    <button (click)="search()" class="btn btn-primary btn-sm"
+                        style="border-radius: 5px; margin-left: -10px;">Search</button>
+                </div>
+            
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="example" class="display expandable-table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Case Number</th>
+                                        <th>Cif ID</th>
+                                        <th>Loan account</th>
+                                        <th>Account Name</th>
+                                        <th>Loan Amount</th>
+                                        <th>Loan Tenure</th>
+                                        <th>Branch code</th>
+                                        <th>Loan Balance</th>
+                                        <th>Verified</th>
+                                        <th>Syndicated</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of pagedCasesdata">
+                                        <td>{{ item.caseNumber }}</td>
+                                        <td>{{ item.cifId }}</td>
+                                        <td>{{ item.loanAccount }}</td>
+                                        <td>{{ item.accountName }}</td>
+                                        <td>{{ item.loanAmount }}</td>
+                                        <td>{{ item.loanTenure }}</td>
+                                        <td>{{ item.solId }}</td>
+                                        <td>{{ item.loanBalance }}</td>
+                                        <td>{{ item.verifiedFlag }}</td>
+                                        <td>{{ item.syndicatedFlag }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
+                                                data-bs-target="#deletecaseModal" (click)="opendeleteModal(item)">
+                                                Proceed
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 61%;">
+                    <div class="col-12">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="7"
+                            (pageChanged)="pageChanged($event)" [maxSize]="4" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary small-btn" style="border-radius:3px;"  (click)="goToCreateCase()">
+                        Exit Page
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+                <!-- delete case modal-->
+                <div class="modal fade" id="deletecaseModal" tabindex="-1" aria-labelledby="deletecaseModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deletecaseModalLabel">Delete Case Form</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="deleteCaseForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Forms for the first column -->
+                                            <div class="form-group" style="margin-top: -30px;">
+                                                <label for="loanAccount" style="margin-bottom: -1px;">Loan Account</label>
+                                                <input type="text" class="form-control" id="loanAccount" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="caseNumber" style="margin-bottom: -1px;">Case Number</label>
+                                                <input type="text" class="form-control" id="caseNumber" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="loanAmount" style="margin-bottom: -1px;">Loan Amount</label>
+                                                <input type="text" class="form-control" id="loanAmount" readonly>
+                                            </div>
+                                            <!-- Add other form groups for the first column here -->
+                
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- Forms for the second column -->
+                                            <div class="form-group" style="margin-top: -30px;">
+                                                <label for="cifId" style="margin-bottom: -1px;">Cif ID</label>
+                                                <input type="text" class="form-control" id="cifId" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="accountName" style="margin-bottom: -1px;">Account Name</label>
+                                                <input type="text" class="form-control" id="accountName" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="solId" style="margin-bottom: -1px;">Branch Id</label>
+                                                <input type="text" class="form-control" id="solId" readonly>
+                                            </div>
+                
+                                        </div>
+                
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="loanBalance" style="margin-bottom: -1px;">Loan Balance</label>
+                                                <input type="text" class="form-control" id="loanBalance" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="loanTenure" style="margin-bottom: -1px;">Loan Tenure</label>
+                                                <input type="text" class="form-control" id="loanTenure" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="verifiedFlag" style="margin-bottom: -1px;">verified</label>
+                                                <input type="text" class="form-control" id="verifiedFlag" readonly>
+                                            </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                                <label for="syndicatedFlag" style="margin-bottom: -1px;">syndicated</label>
+                                                <input type="text" class="form-control" id="syndicatedFlag" >
+                                            </div>
+                
+                
+                                        </div>
+                
+                
+                
+                
+                                    </div>
+                                    
+                
+                
+                                </form>
+                
+                            </div>
+                            <div class="modal-footer">
+                
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" >Modify</button>
+                                 <button type="button" class="btn btn-primary small-btn" (click)="deleteCase()">Delete</button>
+                            </div>
+                
+                        <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
+                            <p>{{ errorMessage }}</p>
+                        
+                        </div>
+                        <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+                            <p>{{ responseMessage }}</p>
+                        </div>
+                        <div *ngIf="loading" class="text-center mt-3">
+                            <p>Loading...</p>
+                        </div>
+                           
+                
+                        </div>
+                    </div>
+                </div>

@@ -29,6 +29,7 @@
                           <table id="example" class="display expandable-table" style="width:100%">
                             <thead>
                               <tr>
+                                <th>Case No</th>
                                 <th>Loan Account</th>
                                 <th>CIF ID</th>
                                 <th>Account Name</th>
@@ -42,6 +43,7 @@
                             </thead>
                             <tbody>
                               <tr *ngFor="let item of dataSourceFiltered">
+                                <td>{{ item.caseNumber}}</td>
                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
@@ -57,6 +59,11 @@
                           </table>
                         </div>
                       </div>
+                    </div>
+                    <div class="row" style="margin-left: 69%;margin-top: -10px;">
+                      <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="7" (pageChanged)="pageChanged($event)"
+                        [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                      </pagination>
                     </div>
                   </div>
                 </div>
@@ -86,6 +93,7 @@
                           <table id="example" class="display expandable-table" style="width:100%">
                             <thead>
                               <tr>
+                                <th>Case Number</th>
                                 <th>Loan Account</th>
                                 <th>CIF ID</th>
                                 <th>Account Name</th>
@@ -99,6 +107,8 @@
                             </thead>
                             <tbody>
                               <tr *ngFor="let item of dataSourceFiltered">
+                                <td>{{ item.caseNumber}}</td>
+
                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
@@ -113,6 +123,11 @@
                             </tbody>
                           </table>
                         </div>
+                      </div>
+                      <div class="row" style="margin-left: 61%;">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="7" (pageChanged)="pageChanged($event)"
+                          [maxSize]="4" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
                       </div>
                     </div>
                   </div>
@@ -141,6 +156,7 @@
                           <table id="example" class="display expandable-table" style="width:100%">
                             <thead>
                               <tr>
+                                <th>Case NO</th>
                                 <th>Loan Account</th>
                                 <th>CIF ID</th>
                                 <th>Account Name</th>
@@ -154,6 +170,7 @@
                             </thead>
                             <tbody>
                               <tr *ngFor="let item of dataSourceFiltered">
+                                  <td>{{ item.caseNumber}}</td>
                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
@@ -168,6 +185,11 @@
                             </tbody>
                           </table>
                         </div>
+                      </div>
+                      <div class="row" style="margin-left: 61%;">
+                        <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="7" (pageChanged)="pageChanged($event)"
+                          [maxSize]="4" [rotate]="true" [boundaryLinks]="true">
+                        </pagination>
                       </div>
                     </div>
                   </div>
