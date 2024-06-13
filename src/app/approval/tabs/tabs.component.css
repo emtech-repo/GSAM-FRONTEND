@@ -90,22 +90,22 @@ table td {
 .btn-success {
 
     background-color: #28a745;
-    color: white ;
+    color: white;
 }
 
 .btn-danger {
     background-color: #dc3545;
-    color: white ;
+    color: white;
 }
 
 .btn-primary {
-    background-color: #007bff ;
-    color: white ;
+    background-color: #007bff;
+    color: white;
 }
 
 .custom-button {
     background-color: #800000;
-    color: white ;
+    color: white;
 }
 
 /* styles.css or the relevant CSS file */
@@ -118,6 +118,7 @@ table td {
     /* Centers the text inside the badge */
     white-space: nowrap;
     /* Prevents the text from wrapping */
+}
 
 .proceed {
     background-color: #973B38;
@@ -125,7 +126,7 @@ table td {
     border: none;
     padding: 3px 6px;
     border-radius: 10px;
-   
+
 }
 
 .proceed:hover {

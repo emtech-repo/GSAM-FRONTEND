@@ -43,11 +43,11 @@ export class SharedService {
   readonly ClosedUrl = 'http://192.168.88.94:5260/api/Case/ClosedCases';
 
   readonly recoveryUrl = 'http://192.168.88.33:5260/api/Recover/CaseRecover';
-   readonly restructureUrl = 'http://192.168.88.94:5260/api/Restructure/CaseRestructure';
-   readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
-   readonly approvecaseUrl = 'http://192.168.88.94:5260/api/Case/ApproveCase';
-   readonly approveRestructuredUrl = 'http://192.168.88.94:5260/api/Restructure/ApproveRestructureCase';
-   readonly approveRefinancedUrl = 'http://192.168.88.94:5260/api/Refinance/ApproveRefinancedCase';
+  readonly restructureUrl = 'http://192.168.88.94:5260/api/Restructure/CaseRestructure';
+  readonly refinanceUrl = 'http://192.168.88.94:5260/api/Refinance/Refinance';
+  readonly approvecaseUrl = 'http://192.168.88.94:5260/api/Case/ApproveCase';
+  readonly approveRestructuredUrl = 'http://192.168.88.94:5260/api/Restructure/ApproveRestructureCase';
+  readonly approveRefinancedUrl = 'http://192.168.88.94:5260/api/Refinance/ApproveRefinancedCase';
   readonly deletecaseUrl = 'http://192.168.88.94:5260/api/Case/DeleteCase';
 
 
@@ -60,7 +60,7 @@ export class SharedService {
   private AllDocumentUrl = "http://192.168.88.33:5260/api/DocumentMgnt/GetAllDocuments";
   private documentApprovalUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/ApproveUploadedDocument';
   private pendingdocumentsUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/GetUnApprovedDocuments';
-  private rejectdocumentUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/RejectUploadedDocument';  
+  private rejectdocumentUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/RejectUploadedDocument';
 
 
 
@@ -91,12 +91,12 @@ export class SharedService {
   readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
 
 
-  private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
-  private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
+  // private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
+  // private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
 
 
-  
-  
+
+
   // readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
   private storageKey = 'uploads';
   private dataUrl = '/assets/data/data.json';
@@ -146,18 +146,18 @@ export class SharedService {
 
 
 
-  uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('loanAccount', loanAccount);
-    formData.append('fileName', fileName);
-    formData.append('fileType', fileType);
-    formData.append('folder', folder);
-    formData.append('fileExtension', fileExtension);
-    formData.append('accountName', accountName);
+  // uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
+  //   const formData = new FormData();
+  //   formData.append('file', file);
+  //   formData.append('loanAccount', loanAccount);
+  //   formData.append('fileName', fileName);
+  //   formData.append('fileType', fileType);
+  //   formData.append('folder', folder);
+  //   formData.append('fileExtension', fileExtension);
+  //   formData.append('accountName', accountName);
 
-    return this.http.post<any>(this.documentsUrl, formData);
-  }
+  //   return this.http.post<any>(this.documentsUrl, formData);
+  // }
 
   getCases(): Observable<any> {
     return this.http.get<any>(this.CasesUrl);
@@ -171,12 +171,12 @@ export class SharedService {
     return this.http.get<any>(this.pendingdocumentsUrl);
 
   }
-  rejectDocument(documentUrl: string,  comments: string, id: number): Observable<any> {
-    const requestBody = { 
+  rejectDocument(documentUrl: string, comments: string, id: number): Observable<any> {
+    const requestBody = {
       documentUrl: documentUrl,
       comments: comments,
-      id: id 
-      
+      id: id
+
     };
     return this.http.post<any>(this.rejectdocumentUrl, requestBody);
   }
@@ -210,24 +210,24 @@ export class SharedService {
     return this.http.post(this.refinanceUrl, inputdata)
   }
 
-   approveRestructuredCases(CaseNumber: any) {
+  approveRestructuredCases(CaseNumber: any) {
     return this.http.post(this.approveRestructuredUrl, CaseNumber)
   }
-   approveRefinancedCases(CaseNumber: any) {
+  approveRefinancedCases(CaseNumber: any) {
     return this.http.post(this.approveRefinancedUrl, CaseNumber)
   }
-  
 
-   approveCase(CaseNumber: any) {
+
+  approveCase(CaseNumber: any) {
     return this.http.post(this.approvecaseUrl, CaseNumber)
   }
 
-deleteCase(caseNumber: string): Observable<any> {
-    const options = {
-      body: { CaseNumber: caseNumber },
-    };
-    return this.http.delete(this.deletecaseUrl, options);
-  }
+  // deleteCase(caseNumber: string): Observable<any> {
+  //     const options = {
+  //       body: { CaseNumber: caseNumber },
+  //     };
+  //     return this.http.delete(this.deletecaseUrl, options);
+  //   }
 
 
 
@@ -304,7 +304,7 @@ deleteCase(caseNumber: string): Observable<any> {
       );
   }
 
- uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
+  uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('loanAccount', loanAccount);
@@ -313,15 +313,15 @@ deleteCase(caseNumber: string): Observable<any> {
     formData.append('folder', folder);
     formData.append('fileExtension', fileExtension);
     formData.append('accountName', accountName);
-    
-   return this.http.post<any>(this.documentsUrl, formData);
+
+    return this.http.post<any>(this.documentsUrl, formData);
   }
   approveDocument(documentUrl: string, comments: string, id: string): Observable<any> {
     const requestBody = {
       documentUrl: documentUrl,
       comments: comments,
-      id :id,
-      
+      id: id,
+
     };
     return this.http.post<any>(this.documentApprovalUrl, requestBody);
   }
@@ -410,7 +410,7 @@ deleteCase(caseNumber: string): Observable<any> {
 
 
 
- getUnApprovedCases(): Observable<any[]> {
+  getUnApprovedCases(): Observable<any[]> {
     return this.http.get<any[]>(`${this.unapprovedcaseUrl}`)
 
       .pipe(
@@ -447,7 +447,7 @@ deleteCase(caseNumber: string): Observable<any> {
 
 
 
-  
+
 
   Active(): Observable<any[]> {
     return this.http.get<any[]>(this.ActiveUrl);
@@ -492,12 +492,12 @@ deleteCase(caseNumber: string): Observable<any> {
 
 
   registerUser(inputdata: any) {
-    return this.http.post(this.registerUrl,inputdata)
+    return this.http.post(this.registerUrl, inputdata)
   }
   // registerUser(user: any): Observable<any> {
   //   return this.http.post<any>(this.apiUrl, user);
   // }
-  
+
 
 
   getUserData(): Observable<any> {
@@ -617,7 +617,7 @@ deleteCase(caseNumber: string): Observable<any> {
 
 
 
- 
+
 
   getServiceProviders(): Observable<any> {
     return this.http.get<any>(this.ServiceUrl);

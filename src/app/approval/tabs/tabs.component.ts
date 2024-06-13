@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router'; // If needed
+import { ActivatedRoute, Router } from '@angular/router'; // If needed
 
 import { SharedService } from '../../shared.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -19,16 +19,18 @@ declare var bootstrap: any;
   styleUrls: ['./tabs.component.css']
 })
 
-export class TabsComponent  implements OnInit {
+export class TabsComponent implements OnInit {
 
-  Data = {caseNumber: '', };
-   
-  RestructureData = {caseNumber: '',
-    
+  Data = { caseNumber: '', };
+
+  RestructureData = {
+    caseNumber: '',
+
   };
-   RefinancedData = {caseNumber: '',
-    
-  }; 
+  RefinancedData = {
+    caseNumber: '',
+
+  };
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
@@ -37,7 +39,7 @@ export class TabsComponent  implements OnInit {
   action: string = ''; // Declare the action property
   searchParams: any = { param: 'acid', value: '' };
 
-   pagedCasesdata: any[] = [];
+  pagedCasesdata: any[] = [];
 
   currentPage: number = 1;
   totalItems: number = 0;
@@ -47,68 +49,69 @@ export class TabsComponent  implements OnInit {
   data: any[] = [];
   Casesdata: any[] = [];
   unapprovedcaseUrl: string = '';
-   SubmissionsUrl: string = '';
-   selectedRowData: any; 
+  SubmissionsUrl: string = '';
+  selectedRowData: any;
   @Input() loanAccount: any = '';
-   SubmitData: any[] = [];
+  SubmitData: any[] = [];
   responseMessage: string = '';
   document: any;
-  documents: any[] = []; 
-  
-    
+  documents: any[] = [];
+
+
   errorMessage: string | null = null;
   successMessage: string | null = null;
   loading: boolean = false;
   caseNumber: any;
   unapprovedcasedata: any[] = [];
-
+  apiUrl: string = '';
   recoveredCasesdata: any[] = [];
   refinancedCasesdata: any[] = [];
   restructuredCasesdata: any[] = [];
   recoveredCasesUrl: string = '';
   refinancedCasesUrl: string = '';
- restructuredCasesUrl: string = '';
- isRejectionVisible: boolean = false;
+  restructuredCasesUrl: string = '';
+  isRejectionVisible: boolean = false;
   rejectionMessage: string = '';
- ApprovalRequestsUrl: string = '';
+  ApprovalRequestsUrl: string = '';
   RejectRequestsUrl: string = ''
   message: any;
-   actionType: string |null=null;
-
-  
+  actionType: string | null = null;
 
 
 
-    constructor(private router: Router, private sharedService: SharedService,private toastr: ToastrService,public bsModalRef: BsModalRef, private route: ActivatedRoute,
+
+
+  constructor(private router: Router, private sharedService: SharedService, private toastr: ToastrService, public bsModalRef: BsModalRef, private route: ActivatedRoute,
     private http: HttpClient
-  ) {}
+  ) { }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
+    this.apiUrl = this.sharedService.ActivityUrl;
     this.unapprovedcaseUrl = this.sharedService.unapprovedcaseUrl;
     this.SubmissionsUrl = this.sharedService.SubmissionsUrl;
-     this.recoveredCasesUrl = this.sharedService.recoveredCasesUrl;
+    this.recoveredCasesUrl = this.sharedService.recoveredCasesUrl;
     this.refinancedCasesUrl = this.sharedService.refinancedCasesUrl;
-     this.restructuredCasesUrl = this.sharedService.restructuredCasesUrl;
-      this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
+    this.restructuredCasesUrl = this.sharedService.restructuredCasesUrl;
+    this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
     this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
-    this.route.params.subscribe(params => {
-      
-      const documentId = params['id'];
-      
-    });
 
+    this.route.params.subscribe(params => {
+
+      const documentId = params['id'];
+
+    });
 
     this.fetchService();  // fetching requests
     this.getUnApprovedCases(); // fetching cases
-     this. getrecoveredCases();  // fetching recovered cases
+    this.getrecoveredCases();  // fetching recovered cases
     this.getrefinancedCases(); // fetching refinanced cases
-    this. getrestructuredCases(); // fetching restructured cases
+    this.getrestructuredCases(); // fetching restructured cases
   }
 
-    setAction(action: string) {
+  setAction(action: string) {
     this.actionType = action;
   }
-  handleSubmit(document:any) {
+  handleSubmit(document: any) {
     this.loading = true;
     if (this.actionType === 'approve') {
       this.approveDocument(document);
@@ -120,40 +123,40 @@ export class TabsComponent  implements OnInit {
     this.router.navigate(['/retrieve']); // Assuming 'retrieve' is the route path for your retrieve component
   }
 
-   approveDocument(document: any) {
+  approveDocument(document: any) {
     if (!document || !document.comments) {
       return;
     }
-    this.sharedService.approveDocument(document.documentUrl, document.comments,document.id)
+    this.sharedService.approveDocument(document.documentUrl, document.comments, document.id)
       .subscribe(
         (response) => {
           // this.loading = false;
           this.successMessage = response.message;
           this.document.verifiedFlag = 'Y';
           this.updateDocumentStatus(this.document.id, 'Y')
-          
+
           // Optionally, you can update the UI or perform any other action after approval
         },
         (error) => {
           // this.errorMessage = response.message;
-          
+
         }
       );
-    }
+  }
 
-     updateDocumentStatus(id: string, status: string) {
+  updateDocumentStatus(id: string, status: string) {
     const document = this.documents.find(doc => doc.id === id);
     if (document) {
       document.verifiedFlag = status;
       document.rejectedFlag = status;
     }
   }
-  
+
   fetchDocuments(): void {
     this.sharedService.getPendingDocuments().subscribe(
       (response) => {
         console.log('Documents fetched successfully:', response);
-        this.documents = response.result.filter((document: any) => document.verifiedFlag === 'N' || document.rejectedFlag ==='N');
+        this.documents = response.result.filter((document: any) => document.verifiedFlag === 'N' || document.rejectedFlag === 'N');
       },
       (error) => {
         console.error('Error fetching documents:', error);
@@ -175,7 +178,7 @@ export class TabsComponent  implements OnInit {
         this.successMessage = response.message;
         // Setting verifiedFlag to 'N'
         this.document.rejectedFlag = 'Y'; // Setting rejectFlag to 'Y'
-        this.updateDocumentStatus(document.id,  'Y'); // Updating document status
+        this.updateDocumentStatus(document.id, 'Y'); // Updating document status
         console.log('Document rejected successfully:', response);
         // Optionally, you can update the UI or perform any other action after rejection
       },
@@ -183,15 +186,15 @@ export class TabsComponent  implements OnInit {
         console.error('Error rejecting document:', error);
       }
     );
-    
-  
-}
+
+
+  }
   viewDocument(document: any) {
     // Implement logic to view the submission details
   }
 
 
-  
+
 
 
 
@@ -342,9 +345,9 @@ export class TabsComponent  implements OnInit {
 
 
 
- 
 
- 
+
+
   // CLAIMS
   approveClaim() {
     console.log('Claim approved');
@@ -375,23 +378,9 @@ export class TabsComponent  implements OnInit {
   }
 
 
-  // cases methods'
 
 
-  ngOnInit(): void {
-    this.apiUrl = this.sharedService.ActivityUrl;
-    this.SubmissionsUrl = this.sharedService.SubmissionsUrl;
-    this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
-    this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
-
-    this.fetchService();
-    this.fetchData();
-  }
-
-
-  
- 
-   sortSubmitData(): void {
+  sortSubmitData(): void {
     this.SubmitData.sort((a, b) => new Date(b.serviceDate).getTime() - new Date(a.serviceDate).getTime());
   }
 
@@ -402,7 +391,7 @@ export class TabsComponent  implements OnInit {
   }
 
 
-    onSearch(): void {
+  onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
 
     let searchParamKey: string = this.searchParams.param;
@@ -452,7 +441,7 @@ export class TabsComponent  implements OnInit {
   }
 
 
-   fetchService(): void {
+  fetchService(): void {
     this.http.get<any>(this.SubmissionsUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.SubmitData = response.result;
@@ -465,10 +454,10 @@ export class TabsComponent  implements OnInit {
     });
   }
 
- // fetching cases
-  
- getrecoveredCases(): void {
-    this.http.get<any>(this.recoveredCasesUrl ).subscribe(response => {
+  // fetching cases
+
+  getrecoveredCases(): void {
+    this.http.get<any>(this.recoveredCasesUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.recoveredCasesdata = response.result;
       } else {
@@ -503,11 +492,11 @@ export class TabsComponent  implements OnInit {
     });
   }
 
- getrestructuredCases(): void {
+  getrestructuredCases(): void {
     this.http.get<any>(this.restructuredCasesUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.restructuredCasesdata = response.result;
-        
+
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -515,7 +504,7 @@ export class TabsComponent  implements OnInit {
       console.error('Error fetching data from API:', error);
     });
   }
- // fetching cases
+  // fetching cases
   filterData(): void {
     if (this.searchParams.value.trim() === '') {
       // If search value is empty, show all data
@@ -535,219 +524,219 @@ export class TabsComponent  implements OnInit {
     this.unapprovedcasedata = this.unapprovedcasedata.slice(startIndex, endIndex);
   }
 
-      //  method for  approve autofilling a form
+  //  method for  approve autofilling a form
 
- openModal(item: any) {
-  // Get the modal form elements
-  const caseNumber = document.getElementById('caseNumber') as HTMLInputElement;
-  const cifId = document.getElementById('cifId') as HTMLInputElement;
-  const loanAccount = document.getElementById('loanAccount') as HTMLInputElement;
-  const accountName = document.getElementById('accountName') as HTMLInputElement;
-  const loanAmount = document.getElementById('loanAmount') as HTMLInputElement;
-  const loanTenure = document.getElementById('loanTenure') as HTMLInputElement;
-  const solId = document.getElementById('solId') as HTMLInputElement;
-  const loanBalance = document.getElementById('loanBalance') as HTMLInputElement;
+  openModal(item: any) {
+    // Get the modal form elements
+    const caseNumber = document.getElementById('caseNumber') as HTMLInputElement;
+    const cifId = document.getElementById('cifId') as HTMLInputElement;
+    const loanAccount = document.getElementById('loanAccount') as HTMLInputElement;
+    const accountName = document.getElementById('accountName') as HTMLInputElement;
+    const loanAmount = document.getElementById('loanAmount') as HTMLInputElement;
+    const loanTenure = document.getElementById('loanTenure') as HTMLInputElement;
+    const solId = document.getElementById('solId') as HTMLInputElement;
+    const loanBalance = document.getElementById('loanBalance') as HTMLInputElement;
 
-  // Populate the form fields with the item data
-  caseNumber.value = item.caseNumber;
-  cifId.value = item.cifId;
-  loanAccount.value = item.loanAccount;
-  accountName.value = item.accountName;
-  loanAmount.value = item.loanAmount;
-  loanTenure.value = item.loanTenure;
-  solId.value = item.solId;
-  loanBalance.value = item.loanBalance;
+    // Populate the form fields with the item data
+    caseNumber.value = item.caseNumber;
+    cifId.value = item.cifId;
+    loanAccount.value = item.loanAccount;
+    accountName.value = item.accountName;
+    loanAmount.value = item.loanAmount;
+    loanTenure.value = item.loanTenure;
+    solId.value = item.solId;
+    loanBalance.value = item.loanBalance;
 
-  // Assign the caseNumber to this.Data
-  this.Data.caseNumber = item.caseNumber;
-}
-
-
-      // restructure modal method for autofilling a form
-
-openRestructureModal(item: any) {
-  // Populate the form fields with the item data
-  const modalForm = document.getElementById('approveRestructureCaseForm') as HTMLFormElement;
-
-  // Loop through each input and textarea element in the form
-  modalForm.querySelectorAll('input, textarea').forEach((element: Element) => {
-    const fieldName = (element as HTMLInputElement | HTMLTextAreaElement).id;
-    if (fieldName && item.hasOwnProperty(fieldName)) {
-      // Handle different types of elements appropriately
-      if (element.tagName === 'INPUT') {
-        // For input elements
-        (element as HTMLInputElement).value = item[fieldName];
-      } else if (element.tagName === 'TEXTAREA') {
-        // For textarea elements
-        (element as HTMLTextAreaElement).value = item[fieldName];
-      }
-    }
-  });
-
-  // Assign the caseNumber to RestructureData
-  this.RestructureData.caseNumber = item.caseNumber;
-}
-
-approveRestructuredCase(): void {
-  // Ensure caseNumber is valid
-  if (!this.RestructureData.caseNumber) {
-    console.error('Case number is undefined or empty.');
-    return;
+    // Assign the caseNumber to this.Data
+    this.Data.caseNumber = item.caseNumber;
   }
 
-  // Constructing the data object to be submitted
-  const approveRestructureData = {
-    CaseNumber: this.RestructureData.caseNumber,
-  };
 
-  console.log('Case Data to be Submitted:', approveRestructureData);
-  this.loading = true; // Indicate loading state
+  // restructure modal method for autofilling a form
 
-  // Attempt to approve the case
-  this.sharedService.approveRestructuredCases(approveRestructureData).subscribe(
-     (response: any) => {
-      console.log('Response received:', response);
-      this.loading = false; // Reset loading state upon success
-      this.successMessage = ' Restructured Case  approved successfully!';
-      this.responseMessage = response.message; // Set the response message
-      this.toastr.success(' Restructured Case approved successfully!', 'Success');
-    },
-    (error: any) => {
-      this.loading = false; // Reset loading state upon failure
-      console.error('Error approving case:', error);
-      this.errorMessage = 'Failed to approve case. Please try again.';
-      this.toastr.error('Failed to approve case. Please try again.', 'Error');
-    }
-  );
-}
+  openRestructureModal(item: any) {
+    // Populate the form fields with the item data
+    const modalForm = document.getElementById('approveRestructureCaseForm') as HTMLFormElement;
 
-
-      // refinance modal method for autofilling a form
-
-openRefinanceModal(item: any) {
-  // Populate the form fields with the item data
-  const modalForm = document.getElementById('approveRefinanceCaseForm') as HTMLFormElement;
-
-  // Loop through each input and textarea element in the form
-  modalForm.querySelectorAll('input, textarea').forEach((element: Element) => {
-    const fieldName = (element as HTMLInputElement | HTMLTextAreaElement).id;
-    if (fieldName && item.hasOwnProperty(fieldName)) {
-      // Handle different types of elements appropriately
-      if (element.tagName === 'INPUT') {
-        // For input elements
-        (element as HTMLInputElement).value = item[fieldName];
-      } else if (element.tagName === 'TEXTAREA') {
-        // For textarea elements
-        (element as HTMLTextAreaElement).value = item[fieldName];
+    // Loop through each input and textarea element in the form
+    modalForm.querySelectorAll('input, textarea').forEach((element: Element) => {
+      const fieldName = (element as HTMLInputElement | HTMLTextAreaElement).id;
+      if (fieldName && item.hasOwnProperty(fieldName)) {
+        // Handle different types of elements appropriately
+        if (element.tagName === 'INPUT') {
+          // For input elements
+          (element as HTMLInputElement).value = item[fieldName];
+        } else if (element.tagName === 'TEXTAREA') {
+          // For textarea elements
+          (element as HTMLTextAreaElement).value = item[fieldName];
+        }
       }
-    }
-  });
- this.RefinancedData.caseNumber = item.caseNumber;
-  
-}
-approveRefiancedCases(): void {
-  // Ensure caseNumber is valid
-  if (!this.RefinancedData.caseNumber) {
-    console.error('Case number is undefined or empty.');
-    return;
+    });
+
+    // Assign the caseNumber to RestructureData
+    this.RestructureData.caseNumber = item.caseNumber;
   }
 
-  // Constructing the data object to be submitted
-  const approveRefinancedData= {
-    CaseNumber: this.RefinancedData.caseNumber,
-  };
-
-  console.log('Case Data to be Submitted:', approveRefinancedData);
-  this.loading = true; // Indicate loading state
-
-  // Attempt to approve the case
-  this.sharedService.approveRefinancedCases(approveRefinancedData).subscribe(
-     (response: any) => {
-      console.log('Response received:', response);
-      this.loading = false; // Reset loading state upon success
-      this.successMessage = ' Refinanced Case  approved successfully!';
-      this.responseMessage = response.message; // Set the response message
-      this.toastr.success(' Refinanced Case Case approved successfully!', 'Success');
-    },
-    (error: any) => {
-      this.loading = false; // Reset loading state upon failure
-      console.error('Error approving case:', error);
-      this.errorMessage = 'Failed to approve case. Please try again.';
-      this.toastr.error('Failed to approve case. Please try again.', 'Error');
+  approveRestructuredCase(): void {
+    // Ensure caseNumber is valid
+    if (!this.RestructureData.caseNumber) {
+      console.error('Case number is undefined or empty.');
+      return;
     }
-  );
-}
 
+    // Constructing the data object to be submitted
+    const approveRestructureData = {
+      CaseNumber: this.RestructureData.caseNumber,
+    };
 
-      // recovery  modal method for autofilling a form
+    console.log('Case Data to be Submitted:', approveRestructureData);
+    this.loading = true; // Indicate loading state
 
-openRecoveryModal(item: any) {
-  // Populate the form fields with the item data
-  const modalForm = document.getElementById('approveRecoveryCaseForm') as HTMLFormElement;
-
-  // Loop through each input and textarea element in the form
-  modalForm.querySelectorAll('input, textarea').forEach((element: Element) => {
-    const fieldName = (element as HTMLInputElement | HTMLTextAreaElement).id;
-    if (fieldName && item.hasOwnProperty(fieldName)) {
-      // Handle different types of elements appropriately
-      if (element.tagName === 'INPUT') {
-        // For input elements
-        (element as HTMLInputElement).value = item[fieldName];
-      } else if (element.tagName === 'TEXTAREA') {
-        // For textarea elements
-        (element as HTMLTextAreaElement).value = item[fieldName];
+    // Attempt to approve the case
+    this.sharedService.approveRestructuredCases(approveRestructureData).subscribe(
+      (response: any) => {
+        console.log('Response received:', response);
+        this.loading = false; // Reset loading state upon success
+        this.successMessage = ' Restructured Case  approved successfully!';
+        this.responseMessage = response.message; // Set the response message
+        this.toastr.success(' Restructured Case approved successfully!', 'Success');
+      },
+      (error: any) => {
+        this.loading = false; // Reset loading state upon failure
+        console.error('Error approving case:', error);
+        this.errorMessage = 'Failed to approve case. Please try again.';
+        this.toastr.error('Failed to approve case. Please try again.', 'Error');
       }
-    }
-  });
-
-  
-}
-
-
-
- //approve case method 
-
-approveCase(): void {
-  // Ensure caseNumber is valid
-  if (!this.Data.caseNumber) {
-    console.error('Case number is undefined or empty.');
-    return;
+    );
   }
 
-  // Constructing the data object to be submitted
-  const approveCaseData = {
-    CaseNumber: this.Data.caseNumber,
-  };
 
-  console.log('Case Data to be Submitted:', approveCaseData);
-  this.loading = true; // Indicate loading state
+  // refinance modal method for autofilling a form
 
-  // Attempt to approve the case
-  this.sharedService.approveCase(approveCaseData).subscribe(
-    (response: any) => {
-      console.log('Response received:', response);
-      this.loading = false; // Reset loading state upon success
-      this.successMessage = 'Case approved successfully!';
-      this.responseMessage = response.message; // Set the response message
-      this.toastr.success('Case approved successfully!', 'Success');
-    },
-    (error: any) => {
-      this.loading = false; // Reset loading state upon failure
-      console.error('Error approving case:', error);
-      this.errorMessage = 'Failed to approve case. Please try again.';
-      this.toastr.error('Failed to approve case. Please try again.', 'Error');
+  openRefinanceModal(item: any) {
+    // Populate the form fields with the item data
+    const modalForm = document.getElementById('approveRefinanceCaseForm') as HTMLFormElement;
+
+    // Loop through each input and textarea element in the form
+    modalForm.querySelectorAll('input, textarea').forEach((element: Element) => {
+      const fieldName = (element as HTMLInputElement | HTMLTextAreaElement).id;
+      if (fieldName && item.hasOwnProperty(fieldName)) {
+        // Handle different types of elements appropriately
+        if (element.tagName === 'INPUT') {
+          // For input elements
+          (element as HTMLInputElement).value = item[fieldName];
+        } else if (element.tagName === 'TEXTAREA') {
+          // For textarea elements
+          (element as HTMLTextAreaElement).value = item[fieldName];
+        }
+      }
+    });
+    this.RefinancedData.caseNumber = item.caseNumber;
+
+  }
+  approveRefiancedCases(): void {
+    // Ensure caseNumber is valid
+    if (!this.RefinancedData.caseNumber) {
+      console.error('Case number is undefined or empty.');
+      return;
     }
-  );
 
- // End of approve case functionality case
-}
+    // Constructing the data object to be submitted
+    const approveRefinancedData = {
+      CaseNumber: this.RefinancedData.caseNumber,
+    };
 
- //approve restructure case method 
+    console.log('Case Data to be Submitted:', approveRefinancedData);
+    this.loading = true; // Indicate loading state
+
+    // Attempt to approve the case
+    this.sharedService.approveRefinancedCases(approveRefinancedData).subscribe(
+      (response: any) => {
+        console.log('Response received:', response);
+        this.loading = false; // Reset loading state upon success
+        this.successMessage = ' Refinanced Case  approved successfully!';
+        this.responseMessage = response.message; // Set the response message
+        this.toastr.success(' Refinanced Case Case approved successfully!', 'Success');
+      },
+      (error: any) => {
+        this.loading = false; // Reset loading state upon failure
+        console.error('Error approving case:', error);
+        this.errorMessage = 'Failed to approve case. Please try again.';
+        this.toastr.error('Failed to approve case. Please try again.', 'Error');
+      }
+    );
+  }
+
+
+  // recovery  modal method for autofilling a form
+
+  openRecoveryModal(item: any) {
+    // Populate the form fields with the item data
+    const modalForm = document.getElementById('approveRecoveryCaseForm') as HTMLFormElement;
+
+    // Loop through each input and textarea element in the form
+    modalForm.querySelectorAll('input, textarea').forEach((element: Element) => {
+      const fieldName = (element as HTMLInputElement | HTMLTextAreaElement).id;
+      if (fieldName && item.hasOwnProperty(fieldName)) {
+        // Handle different types of elements appropriately
+        if (element.tagName === 'INPUT') {
+          // For input elements
+          (element as HTMLInputElement).value = item[fieldName];
+        } else if (element.tagName === 'TEXTAREA') {
+          // For textarea elements
+          (element as HTMLTextAreaElement).value = item[fieldName];
+        }
+      }
+    });
+
+
+  }
 
 
 
-     // functionality for reject case 
- submitRejection() {
+  //approve case method 
+
+  approveCase(): void {
+    // Ensure caseNumber is valid
+    if (!this.Data.caseNumber) {
+      console.error('Case number is undefined or empty.');
+      return;
+    }
+
+    // Constructing the data object to be submitted
+    const approveCaseData = {
+      CaseNumber: this.Data.caseNumber,
+    };
+
+    console.log('Case Data to be Submitted:', approveCaseData);
+    this.loading = true; // Indicate loading state
+
+    // Attempt to approve the case
+    this.sharedService.approveCase(approveCaseData).subscribe(
+      (response: any) => {
+        console.log('Response received:', response);
+        this.loading = false; // Reset loading state upon success
+        this.successMessage = 'Case approved successfully!';
+        this.responseMessage = response.message; // Set the response message
+        this.toastr.success('Case approved successfully!', 'Success');
+      },
+      (error: any) => {
+        this.loading = false; // Reset loading state upon failure
+        console.error('Error approving case:', error);
+        this.errorMessage = 'Failed to approve case. Please try again.';
+        this.toastr.error('Failed to approve case. Please try again.', 'Error');
+      }
+    );
+
+    // End of approve case functionality case
+  }
+
+  //approve restructure case method 
+
+
+
+  // functionality for reject case 
+  submitRejection() {
     if (this.rejectionMessage.trim()) {
       // Logic to handle the rejection with the rejectionMessage
       console.log('Rejection message:', this.rejectionMessage);
