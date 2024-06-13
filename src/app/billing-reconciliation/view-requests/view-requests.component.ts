@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-
 import { SharedService } from '../../shared.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-view-requests',
@@ -24,14 +28,30 @@ export class ViewRequestsComponent {
   // casesData: any[] = [];
   cd: any;
   apiUrl: string = '';
+  DeleteRequestUrl: string = '';
   data: any[] = [];
+  currentRequest: any = {};
+  updatedComments: string = '';
+  deleteResponseMessage: string = '';
+  message: string = '';
+  response: any;
 
-  constructor(private sharedService: SharedService, private http: HttpClient,) { }
+  constructor(private sharedService: SharedService, private http: HttpClient, private modalService: NgbModal,
+    private toastr: ToastrService, public bsModalRef: BsModalRef) { }
 
   ngOnInit(): void {
     this.apiUrl = this.sharedService.SubmissionsUrl;
     this.fetchData();
 
+  }
+
+  showModalMessage(message: string, alertClass: string) {
+    const modalMessage = document.getElementById('modalMessage');
+    if (modalMessage) {
+      modalMessage.innerText = message;
+      modalMessage.className = `alert ${alertClass}`;
+      modalMessage.style.display = 'block';
+    }
   }
 
   setSearchParams(param: string): void {
@@ -40,44 +60,56 @@ export class ViewRequestsComponent {
   }
 
 
-  
+
   setSearchOption(option: string) {
     this.searchOption = option;
   }
-  search(): void {
-    console.log('Search method called'); // Debugging line
-    this.currentPage = 1; // Reset current page for search
-    this.data = this.data.filter(item => {
-      switch (this.searchParams.param) {
-        case 'cifId':
-          return item.cifId.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'assignedEmail':
-          return item.assignedEmail.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'accountName':
-          return item.accountName.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'loanAccount':
-          return item.loanAccount.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        default:
-          return false;
+
+  UpdateRequest(): void { }
+
+  DeleteRequest(): void {
+    const requestId = this.currentRequest.requestId;
+    const deleteUrl = `${this.DeleteRequestUrl}/submitData/DeleteRequest`;
+
+    this.http.post(deleteUrl, { requestId }).subscribe({
+      next: (response: any) => {
+        this.message = response.message || 'Request deleted successfully!';
+        this.showModalMessage(this.message, 'alert-success');
+        this.fetchData(); // Refresh the data
+        this.modalService.dismissAll(); // Close the modal
+      },
+      error: (error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          console.error('An error occurred:', error.error.message);
+        } else {
+          console.error(`Backend returned code ${error.status}, body was: `, error.error);
+          // Show a generic error message to the user
+          this.showModalMessage('Failed to delete the request. Please try again later.', 'alert-danger');
+        }
       }
     });
   }
 
+  openModal(request: any, content: any): void {
+    this.currentRequest = request;
+    this.updatedComments = request.comments;
+    this.modalService.open(content, { ariaLabelledBy: 'editRequestModalLabel' });
+  }
 
-  // getCases(): void {
-  //   this.sharedService.getCases().subscribe(
-  //     (result: any[]) => {
+  closeSubmitModal() {
+    const modalElement = document.getElementById('approveserviceModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      modal.hide();
+    }
 
-  //       this.casesData = result;
-  //       this.calculateCaseCounts(); 
+  }
 
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       console.error('Error fetching Status:', error);
 
-  //     }
-  //   );
-  // }
+
+
+
+
   fetchData(): void {
     this.http.get<any>(this.apiUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
@@ -90,11 +122,6 @@ export class ViewRequestsComponent {
       console.error('Error fetching data from API:', error);
     });
   }
-  // calculateCaseCounts(): void {
-  //   this.totalCases = this.data.length;
-  //   this.activeCases = this.data.filter(item => item.assigned === "N").length;
-  //   this.closedCases = this.data.filter(item => item.assigned === "Y").length;
-  // }
 
   // Method to handle page change event
   pageChanged(event: any): void {
@@ -124,35 +151,11 @@ export class ViewRequestsComponent {
       return this.data;
     }
   }
-  filterData(): void {
-    if (this.searchParams.value.trim() === '') {
-      // If search value is empty, show all data
-      this.data = [...this.data];
-    } else {
-      // Filter data based on selected parameter and value
-      this.data = this.data.filter(item => {
-        return item[this.searchParams.param] === this.searchParams.value;
-      });
-    }
-    this.totalItems = this.data.length;
-    this.totalPages = Math.ceil(this.totalItems / this.pageSize);
-  }
 
 
 
-  getDataArray(): any[][] {
-    const dataArray: any[][] = [];
-    const table = document.getElementById('example');
-    const rows = table?.querySelectorAll('tr');
-    rows?.forEach(row => {
-      const rowData: any[] = [];
-      row?.querySelectorAll('td').forEach(cell => {
-        rowData.push(cell?.textContent?.trim());
-      });
-      dataArray.push(rowData);
-    });
-    return dataArray;
-  }
+
+
 
 
 }

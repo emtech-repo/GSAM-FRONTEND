@@ -466,20 +466,21 @@
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <!-- <div class="form-group mx-sm-3 mb-6 d-flex">
-                        <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
-                            style="width: 150px; height: 30px;">
-                            <option value="1" disabled>search by</option>
-                            <option value="loanAccount">Loan Account</option>
-                            <option value="accountName">Account Name</option>
-                            <option value="caseNumber">Case Number</option>
-                            <option value="cifId">CIF ID</option>
-                        </select>
-                        <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
-                            class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
-                        <button (click)="onSearch()" class="btn btn-primary btn-sm"
-                            style="border-radius: 5px; margin-left: -10px;">Search</button>
-                    </div> -->
+                            
+                                <div class="form-group mx-sm-3 mb-6 d-flex">
+                                    <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2"
+                                        style="width: 150px; height: 30px;">
+                                        <option value="1" disabled>search by</option>
+                                        <option value="requestId">Request id</option>
+                                        <option value="serviceName">Service Name</option>
+                                        <option value="serviceProviderName">Provider Name</option>
+                                        <option value="providerAccountNumber">Account Number</option>
+                                    </select>
+                                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
+                                        class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
+                                    <button (click)="onSearch()" class="btn btn-primary btn-sm"
+                                        style="border-radius: 5px; margin-left: -10px;">Search</button>
+                                </div>
                             <div class="table-responsive">
                                 <table id="example" class="display expandable-table" style="width:100%">
                                     <thead class="thead-dark">
@@ -494,51 +495,51 @@
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
-
+            
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of SubmitData">
+                                    <tr *ngFor="let item of SubmitData | paginate: { itemsPerPage: 5, currentPage: currentPage}">
                                             <td>{{ item.requestId }}</td>
                                             <td>{{ item.serviceName }}</td>
                                             <td>{{ item.serviceProviderName }}</td>
                                             <td>{{ item.providerAccountNumber }}</td>
                                             <td>{{ item.providerPhoneNumber }}</td>
                                             <td>{{ item.serviceDate }}</td>
-                                            <td>
-                                                <button class="btn btn-primary small-btn" [ngClass]="{
-                                                                  'btn-success': item.status === 'Approved',
-                                                                  'btn-danger': item.status === 'Rejected',
-                                                                  'btn-primary': item.status === 'Pending'
-                                                                }">
+              
+                                                <span class="badge fixed-width-badge" [ngClass]="{
+                                                                                'btn-success': item.status === 'Approved',
+                                                                                'btn-danger': item.status === 'Rejected',
+                                                                                'btn-primary': item.status === 'Pending'
+                                                                                }">
                                                     {{ item.status }}
-                                                </button>
+                                                </span>
                                             </td>
                                             <td>
+            
+                                                <button type="button" class="btn small-btn custom-button"
 
-                                                <button type="button" class="btn btn-primary small-btn"
                                                     (click)="openSubmitModal(item)">
                                                     Verify
                                                 </button>
-
+            
                                             </td>
-
+            
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <pagination [(ngModel)]="currentPage" [totalItems]="totalItems"
-                                        [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [maxSize]="5"
-                                        [rotate]="true" [boundaryLinks]="true">
+                                    <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                                        (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
                                     </pagination>
                                 </div>
-
+            
                             </div>
                         </div>
-
-
-
+            
+            
+            
                     </div>
                 </div>
 
@@ -554,7 +555,7 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-
+            
                                 <div class="row">
                                     <div class="col-md-4">
                                         <!-- First Column  -->
@@ -589,8 +590,10 @@
                                                 <div class="form-group" style="margin-top: -20px;">
                                                     <label for="providerPhoneNumber" style="margin-bottom: -1px;">Phone
                                                         Number</label>
+
                                                     <input type="text" class="form-control" id="providerPhoneNumber"
                                                         readonly />
+
                                                 </div>
                                             </div>
                                         </div>
@@ -602,14 +605,14 @@
                                             <div class="col-md-12 ps-9">
                                                 <div class="form-group" style="margin-top: -20px;">
 
-                                                    <label for="status" style="margin-bottom: -1px;">Status</label>
+                                                    <label for="status" style="margin-top: -20px;">Status</label>
                                                     <input type="text" class="form-control" id="status" readonly />
                                                 </div>
                                                 <div class="form-group" style="margin-top: -20px;">
-                                                    <label for="serviceProviderName"
-                                                        style="margin-bottom: -1px;">Provider Name</label>
-                                                    <input type="text" class="form-control" id="serviceProviderName"
-                                                        readonly />
+                                                    <label for="serviceProviderName" style="margin-bottom: -1px;">Provider
+                                                        Name</label>
+                                                    <input type="text" class="form-control" id="serviceProviderName" readonly />
+
                                                 </div>
                                             </div>
                                         </div>
@@ -626,25 +629,28 @@
                                 </div>
                                 <div id="modalMessage" class="alert" style="display: none;">
 
+                                    {{ message }}
+            
 
                                 </div> <!-- Add this line -->
-
+            
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary small-btn"
-                                    (click)="closeSubmitModal()">Close</button>
-                                <button type="button" class="btn btn-danger" (click)="rejectSubmitService()">Reject
-                                    Sevice</button>
+
+                                <button type="button" class="btn btn-primary small-btn" (click)="closeSubmitModal()">Close</button>
+                                <button type="button" class="btn btn-danger" (click)="rejectSubmitService()">Reject Sevice</button>
+
                                 <button type="button" class="btn btn-success" (click)="approveSubmitService()">Approve
                                     service</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
+            
+            
+            
             </ng-container>
+
 
             <ng-container *ngIf="i === 4">
                 <!-- Display content for "Claims Approval" tab -->

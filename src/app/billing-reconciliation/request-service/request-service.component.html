@@ -9,24 +9,43 @@
                             <h2 style="margin-top: 0; margin-bottom: 10px;">REQUEST SERVICE</h2>
                         </div>
                     </div>
-                    <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
-                        <!-- Search Field -->
+                    <!-- <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()"> -->
+                        
+                        
+                        <!-- Filtering Dropdowns -->
                         <div class="form-group row mb-4">
-                            <div class="form-group mx-sm-3 mb-6 d-flex">
-                                <select id="searchParam" formControlName="searchParam" class="form-control mr-2"
-                                    style="width: auto; height: auto; background-color: maroon; color: white;">
-                                    <option value="searchBy" disabled selected style="color: white;">Search By</option>
-                                    <option value="1">Provider Id</option>
-                                    <option value="2">Service Provider Name</option>
+                            <div class="col-md-4">
+                                <label for="filterRegion">Filter by Region</label>
+                                <select id="filterRegion" class="form-control" (change)="filterByRegionAndService($event)">
+                                    <option value="">Select Region</option>
+                                    <option *ngFor="let region of uniqueRegions" [value]="region.id">{{ region.regionName }}</option>
                                 </select>
-                                <input type="text" id="searchValue" formControlName="searchValue"
-                                    placeholder="Enter search value" class="form-control mr-4 dark-grey-background"
-                                    style="width: 300px; height: 30px; margin-right: 15px;">
-                                <button type="button" class="btn btn-primary btn-sm" style="border-radius: 5px;"
-                                    (click)="search()">Search</button>
                             </div>
+                            <div class="col-md-4">
+                                <label for="filterService">Filter by Service</label>
+                                <select id="filterService" class="form-control"  [disabled]="isRegionFilterActive" (change)="filterByService($event)">
+                                    <option value="">Select Service</option>
+                                    <option *ngFor="let service of uniqueServices" [value]="service.id">{{ service.serviceName }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" *ngIf="filteredServiceProviders.length > 0">
+                                <label for="selectedServiceProvider">Select Service Provider:</label>
+                                <select id="selectedServiceProvider" class="form-control" (change)="selectServiceProvider($event)">
+                                    <option value="">Select Service Provider</option>
+                                    <option *ngFor="let provider of filteredServiceProviders" [value]="provider.id">
+                                        {{ provider.name }} - {{ provider.service.serviceName }}
+                                    </option>
+                                </select>
+                            </div>
+
                         </div>
 
+
+                        
+                      
+                        
+                   <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group row mb-4">
 
                         <!-- Dropdowns -->
                         <div class="form-group row">
@@ -101,12 +120,13 @@
                         <div *ngIf="errorMessage" class="alert alert-danger mt-3">
                             {{ errorMessage }}
                         </div>
+                        </div>
 
+                </form>
 
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 
