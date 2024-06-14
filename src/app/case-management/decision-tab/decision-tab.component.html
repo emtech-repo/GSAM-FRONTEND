@@ -32,12 +32,14 @@
                                 <th>Case No</th>
                                 <th>Loan Account</th>
                                 <th>CIF ID</th>
-                                <th>Account Name</th>
-                                <th>Case Number</th>
-                                <th>Loan Amount</th>
-                                <th>Loan Balance</th>
+                                <th>Acc Name</th>
+                                <th>Loan Amnt</th>
+                                <th>Loan Bal</th>
                                 <th>Branch Id</th>
                                 <th>Loan Tenure</th>
+                                <th>Restructured</th>
+                                <th>Refinanced</th>
+                                <th>Recovered</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -47,11 +49,14 @@
                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
-                                <td>{{ item.caseNumber }}</td>
                                 <td>{{ item.loanAmount }}</td>
                                 <td>{{ item.loanBalance }}</td>
                                 <td>{{ item.solId }}</td>
                                 <td>{{ item.loanTenure }}</td>
+                                
+                                <td>{{ item.restructuredFlag }}</td>
+                                <td>{{ item.refinancedFlag }}</td>
+                                <td>{{ item.recoveredFlag }}</td>
                                 <td><button class="btn btn-primary btn-sm"
                                     (click)="goToRefinanceForm(item.loanAccount)">Proceed</button></td>
                               </tr>
@@ -93,15 +98,17 @@
                           <table id="example" class="display expandable-table" style="width:100%">
                             <thead>
                               <tr>
-                                <th>Case Number</th>
+                                <th>Case No</th>
                                 <th>Loan Account</th>
                                 <th>CIF ID</th>
-                                <th>Account Name</th>
-                                <th>Case Number</th>
-                                <th>Loan Amount</th>
-                                <th>Loan Balance</th>
+                                <th>Acc Name</th>
+                                <th>Loan Amnt</th>
+                                <th>Loan Bal</th>
                                 <th>Branch Id</th>
                                 <th>Loan Tenure</th>
+                                <th>Restructured</th>
+                                <th>Refinanced</th>
+                                <th>Recovered</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -112,11 +119,13 @@
                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
-                                <td>{{ item.caseNumber }}</td>
                                 <td>{{ item.loanAmount }}</td>
                                 <td>{{ item.loanBalance }}</td>
                                 <td>{{ item.solId }}</td>
                                 <td>{{ item.loanTenure }}</td>
+                                <td>{{ item.restructuredFlag }}</td>
+                                <td>{{ item.refinancedFlag }}</td>
+                                <td>{{ item.recoveredFlag }}</td>
                                 <td><button class="btn btn-primary btn-sm"
                                     (click)="goToRestructureForm(item.loanAccount)">Proceed</button></td>
                               </tr>
@@ -156,15 +165,17 @@
                           <table id="example" class="display expandable-table" style="width:100%">
                             <thead>
                               <tr>
-                                <th>Case NO</th>
+                                <th>Case No</th>
                                 <th>Loan Account</th>
                                 <th>CIF ID</th>
-                                <th>Account Name</th>
-                                <th>Case Number</th>
-                                <th>Loan Amount</th>
-                                <th>Loan Balance</th>
+                                <th>Acc Name</th>
+                                <th>Loan Amnt</th>
+                                <th>Loan Bal</th>
                                 <th>Branch Id</th>
                                 <th>Loan Tenure</th>
+                                <th>Restructured</th>
+                                <th>Refinanced</th>
+                                <th>Recovered</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -174,11 +185,14 @@
                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
-                                <td>{{ item.caseNumber }}</td>
+                               
                                 <td>{{ item.loanAmount }}</td>
                                 <td>{{ item.loanBalance }}</td>
                                 <td>{{ item.solId }}</td>
                                 <td>{{ item.loanTenure }}</td>
+                                <td>{{ item.restructuredFlag }}</td>
+                                <td>{{ item.refinancedFlag }}</td>
+                                <td>{{ item.recoveredFlag }}</td>
                                 <td><button class="btn btn-primary btn-sm"
                                     (click)="goToRecoveryForm(item.loanAccount)">Proceed</button></td>
                               </tr>

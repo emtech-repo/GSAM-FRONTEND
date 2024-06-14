@@ -23,6 +23,8 @@ export class SharedService {
   readonly SubmissionsUrl ='http://192.168.88.94:5260/api/ServiceRequest/GetAllRequests';
   readonly ApprovalRequestsUrl = 'http://192.168.88.94:5260/api/ServiceRequest/ApproveRequest';
   readonly RejectRequestsUrl = 'http://192.168.88.94:5260/api/ServiceRequest/RejectRequest';
+  readonly UpdateRequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/UpdateRequest';
+  readonly DeleteRequestUrl = 'http://192.168.88.94:5260/api/ServiceRequest/DeleteServiceBooking';
 
 
 
@@ -39,13 +41,16 @@ export class SharedService {
    readonly approvecaseUrl = 'http://192.168.88.94:5260/api/Case/ApproveCase';
    readonly approveRestructuredUrl = 'http://192.168.88.94:5260/api/Restructure/ApproveRestructureCase';
    readonly approveRefinancedUrl = 'http://192.168.88.94:5260/api/Refinance/ApproveRefinancedCase';
+    readonly approveRecoveredUrl = 'http://192.168.88.33:5260/api/Recover/ApproveRecoverCase';
   readonly deletecaseUrl = 'http://192.168.88.94:5260/api/Case/DeleteCase';
+  readonly patchcaseUrl = 'http://192.168.88.94:5260/api/Case/UpdateCase';
 
   readonly unapprovedcaseUrl = 'http://192.168.88.94:5260/api/Case/GetUnApprovedCases';
   readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
   readonly refinancedCasesUrl = 'http://192.168.88.94:5260/api/Refinance/GetRefinancedCases';
   readonly restructuredCasesUrl = 'http://192.168.88.94:5260/api/Restructure/GetAllRestructuredCases';
-
+  readonly UnApprovedRestructuredCasesUrl = 'http://192.168.88.94:5260/api/Restructure/GetUnApprovedRestructuredCases';
+  readonly UnApprovedRefinancedCasesUrl = 'http://192.168.88.94:5260/api/Refinance/GetUnApprovedRefinancedCases';
   private documentsUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/DocumentUpload';
   private AllDocumentUrl = "http://192.168.88.33:5260/api/DocumentMgnt/GetAllDocuments";
   private documentApprovalUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/ApproveUploadedDocument';
@@ -190,6 +195,9 @@ submitRecovery(inputdata: any) {
    approveRefinancedCases(CaseNumber: any) {
     return this.http.post(this.approveRefinancedUrl, CaseNumber)
   }
+  approveRecoveredCases(CaseNumber: any) {
+    return this.http.post(this.approveRecoveredUrl, CaseNumber)
+  }
   
 
    approveCase(CaseNumber: any) {
@@ -203,14 +211,50 @@ deleteCase(caseNumber: string): Observable<any> {
     return this.http.delete(this.deletecaseUrl, options);
   }
 
+  updateCase(caseNumber: string, syndicatedFlag: string, loanTenure: string): Observable<any> {
+    const urlWithParams = `${this.patchcaseUrl}?caseNumber=${caseNumber}`;
+    const patchDocument = [
+      {
+        op: 'replace',
+        path: '/SyndicatedFlag',
+        value: syndicatedFlag
+      },
+      {
+            op: 'replace',
+            path: '/loanTenure',
+            value: loanTenure
+        }   
+    ];
+
+    return this.http.patch(urlWithParams, patchDocument);
+  } 
+
+UpdateRequest(requestId: string, comments: string, serviceDate: string): Observable<any> {
+  const urlWithParams = `${this.UpdateRequestUrl}?requestId=${requestId}`;
+  const patchDocument = [
+    {
+      op: 'replace',
+      path: '/comments',
+      value: comments
+    },
+    {
+      op: 'replace',
+      path: '/serviceDate',
+      value: serviceDate
+    }
+  ];
+
+  return this.http.patch(urlWithParams, patchDocument);
+}
 
 
+  deleteRequest(requestId: string): Observable<any> {
+    const options = {
+      body: { Id: requestId },
+    };
+    return this.http.delete(this.DeleteRequestUrl, options);
 
-
-
-  
-  
-
+  }
   getRecentStatus(searchQuery?: string): Observable<any[]> {
     let apiUrl = (this.LoanUrl);
 
@@ -407,12 +451,29 @@ deleteCase(caseNumber: string): Observable<any> {
         map((data: any) => data['refinanced'])
       );
   }
-  getrestructuredCases(): Observable<any[]> {
+
+  getUnApprovedRefinancedCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.UnApprovedRefinancedCasesUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched unapprovedrefinanced:', data)),
+        map((data: any) => data['unapprovedrefinanced'])
+      );
+  }
+   getrestructuredCases(): Observable<any[]> {
     return this.http.get<any[]>(`${this.restructuredCasesUrl}`)
 
       .pipe(
         tap((data: any[]) => console.log('Fetched restructured:', data)),
         map((data: any) => data['restructured'])
+      );
+  }
+   getUnApprovedRestructuredCases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.UnApprovedRestructuredCasesUrl}`)
+
+      .pipe(
+        tap((data: any[]) => console.log('Fetched unapprovedrestructured:', data)),
+        map((data: any) => data['unapprovedrestructured'])
       );
   }
 
