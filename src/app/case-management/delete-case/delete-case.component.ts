@@ -12,9 +12,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './delete-case.component.css'
 })
 export class DeleteCaseComponent {
-   Data = {
-  
-  caseNumber: '',
+  Data = {
+    caseNumber: '',
+    SyndicatedFlag: 'F'
     
   };
 
@@ -28,24 +28,24 @@ export class DeleteCaseComponent {
   searchParams = { param: '', value: '' }
   pagedCasesdata: any[] = [];
   data: any[] = []; // Your data array
- 
- cd: any;
+
+  cd: any;
   apiUrl: string = '';
   responseMessage: string = '';
   successMessage: string | null = null;
 
-  
-    
+
+
   errorMessage: string | null = null;
   loading: boolean = false;
 
- 
-constructor(private router: Router, private sharedService: SharedService, private http: HttpClient,private toastr: ToastrService) { }
 
-   ngOnInit(): void {
+  constructor(private router: Router, private sharedService: SharedService, private http: HttpClient, private toastr: ToastrService) { }
+
+  ngOnInit(): void {
     this.apiUrl = this.sharedService.ActivityUrl;
     this.fetchData();
-    
+
   }
 
   fetchData(): void {
@@ -54,7 +54,7 @@ constructor(private router: Router, private sharedService: SharedService, privat
         this.data = response.result;
         this.pagedCasesdata = [...this.data];
         this.totalItems = this.data.length;
-       
+
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -62,7 +62,7 @@ constructor(private router: Router, private sharedService: SharedService, privat
       console.error('Error fetching data from API:', error);
     });
   }
-   filterData(): void {
+  filterData(): void {
     if (this.searchParams.value.trim() === '') {
       this.pagedCasesdata = [...this.data];
     } else {
@@ -73,7 +73,7 @@ constructor(private router: Router, private sharedService: SharedService, privat
     this.totalItems = this.pagedCasesdata.length;
     this.updatePagedData();
   }
-   search(): void {
+  search(): void {
     console.log('Search method called');
     this.currentPage = 1; // Reset current page for search
 
@@ -113,58 +113,91 @@ constructor(private router: Router, private sharedService: SharedService, privat
     this.pagedCasesdata = this.data.slice(startIndex, endIndex);
   }
 
-opendeleteModal(item: any) {
-  // Populate the form fields with the item data
-  const modalForm = document.getElementById('deleteCaseForm') as HTMLFormElement;
+  opendeleteModal(item: any) {
+    // Populate the form fields with the item data
+    const modalForm = document.getElementById('deleteCaseForm') as HTMLFormElement;
 
-  // Loop through each input element in the form
-  modalForm.querySelectorAll('input').forEach((input: HTMLInputElement) => {
-    const fieldName = input.id;
-    if (fieldName && item.hasOwnProperty(fieldName)) {
-      input.value = item[fieldName];
-      // Set Data.caseNumber if fieldName is caseNumber
-      if (fieldName === 'caseNumber') {
-        this.Data.caseNumber = item[fieldName];
+    // Loop through each input element in the form
+    modalForm.querySelectorAll('input').forEach((input: HTMLInputElement) => {
+      const fieldName = input.id;
+      if (fieldName && item.hasOwnProperty(fieldName)) {
+        input.value = item[fieldName];
+        // Set Data.caseNumber if fieldName is caseNumber
+        if (fieldName === 'caseNumber') {
+          this.Data.caseNumber = item[fieldName];
+        }
       }
-    }
-  });
+    });
 
-  // Show the modal
-}
-
-
-
-deleteCase(): void {
-  // Ensure caseNumber is valid
-  if (!this.Data.caseNumber) {
-    console.error('Case number is undefined or empty.');
-    this.toastr.error('Case number is undefined or empty.', 'Error');
-    return;
+    // Show the modal
   }
 
-  // Logging the case number to be submitted
-  console.log('Case Number to be Deleted:', this.Data.caseNumber);
-  this.loading = true; // Indicate loading state
 
-  // Attempt to delete the case
-  this.sharedService.deleteCase(this.Data.caseNumber).subscribe(
-    (response: any) => {
-      console.log('Response received:', response);
-      this.loading = false; // Reset loading state upon success
-      this.successMessage = 'Case deleted successfully!';
-      this.responseMessage = response.message; // Set the response message
-      this.toastr.success('Case deleted successfully!', 'Success');
-    },
-    (error: any) => {
-      this.loading = false; // Reset loading state upon failure
-      console.error('Error deleting case:', error);
-      this.errorMessage = 'Failed to delete case. Please try again.';
-      this.toastr.error('Failed to delete case. Please try again.', 'Error');
+
+  deleteCase(): void {
+    // Ensure caseNumber is valid
+    if (!this.Data.caseNumber) {
+      console.error('Case number is undefined or empty.');
+      this.toastr.error('Case number is undefined or empty.', 'Error');
+      return;
     }
-  );
-}
+
+    // Logging the case number to be submitted
+    console.log('Case Number to be Deleted:', this.Data.caseNumber);
+    this.loading = true; // Indicate loading state
+
+    // Attempt to delete the case
+    this.sharedService.deleteCase(this.Data.caseNumber).subscribe(
+      (response: any) => {
+        console.log('Response received:', response);
+        this.loading = false; // Reset loading state upon success
+        this.successMessage = 'Case deleted successfully!';
+        this.responseMessage = response.message; // Set the response message
+        this.toastr.success('Case deleted successfully!', 'Success');
+      },
+      (error: any) => {
+        this.loading = false; // Reset loading state upon failure
+        console.error('Error deleting case:', error);
+        this.errorMessage = 'Failed to delete case. Please try again.';
+        this.toastr.error('Failed to delete case. Please try again.', 'Error');
+      }
+    );
+
+  }
 
 
+  updateCase(): void {
+    // Ensure caseNumber is valid
+    if (!this.Data.caseNumber) {
+      console.error('Case number is undefined or empty.');
+      this.toastr.error('Case number is undefined or empty.', 'Error');
+      return;
+    }
+
+    // Log the current value of SyndicatedFlag
+    console.log('SyndicatedFlag value:', this.Data.SyndicatedFlag);
+
+    // Logging the case number to be submitted
+    console.log('Case Number to be Updated:', this.Data.caseNumber);
+    this.loading = true; // Indicate loading state
+
+    // Attempt to update the case
+    this.sharedService.updateCase(this.Data.caseNumber, this.Data.SyndicatedFlag).subscribe(
+      (response: any) => {
+        console.log('Response received:', response);
+        this.loading = false; // Reset loading state upon success
+        this.successMessage = 'Case updated successfully!';
+        this.responseMessage = response.message; // Set the response message
+        this.toastr.success('Case updated successfully!', 'Success');
+      },
+      (error: any) => {
+        this.loading = false; // Reset loading state upon failure
+        console.error('Error updating case:', error);
+        this.errorMessage = 'Failed to update case. Please try again.';
+        this.toastr.error('Failed to update case. Please try again.', 'Error');
+      }
+    );
+  }
 
 
 

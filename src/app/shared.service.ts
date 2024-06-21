@@ -39,18 +39,19 @@ export class SharedService {
    readonly approvecaseUrl = 'http://192.168.88.94:5260/api/Case/ApproveCase';
    readonly approveRestructuredUrl = 'http://192.168.88.94:5260/api/Restructure/ApproveRestructureCase';
   readonly deletecaseUrl = 'http://192.168.88.94:5260/api/Case/DeleteCase';
+  readonly patchcaseUrl = 'http://192.168.88.94:5260/api/Case/UpdateCase';
+
 
   readonly unapprovedcaseUrl = 'http://192.168.88.94:5260/api/Case/GetUnApprovedCases';
-   readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
-    readonly refinancedCasesUrl = 'http://192.168.88.94:5260/api/Refinance/GetRefinancedCases';
-     readonly restructuredCasesUrl = 'http://192.168.88.94:5260/api/Restructure/GetAllRestructuredCases';
-
-
-
+  readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
+  readonly refinancedCasesUrl = 'http://192.168.88.94:5260/api/Refinance/GetRefinancedCases';
+  readonly restructuredCasesUrl = 'http://192.168.88.94:5260/api/Restructure/GetAllRestructuredCases';
 
   private readonly userDataUrl = 'http://192.168.88.94:5260/api/Auth/Login';
   private registerUrl = 'http://192.168.88.94:5260/api/Auth/Register';
   readonly baseUrl = 'http://192.168.88.94:5260/api/Auth/AllUsers';
+  readonly resetUrl = 'http://192.168.88.94:5260/api/Auth/ChangePassword';
+
 
 
   readonly APIUrl = 'https://192.168.88.94:5260';
@@ -68,22 +69,11 @@ export class SharedService {
   readonly CreateCaseUrl='http://192.168.88.94:5260/api/Case/CreateCase';
   readonly LoanAccountCaseUrl ='http://192.168.88.94:9006/accounts';
 
-  // readonly CustomersUrl ='http://192.168.88.942:5084/api/Refinance';
-
-
-
  readonly MeetingsUrl = 'http://192.168.133.94:5018/api/Meetings';
 
-
-  
   private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
   private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
 
-  // readonly MeetingsUrl = 'http://192.168.88.94:5260/api/Meetings';
-  private storageKey = 'uploads';
-  private dataUrl = '/assets/data/data.json';
-  // private documentsUrl = 'http://localhost:3000/uploads';
-  // private documentsUrl = '/assets/data/data.json';
 
 
 
@@ -186,16 +176,36 @@ submitRecovery(inputdata: any) {
   }
 
   deleteCase(caseNumber: string): Observable<any> {
-  const url = `http://192.168.88.94:5260/api/Case/DeleteCase`;
-  const options = {
-    body: { CaseNumber: caseNumber },
-  };
-  return this.http.delete(url, options);
-}
+    const options = {
+      body: { CaseNumber: caseNumber },
+    };
+    return this.http.delete(this.deletecaseUrl, options);
+  }
 
+  updateCase(caseNumber: string, SyndicatedFlag: string): Observable<any> {
+    const urlWithParams = `${this.patchcaseUrl}?caseNumber=${caseNumber}`;
+    const patchDocument = [
+      {
+        op: 'replace',
+        path: '/SyndicatedFlag',
+        value: SyndicatedFlag
+      }
+    ];
 
+    return this.http.patch(urlWithParams, patchDocument);
+  }
 
+  // updateCase(caseNumber: string, syndicated: boolean): Observable<any> {
+  //   const patchDocument = [
+  //     {
+  //       op: 'replace',
+  //       path: '/Syndicated',
+  //       value: syndicated
+  //     }
+  //   ];
 
+  //   return this.http.patch(`${this.patchcaseUrl}/${caseNumber}`, patchDocument);
+  // }
 
 
   
@@ -431,10 +441,14 @@ submitRecovery(inputdata: any) {
   registerUser(inputdata: any) {
     return this.http.post(this.registerUrl,inputdata)
   }
-  // registerUser(user: any): Observable<any> {
-  //   return this.http.post<any>(this.apiUrl, user);
+  // // resetPassword(inputdata: any) {
+  // //   return this.http.post(this.resetUrl, inputdata)
   // }
   
+  resetPassword(payload: { email: string, oldPassword: string, newPassword: string }) {
+    return this.http.post(this.resetUrl, payload);
+  }
+
 
   getUserData(): Observable<any> {
     return this.http.get<any>(this.userDataUrl);

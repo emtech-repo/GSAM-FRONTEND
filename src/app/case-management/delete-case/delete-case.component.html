@@ -36,9 +36,9 @@
                                         <th>Loan Tenure</th>
                                         <th>Branch code</th>
                                         <th>Loan Balance</th>
-                                        <th>verified</th>
                                         <th>Verified</th>
-                                        <th>syndicated</th>
+                                        <th>Syndicated</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -141,14 +141,20 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group" style="margin-top: -20px;">
-                                                <label for="syndicatedFlag" style="margin-bottom: -1px;">syndicated</label>
-                                                <input type="text" class="form-control" id="syndicatedFlag"readonly >
-                                            </div>
-                                            <div class="form-group" style="margin-top: -20px;">
+                                             <div class="form-group" style="margin-top: -20px;">
                                                 <label for="verifiedFlag" style="margin-bottom: -1px;">verified</label>
                                                 <input type="text" class="form-control" id="verifiedFlag" readonly>
                                             </div>
+                                            <div class="form-group" style="margin-top: -20px;">
+                                             <label for="SyndicatedFlag" style="margin-bottom: -1px;">Syndicated</label>
+                                             <select class="form-control" id="SyndicatedFlag" [(ngModel)]="Data.SyndicatedFlag" name="SyndicatedFlag">
+                                              <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                             </select>
+                                            </div>
+
+
+                                           
                 
                 
                                         </div>
@@ -158,19 +164,9 @@
                 
                                     </div>
                                     
-                
-                
+            
                                 </form>
-                
-                            </div>
-                            <div class="modal-footer">
-                
-                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary small-btn" >Modify</button>
-                                 <button type="button" class="btn btn-primary small-btn" (click)="deleteCase()">Delete</button>
-                            </div>
-                
-                        <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
+                                <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
                             <p>{{ errorMessage }}</p>
                         
                         </div>
@@ -180,6 +176,16 @@
                         <div *ngIf="loading" class="text-center mt-3">
                             <p>Loading...</p>
                         </div>
+                
+                            </div>
+                            <div class="modal-footer">
+                
+                                <button type="button" class="btn btn-primary small-btn" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary small-btn" (click)="updateCase()">Modify</button>
+                                 <button type="button" class="btn btn-primary small-btn" (click)="deleteCase()">Delete</button>
+                            </div>
+                
+                        
                            
                 
                         </div>
