@@ -57,7 +57,7 @@
 
 
                                         <div class="modal-footer d-flex justify-content-between">
-                                            <button type="submit" class="btn btn-success" [disabled]="loading">
+                                            <button type="submit" class="btn btn-success" [disabled]="loading || !canUpload">
                                                 <i class="bi bi-upload"></i> Upload
                                             </button>
                                             <div *ngIf="loading">
@@ -71,6 +71,9 @@
                                                 data-bs-dismiss="modal">Close</button>
                                         </div>
                                     </form>
+                                    <div *ngIf="!canUpload" class="alert alert-warning mt-2" role="alert">
+                                        You cannot upload a new file until pending documents are approved or rejected.
+                                    </div>
                                     <div *ngIf="successMessage" class="alert alert-success mt-2" role="alert">
                                         {{ successMessage }}
                                     </div>
@@ -100,10 +103,7 @@
 
                     <div class="fm-menu">
                         <div class="list-group list-group-flush">
-                            <!-- <a href="javascript:;" class="list-group-item py-1">
-                                <i class="bx bx-folder me-2"></i><span>All Files</span> <span
-                                    class="badge bg-primary rounded-pill">{{ totalFilesCount }}</span>
-                            </a> -->
+                           
                             <!-- All Files with Dropdown -->
                             <div class="list-group">
                                 <div class="list-group-item py-1 dropdown">
@@ -261,13 +261,11 @@
                             <div>
                                 <div class="col-12">
                                     <div class="table-responsive">
-                                        <table id="example" class="display expandable-table table table-striped"
-                                            style="width:100%">
+                                        <table id="example" class="display expandable-table table table-striped" style="width:100%">
                                             <thead class="table-sm">
                                                 <tr>
                                                     <th class="p-1 text-nowrap">Document Id</th>
-                                                    <th class="p-1 text-nowrap">Account Name <i
-                                                            class="bx bx-up-arrow-alt ms-2"></i></th>
+                                                    <th class="p-1 text-nowrap">Account Name <i class="bx bx-up-arrow-alt ms-2"></i></th>
                                                     <th class="p-1 text-nowrap">Account Number</th>
                                                     <th class="p-1 text-nowrap">File Name</th>
                                                     <th class="p-1 text-nowrap">Upload Date</th>
@@ -284,76 +282,41 @@
                                                     <td>{{ file.fileName }}</td>
                                                     <td>{{ file.createdOn }}</td>
                                                     <td>{{ file.folder }}</td>
-                                                    <!-- <td>{{ file.verifiedFlag }}</td> -->
-                                                    <!-- <td>
-                                                    <ng-container *ngIf="file.verifiedFlag === 'Y'; else pendingFlag">
-                                                        <button type="button" class="btn btn-success btn-sm">Approved</button>
-                                                    </ng-container>
-                                                    <ng-template #pendingFlag>
-                                                        <button type="button" class="btn btn-warning btn-sm">Pending</button>
-                                                    </ng-template>
-                                                </td> -->
-                                                    <!-- <td>
-                                                     <ng-container *ngIf="file.rejectedFlag === 'Y'">
-                                                        <button type="button" class="btn btn-danger btn-sm">Rejected</button>
-                                                    </ng-container>
-                                                    <ng-template >
-                                                        <button type="button" class="btn btn-danger btn-sm" *ngIf="file.rejectedFlag === 'Y'">Rejected</button>
-                                                        <button type="button" class="btn btn-warning btn-sm"
-                                                            *ngIf="file.verifiedFlag === 'N' || file.rejectedFlag === 'N'">Pending</button>
-
-                                                        <button type="button" class="btn btn-success btn-sm" *ngIf="file.verifiedFlag === 'Y'">Approved</button>
-                                                    </ng-template>
-                                                </td> -->
                                                     <td>
                                                         <ng-container *ngIf="file.rejectedFlag === 'Y'">
-                                                            <button type="button"
-                                                                class="btn btn-danger btn-sm">Rejected</button>
+                                                            <button type="button" class="btn btn-danger btn-sm">Rejected</button>
                                                         </ng-container>
                                                         <ng-container *ngIf="file.rejectedFlag !== 'Y'">
                                                             <button type="button" class="btn btn-warning btn-sm"
-                                                                *ngIf="file.verifiedFlag === 'N' || file.rejectedFlag === 'N'">Pending</button>
+                                                                *ngIf="file.verifiedFlag === 'N' && file.rejectedFlag === 'N'">Pending</button>
                                                             <button type="button" class="btn btn-success btn-sm"
                                                                 *ngIf="file.verifiedFlag === 'Y'">Approved</button>
                                                         </ng-container>
                                                     </td>
-
-
-
-
-
-
                                                     <td>
-                                                        <button type="button" class="btn btn-primary"
-                                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                                            (click)="viewDocument(file)">View</button>
-                                                        <div class="modal fade" id="staticBackdrop"
-                                                            data-bs-backdrop="static" data-bs-keyboard="false"
-                                                            tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#staticBackdrop" (click)="viewDocument(file)">View</button>
+                                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header" style="height: 2px;">
                                                                         <h5 class="modal-title">Document Details</h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-bs-dismiss="modal"
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                             aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <div *ngIf="selectedDocument">
-                                                                            <p>Account Name: {{
-                                                                                selectedDocument.accountName }}</p>
-                                                                            <p>Loan Account: {{
-                                                                                selectedDocument.loanAccount }}</p>
-                                                                            <h5>File Name: {{ selectedDocument.fileName
-                                                                                }}</h5>
-                                                                            <iframe [src]="selectedDocument.documentUrl"
-                                                                                width="100%" height="600px"
-                                                                                style="border: 2px solid #ccc;"
+                                                                            <p>Account Name: {{ selectedDocument.accountName }}</p>
+                                                                            <p>Loan Account: {{ selectedDocument.loanAccount }}</p>
+                                                                            <h5>File Name: {{ selectedDocument.fileName }}</h5>
+                                                                            <iframe [src]="selectedDocument.documentUrl" width="100%"
+                                                                                height="600px" style="border: 2px solid #ccc;"
                                                                                 (error)="handleError()"></iframe>
                                                                             <div *ngIf="showError" style="color: red;">
-                                                                                Error loading document. Please try again
-                                                                                later.</div>
+                                                                                Error loading document. Please try again later.
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -363,23 +326,22 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <button class="btn btn-success btn-sm ms-2"
-                                                            style="font-size: 10px;"
+                                                        <button class="btn btn-success btn-sm ms-2" style="font-size: 10px;"
                                                             (click)="downloadDocument()">Download</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
 
 </div>

@@ -11,11 +11,14 @@ export class RequestServiceComponent implements OnInit {
   serviceForm: FormGroup;
   serviceProviders: any[] = [];
   filteredServiceProviders: any[] = [];
+  uniqueRegions: any[] = [];
+  uniqueServices: any[] = [];
   requestId: string | null = null;
   SubmittedSuccessfully: boolean = false;
   errorMessage: string | null = null;
+  isRegionFilterActive: boolean = false;
 
-  constructor(private fb: FormBuilder, private sharedService: SharedService) {
+  constructor(private fb: FormBuilder, private sharedService: SharedService ) {
     this.serviceForm = this.fb.group({
       searchParam: ['id'],
       searchValue: [''],
@@ -32,9 +35,18 @@ export class RequestServiceComponent implements OnInit {
       regionId: [''],
       accountNumber: [''],
       Comments: [''],
+      supportingDocuments: [null],
+
     });
   }
-
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const files = event.target.files;
+      this.serviceForm.patchValue({
+        supportingDocuments: files
+      });
+    }
+  }
   ngOnInit(): void {
     this.fetchServiceProviders();
   }
@@ -45,6 +57,7 @@ export class RequestServiceComponent implements OnInit {
         if (response.statusCode === 200) {
           this.serviceProviders = response.result;
           this.filteredServiceProviders = this.serviceProviders;
+          this.extractUniqueRegionsAndServices();
         } else {
           console.error('Failed to fetch service providers:', response.message);
         }
@@ -53,6 +66,76 @@ export class RequestServiceComponent implements OnInit {
         console.error('Error fetching service providers:', error);
       }
     );
+  }
+
+
+  extractUniqueRegionsAndServices(): void {
+    const regions = new Set();
+    const services = new Set();
+
+    this.serviceProviders.forEach(provider => {
+      regions.add(provider.region);
+      services.add(provider.service);
+    });
+
+    this.uniqueRegions = Array.from(regions);
+    this.uniqueServices = Array.from(services);
+  }
+
+  filterByRegionAndService(event: Event): void {
+    const regionId = (document.getElementById("filterRegion") as HTMLSelectElement).value;
+    const serviceId = (document.getElementById("filterService") as HTMLSelectElement).value;
+
+    if (regionId && serviceId) {
+      this.filteredServiceProviders = this.serviceProviders.filter(provider =>
+        provider.region.id === +regionId && provider.service.id === +serviceId
+      );
+    } else if (regionId) {
+      this.filteredServiceProviders = this.serviceProviders.filter(provider =>
+        provider.region.id === +regionId
+      );
+    } else if (serviceId) {
+      this.filteredServiceProviders = this.serviceProviders.filter(provider =>
+        provider.service.id === +serviceId
+      );
+    } else {
+      this.filteredServiceProviders = this.serviceProviders;
+    }
+  }
+
+
+  filterByService(event: Event): void {
+    const serviceId = (event.target as HTMLSelectElement).value;
+    if (serviceId) {
+      this.filteredServiceProviders = this.serviceProviders.filter(provider => provider.service.id === +serviceId);
+      this.isRegionFilterActive = true;
+
+    } else {
+      this.filteredServiceProviders = this.serviceProviders;
+      this.isRegionFilterActive = false;
+
+    }
+  }
+
+  selectServiceProvider(event: Event): void {
+    const providerId = (event.target as HTMLSelectElement).value;
+    const selectedProvider = this.serviceProviders.find(provider => provider.id === +providerId);
+
+    if (selectedProvider) {
+      this.serviceForm.patchValue({
+        serviceId: selectedProvider.service.id,
+        serviceProviderId: selectedProvider.id,
+        serviceName: selectedProvider.service.serviceName,
+        regionId: selectedProvider.region.id,
+        region: selectedProvider.region.regionName,
+        serviceProvider: selectedProvider.name,
+        postalAddress: selectedProvider.postal,
+        telephone: selectedProvider.phoneNumber,
+        email: selectedProvider.email,
+        accountNumber: selectedProvider.accountNumber,
+        Comments: selectedProvider.Comments
+      });
+    }
   }
 
   search(): void {
