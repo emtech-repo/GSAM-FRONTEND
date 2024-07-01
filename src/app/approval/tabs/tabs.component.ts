@@ -1,7 +1,8 @@
 
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute,Router } from '@angular/router'; // If needed
+
 import { SharedService } from '../../shared.service';
-import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -25,6 +26,15 @@ export class TabsComponent  implements OnInit {
   RestructureData = {caseNumber: '',
     
   };
+   RefinancedData = {caseNumber: '',
+    
+  };
+    RecoveredData = {caseNumber: '',
+    
+  }; 
+
+
+ 
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
@@ -32,26 +42,22 @@ export class TabsComponent  implements OnInit {
   comments: string = '';
   action: string = ''; // Declare the action property
   searchParams: any = { param: 'acid', value: '' };
-
-   pagedCasesdata: any[] = [];
-
+  pagedCasesdata: any[] = [];
   currentPage: number = 1;
   totalItems: number = 0;
   SearchQuery: string = '';
-  pageSize: number = 5;
+  pageSize: number = 7;
   selectedItem: any;
   data: any[] = [];
   Casesdata: any[] = [];
-
-   unapprovedcaseUrl: string = '';
+  unapprovedcaseUrl: string = '';
    SubmissionsUrl: string = '';
    selectedRowData: any; 
   @Input() loanAccount: any = '';
    SubmitData: any[] = [];
-    responseMessage: string = '';
-  
-    
-  errorMessage: string | null = null;
+  responseMessage: string = '';
+  document: any;
+  documents: any[] = []; 
   successMessage: string | null = null;
   loading: boolean = false;
   caseNumber: any;
@@ -61,21 +67,136 @@ export class TabsComponent  implements OnInit {
   refinancedCasesdata: any[] = [];
   restructuredCasesdata: any[] = [];
   recoveredCasesUrl: string = '';
-  refinancedCasesUrl: string = '';
- restructuredCasesUrl: string = '';
- isRejectionVisible: boolean = false;
-  rejectionMessage: string = '';
- ApprovalRequestsUrl: string = '';
-  RejectRequestsUrl: string = ''
-  message: any;
+  UnApprovedRefinancedCasesUrl: string = '';
+  UnApprovedRestructuredCasesUrl: string = '';
+ 
+  
 
+ ApprovalRequestsUrl: string = '';
+ RejectRequestsUrl: string = ''
+ message: any;
+ actionType: string |null=null;
+ isRejectionVisible: boolean = false;
+  isApprovalVisible: boolean = false;
+  rejectionMessage: string = '';
+  approvalMessage: string = '';
+  errorMessage: string = '';
+ 
   
 
 
 
-    constructor(private router: Router, private sharedService: SharedService,private toastr: ToastrService,public bsModalRef: BsModalRef,
+    constructor(private router: Router, private sharedService: SharedService,private toastr: ToastrService,public bsModalRef: BsModalRef, private route: ActivatedRoute,
     private http: HttpClient
   ) {}
+
+   ngOnInit(): void {
+    this.unapprovedcaseUrl = this.sharedService.unapprovedcaseUrl;
+    this.SubmissionsUrl = this.sharedService.SubmissionsUrl;
+    this.recoveredCasesUrl = this.sharedService.recoveredCasesUrl;
+    this.UnApprovedRefinancedCasesUrl = this.sharedService.UnApprovedRefinancedCasesUrl;
+    this.UnApprovedRestructuredCasesUrl = this.sharedService.UnApprovedRestructuredCasesUrl;
+    this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
+    this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
+    this.route.params.subscribe(params => {
+      
+      const documentId = params['id'];
+      
+    });
+
+
+    this.fetchService();  // fetching requests
+    this.getUnApprovedCases(); // fetching cases
+     this. getrecoveredCases();  // fetching recovered cases
+    this.getUnApprovedRefinancedCases(); // fetching refinanced cases
+    this. getUnApprovedRestructuredCases(); // fetching restructured cases
+  }
+
+    setAction(action: string) {
+    this.actionType = action;
+  }
+  handleSubmit(document:any) {
+    this.loading = true;
+    if (this.actionType === 'approve') {
+      this.approveDocument(document);
+    } else if (this.actionType === 'reject') {
+      this.rejectDocument(document);
+    }
+  }
+  goBack() {
+    this.router.navigate(['/retrieve']); // Assuming 'retrieve' is the route path for your retrieve component
+  }
+
+   approveDocument(document: any) {
+    if (!document || !document.comments) {
+      return;
+    }
+    this.sharedService.approveDocument(document.documentUrl, document.comments,document.id)
+      .subscribe(
+        (response) => {
+          // this.loading = false;
+          this.successMessage = response.message;
+          this.document.verifiedFlag = 'Y';
+          this.updateDocumentStatus(this.document.id, 'Y')
+          
+          // Optionally, you can update the UI or perform any other action after approval
+        },
+        (error) => {
+          // this.errorMessage = response.message;
+          
+        }
+      );
+    }
+
+     updateDocumentStatus(id: string, status: string) {
+    const document = this.documents.find(doc => doc.id === id);
+    if (document) {
+      document.verifiedFlag = status;
+      document.rejectedFlag = status;
+    }
+  }
+  
+  fetchDocuments(): void {
+    this.sharedService.getPendingDocuments().subscribe(
+      (response) => {
+        console.log('Documents fetched successfully:', response);
+        this.documents = response.result.filter((document: any) => document.verifiedFlag === 'N' || document.rejectedFlag ==='N');
+      },
+      (error) => {
+        console.error('Error fetching documents:', error);
+      }
+    );
+  }
+
+
+
+  rejectDocument(document: any) {
+    if (!document || !document.comments) {
+      return;
+    };
+    const documentUrl = document.documentUrl;
+    const comments = document.comments;
+    const id = document.id;
+    this.sharedService.rejectDocument(document.documentUrl, document.comments, document.id).subscribe(
+      (response) => {
+        this.successMessage = response.message;
+        // Setting verifiedFlag to 'N'
+        this.document.rejectedFlag = 'Y'; // Setting rejectFlag to 'Y'
+        this.updateDocumentStatus(document.id,  'Y'); // Updating document status
+        console.log('Document rejected successfully:', response);
+        // Optionally, you can update the UI or perform any other action after rejection
+      },
+      (error) => {
+        console.error('Error rejecting document:', error);
+      }
+    );
+    
+  
+}
+  viewDocument(document: any) {
+    // Implement logic to view the submission details
+  }
+
 
   
 
@@ -228,16 +349,9 @@ export class TabsComponent  implements OnInit {
 
 
 
-  approveDocument() {
-    console.log('Document approved');
-    // Your logic for document approval goes here
-  }
+ 
 
-  rejectDocument() {
-    console.log('Document rejected');
-    // Your logic for document rejection goes here
-  }
-
+ 
   // CLAIMS
   approveClaim() {
     console.log('Claim approved');
@@ -270,33 +384,21 @@ export class TabsComponent  implements OnInit {
     // cases methods'
 
   
-  ngOnInit(): void {
-    this.unapprovedcaseUrl = this.sharedService.unapprovedcaseUrl;
-    this.SubmissionsUrl = this.sharedService.SubmissionsUrl;
-     this.recoveredCasesUrl = this.sharedService.recoveredCasesUrl;
-    this.refinancedCasesUrl = this.sharedService.refinancedCasesUrl;
-     this.restructuredCasesUrl = this.sharedService.restructuredCasesUrl;
-      this.ApprovalRequestsUrl = this.sharedService.ApprovalRequestsUrl;
-    this.RejectRequestsUrl = this.sharedService.RejectRequestsUrl;
-    
-
-
-    this.fetchService();  // fetching requests
-    this.getUnApprovedCases(); // fetching cases
-     this. getrecoveredCases();  // fetching recovered cases
-    this.getrefinancedCases(); // fetching refinanced cases
-    this. getrestructuredCases(); // fetching restructured cases
-  }
+ 
    sortSubmitData(): void {
     this.SubmitData.sort((a, b) => new Date(b.serviceDate).getTime() - new Date(a.serviceDate).getTime());
   }
 
+ filterData(): void {
+    const startItem = (this.currentPage - 1) * this.pageSize;
+    const endItem = startItem + this.pageSize;
+    this.unapprovedcasedata = this.refinancedCasesdata.slice(startItem, endItem);
+  }
 
   pageChanged(event: any): void {
     this.currentPage = event.page;
     this.filterData(); // Update displayed data when page changes
   }
-
 
     onSearch(): void {
     this.currentPage = 1; // Reset current page when performing a new search
@@ -344,7 +446,7 @@ export class TabsComponent  implements OnInit {
       return item[searchParamKey].toLowerCase().includes(this.searchParams.value.toLowerCase());
     });
     this.totalItems = this.restructuredCasesdata.length;
-    this.getrestructuredCases();
+    this.getUnApprovedRestructuredCases();
   }
 
 
@@ -375,10 +477,12 @@ export class TabsComponent  implements OnInit {
     });
   }
 
-  getrefinancedCases(): void {
-    this.http.get<any>(this.refinancedCasesUrl).subscribe(response => {
+  getUnApprovedRefinancedCases(): void {
+    this.http.get<any>(this.UnApprovedRefinancedCasesUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.refinancedCasesdata = response.result;
+        this.totalItems = this.refinancedCasesdata.length;
+        this.filterData();
       } else {
         console.error('Invalid data received from API:', response);
       }
@@ -399,8 +503,8 @@ export class TabsComponent  implements OnInit {
     });
   }
 
- getrestructuredCases(): void {
-    this.http.get<any>(this.restructuredCasesUrl).subscribe(response => {
+ getUnApprovedRestructuredCases(): void {
+    this.http.get<any>(this.UnApprovedRestructuredCasesUrl).subscribe(response => {
       if (response && response.result && Array.isArray(response.result)) {
         this.restructuredCasesdata = response.result;
         
@@ -412,25 +516,7 @@ export class TabsComponent  implements OnInit {
     });
   }
  // fetching cases
-  filterData(): void {
-    if (this.searchParams.value.trim() === '') {
-      // If search value is empty, show all data
-      this.unapprovedcasedata = [...this.data];
-    } else {
-      // Filter data based on selected parameter and value
-      this.unapprovedcasedata = this.data.filter(item => {
-
-        return item[this.searchParams.param]?.toString().toLowerCase().includes(this.searchParams.value.toLowerCase());
-      });
-    }
-
-    // Calculate pagination
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-
-    this.unapprovedcasedata = this.unapprovedcasedata.slice(startIndex, endIndex);
-  }
-
+ 
       //  method for  approve autofilling a form
 
  openModal(item: any) {
@@ -456,6 +542,49 @@ export class TabsComponent  implements OnInit {
 
   // Assign the caseNumber to this.Data
   this.Data.caseNumber = item.caseNumber;
+}
+
+approveCase(): void {
+  // Ensure caseNumber is valid
+  if (!this.Data.caseNumber) {
+    console.error('Case number is undefined or empty.');
+    return;
+  }
+   // Validate the approval message
+  if (!this.approvalMessage.trim()) {
+    this.errorMessage = 'The Approval Message field is required.';
+    return;
+  }
+
+  // Constructing the data object to be submitted
+  const approveCaseData = {
+    CaseNumber: this.Data.caseNumber,
+    ApproverRemarks: this.approvalMessage // Include the approval message
+  };
+
+  console.log('Case Data to be Submitted:', approveCaseData);
+  this.loading = true; // Indicate loading state
+
+  // Attempt to approve the case
+  this.sharedService.approveCase(approveCaseData).subscribe(
+    (response: any) => {
+      console.log('Response received:', response);
+      this.loading = false; // Reset loading state upon success
+      this.successMessage = 'Case approved successfully!';
+      this.responseMessage = response.message; // Set the response message
+      this.toastr.success('Case approved successfully!', 'Success');
+      this.isApprovalVisible = false; // Hide the approval textarea
+      this.approvalMessage = ''; // Reset the approval message
+    },
+    (error: any) => {
+      this.loading = false; // Reset loading state upon failure
+      console.error('Error approving case:', error);
+      this.errorMessage = 'Failed to approve case. Please try again.';
+      this.toastr.error('Failed to approve case. Please try again.', 'Error');
+    }
+  );
+
+ // End of approve case functionality case
 }
 
 
@@ -490,10 +619,15 @@ approveRestructuredCase(): void {
     console.error('Case number is undefined or empty.');
     return;
   }
+   if (!this.approvalMessage.trim()) {
+    this.errorMessage = 'The Approval Message field is required.';
+    return;
+  }
 
   // Constructing the data object to be submitted
   const approveRestructureData = {
     CaseNumber: this.RestructureData.caseNumber,
+    ApproverRemarks: this.approvalMessage // Include the approval message
   };
 
   console.log('Case Data to be Submitted:', approveRestructureData);
@@ -507,6 +641,8 @@ approveRestructuredCase(): void {
       this.successMessage = ' Restructured Case  approved successfully!';
       this.responseMessage = response.message; // Set the response message
       this.toastr.success(' Restructured Case approved successfully!', 'Success');
+      this.isApprovalVisible = false; // Hide the approval textarea
+      this.approvalMessage = ''; // Reset the approval message
     },
     (error: any) => {
       this.loading = false; // Reset loading state upon failure
@@ -538,8 +674,48 @@ openRefinanceModal(item: any) {
       }
     }
   });
-
+ this.RefinancedData.caseNumber = item.caseNumber;
   
+}
+approveRefinancedCases(): void {
+  // Ensure caseNumber is valid
+  if (!this.RefinancedData.caseNumber) {
+    console.error('Case number is undefined or empty.');
+    return;
+  }
+   // Validate the approval message
+  if (!this.approvalMessage.trim()) {
+    this.errorMessage = 'The Approval Message field is required.';
+    return;
+  }
+
+  // Constructing the data object to be submitted
+  const approveRefinancedData= {
+    CaseNumber: this.RefinancedData.caseNumber,
+    ApproverRemarks: this.approvalMessage // Include the approval message
+  };
+
+  console.log('Case Data to be Submitted:', approveRefinancedData);
+  this.loading = true; // Indicate loading state
+
+  // Attempt to approve the case
+  this.sharedService.approveRefinancedCases(approveRefinancedData).subscribe(
+     (response: any) => {
+      console.log('Response received:', response);
+      this.loading = false; // Reset loading state upon success
+      this.successMessage = ' Refinanced Case  approved successfully!';
+      this.responseMessage = response.message; // Set the response message
+      this.toastr.success(' Refinanced Case Case approved successfully!', 'Success');
+      this.isApprovalVisible = false; // Hide the approval textarea
+      this.approvalMessage = ''; // Reset the approval message
+    },
+    (error: any) => {
+      this.loading = false; // Reset loading state upon failure
+      console.error('Error approving case:', error);
+      this.errorMessage = 'Failed to approve case. Please try again.';
+      this.toastr.error('Failed to approve case. Please try again.', 'Error');
+    }
+  );
 }
 
 
@@ -563,37 +739,42 @@ openRecoveryModal(item: any) {
       }
     }
   });
-
-  
+ this.RecoveredData.caseNumber = item.caseNumber;   
 }
 
-
-
  //approve case method 
-
-approveCase(): void {
+approveRecoveredCases(): void {
   // Ensure caseNumber is valid
-  if (!this.Data.caseNumber) {
+  if (!this.RecoveredData.caseNumber) {
     console.error('Case number is undefined or empty.');
     return;
   }
 
+  // Validate the approval message
+  if (!this.approvalMessage.trim()) {
+    this.errorMessage = 'The Approval Message field is required.';
+    return;
+  }
+
   // Constructing the data object to be submitted
-  const approveCaseData = {
-    CaseNumber: this.Data.caseNumber,
+  const approveRecoveredData = {
+    CaseNumber: this.RecoveredData.caseNumber,
+    ApproverRemarks: this.approvalMessage // Include the approval message
   };
 
-  console.log('Case Data to be Submitted:', approveCaseData);
+  console.log('Case Data to be Submitted:', approveRecoveredData);
   this.loading = true; // Indicate loading state
 
   // Attempt to approve the case
-  this.sharedService.approveCase(approveCaseData).subscribe(
+  this.sharedService.approveRecoveredCases(approveRecoveredData).subscribe(
     (response: any) => {
       console.log('Response received:', response);
       this.loading = false; // Reset loading state upon success
-      this.successMessage = 'Case approved successfully!';
+      this.successMessage = 'Recovery Case approved successfully!';
       this.responseMessage = response.message; // Set the response message
-      this.toastr.success('Case approved successfully!', 'Success');
+      this.toastr.success('Recovery Case approved successfully!', 'Success');
+      this.isApprovalVisible = false; // Hide the approval textarea
+      this.approvalMessage = ''; // Reset the approval message
     },
     (error: any) => {
       this.loading = false; // Reset loading state upon failure
@@ -602,32 +783,36 @@ approveCase(): void {
       this.toastr.error('Failed to approve case. Please try again.', 'Error');
     }
   );
-
- // End of approve case functionality case
 }
 
- //approve restructure case method 
 
 
 
      // functionality for reject case 
- submitRejection() {
-    if (this.rejectionMessage.trim()) {
-      // Logic to handle the rejection with the rejectionMessage
-      console.log('Rejection message:', this.rejectionMessage);
-      // Hide the textarea and reset the message after submission
+  submitRejection() {
+    if (!this.rejectionMessage.trim()) {
+      this.errorMessage = 'The Rejection Message field is required.';
+      return;
+    }
+    // Handle rejection logic here
+    this.loading = true;
+    // Simulate an API call
+    setTimeout(() => {
+      this.loading = false;
+      this.responseMessage = 'Case rejected successfully';
       this.isRejectionVisible = false;
       this.rejectionMessage = '';
-    } else {
-      // Handle empty rejection message case
-      alert('Rejection message cannot be empty');
-    }
-  }
-  showRejectionTextarea() {
-    this.isRejectionVisible = true;
+    }, 2000);
   }
 
+  
+
+  
+  showApproversTextarea() {
+    this.isApprovalVisible = true;
+    this.isRejectionVisible = false;
+    this.errorMessage = '';
+  }
 
 
 }
-

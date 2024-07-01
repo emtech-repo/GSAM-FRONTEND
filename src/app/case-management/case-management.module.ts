@@ -57,7 +57,6 @@ import { DeleteCaseComponent } from './delete-case/delete-case.component';
     LoanAccountLookUpComponent,
     AssignPopupComponent,
     CasesStatusComponent,
-
     SearchCasesComponent,
     ActiveCasesComponent,
     ClosedCasesComponent,

@@ -32,12 +32,14 @@
                                 <th>Case No</th>
                                 <th>Loan Account</th>
                                 <th>CIF ID</th>
-                                <th>Account Name</th>
-                                <th>Case Number</th>
-                                <th>Loan Amount</th>
-                                <th>Loan Balance</th>
+                                <th>Acc Name</th>
+                                <th>Loan Amnt</th>
+                                <th>Loan Bal</th>
                                 <th>Branch Id</th>
                                 <th>Loan Tenure</th>
+                                <th>Restructured</th>
+                                <th>Refinanced</th>
+                                <th>Recovered</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -47,11 +49,14 @@
                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
-                                <td>{{ item.caseNumber }}</td>
                                 <td>{{ item.loanAmount }}</td>
                                 <td>{{ item.loanBalance }}</td>
                                 <td>{{ item.solId }}</td>
                                 <td>{{ item.loanTenure }}</td>
+                                
+                                <td>{{ item.restructuredFlag }}</td>
+                                <td>{{ item.refinancedFlag }}</td>
+                                <td>{{ item.recoveredFlag }}</td>
                                 <td><button class="btn btn-primary btn-sm"
                                     (click)="goToRefinanceForm(item.loanAccount)">Proceed</button></td>
                               </tr>
@@ -62,7 +67,7 @@
                     </div>
                     <div class="row" style="margin-left: 69%;margin-top: -10px;">
                       <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="7" (pageChanged)="pageChanged($event)"
-                        [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                        [maxSize]="7" [rotate]="true" [boundaryLinks]="true">
                       </pagination>
                     </div>
                   </div>
@@ -93,30 +98,33 @@
                           <table id="example" class="display expandable-table" style="width:100%">
                             <thead>
                               <tr>
-                                <th>Case Number</th>
+                                <th>Case No</th>
                                 <th>Loan Account</th>
                                 <th>CIF ID</th>
-                                <th>Account Name</th>
-                                <th>Case Number</th>
-                                <th>Loan Amount</th>
-                                <th>Loan Balance</th>
+                                <th>Acc Name</th>
+                                <th>Loan Amnt</th>
+                                <th>Loan Bal</th>
                                 <th>Branch Id</th>
                                 <th>Loan Tenure</th>
+                                <th>Restructured</th>
+                                <th>Refinanced</th>
+                                <th>Recovered</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr *ngFor="let item of dataSourceFiltered">
                                 <td>{{ item.caseNumber}}</td>
-
-                                <td>{{ item.loanAccount }}</td>
+                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
-                                <td>{{ item.caseNumber }}</td>
                                 <td>{{ item.loanAmount }}</td>
                                 <td>{{ item.loanBalance }}</td>
                                 <td>{{ item.solId }}</td>
                                 <td>{{ item.loanTenure }}</td>
+                                <td>{{ item.restructuredFlag }}</td>
+                                <td>{{ item.refinancedFlag }}</td>
+                                <td>{{ item.recoveredFlag }}</td>
                                 <td><button class="btn btn-primary btn-sm"
                                     (click)="goToRestructureForm(item.loanAccount)">Proceed</button></td>
                               </tr>
@@ -126,7 +134,7 @@
                       </div>
                       <div class="row" style="margin-left: 61%;">
                         <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="7" (pageChanged)="pageChanged($event)"
-                          [maxSize]="4" [rotate]="true" [boundaryLinks]="true">
+                          [maxSize]="7" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                       </div>
                     </div>
@@ -156,15 +164,17 @@
                           <table id="example" class="display expandable-table" style="width:100%">
                             <thead>
                               <tr>
-                                <th>Case NO</th>
+                                <th>Case No</th>
                                 <th>Loan Account</th>
                                 <th>CIF ID</th>
-                                <th>Account Name</th>
-                                <th>Case Number</th>
-                                <th>Loan Amount</th>
-                                <th>Loan Balance</th>
+                                <th>Acc Name</th>
+                                <th>Loan Amnt</th>
+                                <th>Loan Bal</th>
                                 <th>Branch Id</th>
                                 <th>Loan Tenure</th>
+                                <th>Restructured</th>
+                                <th>Refinanced</th>
+                                <th>Recovered</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -174,11 +184,14 @@
                                 <td>{{ item.loanAccount }}</td>
                                 <td>{{ item.cifId }}</td>
                                 <td>{{ item.accountName }}</td>
-                                <td>{{ item.caseNumber }}</td>
+                               
                                 <td>{{ item.loanAmount }}</td>
                                 <td>{{ item.loanBalance }}</td>
                                 <td>{{ item.solId }}</td>
                                 <td>{{ item.loanTenure }}</td>
+                                <td>{{ item.restructuredFlag }}</td>
+                                <td>{{ item.refinancedFlag }}</td>
+                                <td>{{ item.recoveredFlag }}</td>
                                 <td><button class="btn btn-primary btn-sm"
                                     (click)="goToRecoveryForm(item.loanAccount)">Proceed</button></td>
                               </tr>
@@ -188,7 +201,7 @@
                       </div>
                       <div class="row" style="margin-left: 61%;">
                         <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="7" (pageChanged)="pageChanged($event)"
-                          [maxSize]="4" [rotate]="true" [boundaryLinks]="true">
+                          [maxSize]="7" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                       </div>
                     </div>

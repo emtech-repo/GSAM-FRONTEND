@@ -105,14 +105,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     BrowserAnimationsModule,
     ApprovalModule,
    NgMultiSelectDropDownModule,
-  NgMultiSelectDropDownModule.forRoot(),
-
-
-    
-
-
-
-    
+  NgMultiSelectDropDownModule.forRoot(), 
 
 
 
