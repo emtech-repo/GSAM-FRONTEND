@@ -18,13 +18,17 @@ export class SharedService {
 
   readonly RequestUrl = 'http://192.168.91.239:5260/api/ServiceRequest/BookService';
   readonly ServiceUrl = 'http://192.168.91.239:5260/api/ServiceRequest/GetAllServiceProviders';
+
   readonly LoanUrl = 'http://192.168.91.239:9006/accounts/la/all';
+
   readonly ActivityUrl = 'http://192.168.91.239:5260/api/Case/GetAllCases';
   readonly SubmissionsUrl ='http://192.168.91.239:5260/api/ServiceRequest/GetAllRequests';
   readonly ApprovalRequestsUrl = 'http://192.168.91.239:5260/api/ServiceRequest/ApproveRequest';
   readonly RejectRequestsUrl = 'http://192.168.91.239:5260/api/ServiceRequest/RejectRequest';
+
   readonly UpdateRequestUrl = 'http://192.168.91.239:5260/api/ServiceRequest/UpdateRequest';
   readonly DeleteRequestUrl = 'http://192.168.91.239:5260/api/ServiceRequest/DeleteServiceBooking';
+
 
 
 
@@ -40,6 +44,7 @@ export class SharedService {
    readonly refinanceUrl = 'http://192.168.91.239:5260/api/Refinance/Refinance';
    readonly approvecaseUrl = 'http://192.168.91.239:5260/api/Case/ApproveCase';
    readonly approveRestructuredUrl = 'http://192.168.91.239:5260/api/Restructure/ApproveRestructureCase';
+
    readonly approveRefinancedUrl = 'http://192.168.91.239:5260/api/Refinance/ApproveRefinancedCase';
     readonly approveRecoveredUrl = 'http://192.168.88.33:5260/api/Recover/ApproveRecoverCase';
   readonly deletecaseUrl = 'http://192.168.91.239:5260/api/Case/DeleteCase';
@@ -58,11 +63,22 @@ export class SharedService {
   private rejectdocumentUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/RejectUploadedDocument';  
 
 
+  readonly unapprovedcaseUrl = 'http://192.168.91.239:5260/api/Case/GetUnApprovedCases';
+  readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
+  readonly refinancedCasesUrl = 'http://192.168.91.239:5260/api/Refinance/GetRefinancedCases';
+  readonly restructuredCasesUrl = 'http://192.168.91.239:5260/api/Restructure/GetAllRestructuredCases';
+
+  private readonly userDataUrl = 'http://192.168.91.239:5260/api/Auth/Login';
+  private registerUrl = 'http://192.168.91.239:5260/api/Auth/Register';
+  readonly baseUrl = 'http://192.168.91.239:5260/api/Auth/AllUsers';
+  readonly resetUrl = 'http://192.168.91.239:5260/api/Auth/ChangePassword';
+
 
 
   private readonly userDataUrl = 'http://192.168.91.239:5260/api/Auth/Login';
   private registerUrl = 'http://192.168.91.239:5260/api/Auth/Register';
   readonly baseUrl = 'http://192.168.91.239:5260/api/Auth/AllUsers';
+
 
 
   readonly APIUrl = 'https://192.168.91.239:5260';
@@ -73,27 +89,20 @@ export class SharedService {
   readonly DeactivateURL = 'http://192.168.91.239:5260/api/Auth/DeactivateUser'
 
   readonly CasesUrl = 'http://192.168.91.239:5260/api/Case/GetAllCases'
-  readonly LoanURL = 'http://192.168.91.239:9006/accounts/la/all'
-  readonly DetailsURL = 'http://192.168.91.239:9006/accounts?acid='
+
+  readonly LoanURL = 'http://192.168.88.94:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.88.94:9006/accounts?acid='
 
 
   readonly CreateCaseUrl='http://192.168.91.239:5260/api/Case/CreateCase';
-  readonly LoanAccountCaseUrl ='http://192.168.91.239:9006/accounts';
-
-  // readonly CustomersUrl ='http://192.168.91.2392:5084/api/Refinance';
-
-
+  readonly LoanAccountCaseUrl ='http://192.168.88.94:9006/accounts';
 
  readonly MeetingsUrl = 'http://192.168.133.94:5018/api/Meetings';
 
+  private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
+  private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
 
-  
-  
-  // readonly MeetingsUrl = 'http://192.168.91.239:5260/api/Meetings';
-  private storageKey = 'uploads';
-  private dataUrl = '/assets/data/data.json';
-  // private documentsUrl = 'http://localhost:3000/uploads';
-  // private documentsUrl = '/assets/data/data.json';
+
 
 
 
@@ -204,19 +213,24 @@ submitRecovery(inputdata: any) {
     return this.http.post(this.approvecaseUrl, CaseNumber)
   }
 
+
 deleteCase(caseNumber: string): Observable<any> {
+
     const options = {
       body: { CaseNumber: caseNumber },
     };
     return this.http.delete(this.deletecaseUrl, options);
   }
 
+
   updateCase(caseNumber: string, syndicatedFlag: string, loanTenure: string): Observable<any> {
+
     const urlWithParams = `${this.patchcaseUrl}?caseNumber=${caseNumber}`;
     const patchDocument = [
       {
         op: 'replace',
         path: '/SyndicatedFlag',
+
         value: syndicatedFlag
       },
       {
@@ -247,6 +261,9 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
   return this.http.patch(urlWithParams, patchDocument);
 }
 
+
+  //   return this.http.patch(`${this.patchcaseUrl}/${caseNumber}`, patchDocument);
+  // }
 
   deleteRequest(requestId: string): Observable<any> {
     const options = {
@@ -526,10 +543,14 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
   registerUser(inputdata: any) {
     return this.http.post(this.registerUrl,inputdata)
   }
-  // registerUser(user: any): Observable<any> {
-  //   return this.http.post<any>(this.apiUrl, user);
+  // // resetPassword(inputdata: any) {
+  // //   return this.http.post(this.resetUrl, inputdata)
   // }
   
+  resetPassword(payload: { email: string, oldPassword: string, newPassword: string }) {
+    return this.http.post(this.resetUrl, payload);
+  }
+
 
   getUserData(): Observable<any> {
     return this.http.get<any>(this.userDataUrl);

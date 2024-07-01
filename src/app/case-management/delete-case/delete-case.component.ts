@@ -10,6 +10,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   templateUrl: './delete-case.component.html',
   styleUrls: ['./delete-case.component.css']
 })
+
 export class DeleteCaseComponent implements OnInit {
   Data = {
     caseNumber: '',
@@ -22,6 +23,7 @@ export class DeleteCaseComponent implements OnInit {
     solId: '',
     loanBalance: '',
     verifiedFlag: ''
+
   };
 
   searchOption: string = 'assignedTo';
@@ -34,13 +36,16 @@ export class DeleteCaseComponent implements OnInit {
   searchParams = { param: '', value: '' };
   pagedCasesdata: any[] = [];
   data: any[] = []; // Your data array
+
   apiUrl: string = '';
   responseMessage: string = '';
   successMessage: string | null = null;
+
   errorMessage: string | null = null;
   loading: boolean = false;
   initialLoanTenure!: string;
   initialSyndicatedFlag!: string;
+
 
   constructor(
     private router: Router,
@@ -67,6 +72,7 @@ export class DeleteCaseComponent implements OnInit {
       },
       error => {
         console.error('Error fetching data from API:', error);
+
       }
     );
   }
@@ -82,6 +88,30 @@ export class DeleteCaseComponent implements OnInit {
     this.totalItems = this.pagedCasesdata.length;
     this.updatePagedData();
   }
+
+  search(): void {
+    console.log('Search method called');
+    this.currentPage = 1; // Reset current page for search
+
+    let searchParamKey: string;
+    switch (this.searchParams.param) {
+      case 'loanAccount':
+        searchParamKey = 'loanAccount';
+        break;
+      case 'accountName':
+        searchParamKey = 'accountName';
+        break;
+      case 'caseNumber':
+        searchParamKey = 'caseNumber';
+        break;
+      case 'cifId':
+        searchParamKey = 'cifId';
+        break;
+      default:
+        console.error('Invalid search parameter');
+        return;
+    }
+
 
   onSearch(): void {
     this.currentPage = 1;
@@ -99,19 +129,23 @@ export class DeleteCaseComponent implements OnInit {
     this.pagedCasesdata = this.data.slice(startIndex, endIndex);
   }
 
+
   opendeleteModal(item: any): void {
     const modalForm = document.getElementById('deleteCaseForm') as HTMLFormElement;
 
     // Autofill input elements
+
     modalForm.querySelectorAll('input').forEach((input: HTMLInputElement) => {
       const fieldName = input.id;
       if (fieldName && item.hasOwnProperty(fieldName)) {
         input.value = item[fieldName];
+
         if (fieldName === 'caseNumber') {
           this.Data.caseNumber = item[fieldName];
         }
       }
     });
+
 
     // Handle select element for syndicatedFlag
     const syndicatedFlagSelect = modalForm.querySelector('select#syndicatedFlag') as HTMLSelectElement;
@@ -119,6 +153,7 @@ export class DeleteCaseComponent implements OnInit {
       syndicatedFlagSelect.value = item.syndicatedFlag;
       this.Data.syndicatedFlag = item.syndicatedFlag;
     }
+
 
     // Initialize initial values for loanTenure and syndicatedFlag
     this.Data.loanTenure = item.loanTenure;
@@ -132,11 +167,13 @@ export class DeleteCaseComponent implements OnInit {
   }
 
   deleteCase(): void {
+
     if (!this.Data.caseNumber) {
       console.error('Case number is undefined or empty.');
       this.toastr.error('Case number is undefined or empty.', 'Error');
       return;
     }
+
 
     console.log('Case Number to be Deleted:', this.Data.caseNumber);
     this.loading = true; // Indicate loading state
@@ -154,6 +191,7 @@ export class DeleteCaseComponent implements OnInit {
         console.error('Error deleting case:', error);
         this.errorMessage = 'Failed to delete case. Please try again.';
         this.toastr.error('Failed to delete case. Please try again.', 'Error');
+
       }
     );
   }

@@ -27,6 +27,7 @@ import { SearchCaseComponent } from './case-management/search-case/search-case.c
 
 import { RecoveryFormComponent } from './case-management/recovery-form/recovery-form.component';
 import { DeleteCaseComponent } from './case-management/delete-case/delete-case.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
@@ -52,7 +53,17 @@ export const routes: Routes = [
     path: 'Register',
     component: RegisterComponent,
   },
+  {
+    path: 'Forgot',
+    component: ForgotPasswordComponent,
+    
+  },
+  {
+    path: 'Reset',
+    component: ResetPasswordComponent,
+    canActivate: [AuthenticationGuard],
 
+  },
   {
     path: 'Dashboard',
     component: HomeComponent,
@@ -127,13 +138,6 @@ export const routes: Routes = [
     canActivate: [AuthenticationGuard],
   },
 
- 
-
-     {
-      path: 'app-forgot-password',    
-      component: ForgotPasswordComponent,
-       canActivate: [AuthenticationGuard],
-    },
       {
       path: 'app-create-case',    
       component: CreateCaseComponent,
