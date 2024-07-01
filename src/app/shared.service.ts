@@ -63,10 +63,10 @@ export class SharedService {
   private rejectdocumentUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/RejectUploadedDocument';  
 
 
-  readonly unapprovedcaseUrl = 'http://192.168.91.239:5260/api/Case/GetUnApprovedCases';
-  readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
-  readonly refinancedCasesUrl = 'http://192.168.91.239:5260/api/Refinance/GetRefinancedCases';
-  readonly restructuredCasesUrl = 'http://192.168.91.239:5260/api/Restructure/GetAllRestructuredCases';
+  // readonly unapprovedcaseUrl = 'http://192.168.91.239:5260/api/Case/GetUnApprovedCases';
+  // readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
+  // readonly refinancedCasesUrl = 'http://192.168.91.239:5260/api/Refinance/GetRefinancedCases';
+  // readonly restructuredCasesUrl = 'http://192.168.91.239:5260/api/Restructure/GetAllRestructuredCases';
 
   private readonly userDataUrl = 'http://192.168.91.239:5260/api/Auth/Login';
   private registerUrl = 'http://192.168.91.239:5260/api/Auth/Register';
@@ -75,9 +75,9 @@ export class SharedService {
 
 
 
-  private readonly userDataUrl = 'http://192.168.91.239:5260/api/Auth/Login';
-  private registerUrl = 'http://192.168.91.239:5260/api/Auth/Register';
-  readonly baseUrl = 'http://192.168.91.239:5260/api/Auth/AllUsers';
+  // private readonly userDataUrl = 'http://192.168.91.239:5260/api/Auth/Login';
+  // private registerUrl = 'http://192.168.91.239:5260/api/Auth/Register';
+  // readonly baseUrl = 'http://192.168.91.239:5260/api/Auth/AllUsers';
 
 
 
@@ -99,8 +99,8 @@ export class SharedService {
 
  readonly MeetingsUrl = 'http://192.168.133.94:5018/api/Meetings';
 
-  private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
-  private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
+  // private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
+  // private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
 
 
 
