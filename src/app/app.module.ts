@@ -103,14 +103,7 @@ import { TotalCasesComponent } from './case-management/total-cases/total-cases.c
     BrowserAnimationsModule,
     ApprovalModule,
    NgMultiSelectDropDownModule,
-  NgMultiSelectDropDownModule.forRoot(),
-
-
-    
-
-
-
-    
+  NgMultiSelectDropDownModule.forRoot(), 
 
 
 

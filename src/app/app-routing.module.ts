@@ -115,7 +115,7 @@ export const routes: Routes = [
      {
       path: 'assign-case',    
       component: AssignCaseComponent,
-       canActivate: [AuthenticationGuard],
+      canActivate: [AuthenticationGuard],
     },
 
   
