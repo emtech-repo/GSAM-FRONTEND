@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { SharedService } from '../shared.service';
 
 @Component({
@@ -13,6 +12,8 @@ import { SharedService } from '../shared.service';
 export class RegisterComponent {
 
   registerForm: FormGroup;
+  message: string = '';
+  isSuccess: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,15 +22,11 @@ export class RegisterComponent {
     private snackBar: MatSnackBar
   ) {
     this.registerForm = this.formBuilder.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-       gender: ['male'],
-     creationDate: [new Date()], // Initialize with current date
-      role: [''],
-
-      isactive: [false]
+      PfNumber: ['', Validators.required],
+      FullName: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
+      Password: ['', [Validators.required, Validators.minLength(6)]],
+      Gender: ['male']
     });
   }
 
@@ -37,26 +34,31 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       console.log(this.registerForm.value);
       this.service.registerUser(this.registerForm.value).subscribe(
-        () => {
-          this.openSnackBar('Success', 'Registered successfully', true);
-          this.router.navigate(['Authenticate']);
+        (response: any) => {
+          if (response && response.statusCode === 201) {
+            this.showMessage('Success', response.message, true);
+
+            this.registerForm.reset(); // Clear the form
+            // this.router.navigate(['/register']);// refresh
+          } else {
+            this.showMessage('Error', response.message || 'An error occurred', false);
+          }
         },
-        () => {
-          this.openSnackBar('Error', 'Check connection', false);
+        (error) => {
+          console.error(error);
+          this.showMessage('Error', 'Check connection', false);
         }
       );
     } else {
-      this.openSnackBar('Error', 'Please enter valid data.', false);
+      this.showMessage('Error', 'Please enter valid data.', false);
     }
   }
 
-  openSnackBar(title: string, message: string, isSuccess: boolean) {
-    const panelClass = isSuccess ? 'success-snackbar' : 'danger-snackbar';
-    this.snackBar.open(message, 'Close', {
-      duration: 3000,
-      horizontalPosition: 'end',
-      verticalPosition: 'bottom',
-      panelClass: [panelClass]
-    });
+  showMessage(title: string, message: string, isSuccess: boolean) {
+    this.message = message;
+    this.isSuccess = isSuccess;
+    setTimeout(() => {
+      this.message = ''; // Clear the message after a certain duration
+    }, 3000);
   }
 }

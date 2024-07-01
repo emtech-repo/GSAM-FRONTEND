@@ -1,1 +1,164 @@
-<p>view-requests works!</p>
+<div class="card" style="border-radius: 15px;  width: 100%; margin-left: -1%;">
+    <div class="card-body">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="example" class="display expandable-table" style="width:100%">
+                            <thead>
+                                <tr>
+
+                                    <th>Request Id</th>
+                                    <th>Service Name</th>
+                                    <th>Service Provider Name</th>
+                                    <th>Provider Email</th>
+                                    <th>Service Date</th>
+                                    <th>Status</th>
+                                    <th>Comments</th>
+                                    <th>Update</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of pagedRequestData">
+                                    <td>{{ item.requestId }}</td>
+                                    <td>{{ item.serviceName }}</td>
+                                    <td>{{ item.serviceProviderName }}</td>
+                                    <td>{{ item.providerPhoneNumber }}</td>
+                                    <td>{{ item.serviceDate }}</td>
+                                    <td>{{ item.status }}</td>
+                                    <td>{{ item.comments }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary small-btn" data-bs-toggle="modal"
+                                            data-bs-target="#RequestModal" (click)="openModal(item)">
+                                            Action
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
+                                (pageChanged)="pageChanged($event)" [maxSize]="5" [rotate]="true"
+                                [boundaryLinks]="true">
+                            </pagination>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="RequestModal" tabindex="-1" aria-labelledby="RequestModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="RequestModalLabel">Update or delete Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="RequestForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- Forms for the first column -->
+                                        <div class="form-group" style="margin-top: -30px;">
+                                            <label for="requestId" style="margin-bottom: -1px;">request Id</label>
+                                            <input type="text" class="form-control" id="requestId"  [(ngModel)]="Data.requestId"
+                                    name="requestId" readonly>
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="serviceName" style="margin-bottom: -1px;">service Name</label>
+                                            <input type="text" class="form-control" id="serviceName"  [(ngModel)]="Data.serviceName"
+                                    name="serviceName" readonly>
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="status" style="margin-bottom: -1px;">Status</label>
+                                            <input type="text" class="form-control" id="status"  [(ngModel)]="Data.status"
+                                    name="status" readonly>
+                                        </div>
+
+                                        <!-- Add other form groups for the first column here -->
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Forms for the second column -->
+                                        <div class="form-group" style="margin-top: -30px;">
+                                            <label for="serviceProviderName" style="margin-bottom: -1px;"  >Provider
+                                                Name</label>
+                                            <input type="text" class="form-control" id="serviceProviderName"  [(ngModel)]="Data.serviceProviderName"
+                                    name="serviceProviderName"readonly>
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="providerPhoneNumber" style="margin-bottom: -1px;" >Phone
+                                                Number</label>
+                                            <input type="text" class="form-control" id="providerPhoneNumber" [(ngModel)]="Data.providerPhoneNumber"
+                                    name="providerPhoneNumber" readonly>
+                                        </div>
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="serviceDate" style="margin-bottom: -1px;">service Date</label>
+                                            <input type="text" class="form-control" id="serviceDate"   [(ngModel)]="Data.serviceDate"
+                                    name="serviceDate">
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        
+                                        <div class="form-group" style="margin-top: -20px;">
+                                            <label for="comments" style="margin-bottom: -1px;">Comments</label>
+                                            <input type="text" class="form-control" id="comments" [(ngModel)]="Data.comments"
+                                          name="comments">
+                                        </div>
+
+                                        <div class="col-md-6">
+
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-primary small-btn"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary small-btn"  (click)="UpdateRequest()">Update</button>
+                            <button type="button" class="btn btn-primary small-btn"
+                                (click)="deleteRequest()">Delete</button>
+                        </div>
+
+                        <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
+                            <p>{{ errorMessage }}</p>
+
+                        </div>
+                        <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+                            <p>{{ responseMessage }}</p>
+                        </div>
+                        <div *ngIf="loading" class="text-center mt-3">
+                            <p>Loading...</p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

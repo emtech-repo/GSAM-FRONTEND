@@ -1,43 +1,38 @@
 
-<div class="row">
+<div class="row align-items-center">
     <div class="col-md-12 grid-margin transparent">
       <div class="row">
-        <div class="col-md-3 mb-3 stretch-card transparent">
+        <div class="col-md-3 mb-3 stretch-card transparent" (click)="showTotalCases()">
           <div class="card card-tale">
             <div class="card-body">
+              
               <p class="mb-4">Total Cases</p>
               <p class="fs-30 mb-2">{{ totalCases }}</p>
-              <p>10.00% (30 days)</p>
+              <!-- <p>10.00% (30 days)</p> -->
             </div>
           </div>
         </div>
-        <div class="col-md-3 mb-3 stretch-card transparent">
+        <div class="col-md-3 mb-3 stretch-card transparent" (click)="showActiveCases()">
           <div class="card card-dark-blue">
             <div class="card-body">
               <p class="mb-4">Active cases</p>
-              <p class="fs-30 mb-2">{{ openCases }}</p>
-              <p>22.00% (30 days)</p>
+              <p class="fs-30 mb-2">{{ activeCases }}</p>
+              <!-- <p>22.00% (30 days)</p> -->
             </div>
           </div>
         </div>
-        <div class="col-md-3 mb-3  stretch-card transparent">
+        <div class="col-md-3 mb-3  stretch-card transparent" (click)="showClosedCases()">
           <div class="card card-light-blue">
             <div class="card-body">
               <p class="mb-4">Closed Cases </p>
               <p class="fs-30 mb-2">{{ closedCases }}</p>
-              <p>2.00% (30 days)</p>
+              <!-- <p>2.00% (30 days)</p> -->
             </div>
           </div>
         </div>
-        <div class="col-md-3 mb-3  stretch-card transparent">
-          <div class="card card-light-danger">
-            <div class="card-body">
-              <p class="mb-4">Assigned</p>
-              <p class="fs-30 mb-2">{{ assignedCases }}</p>
-              <p>0.22% (30 days)</p>
-            </div>
-          </div>
-        </div>
+      
       </div>
     </div>
   </div>
+
+

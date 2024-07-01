@@ -1,81 +1,97 @@
 import { Component, Input } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
-
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
+import { RecoveryFormComponent } from '../recovery-form/recovery-form.component';
+import { RefinanceFormComponent } from '../refinance-form/refinance-form.component';
+import { RestructureFormComponent } from '../restructure-form/restructure-form.component';
 
 @Component({
   selector: 'app-decision-tab',
   templateUrl: './decision-tab.component.html',
-  styleUrl: './decision-tab.component.css'
+  styleUrls: ['./decision-tab.component.css']
 })
 export class DecisionTabComponent {
-  Customers: any[] = [];
-  CustomersUrl: any;
-  searchParams = { param: '', value: '' }
+
   currentPage: number = 1;
-  searchOption: string = 'AccNumber';
-
-
-
-
+  pageSize: number = 5;
+  totalItems: number = 0;
+  dataSource: any[] = [];
+  dataSourceFiltered: any[] = [];
+  Assigneddata: any[] = [];
+  AssignedUrl: string = '';
+  @Input() loanAccount: any = '';
 
   @Input() tabs: { title: string, content: string }[] = [];
   selectedIndex: number = 0;
+  data: any;
 
+  constructor(private router: Router, private sharedService: SharedService,
+    public bsModalRef: BsModalRef, private http: HttpClient, private modalService: BsModalService) { }
+
+  ngOnInit(): void {
+    this.AssignedUrl = this.sharedService.AssignedUrl;
+    this.getAssigned();
+  }
 
   selectTab(index: number) {
     this.selectedIndex = index;
   }
-  constructor(private router: Router, private sharedService: SharedService) { }
 
-  ngOnInit() {
-    this.getCustomers();
-
-  }
-
-   setSearchOption(option: string) {
-    this.searchOption = option;
-  }
-
-  search(): void {
-    console.log('Search method called'); // Debugging line
-    this.currentPage = 1; // Reset current page for search
-    this.Customers = this.Customers.filter(item => {
-      switch (this.searchParams.param) {
-        case 'loanAccount':
-          return item.AccNumber.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'CifID':
-          return item.CifID.toLowerCase().includes(this.searchParams.value.toLowerCase());
-        case 'CaseNumber':
-          return item.CaseNumber.toLowerCase().includes(this.searchParams.value.toLowerCase());
-       
-        default:
-          return false;
+  getAssigned(): void {
+    this.http.get<any>(this.AssignedUrl).subscribe(response => {
+      if (response && response.result && Array.isArray(response.result)) {
+        this.Assigneddata = response.result;
+        this.dataSource = this.Assigneddata;
+        this.dataSourceFiltered = this.dataSource; // Initialize filtered data
+      } else {
+        console.error('Invalid data received from API:', response);
       }
+    }, error => {
+      console.error('Error fetching data from API:', error);
     });
   }
 
-
-  getCustomers(): void {
-    this.sharedService.getCustomers()
-      .subscribe(Customers => {
-        this.Customers = Customers;
-
-      });
+  applyFilter(event: any) {
+    const filterValue = event.target.value.toLowerCase();
+    if (filterValue.trim() === '') {
+      this.dataSourceFiltered = this.dataSource;
+    } else {
+      this.dataSourceFiltered = this.dataSource.filter(item => item.loanAccount.toLowerCase().includes(filterValue));
+    }
   }
-  goToCaseTracking() {
-    // Navigate to the "case tracking" route
-    this.router.navigate(['/case-tracking']);
-  }
+
   goToHome() {
-    // Navigate to the "home" route
     this.router.navigate(['/home']);
   }
 
+  goToRecoveryForm(loanAccount: any): void {
+    this.bsModalRef = this.modalService.show(RecoveryFormComponent, { 
+      initialState: { loanAccount: loanAccount }  
+    });
+  }
 
+  goToRefinanceForm(loanAccount: any): void {
+    this.bsModalRef = this.modalService.show(RefinanceFormComponent, { 
+      initialState: { loanAccount: loanAccount }  
+    });
+  }
 
+  goToRestructureForm(loanAccount: any): void {
+    this.bsModalRef = this.modalService.show(RestructureFormComponent, { 
+      initialState: { loanAccount: loanAccount }  
+    });
+  }
 
+ pageChanged(event: any): void {
+  this.currentPage = event.page;
+  this.updatePagedData(); // Call updatePagedData method when page changes
+}
 
-
+updatePagedData(): void {
+  const startIndex = (this.currentPage - 1) * this.pageSize;
+  const endIndex = startIndex + this.pageSize;
+  this.dataSourceFiltered = this.dataSource.slice(startIndex, endIndex); // Update the filtered data based on pagination
+}
 }

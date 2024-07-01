@@ -1,0 +1,171 @@
+label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 200px;
+    height: 0px;
+
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.container {
+
+    white-space: nowrap;
+}
+
+
+table {
+    width: 100%;
+    /* border-collapse: collapse; */
+}
+
+/* Style the table header */
+th {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #800000;
+    color: white;
+}
+
+/* Style the table data cells */
+td {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Alternate row background color */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect on rows */
+tr:hover {
+    background-color: #ddd;
+
+}
+
+.search-container {
+    margin-bottom: 50px;
+}
+
+
+
+
+.input-group {
+    margin-bottom: 20px;
+    /* Add some bottom margin for spacing */
+}
+
+/* Adjust the width of the select element */
+.form-select {
+    width: 200px;
+}
+
+/* Input Group Styles */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.form-select {
+    width: 200px;
+}
+
+
+/* Tab Styles */
+
+.tab-content-container {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.show {
+    display: block;
+
+}
+
+.nav-pills .nav-link {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    margin-right: 5px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-pills .nav-link.active {
+    background-color: #0b22ef;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-pills .nav-link:hover {
+    background-color: #0a3d27;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tab-content .tab-pane {
+    border: 2px solid #0f5132;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    /* Display tab content when active */
+}
+
+table {
+    width: 120%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-responsive {
+    max-height: 400px;
+    /* Adjust the max-height as needed */
+    overflow-y: auto;
+}
+
+#example {
+    width: 100%;
+    /* Ensure table width doesn't exceed its container */
+    font-size: 1em;
+    /* Use relative font size for responsiveness */
+}
+
+#example th,
+#example td {
+    padding: 6px;
+    /* Adjust padding for better responsiveness */
+    text-align: left;
+}
+
+.small-btn {
+    font-size: 15px;
+    padding: 5px 10px;
+    height: 30px;
+    border-radius: 5px;
+}

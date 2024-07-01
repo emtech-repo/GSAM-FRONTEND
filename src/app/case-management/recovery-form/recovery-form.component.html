@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card" style="margin-top:5px;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-7 pb-2 pb-md-0 mb-md-5 modal-header"
+                    style="margin-top: 1px;">
+                    <h3 style="font-size: 25px; color:black; margin-top: -30px; margin-left: 70px;">
+                        Recovery Form
+                    </h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Forms for the first column -->
+                        <div class="form-group" style="margin-top: -48px;">
+                            <label for="inputcifid" style="margin-bottom: -1px;">Loan Account</label>
+                            <input type="text" class="form-control" [value]="decisionDetails.loanAccount || ''"
+                                readonly />
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Case Number</label>
+                            <input type="text" class="form-control" [value]="decisionDetails.caseNumber || ''"
+                                readonly />
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputloan" style="margin-bottom: -1px;">Loan Amount</label>
+                            <input type="text" class="form-control" [value]="decisionDetails.loanAmount || ''"
+                                readonly />
+                        </div>
+                        <!-- Add other form groups for the first column here -->
+
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Forms for the second column -->
+                        <div class="form-group" style="margin-top: -48px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">CIF ID</label>
+                            <input type="text" class="form-control" [value]="decisionDetails.cifId || ''" readonly />
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Account Name</label>
+                            <input type="text" class="form-control" [value]="decisionDetails.accountName || ''"
+                                readonly />
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Branch Id</label>
+                            <input type="text" class="form-control" [value]="decisionDetails.solId || ''" readonly />
+                        </div>
+                        <!-- Add other form groups for the second column here -->
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Loan Balance</label>
+                            <input type="text" class="form-control" [value]="decisionDetails.loanBalance || ''"
+                                readonly />
+                        </div>
+                        <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Loan Paid</label>
+                            <input type="text" class="form-control" [(ngModel)]="LoanPaid" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Forms for the second column of the second row -->
+                        <div class="form-group" style="margin-top: -20px;">
+                            <label for="inputEmail4" style="margin-bottom: -1px;">Months in Default</label>
+                            <input type="number" class="form-control" [(ngModel)]="monthsInDefault" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-outline w-100" style="margin-top: -20px;">
+                    <label class="form-label" for="textAreaExample"
+                        style="color: blue; margin-bottom: -1px;">Comments</label>
+                    <textarea class="form-control" id="textAreaExample" [(ngModel)]="comments"></textarea>
+                   
+                    <div   class="d-flex justify-content-end"style="margin-top: 10px;">
+                        <button type="button" class="btn btn-primary small-btn" (click)="closeModal()"
+                          >Exit Page</button>
+                        <button type="button" class="btn btn-primary small-btn"
+                            (click)="submitRecovery()"   style="margin-left: 10px;">Submit</button>
+
+
+                    </div>
+                  
+                </div>
+
+                <div class="alert alert-danger mt-3" *ngIf="errorMessage" style="margin-top: 20px;">
+                    <p>{{ errorMessage }}</p>
+
+                </div>
+                <div class="alert alert-danger mt-3" *ngIf="responseMessage" style="margin-top: 20px;">
+                    <p>{{ responseMessage }}</p>
+                </div>
+                <div *ngIf="loading" class="text-center mt-3">
+                    <p>Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

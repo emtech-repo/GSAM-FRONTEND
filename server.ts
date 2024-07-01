@@ -34,6 +34,7 @@ export function app(): express.Express {
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
+        inlineCriticalCss:false,
         providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
       })
       .then((html) => res.send(html))

@@ -1,107 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SharedService } from '../shared.service';
-
-import { FormBuilder, FormGroup } from '@angular/forms';
-
-import usersData from '../../assets/data/db.json';
-
-
-
-declare function showSuccessToast(msg: any): any;
-declare function showDangerToast(msg: any): any;
-declare function showDangerToast(message: string, title?: string): void;
-
-
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-})
-export class LoginComponent implements OnInit {
-  formData: any;
-  constructor(private servive: SharedService,
-    private fb: FormBuilder,
-    private router: Router) {
-    servive.isAuthenticated = false;
-  }
-  changetype: any = true;
-  visible: any = true;
-  errorMessage: string = '';
-
-  UserList: any = [];
-
-  userEmail: string = '';
-  userPassword: string = '';
-  userRole: string = '';
-
-  response: any = {};
-
-
-  ngOnInit() {
-
-    this.formData = this.fb.group({
-      UserName: [''],
-      password: ['']
-
-    })
-
-
-  }
-
-
-
-  replacer(i: any, val: any) {
-    if (i === 'Password') {
-      return undefined;
-    } else {
-      return val;
-    }
-  }
-  viewpassword() {
-    this.visible = !this.visible;
-    this.changetype = !this.changetype;
-  }
-  login() {
-    this.servive.loader = true;
-
-
-    const user = usersData.user.find(
-      (u: any) => u.email === this.userEmail && u.password === this.userPassword
-    );
-
-    if (user) {
-      // Check if the user has no role
-      if (!user.role || user.role.trim() === '') {
-        showDangerToast('Please contact Admin for activation', 'Inactive User');
-
-      } else {
-        showSuccessToast("Login Successful");
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.servive.isAuthenticated = true;
-        console.log('Current User:', user);
-
-        this.router.navigate(['/Dashboard']);
-      }
-    } else {
-      showDangerToast('Invalid Credential');
-    }
-
-    this.servive.loader = false;
-  }
-
-  }
-
-
-
-
-
 // import { Component, OnInit } from '@angular/core';
 // import { Router } from '@angular/router';
 // import { SharedService } from '../shared.service';
+// import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 
-// declare function showSuccessToast(msg: any): any;
-// declare function showDangerToast(msg: any): any;
+// declare function showSuccessToast(msg: string): void;
+// declare function showDangerToast(msg: string, title?: string): void;
+// // Import Validators for email validation
 
 // @Component({
 //   selector: 'app-login',
@@ -109,71 +13,78 @@ export class LoginComponent implements OnInit {
 //   styleUrls: ['./login.component.css'],
 // })
 // export class LoginComponent implements OnInit {
-//   constructor(private servive: SharedService, private router: Router) {
-//     servive.isAuthenticated = false;
-//   }
-//   changetype: any = true;
-//   visible: any = true;
+//   formData!: FormGroup;
+//   visible: boolean = true;
+//   showPassword: boolean = false;
+//   changetype: boolean = true;
+  
 //   errorMessage: string = '';
+//   Email: string = ''; // Declare email property
+//   Password: string = ''; // Declare password property
 
-//   UserList: any = [];
-
-//   userEmail: string = '';
-//   userPassword: string = '';
-
-//   response: any = {};
-
-//   ngOnInit(): void { }
-
-//   replacer(i: any, val: any) {
-//     if (i === 'Password') {
-//       return undefined;
-//     } else {
-//       return val;
-//     }
+//   constructor(
+//     private service: SharedService,
+//     private fb: FormBuilder,
+//     private router: Router
+//   ) {
+//     service.isAuthenticated = false;
 //   }
-//   viewpassword() {
+
+//   ngOnInit() {
+//     this.formData = this.fb.group({
+//       Elementmail: ['', [Validators.required, Validators.email]],
+//       Password: ['', Validators.required],
+//     });
+//   }
+//   showpassword() {
 //     this.visible = !this.visible;
 //     this.changetype = !this.changetype;
 //   }
+//   // viewpassword() {
+//   //   this.visible = !this.visible;
+//   // }
+
 //   login() {
-//     this.servive.loader = true;
-//     var val = { Username: this.userEmail, Password: this.userPassword };
+//     if (this.formData.valid) {
+//       console.log('Logging in with:', this.formData.value);
 
-//     this.servive.getLogin(val).subscribe(
-//       (res) => {
-//         this.response = res;
+//       this.service.loader = true;
+//       this.service.getLogin(this.formData.value)
+//         .subscribe((res) => {
+//           console.log('Login response:', res);
+//           this.service.loader = false;
 
-//         if (this.response['status_code'] == 100) {
-//           // Authentication successful
-//           this.UserList = JSON.parse(this.response['message'])[0];
-//           localStorage.setItem(
-//             'currentUser',
-//             JSON.stringify(this.UserList, this.replacer)
-//           );
-//           this.servive.isAuthenticated = true;
-//           showSuccessToast("Login Successful");
-//           this.router.navigate(['/Dashboard']); // Redirect to dashboard
-//         } else {
-//           // Authentication failed
-//           showDangerToast('Invalid Credentials');
-//         }
-//       },
-//       (error) => {
-//         // Error handling
-//         console.error('Error during authentication:', error);
-//         showDangerToast('An error occurred during authentication');
-//       }
-//     );
+//           if (res.statusCode == 200) {
+//             this.router.navigate(['/Dashboard']);
+//             alert(res.message);
+//             localStorage.setItem('currentUser', JSON.stringify(res.result.jwtToken));
+//             this.service.isAuthenticated = true;
+//           } else {
+//             alert(res.message);
+//           }
+//         });
+//     } else {
+//       this.formData.markAllAsTouched(); // Mark all fields as touched to trigger validation messages
+//       showDangerToast('Please fill in all fields');
+//     }
 //   }
+
+//   togglePasswordVisibility() {
+//     this.showPassword = !this.showPassword;
+//   }
+
 // }
 
 
 
-///corect
+//////////////////
+
 // import { Component, OnInit } from '@angular/core';
 // import { Router } from '@angular/router';
 // import { SharedService } from '../shared.service';
+
+// import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import Validators for email validation
+
 
 // declare function showSuccessToast(msg: any): any;
 // declare function showDangerToast(msg: any): any;
@@ -184,7 +95,10 @@ export class LoginComponent implements OnInit {
 //   styleUrls: ['./login.component.css'],
 // })
 // export class LoginComponent implements OnInit {
-//   constructor(private servive: SharedService, private router: Router) {
+//   formData: any;
+//   constructor(private servive: SharedService,
+//     private fb: FormBuilder,
+//     private router: Router) {
 //     servive.isAuthenticated = false;
 //   }
 //   changetype: any = true;
@@ -193,12 +107,22 @@ export class LoginComponent implements OnInit {
 
 //   UserList: any = [];
 
-//   userEmail: string = '';
-//   userPassword: string = '';
+//   email: string = '';
+//   password: string = '';
 
 //   response: any = {};
 
-//   ngOnInit(): void { }
+//   ngOnInit() {
+
+//     // Initialize formData with form controls and validators
+//     this.formData = this.fb.group({
+//       email: ['', [Validators.required, Validators.email]], // Add validators for email
+//       password: ['', Validators.required] // Add validators for password
+//     })
+
+
+//   }
+
 
 //   replacer(i: any, val: any) {
 //     if (i === 'Password') {
@@ -213,29 +137,21 @@ export class LoginComponent implements OnInit {
 //   }
 //   login() {
 //     this.servive.loader = true;
-//     console.log('hello')
-//     console.log(this.userEmail);
-//     console.log(this.userPassword);
-//     if (this.userEmail == 'Admin@gmail.com' && this.userPassword == '123456') {
-//       showSuccessToast("Admin Login Successfully");
-//       localStorage.setItem('currentUser', '23');
-//       this.servive.isAuthenticated = true;
-//       window.location.href = '/Dashboard'
-//       // this.router.navigate(['/Dashboard']);
-//       this.servive.loader = false;
-//     } else {
-//       showDangerToast('InValid Credential');
-//       this.servive.loader = false;
-//     }
-
-
-//     var val = { Username: this.userEmail, Password: this.userPassword };
-//     this.servive.getLogin(val).subscribe((res) => {
+//     // console.log('hello')
+//     // console.log(this.userEmail);
+//     console.log(this.formData.value, "user log");
+    
+//     this.servive.getLogin(this.formData.value).subscribe((res) => {
 //       this.response = res;
 
-//       if (this.response['status_code'] == 100) {
-//         this.UserList = JSON.parse(this.response['message'])[0];
-
+//       if (this.response.statusCode == 200) {
+//         this.router.navigate(['/Dashboard']);
+//         alert(this.response.message);
+//         //window.location.href='/Dashboard'
+//         this.servive.loader = false;
+//         // console.log(this.UserList, "jwt")
+//         this.UserList = this.response.result.jwtToken;
+//         //console.log(this.response.result.jwtToken,'response')
 //         localStorage.setItem(
 //           'currentUser',
 //           JSON.stringify(this.UserList, this.replacer)
@@ -250,3 +166,98 @@ export class LoginComponent implements OnInit {
 //     });
 //   }
 // }
+
+/////////////////
+
+
+// ile ya kitamb0
+
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SharedService } from '../shared.service';
+
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+declare function showSuccessToast(msg: string): void;
+declare function showDangerToast(msg: string, title?: string): void;
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+})
+export class LoginComponent implements OnInit {
+  formData!: FormGroup;
+  showPassword: boolean = false;
+  changetype: boolean = true;
+  visible: boolean = true;
+  errorMessage: string = '';
+
+  constructor(
+    private service: SharedService,
+   
+    private fb: FormBuilder,
+    private router: Router
+  ) {
+    this.service.isAuthenticated = false;
+  }
+
+  ngOnInit() {
+    this.formData = this.fb.group({
+      Email: ['', [Validators.required, Validators.email]], // Added email validator for better validation
+      Password: ['', Validators.required]
+    });
+  }
+
+  showpassword() {
+    this.visible = !this.visible;
+    this.changetype = !this.changetype;
+  }
+
+  
+  login() {
+    if (this.formData.valid) {
+      this.service.loader = true;
+      this.service.getLogin(this.formData.value)
+        .subscribe((res: any) => {
+          this.service.loader = false;
+          if (res.statusCode == 200) {
+            // Store token and role in local storage
+            localStorage.setItem('currentUser', JSON.stringify({ token: res.result.token, role: res.result.roles, email: res.result.email }));
+            // Set authentication status
+            this.service.isAuthenticated = true;
+            // Redirect to dashboard
+            this.router.navigate(['/Dashboard']);
+            // Show success message
+            showSuccessToast(res.message);
+          } else {
+            // Show error message
+            showDangerToast(res.message);
+          }
+        }, (error) => {
+          this.service.loader = false;
+          // Show error message
+          showDangerToast('Error: Unable to Login check Connection');
+        });
+    } else {
+      this.formData.markAllAsTouched();
+      // Show error message
+      showDangerToast('Please fill in all fields');
+    }
+  }
+
+  logout() {
+    // Add logic to clear authentication status and token
+    this.service.isAuthenticated = false;
+    localStorage.removeItem('currentUser');
+    // Redirect to login page after logout
+    this.router.navigate(['/Authenticate']);
+    // Reset form data after logout
+    this.formData.reset();
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+}

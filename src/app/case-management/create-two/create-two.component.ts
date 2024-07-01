@@ -1,10 +1,9 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-
 import { SharedService } from '../../shared.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,18 +11,23 @@ import { SharedService } from '../../shared.service';
   templateUrl: './create-two.component.html',
   styleUrls: ['./create-two.component.css']
 })
-
 export class CreateTwoComponent implements OnInit {
   loanDetails: any = {}; // Initialize as an empty object
   CreatedSuccessfully: boolean = false;
   details: any;
   caseId: number | undefined;
+  message : string = '';
+  errorMessage: string = '';
+
+
+
 
   constructor(
     private toastr: ToastrService,
     private route: ActivatedRoute,
     public bsModalRef: BsModalRef,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -35,9 +39,16 @@ export class CreateTwoComponent implements OnInit {
       console.log('Loan Details:', this.loanDetails);
     }
   }
+  
 
   closeModal() {
     this.bsModalRef.hide();
+  }
+    
+  goToCreateCase(): void {
+    
+    // Navigate to the "case-details" route and pass the selected row data as a parameter
+    this.router.navigate(['/app-create-case']);
   }
 
 
@@ -46,6 +57,7 @@ export class CreateTwoComponent implements OnInit {
 
     // Log the entire loanDetails object for inspection
     console.log('Current loanDetails:', this.loanDetails);
+
 
     // Create a new object with only the required fields
     const requestData = {
@@ -59,22 +71,27 @@ export class CreateTwoComponent implements OnInit {
       SyndicatedFlag: this.loanDetails?.SyndicatedFlag ?? ''
     };
 
-    console.log('Data to be sent:', requestData); // Log the data to be sent
+    // console.log('Case to be cREATED:', requestData); // Log the data to be sent
 
     // Send the request data to the API
     this.sharedService.createCase(requestData)
       .subscribe(response => {
         console.log('Case created successfully:', response);
         this.CreatedSuccessfully = true;
-        this.caseId = response.caseId;
-        this.toastr.success(`Case created successfully Case ID: ${response.caseId}`, 'Success');
+        this.message= response.message;
+        this.caseId = response.result.caseNumber; // Assuming response.result.caseNumber is the correct path
+        this.toastr.success(`Case created successfully Case ID: ${response.result.caseNumber}`, 'Success');
+        
       }, error => {
         console.error('Error creating case:', error);
-        this.toastr.error('Failed to create case. Please try again.', 'Error');
+        // Check if the error status is 400 and extract the message from the error response
+        if (error.status === 400 && error.error && error.error.message) {
+          // Display the error message
+          this.toastr.error(error.error.message, 'Error');
+        } else {
+          // Fallback error message for other cases
+          this.toastr.error('Failed to create case. Please try again.', 'Error');
+        }
       });
-  }
-
- 
-
-
+}
 }

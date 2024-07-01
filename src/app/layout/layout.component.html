@@ -1,4 +1,14 @@
+
+
 <div class="container-scroller">
+  <!-- ALERT -->
+  <div class="custom-alert">
+  <p><strong>Hey {{ currentUser?.email }} </strong> Case 3 has been approved{{ message}}</p>
+  <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+</div>
+
+
+
   <!-- partial:partials/_navbar.html -->
   <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
@@ -17,32 +27,46 @@
           <h2 style="color: whitesmoke;">GSAM System</h2>
         </div>
       </div>
+      <!-- log in user of the system -->
+      <div class="container">
+        <div class="d-flex justify-content-center">
+          <p style="color: whitesmoke;">Welcome: {{ currentUser?.email }} ({{ currentUser?.role?.join(', ') }})</p>
+        </div>
+      </div>
+
+
+
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item dropdown">
+
           <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
-            data-bs-toggle="dropdown">
-            <i class="icon-bell mx-0" style="color: whitesmoke;"></i>
-            <span class="count"></span>
-          </a>
+         data-bs-toggle="dropdown">
+           <i class="icon-bell mx-0" style="color: whitesmoke;"></i>
+          <span class="badge rounded-pill badge-notification bg-danger">{{ unverifiedUserCount }}</span>
+          </a> 
+
+      
+
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
             aria-labelledby="notificationDropdown">
             <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
 
-            <a class="dropdown-item preview-item">
+            <a class="dropdown-item preview-item" *ngIf="userHasAccess(['Admin', 'Manager'])">
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-success">
                   <i class="ti-info-alt mx-0"></i>
                 </div>
               </div>
+
               <div class="preview-item-content">
                 <h6 class="preview-subject font-weight-normal"> <a class="nav-link"
-                    [routerLink]="['approval/app-approval-interface']">Approvals Notifications </a></h6>
-                <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['Approval/Approval']">APPROVAL</a></li> -->
-                <p class="font-weight-light small-text mb-0 text-muted">
-                  Just now
+                    [routerLink]="['approval/app-approval-interface']">Approvals  </a></h6>
+               <p class="font-weight-bold " style="font-weight: bold; color: red;">
+                  Approval Requests {{ unverifiedUserCount }}
                 </p>
               </div>
             </a>
+
             <a class="dropdown-item preview-item">
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-warning">
@@ -50,22 +74,29 @@
                 </div>
               </div>
               <div class="preview-item-content">
-                <h6 class="preview-subject font-weight-normal">Settings</h6>
-                <p class="font-weight-light small-text mb-0 text-muted">
-                  Private message
-                </p>
+                <h6 class="preview-subject font-weight-normal">Messages</h6>
+                <p class="font-weight-bold " style="font-weight: bold; color: red;">
+                 Message: {{ unverifiedUserCount }}
+               </p>
               </div>
             </a>
-            <a class="dropdown-item preview-item">
+
+            <a class="dropdown-item preview-item" *ngIf="userHasAccess(['Admin', 'Manager'])">
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-info">
                   <i class="ti-user mx-0"></i>
                 </div>
               </div>
               <div class="preview-item-content">
-                <h6 class="preview-subject font-weight-normal" [routerLink]="['app-admin-page']">New user registration</h6>
+                <h6 class="preview-subject font-weight-normal" [routerLink]="['app-admin-page']">New user registration
+                </h6>
                 <p class="font-weight-light small-text mb-0 text-muted">
                   just now
+                </p>
+              <p class="font-weight-bold " style="font-weight: bold; color: red;">
+                 Unverified Users: {{ unverifiedUserCount }}
+               </p>
+
               </div>
             </a>
           </div>
@@ -118,22 +149,37 @@
         </li>
 
         <li class="nav-item">
+
           <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="icon-layout menu-icon"></i>
             <span class="menu-title">Case Management</span>
             <i class="menu-arrow"></i>
           </a>
+
           <div class="collapse" id="ui-basic">
 
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-case']">Create
                   Case</a></li>
-              <li class="nav-item"> <a class="nav-link"
-                  [routerLink]="['case-management/app-search-case']">SearchCase</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-status']">Case
+                 
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-search-cases']">Search
+                  Case</a></li>
+
+              <!-- <li class="nav-item"> <a class="nav-link"[routerLink]="['case-management/app-search-case']">Core Banking</a></li> -->
+              <li class="nav-item"  *ngIf="userHasAccess(['Manager'])"> <a class="nav-link"
+                  [routerLink]="['case-management/app-case-status']">Case
                   Status</a></li>
-              <li class="nav-item"> <a class="nav-link"
-                  [routerLink]="['case-management/app-documentation']">Documentation</a></li>
+              <li class="nav-item"  *ngIf="userHasAccess(['Officer'])"> <a class="nav-link"
+                  [routerLink]="['case-management/app-cases-status']">Case
+                  Status</a></li>
+
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-cases-status']">Case
+
+
+                      Status</a></li>
+             
+
+
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-create-meeting']">
                   Meeting</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-case-decision']">Case
@@ -142,36 +188,38 @@
                   Tracking</a></li>
               <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
                   Case</a></li> -->
-                  <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
-                      Case</a></li>
-                      <li class="nav-item"> <a class="nav-link" [routerLink]="['billing-reconciliation/app-approve-claim-tab']">Approve
-                          Claim</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['case-management/app-assign-case']">Assign
+                  Case</a></li>
+
 
 
             </ul>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced" aria-expanded="false"
-            aria-controls="ui-advanced">
+          <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
+            class="nav-link" [routerLink]="['documents/app-retrieve']">
             <i class="icon-image menu-icon"></i>
             <span class="menu-title">Documents</span>
-            <i class="menu-arrow"></i>
+
           </a>
+
           <div class="collapse" id="ui-advanced">
             <ul class="nav flex-column sub-menu">
 
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-searchdocument']">Search</a></li>
+              <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-search-document']">Search</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-request']">Request</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-retrieve']">Retrieve</a></li>
               <li class="nav-item"> <a class="nav-link" [routerLink]="['documents/app-upload']">Upload</a></li>
-              
-              
+
+
 
 
             </ul>
           </div>
+
         </li>
+
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
             class="nav-link" [routerLink]="['contracts/app-contract-inter']">
@@ -183,7 +231,7 @@
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#editors" aria-expanded="false" aria-controls="editors">
             <i class="icon-loader menu-icon"></i>
-            <span class="menu-title">Billing & Reconciliation</span>
+            <span class="menu-title">Billings</span>
             <i class="menu-arrow"></i>
           </a>
           <div class="collapse" id="editors">
@@ -214,7 +262,7 @@
 
         <!-- ADMIN-- -->
 
-        <li class="nav-item" style="margin-top: 150px;" *ngIf="isAdmin">
+        <li class="nav-item" style="margin-top: 150px;" *ngIf="userHasAccess(['Admin'])">
 
           <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
             aria-controls="form-elements" class="nav-link" [routerLink]="['app-admin-page']">
@@ -243,3 +291,5 @@
   </div>
   <!-- page-body-wrapper ends -->
 </div>
+
+
