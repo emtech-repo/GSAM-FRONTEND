@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SharedService } from '../shared.service';
+
+
 
 @Component({
   selector: 'app-forgot-password',
@@ -7,33 +11,47 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent implements OnInit {
+  formData: FormGroup;
+  successMessage: string = '';
+  errorMessage: string = '';
+  submitting: boolean = false;
+  loading: boolean = false; // Add loading indicator
 
-  form: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      email: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmNewPassword: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator });
+  constructor(private service: SharedService, private fb: FormBuilder, private router: Router) {
+    this.formData = this.fb.group({
+      Email: ['', [Validators.required, Validators.email]],
+    });
   }
 
-  passwordMatchValidator(formGroup: FormGroup) {
-    let newPassword = formGroup.controls['newPassword'].value;
-    let confirmPassword = formGroup.controls['confirmNewPassword'].value;
-    return newPassword === confirmPassword ? null : { notSame: true };
-  }
-
-  ngOnInit(): void {
-    // Initialization logic goes here
+  ngOnInit() {
+    this.service.isAuthenticated = false;
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      // Call your service to handle password reset
-      console.log('Form submitted!', this.form.value);
+    if (this.formData.valid && !this.submitting) {
+      this.submitting = true;
+      this.loading = true; // Set loading to true when submitting
+
+      const email = this.formData.value.Email;
+      const clientUri = 'http://localhost:4200/Forgot'; // Replace with your client URI for reset password
+
+      this.service.sendResetEmail({ email, ClientUri: clientUri }).subscribe(
+        (response: any) => {
+          console.log('Reset email sent successfully!', response);
+
+          this.successMessage = response.message;
+          this.errorMessage = ''; // Clear any previous error message
+        },
+        error => {
+          console.error('Error sending reset email:', error);
+          this.errorMessage = 'Failed to send reset email. Please try again.'; // Set error message
+          this.successMessage = ''; // Clear any previous success message
+        }
+      ).add(() => {
+        this.loading = false; // Set loading to false after API call completes
+        this.submitting = false; // Reset submitting state
+      });
     } else {
-      // Form is invalid
       console.log('Form is invalid');
     }
   }
