@@ -14,6 +14,7 @@ export class ForgotPasswordComponent implements OnInit {
   formData: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
+  showAlert: boolean = false;
   submitting: boolean = false;
   loading: boolean = false; // Add loading indicator
 
@@ -33,12 +34,12 @@ export class ForgotPasswordComponent implements OnInit {
       this.loading = true; // Set loading to true when submitting
 
       const email = this.formData.value.Email;
-      const clientUri = 'http://localhost:4200/Forgot'; // Replace with your client URI for reset password
+      const clientUri = 'http://localhost:4200/ForgotPage'; // Replace with your client URI for reset password
 
       this.service.sendResetEmail({ email, ClientUri: clientUri }).subscribe(
         (response: any) => {
           console.log('Reset email sent successfully!', response);
-
+          this.showAlert = true; 
           this.successMessage = response.message;
           this.errorMessage = ''; // Clear any previous error message
         },

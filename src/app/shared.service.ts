@@ -73,6 +73,7 @@ export class SharedService {
   readonly baseUrl = 'http://192.168.91.239:5260/api/Auth/AllUsers';
   readonly resetUrl = 'http://192.168.91.239:5260/api/Auth/ChangePassword';
   readonly forgotUrl = 'http://192.168.91.239:5260/api/Auth/ForgotPassword';
+  private  changeUrl = ' http://192.168.91.239:5260/api/Auth/ResetPassword';
 
 
 
@@ -548,6 +549,13 @@ export class SharedService {
     return this.http.post(this.forgotUrl, payload);
   }
 
+  // forgotPassword(payload: { email: string, token: string, Password: string,ConfirmPassword:string }) {
+  //   return this.http.post(this.changeUrl, payload);
+  // }
+  
+  forgotPassword(payload: any) {
+    return this.http.post(this.changeUrl, payload);
+  }
 
   resetPassword(payload: { email: string, oldPassword: string, newPassword: string }) {
     return this.http.post(this.resetUrl, payload);

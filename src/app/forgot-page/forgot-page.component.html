@@ -1,0 +1,65 @@
+
+<div class="container-fluid page-body-wrapper full-page-wrapper">
+    <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+            <div class="col-lg-4 mx-auto">
+                <div class="auth-form-light text-left px-4 px-sm-5 p-4 border rounded">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <div class="brand-logo">
+                                    <img src="../assets/images/equity-bank.png" alt="logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="my-4 bg-primary p-3 rounded">
+                        <p class="card-text text-white">
+                           GSAM
+                        </p>
+                    </div>
+
+                <form [formGroup]="resetForm" (ngSubmit)="resetPassword()">
+                    <div class="form-group">
+                        <label for="Password">New Password:</label>
+                        <input type="password" id="Password" formControlName="Password" class="form-control">
+                        <div *ngIf="resetForm.get('Password')?.errors && (resetForm.get('Password')?.dirty || resetForm.get('Password')?.touched)"
+                            class="text-danger mt-1">
+                            <div *ngIf="resetForm.get('Password')?.errors?.['required']">New Password is required</div>
+                            <div *ngIf="resetForm.get('Password')?.errors?.['minlength']">New Password must be at least 6
+                                characters</div>
+                            <div *ngIf="resetForm.get('Password')?.errors?.['pattern']">New Password must contain at
+                                least one number</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control">
+                        <div *ngIf="resetForm.get('confirmPassword')?.errors && (resetForm.get('confirmPassword')?.dirty || resetForm.get('confirmPassword')?.touched)"
+                            class="text-danger mt-1">
+                            <div *ngIf="resetForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required
+                            </div>
+                            <div *ngIf="resetForm.get('confirmPassword')?.errors?.['passwordsMatch']">Passwords must match
+                            </div>
+                            <div
+                                *ngIf="resetForm.hasError('passwordsMatch') && (resetForm.get('confirmPassword')?.dirty || resetForm.get('confirmPassword')?.touched)">
+                                Passwords do not match.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" [disabled]="resetForm.invalid || loading"
+                            class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                            <span *ngIf="!loading">Reset Password</span>
+                            <span *ngIf="loading">Resetting...</span>
+                        </button>
+                    </div>
+                </form>
+                    <div *ngIf="errorMessage" class="text-danger mt-3">{{ errorMessage }}</div>
+                    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
