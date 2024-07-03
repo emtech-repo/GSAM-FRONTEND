@@ -178,17 +178,12 @@ export const routes: Routes = [
        path: 'app-admin-page',     
       component: AdminPageComponent,
     }, 
-    
-
-
-
-
 
     {
       path: 'case-management',
       loadChildren: () => import('../app/case-management/case-management.module').then(m => m.CaseManagementModule),
       canActivate: [AuthenticationGuard],
-   },
+    },
 
   {
     path: 'approval',

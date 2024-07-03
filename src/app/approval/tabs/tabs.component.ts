@@ -76,14 +76,7 @@ export class TabsComponent implements OnInit {
   ApprovalRequestsUrl: string = '';
   RejectRequestsUrl: string = ''
   message: any;
-<<<<<<< HEAD
-   actionType: string |null=null;
-  recentFiles: any[] = [];
-
-  
-=======
   actionType: string | null = null;
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
 
 
 
@@ -153,31 +146,6 @@ export class TabsComponent implements OnInit {
       );
   }
 
-<<<<<<< HEAD
-
- 
-  updateDocumentStatus(id: string, status: string) {
-    const updatedIndex = this.documents.findIndex(doc => doc.id === id);
-    if (updatedIndex !== -1) {
-      this.documents = [
-        ...this.documents.slice(0, updatedIndex),
-        { ...this.documents[updatedIndex], rejectedFlag: status },
-        ...this.documents.slice(updatedIndex + 1)
-      ];
-    }
-  }
-
- 
-  fetchDocuments() {
-    this.sharedService.getPendingDocuments().subscribe(
-      (response) => {
-        // Assuming recentFiles should hold the same data
-        this.documents = response.documents;
-
-        // Filter the documents based on the verifiedFlag and rejectedFlag
-        this.documents = response.result.filter((document: any) => document.verifiedFlag === 'N' && document.rejectedFlag !== 'Y');
-        
-=======
   updateDocumentStatus(id: string, status: string) {
     const document = this.documents.find(doc => doc.id === id);
     if (document) {
@@ -191,7 +159,6 @@ export class TabsComponent implements OnInit {
       (response) => {
         console.log('Documents fetched successfully:', response);
         this.documents = response.result.filter((document: any) => document.verifiedFlag === 'N' || document.rejectedFlag === 'N');
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
       },
       (error) => {
         console.error('Error fetching documents:', error);
@@ -214,49 +181,27 @@ export class TabsComponent implements OnInit {
     this.sharedService.rejectDocument(documentUrl, comments, id).subscribe(
       (response) => {
         this.successMessage = response.message;
-<<<<<<< HEAD
-
-        // Update local document's rejectedFlag
-        const updatedIndex = this.documents.findIndex(doc => doc.id === id);
-        if (updatedIndex !== -1) {
-          this.documents = [
-            ...this.documents.slice(0, updatedIndex),
-            { ...this.documents[updatedIndex], rejectedFlag: 'Y' },
-            ...this.documents.slice(updatedIndex + 1)
-          ];
-        }
-
-=======
         // Setting verifiedFlag to 'N'
         this.document.rejectedFlag = 'Y'; // Setting rejectFlag to 'Y'
         this.updateDocumentStatus(document.id, 'Y'); // Updating document status
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
         console.log('Document rejected successfully:', response);
       },
       (error) => {
         console.error('Error rejecting document:', error);
       }
     );
-<<<<<<< HEAD
-  }
-
-=======
 
 
   }
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
   viewDocument(document: any) {
     // Implement logic to view the submission details
   }
 
-<<<<<<< HEAD
-=======
 
 
 
 
 
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
   selectTab(index: number) {
     this.selectedIndex = index;
   }
@@ -397,20 +342,6 @@ export class TabsComponent implements OnInit {
     );
   }
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
-
-
-
-
-  // CLAIMS
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
   approveClaim() {
     console.log('Claim approved');
     console.log('Comments:', this.comments); // Access comments entered by admin

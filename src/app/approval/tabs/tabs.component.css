@@ -91,36 +91,19 @@ table td {
 
 /* Button success styles */
 .btn-success {
-<<<<<<< HEAD
-    background-color: #28a745 !important;
-    color: white !important;
-=======
 
     background-color: #28a745;
     color: white;
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
 }
 
 /* Button danger styles */
 .btn-danger {
-<<<<<<< HEAD
-    background-color: #dc3545 !important;
-    color: white !important;
-=======
     background-color: #dc3545;
     color: white;
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
 }
 
 /* Button primary styles */
 .btn-primary {
-<<<<<<< HEAD
-    background-color: #007bff !important;
-    color: white !important;
-}
-
-/* Proceed button styles */
-=======
     background-color: #007bff;
     color: white;
 }
@@ -142,15 +125,12 @@ table td {
     /* Prevents the text from wrapping */
 }
 
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
 .proceed {
     background-color: #973B38;
     color: #fff;
     border: none;
     padding: 3px 6px;
     border-radius: 10px;
-<<<<<<< HEAD
-=======
 
 }
 
@@ -158,5 +138,4 @@ table td {
     background-color: #00124c;
 
 
->>>>>>> e365d758788578949f0c59c7fd83282de973165b
 }
