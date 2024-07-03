@@ -1,39 +1,36 @@
-<p>cases-status works!</p>
-<!-- <app-layout></app-layout> -->
+
 
 <div class="row">
     <div class="row">
-        <div class="col-md-12 grid-margin transparent">
-            <div class="row">
-                <div class="col-md-3 mb-3 stretch-card transparent" (click)="showTotalCases()">
-                    <div class="card card-tale">
-                        <div class="card-body">
-                            <p class="mb-4">Total Cases</p>
-                            <p class="fs-30 mb-2">{{ totalCases }}</p>
-                            <!-- <p>10.00% (30 days)</p> -->
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card card-tale" (click)="showTotalCases()">
+                    <div class="card-body">
+                        <p class="mb-4">Total Cases</p>
+                        <p class="fs-30 mb-2">{{ totalCases }}</p>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;" (click)="showActiveCases()">
-                    <div class="card card-dark-blue">
-                        <div class="card-body">
-                            <p class="mb-4">Active Cases</p>
-                            <p class="fs-30 mb-2">{{ activeCases }}</p>
-                            <!-- <p>22.00% (30 days)</p> -->
-                        </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card card-dark-blue"  (click)="showActiveCases()">
+                    <div class="card-body">
+                        <p class="mb-4">Active Cases</p>
+                        <p class="fs-30 mb-2">{{ activeCases }}</p>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;" (click)="showClosedCases()">
-                    <div class="card card-light-blue">
-                        <div class="card-body">
-                            <p class="mb-4">Closed Cases</p>
-                            <p class="fs-30 mb-2">{{ closedCases }}</p>
-                        </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card card-light-blue"  (click)="showClosedCases()">
+                    <div class="card-body">
+                        <p class="mb-4">Closed Cases</p>
+                        <p class="fs-30 mb-2">{{ closedCases }}</p>
                     </div>
                 </div>
-
             </div>
         </div>
+    </div>
+
     </div>
     <div class="row" *ngIf="showTotalCasesFlag">
         <div class="col-md-12 grid-margin stretch-card">

@@ -1,0 +1,80 @@
+
+
+/* CSS for Even Rows */
+#example tr:nth-child(even) {
+    background-color: #c0c0c0;
+    /* Grey background for even rows */
+}
+
+/* CSS for Odd Rows */
+#example tr:nth-child(odd) {
+    background-color: #ffffff;
+    /* White background for odd rows */
+}
+
+.export-buttons-container {
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.assign {
+    background-color: #973B38;
+    color: #fff;
+    border: none;
+    padding: 3px 6px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    height: 40px;
+    font-size: 0.875em;
+}
+
+.assign:hover {
+    background-color: #10004cfd;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#example th,
+#example td {
+    padding: 6px;
+}
+
+#example tr:nth-child(even) {
+    background-color: #c0c0c0;
+}
+
+#example tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 50px;
+}
+
+.small-btn {
+    font-size: 15px;
+    padding: 5px 10px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.pagination-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 10px;
+}

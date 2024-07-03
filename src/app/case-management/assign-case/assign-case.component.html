@@ -1,48 +1,30 @@
-<div class="col-md-12 grid-margin transparent">
-    <div class="row">
-        <div class="col-md-3 mb-3 stretch-card transparent" (click)="showAllCases()">
-            <div class="card card-tale">
-                <div class="card-body">
-                    <p class="mb-4">Total Cases</p>
 
-                    <p class="fs-30 mb-2">{{ totalCases }}</p>
-
-
-
-                </div>
+<div class="row">
+    <div class="col-md-4 mb-3 stretch-card transparent" (click)="showAllCases()">
+        <div class="card card-tale">
+            <div class="card-body">
+                <p class="mb-4">Total Cases</p>
+                <p class="fs-30 mb-2">{{ totalCases }}</p>
             </div>
         </div>
-        <div class="col-md-3 mb-3 stretch-card transparent" (click)="showAssignedCases()">
-            <div class="card card-tale">
-                <div class="card-body">
-                    <p class="mb-4">Assigned Cases</p>
-                    <p class="fs-30 mb-2">{{ assignedCases }}</p>
-
-
-
-
-                </div>
+    </div>
+    <div class="col-md-4 mb-3 stretch-card transparent" (click)="showAssignedCases()">
+        <div class="card card-tale">
+            <div class="card-body">
+                <p class="mb-4">Assigned Cases</p>
+                <p class="fs-30 mb-2">{{ assignedCases }}</p>
             </div>
         </div>
-
-
-        <div class="col-md-3 mb-3  stretch-card transparent" (click)="showUnassignedCases()">
-
-            <div class="card card-light-blue">
-
-                <div class="card-body">
-                    <p class="mb-4">unassigned Cases</p>
-                    <p class="fs-30 mb-2">{{ unassignedCases }}</p>
-
-
-                </div>
+    </div>
+    <div class="col-md-4 mb-3 stretch-card transparent" (click)="showUnassignedCases()">
+        <div class="card card-light-blue">
+            <div class="card-body">
+                <p class="mb-4">Unassigned Cases</p>
+                <p class="fs-30 mb-2">{{ unassignedCases }}</p>
             </div>
         </div>
-
     </div>
 </div>
-
-
 <div class="row" *ngIf="showAllCasesFlag">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">

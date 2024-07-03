@@ -13,6 +13,9 @@ import { RestructureFormComponent } from '../restructure-form/restructure-form.c
   styleUrls: ['./decision-tab.component.css']
 })
 export class DecisionTabComponent {
+handleAction(arg0: any,_t13: number) {
+throw new Error('Method not implemented.');
+}
 
   currentPage: number = 1;
   pageSize: number = 5;
