@@ -41,6 +41,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TotalCasesComponent } from './case-management/total-cases/total-cases.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPageComponent } from './forgot-page/forgot-page.component';
 
 
 
@@ -61,6 +62,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ForgotPasswordComponent,
     TotalCasesComponent,
     ResetPasswordComponent,
+    ForgotPageComponent,
   
     
 

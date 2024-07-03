@@ -66,7 +66,7 @@ export class ResetPasswordComponent {
           // Assuming the response is a string message
           this.successMessage = response.message;
           setTimeout(() => {
-            this.router.navigate(['/login'], { queryParams: { reset: 'success' } });
+            this.router.navigate(['/'], { queryParams: { reset: 'success' } });
           }, 3000); // Wait for 3 seconds before navigating away
         },
         (error) => {
