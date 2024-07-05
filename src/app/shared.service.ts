@@ -26,15 +26,9 @@ export class SharedService {
   readonly SubmissionsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/GetAllRequests';
   readonly ApprovalRequestsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/ApproveRequest';
   readonly RejectRequestsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/RejectRequest';
-
-
   readonly UpdateRequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/UpdateRequest';
   readonly DeleteRequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/DeleteServiceBooking';
-
-
-
-
-  readonly UnAssignedUrl = 'http://192.168.91.128:5260/api/Case/GetUnAssignedCases';
+ readonly  UnAssignedUrl = 'http://192.168.91.128:5260/api/Case/GetUnAssignedCases';
   readonly Cases = 'http://192.168.91.128:5260/api/Case/GetUnAssignedCases?loanAccount=';
   readonly Decision = 'http://192.168.91.128:5260/api/Case/GetAssignedCases?loanAccount=';
   readonly AssignedUrl = 'http://192.168.91.128:5260/api/Case/GetAssignedCases';
@@ -96,12 +90,12 @@ export class SharedService {
 
   readonly CasesUrl = 'http://192.168.91.128:5260/api/Case/GetAllCases'
 
-  readonly LoanURL = 'http://192.168.88.94:9006/accounts/la/all'
-  readonly DetailsURL = 'http://192.168.88.94:9006/accounts?acid='
+  readonly LoanURL = 'http://192.168.91.128:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.91.128:9006/accounts?acid='
 
 
   readonly CreateCaseUrl = 'http://192.168.91.128:5260/api/Case/CreateCase';
-  readonly LoanAccountCaseUrl = 'http://192.168.88.94:9006/accounts';
+  readonly LoanAccountCaseUrl = 'http://192.168.91.128:9006/accounts';
 
   readonly MeetingsUrl = 'http://192.168.133.94:5018/api/Meetings';
 
