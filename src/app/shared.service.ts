@@ -16,34 +16,41 @@ export class SharedService {
   loanAmountChanged: any;
 
 
-  readonly RequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/BookService';
-  readonly ServiceUrl = 'http://192.168.91.128:5260/api/ServiceRequest/GetAllServiceProviders';
-  readonly LoanUrl = 'http://192.168.91.128:9006/accounts/la/all';
-  readonly ActivityUrl = 'http://192.168.91.128:5260/api/Case/GetAllCases';
-  readonly SubmissionsUrl ='http://192.168.91.128:5260/api/ServiceRequest/GetAllRequests';
-  readonly ApprovalRequestsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/ApproveRequest';
-  readonly RejectRequestsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/RejectRequest';
-  readonly UpdateRequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/UpdateRequest';
-  readonly DeleteRequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/DeleteServiceBooking';
+
+  readonly RequestUrl = 'http://192.168.91.239:5260/api/ServiceRequest/BookService';
+  readonly ServiceUrl = 'http://192.168.91.239:5260/api/ServiceRequest/GetAllServiceProviders';
+
+  readonly LoanUrl = 'http://192.168.91.239:9006/accounts/la/all';
+
+  readonly ActivityUrl = 'http://192.168.91.239:5260/api/Case/GetAllCases';
+  readonly SubmissionsUrl = 'http://192.168.91.239:5260/api/ServiceRequest/GetAllRequests';
+  readonly ApprovalRequestsUrl = 'http://192.168.91.239:5260/api/ServiceRequest/ApproveRequest';
+  readonly RejectRequestsUrl = 'http://192.168.91.239:5260/api/ServiceRequest/RejectRequest';
+
+  readonly UpdateRequestUrl = 'http://192.168.91.239:5260/api/ServiceRequest/UpdateRequest';
+  readonly DeleteRequestUrl = 'http://192.168.91.239:5260/api/ServiceRequest/DeleteServiceBooking';
 
 
 
-  readonly UnAssignedUrl = 'http://192.168.91.128:5260/api/Case/GetUnAssignedCases';
-  readonly Cases = 'http://192.168.91.128:5260/api/Case/GetUnAssignedCases?loanAccount=';
-   readonly Decision = 'http://192.168.91.128:5260/api/Case/GetAssignedCases?loanAccount=';
-  readonly AssignedUrl = 'http://192.168.91.128:5260/api/Case/GetAssignedCases';
-   readonly AssignCaseUrl = 'http://192.168.91.128:5260/api/Case/AssignCase';
-  readonly ActiveUrl ='http://192.168.91.128:5260/api/Case/ActiveCases';
-  readonly ClosedUrl = 'http://192.168.91.128:5260/api/Case/ClosedCases';
+
+  readonly UnAssignedUrl = 'http://192.168.91.239:5260/api/Case/GetUnAssignedCases';
+  readonly Cases = 'http://192.168.91.239:5260/api/Case/GetUnAssignedCases?loanAccount=';
+  readonly Decision = 'http://192.168.91.239:5260/api/Case/GetAssignedCases?loanAccount=';
+  readonly AssignedUrl = 'http://192.168.91.239:5260/api/Case/GetAssignedCases';
+  readonly AssignCaseUrl = 'http://192.168.91.239:5260/api/Case/AssignCase';
+  readonly ActiveUrl = 'http://192.168.91.239:5260/api/Case/ActiveCases';
+  readonly ClosedUrl = 'http://192.168.91.239:5260/api/Case/ClosedCases';
   readonly recoveryUrl = 'http://192.168.88.33:5260/api/Recover/CaseRecover';
-   readonly restructureUrl = 'http://192.168.91.128:5260/api/Restructure/CaseRestructure';
-   readonly refinanceUrl = 'http://192.168.91.128:5260/api/Refinance/Refinance';
-   readonly approvecaseUrl = 'http://192.168.91.128:5260/api/Case/ApproveCase';
-   readonly approveRestructuredUrl = 'http://192.168.91.128:5260/api/Restructure/ApproveRestructureCase';
-   readonly approveRefinancedUrl = 'http://192.168.91.128:5260/api/Refinance/ApproveRefinancedCase';
-    readonly approveRecoveredUrl = 'http://192.168.88.33:5260/api/Recover/ApproveRecoverCase';
-  readonly deletecaseUrl = 'http://192.168.91.128:5260/api/Case/DeleteCase';
-  readonly patchcaseUrl = 'http://192.168.91.128:5260/api/Case/UpdateCase';
+  readonly restructureUrl = 'http://192.168.91.239:5260/api/Restructure/CaseRestructure';
+  readonly refinanceUrl = 'http://192.168.91.239:5260/api/Refinance/Refinance';
+  readonly approvecaseUrl = 'http://192.168.91.239:5260/api/Case/ApproveCase';
+  readonly approveRestructuredUrl = 'http://192.168.91.239:5260/api/Restructure/ApproveRestructureCase';
+
+  readonly approveRefinancedUrl = 'http://192.168.91.239:5260/api/Refinance/ApproveRefinancedCase';
+  readonly approveRecoveredUrl = 'http://192.168.88.33:5260/api/Recover/ApproveRecoverCase';
+  readonly deletecaseUrl = 'http://192.168.91.239:5260/api/Case/DeleteCase';
+  readonly patchcaseUrl = 'http://192.168.91.239:5260/api/Case/UpdateCase';
+
 
   readonly unapprovedcaseUrl = 'http://192.168.91.128:5260/api/Case/GetUnApprovedCases';
   readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
@@ -55,14 +62,29 @@ export class SharedService {
   private AllDocumentUrl = "http://192.168.88.33:5260/api/DocumentMgnt/GetAllDocuments";
   private documentApprovalUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/ApproveUploadedDocument';
   private pendingdocumentsUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/GetUnApprovedDocuments';
-  private rejectdocumentUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/RejectUploadedDocument';  
+  private rejectdocumentUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/RejectUploadedDocument';
+
+
+  // readonly unapprovedcaseUrl = 'http://192.168.91.239:5260/api/Case/GetUnApprovedCases';
+  // readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
+  // readonly refinancedCasesUrl = 'http://192.168.91.239:5260/api/Refinance/GetRefinancedCases';
+  // readonly restructuredCasesUrl = 'http://192.168.91.239:5260/api/Restructure/GetAllRestructuredCases';
+
+
+  private readonly userDataUrl = 'http://192.168.91.239:5260/api/Auth/Login';
+  private registerUrl = 'http://192.168.91.239:5260/api/Auth/Register';
+  readonly baseUrl = 'http://192.168.91.239:5260/api/Auth/AllUsers';
+  readonly resetUrl = 'http://192.168.91.239:5260/api/Auth/ChangePassword';
+  readonly forgotUrl = 'http://192.168.91.239:5260/api/Auth/ForgotPassword';
+  private  changeUrl = ' http://192.168.91.239:5260/api/Auth/ResetPassword';
 
 
 
+  // private readonly userDataUrl = 'http://192.168.91.239:5260/api/Auth/Login';
+  // private registerUrl = 'http://192.168.91.239:5260/api/Auth/Register';
+  // readonly baseUrl = 'http://192.168.91.239:5260/api/Auth/AllUsers';
 
-  private readonly userDataUrl = 'http://192.168.91.128:5260/api/Auth/Login';
-  private registerUrl = 'http://192.168.91.128:5260/api/Auth/Register';
-  readonly baseUrl = 'http://192.168.91.128:5260/api/Auth/AllUsers';
+
 
 
   readonly APIUrl = 'https://192.168.91.128:5260';
@@ -72,28 +94,25 @@ export class SharedService {
   readonly ActivateURL = 'http://192.168.91.128:5260/api/Auth/ActivateUser'
   readonly DeactivateURL = 'http://192.168.91.128:5260/api/Auth/DeactivateUser'
 
-  readonly CasesUrl = 'http://192.168.91.128:5260/api/Case/GetAllCases'
-  readonly LoanURL = 'http://192.168.91.128:9006/accounts/la/all'
-  readonly DetailsURL = 'http://192.168.91.128:9006/accounts?acid='
+
+  readonly CasesUrl = 'http://192.168.91.239:5260/api/Case/GetAllCases'
 
 
-  readonly CreateCaseUrl='http://192.168.91.128:5260/api/Case/CreateCase';
-  readonly LoanAccountCaseUrl ='http://192.168.91.128:9006/accounts';
-
-  // readonly CustomersUrl ='http://192.168.91.1282:5084/api/Refinance';
+  readonly LoanURL = 'http://192.168.88.94:9006/accounts/la/all'
+  readonly DetailsURL = 'http://192.168.88.94:9006/accounts?acid='
 
 
 
- readonly MeetingsUrl = 'http://192.168.133.94:5018/api/Meetings';
+  readonly CreateCaseUrl = 'http://192.168.91.239:5260/api/Case/CreateCase';
+  readonly LoanAccountCaseUrl = 'http://192.168.88.94:9006/accounts';
 
 
-  
-  
-  // readonly MeetingsUrl = 'http://192.168.91.128:5260/api/Meetings';
-  private storageKey = 'uploads';
-  private dataUrl = '/assets/data/data.json';
-  // private documentsUrl = 'http://localhost:3000/uploads';
-  // private documentsUrl = '/assets/data/data.json';
+  readonly MeetingsUrl = 'http://192.168.133.94:5018/api/Meetings';
+
+  // private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
+  // private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
+
+
 
 
 
@@ -110,7 +129,7 @@ export class SharedService {
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {
     // this.currentUser = localStorage.getItem('currentUser');
 
-    
+
     const localStorage = document.defaultView?.localStorage;
 
     if (localStorage) {
@@ -137,10 +156,10 @@ export class SharedService {
 
 
 
- 
+
   getCases(): Observable<any> {
-     return this.http.get<any>(this.CasesUrl);
-    
+    return this.http.get<any>(this.CasesUrl);
+
   }
   getAllDocuments(): Observable<any> {
     return this.http.get<any>(this.AllDocumentUrl);
@@ -150,19 +169,19 @@ export class SharedService {
     return this.http.get<any>(this.pendingdocumentsUrl);
 
   }
-  rejectDocument(documentUrl: string,  comments: string, id: number): Observable<any> {
-    const requestBody = { 
+  rejectDocument(documentUrl: string, comments: string, id: number): Observable<any> {
+    const requestBody = {
       documentUrl: documentUrl,
       comments: comments,
-      id: id 
-      
+      id: id
+
     };
     return this.http.post<any>(this.rejectdocumentUrl, requestBody);
   }
 
 
-  
- 
+
+
 
   createCase(loanDetails: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -177,76 +196,84 @@ export class SharedService {
 
 
 
-  
-submitRecovery(inputdata: any) {
+
+  submitRecovery(inputdata: any) {
     return this.http.post(this.recoveryUrl, inputdata)
   }
 
   submitRestructure(inputdata: any) {
     return this.http.post(this.restructureUrl, inputdata)
   }
-   submitRefinance(inputdata: any) {
+  submitRefinance(inputdata: any) {
     return this.http.post(this.refinanceUrl, inputdata)
   }
 
-   approveRestructuredCases(CaseNumber: any) {
+  approveRestructuredCases(CaseNumber: any) {
     return this.http.post(this.approveRestructuredUrl, CaseNumber)
   }
-   approveRefinancedCases(CaseNumber: any) {
+  approveRefinancedCases(CaseNumber: any) {
     return this.http.post(this.approveRefinancedUrl, CaseNumber)
   }
   approveRecoveredCases(CaseNumber: any) {
     return this.http.post(this.approveRecoveredUrl, CaseNumber)
   }
-  
 
-   approveCase(CaseNumber: any) {
+
+  approveCase(CaseNumber: any) {
     return this.http.post(this.approvecaseUrl, CaseNumber)
   }
 
-deleteCase(caseNumber: string): Observable<any> {
+
+  deleteCase(caseNumber: string): Observable<any> {
+
     const options = {
       body: { CaseNumber: caseNumber },
     };
     return this.http.delete(this.deletecaseUrl, options);
   }
 
+
   updateCase(caseNumber: string, syndicatedFlag: string, loanTenure: string): Observable<any> {
+
     const urlWithParams = `${this.patchcaseUrl}?caseNumber=${caseNumber}`;
     const patchDocument = [
       {
         op: 'replace',
         path: '/SyndicatedFlag',
+
         value: syndicatedFlag
       },
       {
-            op: 'replace',
-            path: '/loanTenure',
-            value: loanTenure
-        }   
+        op: 'replace',
+        path: '/loanTenure',
+        value: loanTenure
+      }
     ];
 
     return this.http.patch(urlWithParams, patchDocument);
-  } 
+  }
 
-UpdateRequest(requestId: string, comments: string, serviceDate: string): Observable<any> {
-  const urlWithParams = `${this.UpdateRequestUrl}?requestId=${requestId}`;
-  const patchDocument = [
-    {
-      op: 'replace',
-      path: '/comments',
-      value: comments
-    },
-    {
-      op: 'replace',
-      path: '/serviceDate',
-      value: serviceDate
-    }
-  ];
+  UpdateRequest(requestId: string, comments: string, serviceDate: string): Observable<any> {
+    const urlWithParams = `${this.UpdateRequestUrl}?requestId=${requestId}`;
+    const patchDocument = [
+      {
+        op: 'replace',
+        path: '/comments',
+        value: comments
+      },
+      {
+        op: 'replace',
+        path: '/serviceDate',
+        value: serviceDate
+      }
+    ];
 
-  return this.http.patch(urlWithParams, patchDocument);
-}
+    return this.http.patch(urlWithParams, patchDocument);
+  }
 
+
+  //   return this.http.patch(`${this.patchcaseUrl}/${caseNumber}`, patchDocument);
+  // }
 
   deleteRequest(requestId: string): Observable<any> {
     const options = {
@@ -322,7 +349,7 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
       );
   }
 
- uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
+  uploadDocument(file: File, loanAccount: string, fileName: string, fileType: string, folder: string, fileExtension: string, accountName: string): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('loanAccount', loanAccount);
@@ -331,15 +358,15 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
     formData.append('folder', folder);
     formData.append('fileExtension', fileExtension);
     formData.append('accountName', accountName);
-    
-   return this.http.post<any>(this.documentsUrl, formData);
+
+    return this.http.post<any>(this.documentsUrl, formData);
   }
   approveDocument(documentUrl: string, comments: string, id: string): Observable<any> {
     const requestBody = {
       documentUrl: documentUrl,
       comments: comments,
-      id :id,
-      
+      id: id,
+
     };
     return this.http.post<any>(this.documentApprovalUrl, requestBody);
   }
@@ -374,13 +401,13 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
   }
 
 
-   getDecisionDetails(loanAccount: string): Observable<any> {
+  getDecisionDetails(loanAccount: string): Observable<any> {
     const decisionDetailsUrl = `${this.Decision}/${loanAccount}`;
     console.log('Fetching recovery details from URL:', decisionDetailsUrl); // Log the URL being fetched
     return this.http.get<any>(decisionDetailsUrl);
   }
-  
- 
+
+
 
 
   // assignCase(caseNumber: string, email: string): Observable<any> {
@@ -404,7 +431,7 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
     // Make the HTTP POST request with the object as the request body
 
     return this.http.post<any>(`${this.AssignCaseUrl}?UserName=${UserName}&caseNumber=${caseNumber}`, dataToSend, { headers: headers })
-      
+
 
   }
 
@@ -427,7 +454,7 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
   }
 
 
- getUnApprovedCases(): Observable<any[]> {
+  getUnApprovedCases(): Observable<any[]> {
     return this.http.get<any[]>(`${this.unapprovedcaseUrl}`)
 
       .pipe(
@@ -460,7 +487,7 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
         map((data: any) => data['unapprovedrefinanced'])
       );
   }
-   getrestructuredCases(): Observable<any[]> {
+  getrestructuredCases(): Observable<any[]> {
     return this.http.get<any[]>(`${this.restructuredCasesUrl}`)
 
       .pipe(
@@ -468,7 +495,7 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
         map((data: any) => data['restructured'])
       );
   }
-   getUnApprovedRestructuredCases(): Observable<any[]> {
+  getUnApprovedRestructuredCases(): Observable<any[]> {
     return this.http.get<any[]>(`${this.UnApprovedRestructuredCasesUrl}`)
 
       .pipe(
@@ -481,16 +508,16 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
 
 
 
-  
+
   Active(): Observable<any[]> {
     return this.http.get<any[]>(this.ActiveUrl);
   }
-  
+
   Closed(): Observable<any[]> {
     return this.http.get<any[]>(this.ClosedUrl);
   }
 
- 
+
 
 
   getAccounts(): Observable<any> {
@@ -516,20 +543,32 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.userDataUrl);
   }
-  
 
-   getLogin(credentials: { email: string, password: string }): Observable<any> {
+
+  getLogin(credentials: { email: string, password: string }): Observable<any> {
     return this.http.post<any>(`${this.userDataUrl}`, credentials);
   }
 
 
   registerUser(inputdata: any) {
-    return this.http.post(this.registerUrl,inputdata)
+    return this.http.post(this.registerUrl, inputdata)
   }
-  // registerUser(user: any): Observable<any> {
-  //   return this.http.post<any>(this.apiUrl, user);
+  sendResetEmail(payload: { email: string, ClientUri: string }) {
+    return this.http.post(this.forgotUrl, payload);
+  }
+
+  // forgotPassword(payload: { email: string, token: string, Password: string,ConfirmPassword:string }) {
+  //   return this.http.post(this.changeUrl, payload);
   // }
   
+  forgotPassword(payload: any) {
+    return this.http.post(this.changeUrl, payload);
+  }
+
+  resetPassword(payload: { email: string, oldPassword: string, newPassword: string }) {
+    return this.http.post(this.resetUrl, payload);
+  }
+
 
   getUserData(): Observable<any> {
     return this.http.get<any>(this.userDataUrl);
@@ -542,16 +581,16 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
 
 
 
-  
 
- 
+
+
 
 
   getEmployeeList(): Observable<any> {
     return this.http.get(this.baseUrl);
   }
 
- 
+
 
   getServiceData(): Observable<any> {
     return this.http.get<any>(`${this.ServiceUrl}/serviceData`);
@@ -560,7 +599,7 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
   submitServiceDatas(data: any): Observable<any> {
     return this.http.post(`${this.ServiceUrl}/serviceData`, data);
   }
-//admin page
+  //admin page
   getroles(): Observable<any> {
     return this.http.get(this.roleURL);
   }
@@ -571,7 +610,7 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
   }
 
   activateUser(email: string): Observable<any> {
-    const data = { Email: email};
+    const data = { Email: email };
     return this.http.post(this.ActivateURL, data);
   }
   deactivateUser(email: string): Observable<any> {
@@ -580,10 +619,10 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
   }
 
 
-  
 
-//end of admin page
-  
+
+  //end of admin page
+
 
 
   isAdmin(): boolean {
@@ -600,7 +639,7 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       const parsedUser = JSON.parse(currentUser);
-      
+
       return parsedUser.role.includes('Manager');
     }
     return false;
@@ -618,7 +657,7 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
   }
 
 
- 
+
 
 
 
@@ -646,9 +685,9 @@ UpdateRequest(requestId: string, comments: string, serviceDate: string): Observa
 
   // }
 
-  
 
- 
+
+
 
   getServiceProviders(): Observable<any> {
     return this.http.get<any>(this.ServiceUrl);

@@ -103,12 +103,14 @@
         </li>
         <li class="nav-item nav-profile dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-            <img src="../assets/images/faces/face28.jpg" alt="profile" />
+            <img src="../assets/images/faces/face30.png" alt="profile" />
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <a class="dropdown-item">
-              <i class="ti-settings text-primary"></i>
-              Settings
+              <i class="ti-settings text-primary"  ></i>
+              <a [routerLink]="['/Reset']" class="text-primary">Reset password</a>
+              
+              
             </a>
             <a class="dropdown-item" (click)="logout()">
               <i class="ti-power-off text-primary"></i>
@@ -150,7 +152,7 @@
 
         <li class="nav-item">
 
-          <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+          <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="icon-layout menu-icon"></i>
             <span class="menu-title">Case Management</span>
             <i class="menu-arrow"></i>
@@ -221,7 +223,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts"
+          <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#charts" aria-expanded="false" aria-controls="charts"
             class="nav-link" [routerLink]="['contracts/app-contract-inter']">
             <i class="icon-paper menu-icon"></i>
             <span class="menu-title">Contracts</span>
@@ -229,11 +231,19 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#editors" aria-expanded="false" aria-controls="editors">
+ 
+        <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#editors" aria-expanded="false" aria-controls="editors">
+          <i class="icon-layout menu-icon"></i>
+          <span class="menu-title">Billings</span>
+          <i class="menu-arrow"></i>
+        </a>
+          <!-- <a class="nav-link" data-bs-toggle="collapse" href="#editors" aria-expanded="false" aria-controls="editors">
+
             <i class="icon-loader menu-icon"></i>
             <span class="menu-title">Billings</span>
             <i class="menu-arrow"></i>
-          </a>
+          </a> -->
+
           <div class="collapse" id="editors">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"><a class="nav-link"

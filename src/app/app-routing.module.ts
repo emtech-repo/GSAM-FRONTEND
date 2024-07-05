@@ -27,6 +27,8 @@ import { SearchCaseComponent } from './case-management/search-case/search-case.c
 
 import { RecoveryFormComponent } from './case-management/recovery-form/recovery-form.component';
 import { DeleteCaseComponent } from './case-management/delete-case/delete-case.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPageComponent } from './forgot-page/forgot-page.component';
 
 
 
@@ -52,7 +54,22 @@ export const routes: Routes = [
     path: 'Register',
     component: RegisterComponent,
   },
+  {
+    path: 'ForgotPage',
+    component: ForgotPageComponent,
+    
+  },
+  {
+    path: 'Forgot',
+    component: ForgotPasswordComponent,
 
+  },
+  {
+    path: 'Reset',
+    component: ResetPasswordComponent,
+    canActivate: [AuthenticationGuard],
+
+  },
   {
     path: 'Dashboard',
     component: HomeComponent,
@@ -112,14 +129,7 @@ export const routes: Routes = [
       component: HomeComponent,
        canActivate: [AuthenticationGuard],
     },
-     {
-      path: 'assign-case',    
-      component: AssignCaseComponent,
-      canActivate: [AuthenticationGuard],
-    },
-
-  
- 
+    
 
   {
     path: 'app-retrieve:acid',
@@ -127,13 +137,6 @@ export const routes: Routes = [
     canActivate: [AuthenticationGuard],
   },
 
- 
-
-     {
-      path: 'app-forgot-password',    
-      component: ForgotPasswordComponent,
-       canActivate: [AuthenticationGuard],
-    },
       {
       path: 'app-create-case',    
       component: CreateCaseComponent,
@@ -177,6 +180,7 @@ export const routes: Routes = [
     {
        path: 'app-admin-page',     
       component: AdminPageComponent,
+      canActivate: [AuthenticationGuard],
     }, 
     
 
