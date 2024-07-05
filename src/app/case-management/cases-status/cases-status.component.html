@@ -1,39 +1,34 @@
-<p>cases-status works!</p>
-<!-- <app-layout></app-layout> -->
-
 <div class="row">
     <div class="row">
-        <div class="col-md-12 grid-margin transparent">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3 mb-3 stretch-card transparent" (click)="showTotalCases()">
-                    <div class="card card-tale">
+                <div class="col-md-4 mb-3">
+                    <div class="card card-tale" (click)="showTotalCases()">
                         <div class="card-body">
                             <p class="mb-4">Total Cases</p>
                             <p class="fs-30 mb-2">{{ totalCases }}</p>
-                            <!-- <p>10.00% (30 days)</p> -->
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3 stretch-card transparent" style="margin-left: 120px;" (click)="showActiveCases()">
-                    <div class="card card-dark-blue">
+                <div class="col-md-4 mb-3">
+                    <div class="card card-dark-blue" (click)="showActiveCases()">
                         <div class="card-body">
                             <p class="mb-4">Active Cases</p>
                             <p class="fs-30 mb-2">{{ activeCases }}</p>
-                            <!-- <p>22.00% (30 days)</p> -->
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3  stretch-card transparent" style="margin-left: 120px;" (click)="showClosedCases()">
-                    <div class="card card-light-blue">
+                <div class="col-md-4 mb-3">
+                    <div class="card card-light-blue" (click)="showClosedCases()">
                         <div class="card-body">
                             <p class="mb-4">Closed Cases</p>
                             <p class="fs-30 mb-2">{{ closedCases }}</p>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
+
     </div>
     <div class="row" *ngIf="showTotalCasesFlag">
         <div class="col-md-12 grid-margin stretch-card">
@@ -105,21 +100,21 @@
                             (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
-                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
-                        (click)="ex()">Exit</button>
-                    
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
+                        data-dismiss="modal" (click)="ex()">Exit</button>
+
                 </div>
             </div>
         </div>
     </div>
-      
+
     <div class="row" *ngIf="showActiveCasesFlag">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <p class="card-title">Active Cases</p>
-    
-    
+
+
                     <!-- Search Form -->
                     <div class="form-group mx-sm-3 mb-6 d-flex">
                         <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
@@ -131,14 +126,15 @@
                             <!-- <option value="id">ID</option> -->
                         </select>
                         <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
-                            placeholder="Enter search value" class="form-control mr-4" style="height: 30px;width: 100%; ">
+                            placeholder="Enter search value" class="form-control mr-4"
+                            style="height: 30px;width: 100%; ">
                         <button (click)="search()" class="btn btn-primary small-btn"
                             style="border-radius: 3px;">Search</button>
                     </div>
-    
-    
-    
-    
+
+
+
+
                     <!-- Export Buttons Container -->
                     <!-- <div class="export-buttons-container">
                             <button class="btn btn-primary mr-4 small-btn" style="margin-left: -60px;"
@@ -147,7 +143,7 @@
                                 (click)="exportToExcel()">Export Excel</button>
     
                         </div> -->
-    
+
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
@@ -160,7 +156,7 @@
                                             <th>Acc Name</th>
                                             <th>Loan Ballance</th>
                                             <th>Status</th>
-    
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -182,9 +178,9 @@
                             (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
-                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
-                        (click)="exit()">Exit</button>
-    
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
+                        data-dismiss="modal" (click)="exit()">Exit</button>
+
                 </div>
             </div>
         </div>
@@ -195,8 +191,8 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-title">Closed Cases</p>
-    
-    
+
+
                     <!-- Search Form -->
                     <div class="form-group mx-sm-3 mb-6 d-flex">
                         <select id="searchParam" [(ngModel)]="searchParams.param" class="form-control mr-2 "
@@ -208,14 +204,15 @@
                             <!-- <option value="id">ID</option> -->
                         </select>
                         <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
-                            placeholder="Enter search value" class="form-control mr-4" style="height: 30px;width: 100%; ">
+                            placeholder="Enter search value" class="form-control mr-4"
+                            style="height: 30px;width: 100%; ">
                         <button (click)="search()" class="btn btn-primary small-btn"
                             style="border-radius: 3px;">Search</button>
                     </div>
-    
-    
-    
-    
+
+
+
+
                     <!-- Export Buttons Container -->
                     <!-- <div class="export-buttons-container">
                             <button class="btn btn-primary mr-4 small-btn" style="margin-left: -60px;"
@@ -224,7 +221,7 @@
                                 (click)="exportToExcel()">Export Excel</button>
     
                         </div> -->
-    
+
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
@@ -237,7 +234,7 @@
                                             <th>Acc Name</th>
                                             <th>Loan Ballance</th>
                                             <th>Status</th>
-    
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -259,9 +256,9 @@
                             (pageChanged)="pageChanged($event)" [maxSize]="10" [rotate]="true" [boundaryLinks]="true">
                         </pagination>
                     </div>
-                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;" data-dismiss="modal"
-                        (click)="exitPage()">Exit</button>
-    
+                    <button type="button" class="btn btn-primary  small-btn" style="border-radius:3px ;"
+                        data-dismiss="modal" (click)="exitPage()">Exit</button>
+
                 </div>
             </div>
         </div>

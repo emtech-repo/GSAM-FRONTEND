@@ -1,61 +1,49 @@
-<div class="container-xl h-100" style="width: 150%; margin-left: -5%; margin-top: -170px;">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-xl-11">
-            <div class="card" style="border-radius: 15px">
+<div class="container-xl h-100">
+    <div class="row d-flex justify-content-top align-items-top h-100">
+        <div class="col-xl-12">
+            <div class="card" style="border-radius: 15px;">
                 <div class="card-body">
                     <div class="row align-items-center pt-4 pb-3">
-                        <div style="margin-top: -40px;">
-                            <h1 style="font-size: 25px; text-align: center; color: white; background-color: grey;">
-                                Case Functions</h1>
+                        <div class="col-12 mb-3">
+                            <h1 class="text-center text-white bg-secondary py-2"
+                                style="font-size: 20px; border-radius: 5px;margin-top: -30px;">
+                                Case Functions
+                            </h1>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row" style="margin-bottom: 10px;">
-                                    <div class="col-md-3">
-                                        <label for="role">Function</label>
+                        <div class="row w-100">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group row">
+                                    <label for="role" class="col-md-3 col-form-label">Function</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" (change)="onFunctionChange($event)">
+                                            <option value="choose option">Choose Option</option>
+                                            <option value="2">INQUIRE</option>
+                                            <option value="5">ADD</option>
+                                            <option value="3">MODIFY</option>
+                                            <option value="3">DELETE</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
                                     </div>
-                                <div class="col-md-9">
-                                    <select class="form-control" (change)="onFunctionChange($event)">
-                                        <option value="choose option">Choose Option</option>
-                                        <option value="2">INQUIRE</option>
-                                        <option value="5">ADD</option>
-                                        <option value="3">MODIFY</option>
-                                        <option value="3">DELETE</option>
-                                        
-                                        <!-- Add more options as needed -->
-                                    </select>
-                                </div>
-
                                 </div>
                             </div>
-                            <div class="col-md-6" *ngIf="selectedFunction !== 'choose option'">
-                                <div class="form-group row" style="margin-bottom: 10px;">
-                                    <div class="col-md-3">
-                                        <label for="loanaccount">loan Account</label>
-                                    </div>
+                            <div class="col-md-6 mb-3" *ngIf="selectedFunction !== 'choose option'">
+                                <div class="form-group row">
+                                    <label for="loanaccount" class="col-md-3 col-form-label">Loan Account</label>
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <!-- <input type="text" class="form-control" id="loanaccount" [(ngModel)]="selectedLoanAccount"> -->
-
-                                            <i class="icon-search menu-icon" *ngIf="selectedFunction !== 'choose option'"
-
+                                            <i class="icon-search menu-icon"
+                                                *ngIf="selectedFunction !== 'choose option'"
                                                 (click)="searchLoanAccount(selectedLoanAccount)"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-9">
-                            <div class="px-5 py-4">
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary small-btn"
-                                        style="margin-right: 1px; " (click)="goToHome()">Exit
-                                        Page</button>
-                                    <!-- <button type="button" class="btn btn-primary small-btn"
-                                        style="margin-right: -250px; border-radius: 3px;" (click)="goToCreateTwo()"
-                                        [disabled]="selectedFunction === 'choose option'">Proceed</button> -->
-                                </div>
-                            </div>
+                        <div class="col-12 text-left">
+                            <button type="button" class="btn btn-primary small-btn mr-2" (click)="goToHome()">Exit
+                                Page</button>
+                            <!-- <button type="button" class="btn btn-primary small-btn" (click)="goToCreateTwo()" [disabled]="selectedFunction === 'choose option'">Proceed</button> -->
                         </div>
                     </div>
                 </div>

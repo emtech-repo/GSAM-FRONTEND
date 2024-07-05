@@ -16,46 +16,46 @@ export class SharedService {
   loanAmountChanged: any;
 
 
-  readonly RequestUrl = 'http://192.168.91.239:5260/api/ServiceRequest/BookService';
-  readonly ServiceUrl = 'http://192.168.91.239:5260/api/ServiceRequest/GetAllServiceProviders';
+  readonly RequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/BookService';
+  readonly ServiceUrl = 'http://192.168.91.128:5260/api/ServiceRequest/GetAllServiceProviders';
 
-  readonly LoanUrl = 'http://192.168.91.239:9006/accounts/la/all';
+  readonly LoanUrl = 'http://192.168.91.128:9006/accounts/la/all';
 
-  readonly ActivityUrl = 'http://192.168.91.239:5260/api/Case/GetAllCases';
-  readonly SubmissionsUrl = 'http://192.168.91.239:5260/api/ServiceRequest/GetAllRequests';
-  readonly ApprovalRequestsUrl = 'http://192.168.91.239:5260/api/ServiceRequest/ApproveRequest';
-  readonly RejectRequestsUrl = 'http://192.168.91.239:5260/api/ServiceRequest/RejectRequest';
+  readonly ActivityUrl = 'http://192.168.91.128:5260/api/Case/GetAllCases';
+  readonly SubmissionsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/GetAllRequests';
+  readonly ApprovalRequestsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/ApproveRequest';
+  readonly RejectRequestsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/RejectRequest';
 
-  readonly UpdateRequestUrl = 'http://192.168.91.239:5260/api/ServiceRequest/UpdateRequest';
-  readonly DeleteRequestUrl = 'http://192.168.91.239:5260/api/ServiceRequest/DeleteServiceBooking';
-
-
+  readonly UpdateRequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/UpdateRequest';
+  readonly DeleteRequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/DeleteServiceBooking';
 
 
-  readonly UnAssignedUrl = 'http://192.168.91.239:5260/api/Case/GetUnAssignedCases';
-  readonly Cases = 'http://192.168.91.239:5260/api/Case/GetUnAssignedCases?loanAccount=';
-  readonly Decision = 'http://192.168.91.239:5260/api/Case/GetAssignedCases?loanAccount=';
-  readonly AssignedUrl = 'http://192.168.91.239:5260/api/Case/GetAssignedCases';
-  readonly AssignCaseUrl = 'http://192.168.91.239:5260/api/Case/AssignCase';
-  readonly ActiveUrl = 'http://192.168.91.239:5260/api/Case/ActiveCases';
-  readonly ClosedUrl = 'http://192.168.91.239:5260/api/Case/ClosedCases';
+
+
+  readonly UnAssignedUrl = 'http://192.168.91.128:5260/api/Case/GetUnAssignedCases';
+  readonly Cases = 'http://192.168.91.128:5260/api/Case/GetUnAssignedCases?loanAccount=';
+  readonly Decision = 'http://192.168.91.128:5260/api/Case/GetAssignedCases?loanAccount=';
+  readonly AssignedUrl = 'http://192.168.91.128:5260/api/Case/GetAssignedCases';
+  readonly AssignCaseUrl = 'http://192.168.91.128:5260/api/Case/AssignCase';
+  readonly ActiveUrl = 'http://192.168.91.128:5260/api/Case/ActiveCases';
+  readonly ClosedUrl = 'http://192.168.91.128:5260/api/Case/ClosedCases';
   readonly recoveryUrl = 'http://192.168.88.33:5260/api/Recover/CaseRecover';
-  readonly restructureUrl = 'http://192.168.91.239:5260/api/Restructure/CaseRestructure';
-  readonly refinanceUrl = 'http://192.168.91.239:5260/api/Refinance/Refinance';
-  readonly approvecaseUrl = 'http://192.168.91.239:5260/api/Case/ApproveCase';
-  readonly approveRestructuredUrl = 'http://192.168.91.239:5260/api/Restructure/ApproveRestructureCase';
+  readonly restructureUrl = 'http://192.168.91.128:5260/api/Restructure/CaseRestructure';
+  readonly refinanceUrl = 'http://192.168.91.128:5260/api/Refinance/Refinance';
+  readonly approvecaseUrl = 'http://192.168.91.128:5260/api/Case/ApproveCase';
+  readonly approveRestructuredUrl = 'http://192.168.91.128:5260/api/Restructure/ApproveRestructureCase';
 
-  readonly approveRefinancedUrl = 'http://192.168.91.239:5260/api/Refinance/ApproveRefinancedCase';
+  readonly approveRefinancedUrl = 'http://192.168.91.128:5260/api/Refinance/ApproveRefinancedCase';
   readonly approveRecoveredUrl = 'http://192.168.88.33:5260/api/Recover/ApproveRecoverCase';
-  readonly deletecaseUrl = 'http://192.168.91.239:5260/api/Case/DeleteCase';
-  readonly patchcaseUrl = 'http://192.168.91.239:5260/api/Case/UpdateCase';
+  readonly deletecaseUrl = 'http://192.168.91.128:5260/api/Case/DeleteCase';
+  readonly patchcaseUrl = 'http://192.168.91.128:5260/api/Case/UpdateCase';
 
-  readonly unapprovedcaseUrl = 'http://192.168.91.239:5260/api/Case/GetUnApprovedCases';
+  readonly unapprovedcaseUrl = 'http://192.168.91.128:5260/api/Case/GetUnApprovedCases';
   readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
-  readonly refinancedCasesUrl = 'http://192.168.91.239:5260/api/Refinance/GetRefinancedCases';
-  readonly restructuredCasesUrl = 'http://192.168.91.239:5260/api/Restructure/GetAllRestructuredCases';
-  readonly UnApprovedRestructuredCasesUrl = 'http://192.168.91.239:5260/api/Restructure/GetUnApprovedRestructuredCases';
-  readonly UnApprovedRefinancedCasesUrl = 'http://192.168.91.239:5260/api/Refinance/GetUnApprovedRefinancedCases';
+  readonly refinancedCasesUrl = 'http://192.168.91.128:5260/api/Refinance/GetRefinancedCases';
+  readonly restructuredCasesUrl = 'http://192.168.91.128:5260/api/Restructure/GetAllRestructuredCases';
+  readonly UnApprovedRestructuredCasesUrl = 'http://192.168.91.128:5260/api/Restructure/GetUnApprovedRestructuredCases';
+  readonly UnApprovedRefinancedCasesUrl = 'http://192.168.91.128:5260/api/Refinance/GetUnApprovedRefinancedCases';
   private documentsUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/DocumentUpload';
   private AllDocumentUrl = "http://192.168.88.33:5260/api/DocumentMgnt/GetAllDocuments";
   private documentApprovalUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/ApproveUploadedDocument';
@@ -63,40 +63,40 @@ export class SharedService {
   private rejectdocumentUrl = 'http://192.168.88.33:5260/api/DocumentMgnt/RejectUploadedDocument';
 
 
-  // readonly unapprovedcaseUrl = 'http://192.168.91.239:5260/api/Case/GetUnApprovedCases';
+  // readonly unapprovedcaseUrl = 'http://192.168.91.128:5260/api/Case/GetUnApprovedCases';
   // readonly recoveredCasesUrl = 'http://192.168.88.33:5260/api/Recover/GetAllRecoverCases';
-  // readonly refinancedCasesUrl = 'http://192.168.91.239:5260/api/Refinance/GetRefinancedCases';
-  // readonly restructuredCasesUrl = 'http://192.168.91.239:5260/api/Restructure/GetAllRestructuredCases';
+  // readonly refinancedCasesUrl = 'http://192.168.91.128:5260/api/Refinance/GetRefinancedCases';
+  // readonly restructuredCasesUrl = 'http://192.168.91.128:5260/api/Restructure/GetAllRestructuredCases';
 
-  private readonly userDataUrl = 'http://192.168.91.239:5260/api/Auth/Login';
-  private registerUrl = 'http://192.168.91.239:5260/api/Auth/Register';
-  readonly baseUrl = 'http://192.168.91.239:5260/api/Auth/AllUsers';
-  readonly resetUrl = 'http://192.168.91.239:5260/api/Auth/ChangePassword';
-  readonly forgotUrl = 'http://192.168.91.239:5260/api/Auth/ForgotPassword';
-  private  changeUrl = ' http://192.168.91.239:5260/api/Auth/ResetPassword';
-
-
-
-  // private readonly userDataUrl = 'http://192.168.91.239:5260/api/Auth/Login';
-  // private registerUrl = 'http://192.168.91.239:5260/api/Auth/Register';
-  // readonly baseUrl = 'http://192.168.91.239:5260/api/Auth/AllUsers';
+  private readonly userDataUrl = 'http://192.168.91.128:5260/api/Auth/Login';
+  private registerUrl = 'http://192.168.91.128:5260/api/Auth/Register';
+  readonly baseUrl = 'http://192.168.91.128:5260/api/Auth/AllUsers';
+  readonly resetUrl = 'http://192.168.91.128:5260/api/Auth/ChangePassword';
+  readonly forgotUrl = 'http://192.168.91.128:5260/api/Auth/ForgotPassword';
+  private  changeUrl = ' http://192.168.91.128:5260/api/Auth/ResetPassword';
 
 
 
-  readonly APIUrl = 'https://192.168.91.239:5260';
+  // private readonly userDataUrl = 'http://192.168.91.128:5260/api/Auth/Login';
+  // private registerUrl = 'http://192.168.91.128:5260/api/Auth/Register';
+  // readonly baseUrl = 'http://192.168.91.128:5260/api/Auth/AllUsers';
+
+
+
+  readonly APIUrl = 'https://192.168.91.128:5260';
   readonly baseURL = 'assets/data/db.json'
-  readonly roleURL = 'http://192.168.91.239:5260/api/Role/GetRoles'
-  readonly AssignroleURL = 'http://192.168.91.239:5260/api/Role/AddUserRoles'
-  readonly ActivateURL = 'http://192.168.91.239:5260/api/Auth/ActivateUser'
-  readonly DeactivateURL = 'http://192.168.91.239:5260/api/Auth/DeactivateUser'
+  readonly roleURL = 'http://192.168.91.128:5260/api/Role/GetRoles'
+  readonly AssignroleURL = 'http://192.168.91.128:5260/api/Role/AddUserRoles'
+  readonly ActivateURL = 'http://192.168.91.128:5260/api/Auth/ActivateUser'
+  readonly DeactivateURL = 'http://192.168.91.128:5260/api/Auth/DeactivateUser'
 
-  readonly CasesUrl = 'http://192.168.91.239:5260/api/Case/GetAllCases'
+  readonly CasesUrl = 'http://192.168.91.128:5260/api/Case/GetAllCases'
 
   readonly LoanURL = 'http://192.168.88.94:9006/accounts/la/all'
   readonly DetailsURL = 'http://192.168.88.94:9006/accounts?acid='
 
 
-  readonly CreateCaseUrl = 'http://192.168.91.239:5260/api/Case/CreateCase';
+  readonly CreateCaseUrl = 'http://192.168.91.128:5260/api/Case/CreateCase';
   readonly LoanAccountCaseUrl = 'http://192.168.88.94:9006/accounts';
 
   readonly MeetingsUrl = 'http://192.168.133.94:5018/api/Meetings';
