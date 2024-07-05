@@ -47,7 +47,7 @@ export class DeleteCaseComponent implements OnInit {
     private sharedService: SharedService,
     private http: HttpClient,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.apiUrl = this.sharedService.ActivityUrl;
@@ -75,7 +75,7 @@ export class DeleteCaseComponent implements OnInit {
     if (this.searchParams.value.trim() === '') {
       this.pagedCasesdata = [...this.data];
     } else {
-      this.pagedCasesdata = this.data.filter(item => 
+      this.pagedCasesdata = this.data.filter(item =>
         item[this.searchParams.param]?.toString().toLowerCase().includes(this.searchParams.value.toLowerCase())
       );
     }

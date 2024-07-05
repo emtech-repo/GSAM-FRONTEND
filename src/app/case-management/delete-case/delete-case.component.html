@@ -14,8 +14,9 @@
                         <option value="caseNumber">Case Number</option>
                         <option value="cifId">CIF ID</option>
                     </select>
-                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value" placeholder="Enter search value"
-                        class="form-control mr-4" style="width: 500%; height: 31px; margin-right: 15px;" required>
+                    <input type="text" id="searchValue" [(ngModel)]="searchParams.value"
+                        placeholder="Enter search value" class="form-control mr-4"
+                        style="width: 500%; height: 31px; margin-right: 15px;" required>
                     <button (click)="onSearch()" class="btn btn-primary btn-sm"
                         style="border-radius: 5px; margin-left: -10px;">Search</button>
                 </div>
@@ -172,5 +173,6 @@
                 <button type="button" class="btn btn-primary small-btn" (click)="deleteCase()">Delete</button>
             </div>
         </div>
+           
     </div>
 </div>

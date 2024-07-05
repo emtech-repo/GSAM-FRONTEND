@@ -1,42 +1,25 @@
-.assign {
-    background-color: #800000;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: 70%;
-    height: 40px;
+.table-responsive {
+    margin-bottom: 50px;
+    /* Add margin to the bottom of the table */
 }
 
-.assign:hover {
-    background-color: #00124c;
-}
-
-.card-title-container {
-    display: flex;
-    align-items: center;
-
-    /* Align items vertically in the center */
-}
-
-.card-title {
-    margin-right: 10px;
-    /* Adjust margin as needed */
-}
-
-.form-control {
-    width: 100%;
-    height: 30px;
-    padding: 5px 10px;
+.pagination-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 10px;
 }
 
 .small-btn {
     font-size: 15px;
     /* Adjust the font size as needed */
     padding: 5px 10px;
-
     height: 30px;
+    border-radius: 5px;
 
+}
+
+.export-buttons-container button {
+    margin-right: 10px;
+    /* Adjust the value to increase or decrease space */
 }
