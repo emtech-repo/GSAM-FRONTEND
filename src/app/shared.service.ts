@@ -19,12 +19,14 @@ export class SharedService {
   readonly RequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/BookService';
   readonly ServiceUrl = 'http://192.168.91.128:5260/api/ServiceRequest/GetAllServiceProviders';
 
+
   readonly LoanUrl = 'http://192.168.91.128:9006/accounts/la/all';
 
   readonly ActivityUrl = 'http://192.168.91.128:5260/api/Case/GetAllCases';
   readonly SubmissionsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/GetAllRequests';
   readonly ApprovalRequestsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/ApproveRequest';
   readonly RejectRequestsUrl = 'http://192.168.91.128:5260/api/ServiceRequest/RejectRequest';
+
 
   readonly UpdateRequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/UpdateRequest';
   readonly DeleteRequestUrl = 'http://192.168.91.128:5260/api/ServiceRequest/DeleteServiceBooking';
@@ -47,6 +49,7 @@ export class SharedService {
 
   readonly approveRefinancedUrl = 'http://192.168.91.128:5260/api/Refinance/ApproveRefinancedCase';
   readonly approveRecoveredUrl = 'http://192.168.88.33:5260/api/Recover/ApproveRecoverCase';
+
   readonly deletecaseUrl = 'http://192.168.91.128:5260/api/Case/DeleteCase';
   readonly patchcaseUrl = 'http://192.168.91.128:5260/api/Case/UpdateCase';
 
@@ -77,6 +80,7 @@ export class SharedService {
 
 
 
+
   // private readonly userDataUrl = 'http://192.168.91.128:5260/api/Auth/Login';
   // private registerUrl = 'http://192.168.91.128:5260/api/Auth/Register';
   // readonly baseUrl = 'http://192.168.91.128:5260/api/Auth/AllUsers';
@@ -103,6 +107,7 @@ export class SharedService {
 
   // private documentsUrl = 'http://192.168.89.93:5260/api/DocumentMgnt/DocumentUpload';
   // private AllDocumentUrl = "http://192.168.89.93:5260/api/DocumentMgnt/GetAllDocuments";
+
 
 
 
