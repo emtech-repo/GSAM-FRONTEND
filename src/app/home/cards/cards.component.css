@@ -1,0 +1,10 @@
+/* Custom CSS for even spacing between cards */
+.row>.col-md-3 {
+    margin-right: 30px;
+    /* Adjusts for the gutter width */
+}
+
+/* Removes the negative margin on the last child to prevent horizontal scrolling */
+.row>.col-md-3:last-child {
+    margin-right: 0;
+}

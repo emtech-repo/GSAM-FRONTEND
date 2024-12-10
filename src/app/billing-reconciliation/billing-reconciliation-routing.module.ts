@@ -7,6 +7,7 @@ import { ViewRequestsComponent } from './view-requests/view-requests.component';
 import { ClaimTabComponent } from './claim-tab/claim-tab.component';
 import { ApproveClaimComponent } from './approve-claim/approve-claim.component';
 
+
 export const routes: Routes = [
   {
     path: '',
@@ -15,7 +16,7 @@ export const routes: Routes = [
   },
   {
     path: 'app-create-claim',
-    component: CreateClaimComponent,
+    component:CreateClaimComponent,
   },
   {
     path: 'app-view-claims',
@@ -42,6 +43,8 @@ export const routes: Routes = [
 ]
 @NgModule({
   imports: [RouterModule.forChild(routes)],
+
   exports: [RouterModule]
+ 
 })
 export class BillingReconciliationRoutingModule { }

@@ -1,6 +1,7 @@
 
 
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 import { HttpErrorResponse } from '@angular/common/http';
@@ -26,6 +27,7 @@ export class SearchCaseComponent implements OnInit {
 
 
 
+  // loanDetails: any;
 
   // LoanData: any = {};
   LoanData: any[] = [];
@@ -34,9 +36,12 @@ export class SearchCaseComponent implements OnInit {
   loanItem: any;
   // Adjust the type as necessary
   activeTab: string = 'general';
+  
+  showTabs: boolean = false; // Property to control the visibility of the tabs
+
   // Assuming LoanData is the JSON object returned by the API
   pagedLoanData: any = {}; // Array to hold the currently displayed page data
-  totalPages: number = 0;
+  totalPages: number = 5;
   currentPage: number = 1;
   pageSize: number = 5;
   totalItems: number = 0;
@@ -47,7 +52,7 @@ export class SearchCaseComponent implements OnInit {
   @ViewChild('content') content!: ElementRef; 
 
 
-  constructor(private router: Router, private sharedService: SharedService) { }
+  constructor(private router: Router, private sharedService: SharedService, private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     // Assign a value to accountId
@@ -57,20 +62,20 @@ export class SearchCaseComponent implements OnInit {
   // 
   downloadExcel(): void {
     const tableData = this.getTableData();
-    // Implement logic to convert tableData to Excel format
-    // For example, you can use a library like ExcelJS
-    // const excelData = convertToExcelFormat(tableData);
-    // const blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    // FileSaver.saveAs(blob, 'schedule.xlsx');
+    
   }
-
   downloadPDF(): void {
     const tableData = this.getTableData();
-    const pdfContent = this.generatePDFContent(tableData);
+    const imgData = '../assets/images/equity-bank.png'; // Path to your image
+
+    const pdfContent = this.generatePDFContent(tableData, imgData); // Call the function with image data
     const pdf = new jsPDF();
     pdf.text(pdfContent, 10, 10);
     pdf.save('schedule.pdf');
   }
+
+
+ 
 
   getTableData(): any[] {
     const tableRows = Array.from(document.querySelectorAll('table tbody tr'));
@@ -86,14 +91,17 @@ export class SearchCaseComponent implements OnInit {
     return data;
   }  
 
-  generatePDFContent(tableData: any[]): string {
+  // generatePDFContent(tableData: any[]): string 
+  generatePDFContent(tableData: any[], imageData: string): string{
     const doc = new jsPDF();
     const imgData = '../assets/images/equity-bank.png'; // Path to your image
+    
 
     // Add image
     const fontSize = 8;
     doc.setFontSize(fontSize);
     doc.addImage(imgData, 'PNG', 10, 10, 20, 0); // Adjust the x, y, width, height as necessary
+    
 
     // Add text content
     doc.setFontSize(12);
@@ -156,6 +164,7 @@ export class SearchCaseComponent implements OnInit {
   }
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+    
   }
   // In your Angular component
  
@@ -188,6 +197,7 @@ export class SearchCaseComponent implements OnInit {
         this.filterData();
         this.updatePagedLoanData();
         this.setActiveTab('general');
+        this.cdRef.detectChanges(); 
       },
       (error: HttpErrorResponse) => {
         console.error('Error fetching loans:', error);
@@ -213,6 +223,7 @@ export class SearchCaseComponent implements OnInit {
     this.getLoan();
     
   }
+  
   getLoanDetails(acccountId: string): void {
     this.sharedService.getLoanDetails(acccountId).subscribe(
       (response: any) => {
@@ -221,6 +232,7 @@ export class SearchCaseComponent implements OnInit {
         // Handle loan details here
         // const url = '/search-case/' + acccountId; // Adjust the URL as needed
         // window.open(url, '_blank');
+        this.showTabs = true;
       },
       (error: HttpErrorResponse) => {
         console.error('Error fetching loan details:', error);
@@ -231,4 +243,17 @@ export class SearchCaseComponent implements OnInit {
     // Navigate to the "home" route
     this.router.navigate(['/doucuments']);
   }
+
+   exitPage() {
+    this.showTabs = false; // Set the flag to false to hide the assigned cases page
+}
+
+
+  activateTabAndNavigate(tabName: string): void {
+    this.activeTab = tabName; // Update the active tab state
+    if (tabName === 'documents') {
+      this.router.navigate(['/documents/app-retrieve']); // Navigate to the documents page
+    }
+  }
+
 }

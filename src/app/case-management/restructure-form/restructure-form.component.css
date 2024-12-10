@@ -1,0 +1,12 @@
+.small-btn {
+    font-size: 15px;
+    /* Adjust the font size as needed */
+    padding: 5px 10px;
+    height: 30px;
+    border-radius: 5px;
+}
+.form-control {
+    width: 100%;
+    height: 30px;
+    padding: 5px 10px;
+}
