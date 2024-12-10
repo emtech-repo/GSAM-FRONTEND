@@ -1,0 +1,51 @@
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+
+.modal-body {
+    background-color: #dbe8e9;
+
+}
+
+.form-control {
+    width: 100%;
+    height: 30px;
+    padding: 5px 10px;
+    background-color: azure;
+
+}
+
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#example th,
+#example td {
+    padding: 6px;
+    border: 1px solid #ddd;
+}
+
+#example tr:nth-child(even) {
+    background-color: #c0c0c0;
+}
+
+#example tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 50px;
+}
+.small-btn {
+    font-size: 15px;
+    padding: 5px 10px;
+    height: 30px;
+    border-radius: 5px;
+}

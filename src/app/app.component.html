@@ -4,6 +4,6 @@
 <div *ngIf="sharedService.isAuthenticated">
   <app-layout></app-layout>
 </div>
-<div *ngIf="sharedService.isAuthenticated == false">
+<div *ngIf="sharedService.isAuthenticated === false">
   <router-outlet></router-outlet>
 </div>

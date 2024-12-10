@@ -14,6 +14,17 @@ import { AssignCaseComponent } from './assign-case/assign-case.component';
 import { CaseDetailsComponent } from './case-details/case-details.component';
 import { CreateCaseComponent } from './create-case/create-case.component';
 import { CreateTwoComponent } from './create-two/create-two.component';
+import { CasesStatusComponent } from './cases-status/cases-status.component';
+import { SearchCasesComponent } from './search-cases/search-cases.component';
+
+import { TotalCasesComponent } from './total-cases/total-cases.component';
+import { ClosedCasesComponent } from './closed-cases/closed-cases.component';
+import { ActiveCasesComponent } from './active-cases/active-cases.component';
+import { DeleteCaseComponent } from './delete-case/delete-case.component';
+
+
+
+
 
 
 
@@ -23,6 +34,18 @@ export const routes: Routes = [
       redirectTo: 'Dashboard',
       pathMatch: 'full',
     },
+  {
+    path: 'app-total-cases',
+    component: TotalCasesComponent
+  },
+  {
+    path: 'app-active-cases',
+    component: ActiveCasesComponent
+  },
+  {
+    path: 'app-closed-cases',
+    component: ClosedCasesComponent
+  },
     
     {
       path: 'app-case-approval',
@@ -35,6 +58,13 @@ export const routes: Routes = [
       
       component:CaseStatusComponent,
     },
+    {
+    path: 'app-cases-status',
+
+    component: CasesStatusComponent,
+  },
+
+    
     
     {
       path: 'app-case-tracking',
@@ -92,6 +122,21 @@ export const routes: Routes = [
       
       component:CreateTwoComponent,
     },
+      {
+      path: 'app-search-cases',
+      
+      component:SearchCasesComponent,
+    },
+     {
+      path: 'delete-case',
+      
+      component:DeleteCaseComponent,
+    },
+     
+    
+    
+    
+     
   
     
 ]
