@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-8 mb-3 ">
-                <input type="text" class="form-control" placeholder="filter..." [(ngModel)]="searchTerm"
+                <input type="text" class="form-control" placeholder="filter by loan account.." [(ngModel)]="searchTerm"
                     (ngModelChange)="onSearch()" style="height: 20px;width: 150%;">
             </div>
         </div>
@@ -15,23 +15,24 @@
                         <!-- Table headers and rows -->
                         <thead>
                             <tr>
-                                <th>Loan Account</th>
-                                <th>Account Name</th>
-                                <th>Sol Id</th>
-                                <th>Distress</th>
-                                <th>Action</th>
+                                <th >Loan Account</th>
+                                <th >Account Name</th>
+                                <th  >Sol Id</th>
+                                <th >Distress</th>
+                                <th >Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of filteredData" >
-                                <td>{{ item.acid }}</td>
-                                <td>{{ item.account_name}}</td>
-                                <td>{{ item.sol_code}}</td>
-                                <td>{{ item.verified_flag}}</td>
+                            <tr *ngFor="let item of filteredData">
+                                <td  class="small-font">{{ item.acid }}</td>
+                                <td  class="small-font">{{ item.account_name}}</td>
+                                <td  class="small-font">{{ item.sol_code}}</td>
+                                <td  class="small-font">{{ item.verified_flag}}</td>
 
-                                <td><button type="button" class="btn btn-primary   small-btn" style="border-radius:3px ;" (click)="goToCreateTwo(item.acid)"  data-dismiss="modal"
-                                    (click)="bsModalRef.hide()">Create</button></td>
-                                
+                                <td><button type="button" class="btn btn-primary   small-btn"
+                                        style="border-radius:3px ;" (click)="goToCreateTwo(item.acid)"
+                                        data-dismiss="modal" (click)="bsModalRef.hide()">Create</button></td>
+
 
                             </tr>
                         </tbody>
@@ -39,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-left: 30%;">
+        <div class="row" style="margin-left: 20%;">
             <div class="col-12">
                 <pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="pageSize"
                     (pageChanged)="pageChanged($event)" [maxSize]="2" [rotate]="true" [boundaryLinks]="true">

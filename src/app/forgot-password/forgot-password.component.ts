@@ -1,40 +1,59 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SharedService } from '../shared.service';
+
+
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
+  styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent  implements OnInit {
+export class ForgotPasswordComponent implements OnInit {
+  formData: FormGroup;
+  successMessage: string = '';
+  errorMessage: string = '';
+  showAlert: boolean = false;
+  submitting: boolean = false;
+  loading: boolean = false; // Add loading indicator
 
-  form!: FormGroup;
-
-  constructor(private formbuilder: FormBuilder) { }
-
-  ngOnInit(): void {
-    this.form = this.formbuilder.group({
-      email: ["", [Validators.required, Validators.email]], // Added 'required' validator
-      newPassword: ["", [Validators.required, Validators.minLength(8)]], // New field for new password
-      confirmNewPassword: ["", [Validators.required]] // New field for confirming new password
-    }, { validator: this.checkPasswords }); // Added a custom validator to check if newPassword and confirmNewPassword match
+  constructor(private service: SharedService, private fb: FormBuilder, private router: Router) {
+    this.formData = this.fb.group({
+      Email: ['', [Validators.required, Validators.email]],
+    });
   }
 
-  login() {
-    throw new Error('Method not implemented.');
+  ngOnInit() {
+    this.service.isAuthenticated = false;
   }
 
-  get email() {
-    return this.form.get('email');
-  }
+  onSubmit() {
+    if (this.formData.valid && !this.submitting) {
+      this.submitting = true;
+      this.loading = true; // Set loading to true when submitting
 
-  // Custom validator to check if newPassword and confirmNewPassword match
-  // Custom validator to check if newPassword and confirmNewPassword match
-  checkPasswords(group: FormGroup) {
-    let pass = group.get('newPassword')?.value ?? ''; // Use optional chaining and nullish coalescing
-    let confirmPass = group.get('confirmNewPassword')?.value ?? ''; // Use optional chaining and nullish coalescing
+      const email = this.formData.value.Email;
+      const clientUri = 'http://localhost:4200/ForgotPage'; // Replace with your client URI for reset password
 
-    return pass === confirmPass ? null : { notSame: true };
+      this.service.sendResetEmail({ email, ClientUri: clientUri }).subscribe(
+        (response: any) => {
+          console.log('Reset email sent successfully!', response);
+          this.showAlert = true; 
+          this.successMessage = response.message;
+          this.errorMessage = ''; // Clear any previous error message
+        },
+        error => {
+          console.error('Error sending reset email:', error);
+          this.errorMessage = 'Failed to send reset email. Please try again.'; // Set error message
+          this.successMessage = ''; // Clear any previous success message
+        }
+      ).add(() => {
+        this.loading = false; // Set loading to false after API call completes
+        this.submitting = false; // Reset submitting state
+      });
+    } else {
+      console.log('Form is invalid');
+    }
   }
 }
